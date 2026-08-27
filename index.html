@@ -1,509 +1,749 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Shinto Italia</title>
-
-https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap
-
+<title>Shinto Italia — Un sentiero verso i kami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
 :root{
---torii:#C1121F;
---gold:#D4AF37;
---dark:#111;
---light:#ffffff;
---glass:rgba(255,255,255,.12);
+  --washi:#f3e9d2;
+  --washi-2:#ece0c3;
+  --sumi:#201a14;
+  --sumi-soft:#332a20;
+  --torii:#c8402a;
+  --torii-deep:#9c2e1d;
+  --gold:#bb9138;
+  --gold-soft:#d9bd7e;
+  --matcha:#5c6e4a;
+  --night:#171225;
+  --night-2:#241b34;
+  --sakura:#f0b9c4;
+  --paper-line: rgba(32,26,20,.12);
+  --shadow: 0 18px 40px rgba(32,20,10,.18);
+  --ease: cubic-bezier(.22,1,.36,1);
 }
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
 body{
-font-family:Poppins,sans-serif;
-background:#111;
-color:#fff;
-overflow-x:hidden;
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:'Zen Maru Gothic', sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; display:block;}
+
+/* texture di fondo washi */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(187,145,56,.06) 0, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(200,64,42,.05) 0, transparent 50%);
+  pointer-events:none;
+  z-index:0;
 }
 
-/* HERO */
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--torii-deep);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.eyebrow::before{
+  content:"";
+  width:14px; height:1px;
+  background:var(--torii-deep);
+  display:inline-block;
+}
 
+h1,h2,h3{
+  font-family:'Shippori Mincho B1', serif;
+  line-height:1.15;
+  font-weight:700;
+}
+
+section{position:relative; z-index:1;}
+
+/* ============ HERO ============ */
 .hero{
-
-height:100vh;
-position:relative;
-
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-
-overflow:hidden;
-
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:80px 20px 60px;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,#f6ecd6 0%, #f0e2c2 55%, #e8d5ab 100%);
 }
 
-.hero video,
-.hero img{
-
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-
+#petals{
+  position:absolute; inset:0;
+  pointer-events:none;
+  z-index:1;
 }
 
-.overlay{
-position:absolute;
-inset:0;
-
-background:
-linear-gradient(
-rgba(0,0,0,.4),
-rgba(0,0,0,.7)
-);
-
+.hero-inner{
+  position:relative;
+  z-index:2;
+  max-width:640px;
 }
 
-.hero-content{
-position:relative;
-z-index:10;
-max-width:900px;
-padding:20px;
-animation:fadeUp 2s;
+.torii-mark{
+  width:150px;
+  margin:0 auto 28px;
 }
 
 .hero h1{
-
-font-family:Cinzel,serif;
-font-size:5rem;
-letter-spacing:4px;
-margin-bottom:20px;
-
+  font-size:clamp(40px, 10vw, 68px);
+  color:var(--sumi);
+  letter-spacing:.01em;
+}
+.hero h1 span{
+  display:block;
+  font-size:.34em;
+  font-family:'JetBrains Mono', monospace;
+  font-weight:500;
+  letter-spacing:.3em;
+  color:var(--torii);
+  margin-bottom:14px;
+  text-transform:uppercase;
 }
 
-.hero p{
+.hero p.lede{
+  margin-top:22px;
+  font-size:17px;
+  line-height:1.7;
+  color:var(--sumi-soft);
+  max-width:480px;
+  margin-left:auto; margin-right:auto;
+}
 
-font-size:1.3rem;
-margin-bottom:30px;
-
+.cta-row{
+  margin-top:36px;
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 
 .btn{
-
-display:inline-block;
-padding:14px 32px;
-margin:10px;
-
-border-radius:50px;
-
-text-decoration:none;
-font-weight:600;
-
-transition:.4s;
-
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  letter-spacing:.04em;
+  padding:14px 26px;
+  border-radius:3px;
+  border:1px solid transparent;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
 }
-
 .btn-primary{
+  background:var(--torii);
+  color:#fff8ee;
+  box-shadow:0 10px 24px rgba(156,46,29,.35);
+}
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px rgba(156,46,29,.4); }
+.btn-ghost{
+  border-color:var(--sumi);
+  color:var(--sumi);
+}
+.btn-ghost:hover{ transform:translateY(-3px); background:rgba(32,26,20,.05); }
 
-background:var(--torii);
-color:white;
-
+.scroll-cue{
+  position:absolute;
+  bottom:26px; left:50%;
+  transform:translateX(-50%);
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:.2em;
+  color:var(--sumi-soft);
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  z-index:2;
+  opacity:.7;
+}
+.scroll-cue .line{
+  width:1px; height:34px;
+  background:linear-gradient(var(--torii), transparent);
+  animation:scrollline 2s var(--ease) infinite;
+}
+@keyframes scrollline{
+  0%{ transform:scaleY(0); transform-origin:top;}
+  50%{ transform:scaleY(1); transform-origin:top;}
+  50.01%{ transform-origin:bottom;}
+  100%{ transform:scaleY(0); transform-origin:bottom;}
 }
 
-.btn-primary:hover{
+/* ============ SENTIERI (feature path) ============ */
+.sentieri{
+  padding:100px 20px 70px;
+  max-width:1040px;
+  margin:0 auto;
+}
+.sec-head{
+  text-align:center;
+  max-width:520px;
+  margin:0 auto 56px;
+}
+.sec-head h2{
+  font-size:clamp(28px,6vw,40px);
+  margin-top:12px;
+}
+.sec-head p{
+  margin-top:14px;
+  color:var(--sumi-soft);
+  line-height:1.7;
+  font-size:15px;
+}
+.sec-head-center{ text-align:center; }
 
-transform:translateY(-4px);
-box-shadow:0 10px 30px rgba(193,18,31,.6);
-
+.path-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border-top:1px solid var(--paper-line);
+  border-left:1px solid var(--paper-line);
+}
+.path-card{
+  border-right:1px solid var(--paper-line);
+  border-bottom:1px solid var(--paper-line);
+  padding:34px 24px;
+  position:relative;
+  overflow:hidden;
+  opacity:0; transform:translateY(18px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.path-card.in{ opacity:1; transform:translateY(0); }
+.path-card::before{
+  content:attr(data-mon);
+  position:absolute;
+  top:14px; right:18px;
+  font-family:'Shippori Mincho B1', serif;
+  font-size:46px;
+  color:var(--sumi);
+  opacity:.06;
+  line-height:1;
+}
+.path-num{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  color:var(--torii-deep);
+  letter-spacing:.1em;
+}
+.path-card h3{
+  font-size:20px;
+  margin-top:10px;
+  color:var(--sumi);
+}
+.path-card p{
+  margin-top:10px;
+  font-size:13.5px;
+  line-height:1.65;
+  color:var(--sumi-soft);
+}
+@media (max-width:760px){
+  .path-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:480px){
+  .path-grid{ grid-template-columns:1fr; }
 }
 
-.btn-secondary{
-
-border:1px solid white;
-color:white;
-
+/* ============ OMIKUJI (signature interactive) ============ */
+.omikuji{
+  background:var(--sumi);
+  color:var(--washi);
+  padding:100px 20px 110px;
+  position:relative;
+  overflow:hidden;
+}
+.omikuji::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:radial-gradient(circle at 15% 20%, rgba(200,64,42,.18), transparent 40%),
+                    radial-gradient(circle at 85% 80%, rgba(187,145,56,.12), transparent 45%);
+}
+.omikuji-inner{
+  max-width:640px;
+  margin:0 auto;
+  position:relative;
+  text-align:center;
+}
+.omikuji .eyebrow{ color:var(--gold-soft); }
+.omikuji .eyebrow::before{ background:var(--gold-soft); }
+.omikuji h2{ color:var(--washi); margin-top:12px; font-size:clamp(26px,6vw,36px); }
+.omikuji p.desc{
+  margin-top:14px; color:#cfc4ac; line-height:1.7; font-size:15px;
+  max-width:440px; margin-left:auto; margin-right:auto;
 }
 
-.btn-secondary:hover{
-
-background:white;
-color:black;
-
+.slip-zone{
+  margin-top:48px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:26px;
+  perspective:1000px;
+}
+.slip{
+  width:170px; height:230px;
+  background:linear-gradient(160deg,#faf3e0,#efe3c4);
+  border-radius:2px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+  transition:transform .5s var(--ease);
+  transform-style:preserve-3d;
+}
+.slip:hover{ transform:translateY(-6px) rotate(-1deg); }
+.slip .kanji{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:20px;
+  color:var(--torii-deep);
+  writing-mode:vertical-rl;
+  letter-spacing:.3em;
+}
+.slip .tie{
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  width:34px; height:16px;
+  border:2px solid var(--gold);
+  border-bottom:none;
+  border-radius:16px 16px 0 0;
+}
+.slip.drawn{ animation:draw .55s var(--ease); }
+@keyframes draw{
+  0%{ transform:scale(1) rotateY(0); }
+  45%{ transform:scale(1.04) rotateY(90deg); }
+  55%{ transform:scale(1.04) rotateY(-90deg); }
+  100%{ transform:scale(1) rotateY(0); }
 }
 
-/* NAV */
-
-nav{
-
-position:fixed;
-top:0;
-width:100%;
-z-index:999;
-
-backdrop-filter:blur(15px);
-
-background:rgba(0,0,0,.25);
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-padding:20px 40px;
-
+.kami-result{
+  min-height:150px;
+  width:100%;
+  max-width:420px;
+  border:1px solid rgba(217,189,126,.35);
+  border-radius:4px;
+  padding:24px 22px;
+  background:rgba(255,255,255,.03);
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+.kami-result.show{ opacity:1; transform:translateY(0); }
+.kami-result .kr-eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:var(--gold-soft);
+  text-transform:uppercase;
+}
+.kami-result h4{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:24px;
+  margin-top:8px;
+  color:var(--washi);
+}
+.kami-result .domain{
+  font-size:13px;
+  color:var(--sakura);
+  margin-top:4px;
+}
+.kami-result p{
+  margin-top:12px;
+  font-size:13.5px;
+  line-height:1.65;
+  color:#cfc4ac;
+}
+.slip-hint{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:.1em;
+  color:#8b8270;
 }
 
-.logo{
+/* ============ TEMPLI & MAPPA ============ */
+.templi{
+  padding:100px 20px;
+  max-width:1040px;
+  margin:0 auto;
+}
+.stat-row{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:54px;
+}
+.stat-chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  border:1px solid var(--paper-line);
+  padding:8px 16px;
+  border-radius:20px;
+  color:var(--sumi-soft);
+  background:#fff8ea;
+}
+.stat-chip b{ color:var(--torii-deep); }
 
-font-family:Cinzel;
-font-size:1.5rem;
-
-color:white;
-
+.shrine-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.shrine{
+  background:#fff8ea;
+  border:1px solid var(--paper-line);
+  border-radius:6px;
+  padding:20px 22px;
+  opacity:0; transform:translateY(14px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+}
+.shrine.in{ opacity:1; transform:translateY(0); }
+.shrine .sh-name{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:17px;
+  color:var(--sumi);
+}
+.shrine .sh-deity{
+  margin-top:6px;
+  font-size:12.5px;
+  color:var(--torii-deep);
+  line-height:1.5;
+}
+.shrine .sh-note{
+  margin-top:8px;
+  font-size:12.5px;
+  color:var(--sumi-soft);
+  line-height:1.55;
+}
+@media (max-width:620px){
+  .shrine-list{ grid-template-columns:1fr; }
 }
 
-.menu a{
-
-text-decoration:none;
-color:white;
-margin-left:25px;
-transition:.3s;
-
+/* ============ TECH / GITHUB ============ */
+.tech{
+  background:linear-gradient(180deg,var(--night),var(--night-2));
+  color:var(--washi);
+  padding:100px 20px;
+  position:relative;
+  overflow:hidden;
 }
-
-.menu a:hover{
-
-color:var(--gold);
-
+.tech::after{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(217,189,126,.10), transparent 55%);
 }
-
-/* SECTIONS */
-
-section{
-
-padding:100px 10%;
-
+.tech-inner{
+  max-width:760px;
+  margin:0 auto;
+  position:relative;
+  text-align:center;
 }
-
-.section-title{
-
-font-size:2.5rem;
-margin-bottom:50px;
-text-align:center;
-font-family:Cinzel;
-
+.tech .eyebrow{ color:var(--sakura); }
+.tech .eyebrow::before{ background:var(--sakura); }
+.tech h2{ color:var(--washi); margin-top:12px; font-size:clamp(26px,6vw,36px); }
+.tech p.desc{
+  margin-top:14px; color:#c9c2d6; line-height:1.75; font-size:15px;
+  max-width:480px; margin-left:auto; margin-right:auto;
 }
-
-/* ABOUT */
-
-.about{
-
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:50px;
-align-items:center;
-
+.stack-row{
+  margin-top:34px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
-
-.about img{
-
-width:100%;
-border-radius:20px;
-
+.stack-chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  border:1px solid rgba(240,185,196,.25);
+  padding:7px 14px;
+  border-radius:20px;
+  color:#e4dcef;
 }
-
-.about-text{
-
-font-size:1.1rem;
-line-height:1.8;
-
-}
-
-/* CARDS */
-
-.cards{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-
-}
-
-.card{
-
-background:#1a1a1a;
-border-radius:20px;
-overflow:hidden;
-
-transition:.4s;
-
-}
-
-.card:hover{
-
-transform:translateY(-10px);
-
-}
-
-.card img{
-
-width:100%;
-height:250px;
-object-fit:cover;
-
-}
-
-.card-content{
-
-padding:20px;
-
-}
-
-.card h3{
-
-margin-bottom:10px;
-
-}
-
-/* PARALLAX */
-
-.parallax{
-
-height:500px;
-
-background:url("img/hero.jpg")
-center center/cover fixed;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-text-align:center;
-
-}
-
-.parallax h2{
-
-font-size:4rem;
-text-shadow:0 0 20px black;
-
-}
-
-/* FOOTER */
+.tech .cta-row{ margin-top:40px; }
+.tech .btn-primary{ background:var(--torii); }
+.tech .btn-ghost{ border-color:var(--washi); color:var(--washi); }
+.tech .btn-ghost:hover{ background:rgba(255,255,255,.06); }
 
 footer{
-
-padding:50px;
-text-align:center;
-background:#000;
-
+  padding:34px 20px;
+  text-align:center;
+  background:var(--night);
+  color:#8b8299;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11.5px;
+  letter-spacing:.05em;
 }
+footer a{ color:var(--sakura); text-decoration:none; }
 
-/* ANIMATIONS */
-
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(50px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-.reveal{
-
-opacity:0;
-transform:translateY(60px);
-transition:1s;
-
-}
-
-.reveal.active{
-
-opacity:1;
-transform:none;
-
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-.hero h1{
-font-size:3rem;
-}
-
-.about{
-grid-template-columns:1fr;
-}
-
-.menu{
-display:none;
-}
-
-}
-
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
 </style>
-
 </head>
-
 <body>
 
-<nav>
-
-<div class="logo">
-⛩ SHINTO ITALIA
-</div>
-
-<div class="menu">
-
-#Home</a>
-<a href="#">Storia</a>
-a href</a>
-#Leggende</a>
-<a href/a>
-
-</div>
-
-</nav>
-
-<header class="hero">
-
-img/hero.jpg
-
-<div class="overlay"></div>
-
-<div class="hero-content">
-
-<h1>SHINTO ITALIA</h1>
-
-<p>
-Scopri la religione tradizionale del Giappone,
-i Kami, i templi, le leggende e la storia
-millenaria dell'arcipelago nipponico.
-</p>
-
-<a href="#aboutl viaggio
-</a>
-
-#kami
-Esplora i Kami
-</a>
-
-</div>
-
-</header>
-
-<section id="about" class="reveal">
-
-<h2 class="section-title">
-Lo Shinto in breve
-</h2>
-
-<div class="about">
-
-<img src="img/toriv class="about-text">
-
-<p>
-
-Lo Shinto è la religione nativa del Giappone.
-Un mondo popolato da Kami, spiriti della natura,
-divinità ancestrali e forze sacre che abitano
-montagne, foreste, fiumi e santuari.
-
-</p>
-
-</div>
-
-</div>
-
+<section class="hero">
+  <canvas id="petals"></canvas>
+  <div class="hero-inner">
+    <svg class="torii-mark" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="30" width="172" height="12" rx="2" fill="var(--torii)"/>
+      <rect x="4" y="48" width="192" height="9" rx="2" fill="var(--torii)"/>
+      <rect x="38" y="57" width="14" height="95" fill="var(--torii)"/>
+      <rect x="148" y="57" width="14" height="95" fill="var(--torii)"/>
+      <rect x="24" y="85" width="152" height="8" fill="var(--torii-deep)"/>
+      <rect x="90" y="20" width="20" height="16" fill="var(--gold)"/>
+    </svg>
+    <h1><span>Shinto Italia</span>Un portale sui kami,<br>aperto a tutti</h1>
+    <p class="lede">
+      App per esplorare miti, riti e santuari dello Shinto: storia, leggende, kami, templi con mappa e un pizzico di cultura pop giapponese. In italiano, gratuita, open source.
+    </p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Vedi il repository →</a>
+      <a href="#sentieri" class="btn btn-ghost">Esplora l'app</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>SCORRI</span><span class="line"></span></div>
 </section>
 
-<section id="kami">
-
-<h2 class="section-title">
-Kami principali
-</h2>
-
-<div class="cards">
-
-<div class="card">
-<img src="imgerasu.jpg
-<div class="card-content">
-<h3>Amaterasu</h3>
-<p>Dea del Sole.</p>
-</div>
-</div>
-
-<div class="card">
-img/kami/susanoo.jpg
-<div class="card-content">
-<h3>Susanoo</h3>
-<p>Dio delle tempeste.</p>
-</div>
-</div>
-
-<div class="card">
-<img src="imgi.jpg
-<div class="card-content">
-<h3>Inari</h3>
-<p>Kami della prosperità.</p>
-</div>
-</div>
-
-</div>
-
+<!-- ============ SENTIERI ============ -->
+<section class="sentieri" id="sentieri">
+  <div class="sec-head">
+    <span class="eyebrow">Sei sentieri, un solo sandō</span>
+    <h2>Come si esplora Shinto Italia</h2>
+    <p>Ogni sezione è un piccolo passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono.</p>
+  </div>
+  <div class="path-grid">
+    <div class="path-card" data-mon="史">
+      <span class="path-num">01 · STORIA</span>
+      <h3>Storia</h3>
+      <p>Origini, periodi e concetti chiave dello Shinto su una mappa e timeline interattive del Giappone.</p>
+    </div>
+    <div class="path-card" data-mon="話">
+      <span class="path-num">02 · LEGGENDE</span>
+      <h3>Leggende</h3>
+      <p>Riferimenti, archetipi e curiosità dai miti fondativi: dal Kojiki alle storie tramandate di santuario in santuario.</p>
+    </div>
+    <div class="path-card" data-mon="社">
+      <span class="path-num">03 · TEMPLI</span>
+      <h3>Templi</h3>
+      <p>20 santuari con mappa interattiva, indicazioni a piedi o in auto e la divinità custodita in ciascuno.</p>
+    </div>
+    <div class="path-card" data-mon="神">
+      <span class="path-num">04 · KAMI</span>
+      <h3>Kami</h3>
+      <p>Enciclopedia con filtri e profili: da Amaterasu e Susanoo a Izanagi e Izanami, con un kami del giorno a sorpresa.</p>
+    </div>
+    <div class="path-card" data-mon="祭">
+      <span class="path-num">05 · RITUALI</span>
+      <h3>Rituali</h3>
+      <p>Harae, misogi, omikuji, ema, matsuri: i gesti quotidiani e le feste che scandiscono la vita di un santuario.</p>
+    </div>
+    <div class="path-card" data-mon="漫">
+      <span class="path-num">06 · MANGA</span>
+      <h3>Shinto nei manga</h3>
+      <p>Dove ritrovare kami, torii e rituali nella cultura pop giapponese che già conosci.</p>
+    </div>
+  </div>
 </section>
 
-<div class="parallax">
+<!-- ============ OMIKUJI ============ -->
+<section class="omikuji">
+  <div class="omikuji-inner">
+    <span class="eyebrow">Prova l'app in miniatura</span>
+    <h2>Estrai il tuo kami del giorno</h2>
+    <p class="desc">Nell'app puoi scoprire un profilo a sorpresa tra dieci kami selezionati. Qui una piccola anteprima: tocca il fudo e scopri chi ti accompagna oggi.</p>
+    <div class="slip-zone">
+      <div class="slip" id="slip">
+        <span class="tie"></span>
+        <span class="kanji">御籤</span>
+      </div>
+      <span class="slip-hint" id="slipHint">TOCCA IL FUDO PER ESTRARRE</span>
+      <div class="kami-result" id="kamiResult">
+        <div class="kr-eyebrow">Kami del giorno</div>
+        <h4 id="krName">—</h4>
+        <div class="domain" id="krDomain">—</div>
+        <p id="krText">—</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h2>
-Il Giappone degli Spiriti
-</h2>
+<!-- ============ TEMPLI & MAPPA ============ -->
+<section class="templi">
+  <div class="sec-head">
+    <span class="eyebrow">Templi &amp; mappa</span>
+    <h2>Venti santuari, in tasca</h2>
+    <p>Ogni scheda riporta la divinità custodita e un rimando alla mappa, per orientarsi tra i grandi santuari del Giappone anche da remoto.</p>
+  </div>
+  <div class="stat-row">
+    <span class="stat-chip"><b>20</b> santuari mappati</span>
+    <span class="stat-chip"><b>10+</b> kami con profilo</span>
+    <span class="stat-chip"><b>100%</b> in italiano</span>
+  </div>
+  <div class="shrine-list">
+    <div class="shrine">
+      <div class="sh-name">Ise Jingū</div>
+      <div class="sh-deity">Amaterasu-Ōmikami (Naikū) · Toyouke-Ōmikami (Gekū)</div>
+      <div class="sh-note">Il santuario più sacro dello Shinto, dedicato alla dea del sole.</div>
+    </div>
+    <div class="shrine">
+      <div class="sh-name">Izumo Taisha</div>
+      <div class="sh-deity">Ōkuninushi no Ōkami</div>
+      <div class="sh-note">Uno dei santuari più antichi, legato ai miti del Kojiki e all'en-musubi (i legami).</div>
+    </div>
+    <div class="shrine">
+      <div class="sh-name">Atsuta Jingū</div>
+      <div class="sh-deity">Atsuta-no-Ōkami (Amaterasu tramite Kusanagi)</div>
+      <div class="sh-note">Custodisce simbolicamente una delle tre insegne imperiali.</div>
+    </div>
+    <div class="shrine">
+      <div class="sh-name">Fushimi Inari Taisha</div>
+      <div class="sh-deity">Inari Ōkami (Ukanomitama-no-Ōkami)</div>
+      <div class="sh-note">Migliaia di torii vermiglio in fila lungo il sentiero di montagna.</div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- ============ TECH / GITHUB ============ -->
+<section class="tech">
+  <div class="tech-inner">
+    <span class="eyebrow">Open source</span>
+    <h2>Il codice del santuario</h2>
+    <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene sorgenti, contenuti e le pagine offline usate nell'app.</p>
+    <div class="stack-row">
+      <span class="stack-chip">WebView ibrido</span>
+      <span class="stack-chip">HTML · CSS · JS</span>
+      <span class="stack-chip">Contenuti offline</span>
+      <span class="stack-chip">Android · APK</span>
+    </div>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Apri su GitHub →</a>
+      <a href="#" class="btn btn-ghost">Scarica l'APK</a>
+    </div>
+  </div>
+</section>
 
-<section>
+<footer>
+  Shinto Italia · progetto personale · fatto con cura in Italia — <a href="#">github.com</a>
+</footer>
 
-<h2 class="section-title">
-Templi in evidenza
-</h2>
+<script>
+/* ---------- Petali di sakura sul hero ---------- */
+(function(){
+  const canvas = document.getElementById('petals');
+  const ctx = canvas.getContext('2d');
+  const hero = canvas.closest('.hero');
+  let w,h,petals=[];
+  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<div class="cards">
+  function resize(){
+    w = canvas.width = hero.offsetWidth;
+    h = canvas.height = hero.offsetHeight;
+  }
+  function makePetal(){
+    return {
+      x: Math.random()*w,
+      y: Math.random()*-h,
+      r: 4 + Math.random()*5,
+      speed: .6 + Math.random()*1.1,
+      drift: Math.random()*1.2 - .6,
+      rot: Math.random()*360,
+      rotSpeed: (Math.random()-.5)*2,
+      opacity: .5 + Math.random()*.4
+    };
+  }
+  function init(){
+    resize();
+    const count = w < 600 ? 16 : 28;
+    petals = Array.from({length:count}, makePetal);
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    petals.forEach(p=>{
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot*Math.PI/180);
+      ctx.globalAlpha = p.opacity;
+      ctx.fillStyle = '#f0b9c4';
+      ctx.beginPath();
+      ctx.moveTo(0,-p.r);
+      ctx.quadraticCurveTo(p.r,-p.r*.2,0,p.r);
+      ctx.quadraticCurveTo(-p.r,-p.r*.2,0,-p.r);
+      ctx.fill();
+      ctx.restore();
+      p.y += p.speed;
+      p.x += p.drift;
+      p.rot += p.rotSpeed;
+      if(p.y > h + 10){ Object.assign(p, makePetal(), {y:-10}); }
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  init();
+  if(!REDUCE) draw(); else draw(); // draw once even w/ reduced motion (static petals ok, no infinite loop needed but harmless)
+})();
 
-<div class="card">
-img/temples/fushimi.jpg
-<div class="card-content">
-<h3>Fushimi Inari</h3>
-</div>
-</div>
+/* ---------- Reveal on scroll ---------- */
+(function(){
+  const els = document.querySelectorAll('.path-card, .shrine, .reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.15});
+  els.forEach(el=>io.observe(el));
+})();
 
-<div class="card">
-<img src="img/tempg
-<div class="card-content">
-<h3>Ise Jingu</h3>
-</div>
-</div>
+/* ---------- Omikuji: estrazione kami ---------- */
+(function(){
+  const kamiList = [
+    {name:"Amaterasu-Ōmikami", domain:"Dea del sole", text:"Illumina il mondo dall'alto dei cieli: è lei a cui è dedicato il santuario di Ise."},
+    {name:"Susanoo-no-Mikoto", domain:"Dio delle tempeste", text:"Impulsivo e coraggioso, sconfigge il serpente Yamata no Orochi."},
+    {name:"Izanagi-no-Mikoto", domain:"Creatore primordiale", text:"Con Izanami dà origine alle isole del Giappone e a molti altri kami."},
+    {name:"Izanami-no-Mikoto", domain:"Creatrice primordiale", text:"Dopo la morte diventa signora di Yomi, il mondo dei morti."},
+    {name:"Inari Ōkami", domain:"Divinità del riso e della prosperità", text:"Venerata a Fushimi Inari, tra migliaia di torii vermiglio."},
+    {name:"Ōkuninushi no Ōkami", domain:"Divinità dei legami", text:"Signore di Izumo, protettore dei matrimoni e delle relazioni."},
+    {name:"Konohanasakuya-hime", domain:"Spirito dei ciliegi in fiore", text:"Simbolo della bellezza fugace, legata al Monte Fuji."},
+    {name:"Hachiman", domain:"Divinità guerriera", text:"Venerato come protettore, spesso identificato con l'imperatore Ōjin."}
+  ];
+  const slip = document.getElementById('slip');
+  const hint = document.getElementById('slipHint');
+  const result = document.getElementById('kamiResult');
+  const krName = document.getElementById('krName');
+  const krDomain = document.getElementById('krDomain');
+  const krText = document.getElementById('krText');
+  let drawn = false;
 
-<div class="card">
-<img src="img/temples/<div class="card-content">
-<h3>Izumo Taisha</h3>
-</div>
-</div>
+  slip.addEventListener('click', ()=>{
+    slip.classList.remove('drawn');
+    void slip.offsetWidth;
+    slip.classList.add('drawn');
+    const pick = kamiList[Math.floor(Math.random()*kamiList.length)];
+    setTimeout(()=>{
+      krName.textContent = pick.name;
+      krDomain.textContent = pick.domain;
+      krText.textContent = pick.text;
+      result.classList.add('show');
+      hint.textContent = drawn ? "TOCCA ANCORA PER UN NUOVO KAMI" : "TOCCA ANCORA PER UN NUOVO KAMI";
+      drawn = true;
+    }, 280);
+  });
+})();
+</script>
 
-</div>
+</body>
+</html>
