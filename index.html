@@ -575,6 +575,157 @@ footer{
 }
 footer a{ color:var(--sakura); text-decoration:none; }
 
+
+/* ============ OLTREMARE ============ */
+.oltre{
+  padding:100px 20px;
+  background:linear-gradient(180deg,#efe2c6,#e7d6ae);
+  border-top:1px solid var(--paper-line);
+  position:relative; overflow:hidden;
+}
+.oltre::before{
+  content:"\6d77";
+  position:absolute; top:-40px; right:-20px;
+  font-family:'Shippori Mincho B1', serif; font-size:300px;
+  color:var(--sumi); opacity:.04; line-height:1; pointer-events:none;
+}
+.oltre-inner{ max-width:1040px; margin:0 auto; position:relative; z-index:1; }
+.oltre-lede{
+  max-width:640px; margin:0 auto 52px; text-align:center;
+}
+.oltre-lede p{ margin-top:14px; color:var(--sumi-soft); line-height:1.75; font-size:15px; }
+
+.world{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  gap:18px; margin-bottom:20px;
+}
+.place{
+  background:#fff8ea; border:1px solid var(--paper-line); border-radius:8px;
+  padding:24px 22px; position:relative; overflow:hidden;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .7s var(--ease), transform .5s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+}
+.place.in{ opacity:1; transform:translateY(0); }
+.place:hover{ transform:translateY(-5px); box-shadow:var(--shadow); border-color:var(--torii); }
+.place .flag{
+  width:34px; height:23px; border-radius:3px;
+  border:1px solid rgba(0,0,0,.16); box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+.flag-sm{ background:linear-gradient(180deg,#fff 50%,#5eb6e4 50%); }
+.flag-us{ background:repeating-linear-gradient(180deg,#b22234 0 3.3px,#fff 3.3px 6.6px); }
+.flag-ca{ background:linear-gradient(90deg,#d52b1e 28%,#fff 28% 72%,#d52b1e 72%); }
+.flag-br{ background:radial-gradient(circle at 50% 50%, #002776 0 26%, #fedf00 26% 62%, #009c3b 62%); }
+.place h3{ font-size:18px; margin-top:12px; color:var(--sumi); }
+.place .where{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--torii-deep); margin-top:6px; letter-spacing:.04em;
+}
+.place p{ margin-top:11px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+.place .tagline{
+  display:inline-block; margin-top:13px;
+  font-family:'JetBrains Mono', monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--matcha); border-top:1px solid var(--paper-line); padding-top:9px;
+}
+.place.first{ border-color:rgba(187,145,56,.55); background:#fffdf5; }
+.place.first .badge{
+  display:inline-block; margin-top:10px;
+  background:var(--gold); color:#2b2113;
+  font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:.12em;
+  padding:4px 10px; border-radius:12px;
+}
+
+.storico{
+  margin-top:34px; background:rgba(32,26,20,.05);
+  border-left:3px solid var(--torii-deep); border-radius:0 8px 8px 0;
+  padding:24px 26px;
+}
+.storico h4{
+  font-family:'Shippori Mincho B1', serif; font-size:18px; color:var(--sumi);
+}
+.storico p{ margin-top:11px; font-size:13.5px; line-height:1.7; color:var(--sumi-soft); }
+.numbers{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.numbers span{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  background:#fff8ea; border:1px solid var(--paper-line);
+  padding:7px 13px; border-radius:20px; color:var(--sumi-soft);
+}
+.numbers b{ color:var(--torii-deep); }
+
+/* ============ TURISMO ============ */
+.viaggio{ padding:100px 20px; max-width:1040px; margin:0 auto; }
+.season-row{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:0; border-top:1px solid var(--paper-line); border-left:1px solid var(--paper-line);
+  margin-bottom:46px;
+}
+.season{
+  border-right:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);
+  padding:26px 22px; transition:background .35s var(--ease);
+}
+.season:hover{ background:rgba(200,64,42,.04); }
+.season .kanji{
+  font-family:'Shippori Mincho B1', serif; font-size:30px;
+  color:var(--torii); line-height:1;
+}
+.season b{
+  display:block; font-family:'Shippori Mincho B1', serif;
+  font-size:17px; margin-top:10px; color:var(--sumi);
+}
+.season .when{
+  font-family:'JetBrains Mono', monospace; font-size:10.5px;
+  color:var(--matcha); margin-top:5px; letter-spacing:.05em;
+}
+.season p{ margin-top:10px; font-size:13px; line-height:1.65; color:var(--sumi-soft); }
+
+.trip-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; }
+.trip{
+  background:#fff8ea; border:1px solid var(--paper-line); border-radius:8px;
+  padding:24px 22px;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .7s var(--ease), transform .5s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+}
+.trip.in{ opacity:1; transform:translateY(0); }
+.trip:hover{ transform:translateY(-5px); box-shadow:var(--shadow); border-color:var(--torii); }
+.trip .num{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--torii-deep); letter-spacing:.1em;
+}
+.trip h3{ font-size:18px; margin-top:10px; }
+.trip p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+.trip ul{ margin-top:12px; padding-left:0; list-style:none; }
+.trip li{
+  font-size:12.5px; line-height:1.6; color:var(--sumi-soft);
+  padding-left:14px; position:relative; margin-top:7px;
+}
+.trip li::before{
+  content:""; position:absolute; left:0; top:8px;
+  width:5px; height:5px; border-radius:50%; background:var(--gold);
+}
+
+.goshuin{
+  margin-top:44px; display:grid; grid-template-columns:auto 1fr; gap:24px;
+  align-items:center; background:var(--sumi); color:var(--washi);
+  border-radius:8px; padding:30px 32px;
+}
+.goshuin .stamp{
+  width:74px; height:74px; flex:none; border:2px solid var(--torii);
+  border-radius:6px; display:flex; align-items:center; justify-content:center;
+  font-family:'Shippori Mincho B1', serif; font-size:30px; color:var(--torii);
+  transform:rotate(-6deg);
+}
+.goshuin h3{ color:var(--washi); font-size:20px; }
+.goshuin p{ margin-top:10px; font-size:13.5px; line-height:1.7; color:#cfc4ac; }
+@media (max-width:560px){
+  .goshuin{ grid-template-columns:1fr; text-align:center; justify-items:center; }
+}
+
+
+.path-card.path-extra{ background:rgba(187,145,56,.07); }
+.path-card.path-extra:hover{ background:rgba(187,145,56,.13); }
+.path-card.path-extra .path-num{ color:var(--gold); }
+.path-card.path-extra .path-arrow{ color:var(--gold); }
+
 .reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:translateY(0); }
 </style>
@@ -591,6 +742,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <a href="kami.html">Kami</a>
     <a href="rituali.html">Rituali</a>
     <a href="manga.html">Manga</a>
+    <a href="#oltremare">Oltremare</a>
+    <a href="#viaggio">Viaggio</a>
   </div>
 </nav>
 
@@ -620,9 +773,9 @@ footer a{ color:var(--sakura); text-decoration:none; }
 <!-- ============ SENTIERI ============ -->
 <section class="sentieri" id="sentieri">
   <div class="sec-head">
-    <span class="eyebrow">Sei sentieri, un solo sandō</span>
+    <span class="eyebrow">Otto sentieri, un solo sandō</span>
     <h2>Come si esplora Shinto Italia</h2>
-    <p>Ogni sezione è un piccolo passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono.</p>
+    <p>Ogni sezione è un passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono. Gli ultimi due sentieri portano fuori dall'arcipelago e poi in viaggio.</p>
   </div>
   <div class="path-grid">
     <a class="path-card" data-mon="史" href="storia.html">
@@ -660,6 +813,18 @@ footer a{ color:var(--sakura); text-decoration:none; }
       <h3>Shinto nei manga</h3>
       <p>Gli archetipi shintoisti dietro manga e anime, e i luoghi reali del pellegrinaggio dei fan.</p>
       <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card path-extra" data-mon="海" href="#oltremare">
+      <span class="path-num">07 · OLTREMARE</span>
+      <h3>Fuori dal Giappone</h3>
+      <p>Dove si prega oggi lontano dall'arcipelago — San Marino compreso — e la storia dei santuari coloniali.</p>
+      <span class="path-arrow">Vai alla sezione ↓</span>
+    </a>
+    <a class="path-card path-extra" data-mon="参" href="#viaggio">
+      <span class="path-num">08 · VIAGGIO</span>
+      <h3>Andarci davvero</h3>
+      <p>Stagioni, tre itinerari e il goshuin: come visitare un santuario da viaggiatore e non da turista.</p>
+      <span class="path-arrow">Vai alla sezione ↓</span>
     </a>
   </div>
 </section>
@@ -728,6 +893,153 @@ footer a{ color:var(--sakura); text-decoration:none; }
   </div>
 </section>
 
+<!-- ============ OLTREMARE ============ -->
+<section class="oltre" id="oltremare">
+  <div class="oltre-inner">
+    <div class="oltre-lede">
+      <span class="eyebrow">Kami oltremare &middot; 海外神社</span>
+      <h2 style="font-size:clamp(28px,6vw,40px); margin-top:12px;">Lo Shinto fuori dal Giappone</h2>
+      <p>Una religione legata al territorio può attraversare l'oceano? La risposta è sì, ma con una tensione irrisolta: il kami si trasferisce per <i>bunrei</i>, la divisione dello spirito, eppure resta legato a un luogo preciso. Ecco dove si prega oggi, e la pagina buia che c'è stata prima.</p>
+    </div>
+
+    <div class="world">
+      <div class="place first">
+        <div class="flag flag-sm" title="San Marino"></div>
+        <span class="badge">PRIMO IN EUROPA</span>
+        <h3>San Marino Jinja</h3>
+        <div class="where">Serravalle, Repubblica di San Marino</div>
+        <p>Costruito in Giappone, spedito via mare e inaugurato nel giugno 2014 in memoria delle oltre 29.000 vittime del terremoto del Tōhoku. Consacrato ad Amaterasu, sorge fra vigneti e ulivi: l'unico santuario europeo riconosciuto dalla Jinja Honchō.</p>
+        <span class="tagline">Visitabile &middot; a un'ora da Bologna</span>
+      </div>
+
+      <div class="place">
+        <div class="flag flag-us" title="Stati Uniti"></div>
+        <h3>Le Hawaii</h3>
+        <div class="where">Honolulu, Hilo, Maui</div>
+        <p>La comunità più antica fuori dall'arcipelago: qui i santuari nascono con l'emigrazione di fine Ottocento e non se ne sono mai andati. Hawaii Izumo Taisha, Kotohira Jinsha, Daijingū e Wakamiya Inari sono tutti tuttora attivi.</p>
+        <span class="tagline">La maggior parte dei santuari USA</span>
+      </div>
+
+      <div class="place">
+        <div class="flag flag-ca" title="Canada"></div>
+        <h3>Tsubaki, dal Nordamerica al Canada</h3>
+        <div class="where">Knapp Island, British Columbia</div>
+        <p>Fondato nel 1986 a Stockton in California, primo santuario costruito negli Stati Uniti continentali dopo la guerra. Trasferito a Granite Falls nel 2001 e nel 2023 di nuovo, stavolta in Canada. Il suo sacerdote, Koichi Barrish, è fra i primi non giapponesi ordinati.</p>
+        <span class="tagline">Sarutahiko e Ame-no-Uzume</span>
+      </div>
+
+      <div class="place">
+        <div class="flag flag-br" title="Brasile"></div>
+        <h3>Il Brasile</h3>
+        <div class="where">San Paolo e Paraná</div>
+        <p>La più grande comunità giapponese del mondo fuori dal Giappone ha portato con sé i propri kami dal 1908. Qui lo Shinto sopravvive soprattutto come pratica familiare e associativa, spesso intrecciata con le religioni brasiliane.</p>
+        <span class="tagline">Oltre un secolo di diaspora</span>
+      </div>
+    </div>
+
+    <div class="storico">
+      <h4>La pagina che non va nascosta: i <i>kaigai jinja</i> coloniali</h4>
+      <p>Fra il 1895 e il 1945 il Giappone imperiale costruì circa <b>1.640 santuari</b> nei territori occupati. Non erano luoghi di culto della diaspora ma <b>strumenti di assimilazione forzata</b>: in Corea la visita al santuario divenne obbligatoria per gli studenti, e le scuole che rifiutavano venivano chiuse. Nell'agosto 1945 quasi tutti furono demoliti, spesso dagli stessi giapponesi in ritirata o dalle popolazioni liberate.</p>
+      <p>Restano tracce ambigue: a Taiwan diversi santuari sono stati riconvertiti in memoriali dei caduti cinesi, e a Singapore i ruderi del Shonan Jinja giacciono ancora nella foresta. Capire lo Shinto contemporaneo significa anche sapere questo.</p>
+      <div class="numbers">
+        <span><b>995</b> in Corea</span>
+        <span><b>243</b> in Manciuria</span>
+        <span><b>184</b> a Taiwan</span>
+        <span><b>128</b> a Karafuto</span>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="storia.html" class="btn btn-ghost">Come si è arrivati allo Shinto di Stato →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TURISMO ============ -->
+<section class="viaggio" id="viaggio">
+  <div class="sec-head">
+    <span class="eyebrow">In viaggio &middot; 参拝</span>
+    <h2>Andarci davvero</h2>
+    <p>Un santuario non è un museo: è un luogo di culto attivo, gratuito e aperto. Qualche indicazione pratica per visitarlo da viaggiatore e non da turista distratto.</p>
+  </div>
+
+  <div class="season-row">
+    <div class="season">
+      <span class="kanji">春</span>
+      <b>Primavera</b>
+      <div class="when">MARZO – MAGGIO</div>
+      <p>Fioritura dei ciliegi e riti agrari di inizio ciclo. È il periodo più bello e il più affollato: prenota con mesi di anticipo.</p>
+    </div>
+    <div class="season">
+      <span class="kanji">夏</span>
+      <b>Estate</b>
+      <div class="when">GIUGNO – AGOSTO</div>
+      <p>La stagione dei grandi matsuri: Gion a Kyoto in luglio, Nebuta ad Aomori in agosto. Caldo e umidità intensi.</p>
+    </div>
+    <div class="season">
+      <span class="kanji">秋</span>
+      <b>Autunno</b>
+      <div class="when">SETTEMBRE – NOVEMBRE</div>
+      <p>Foliage e feste del raccolto. Shichi-Go-San il 15 novembre riempie i santuari di bambini in kimono.</p>
+    </div>
+    <div class="season">
+      <span class="kanji">冬</span>
+      <b>Inverno</b>
+      <div class="when">DICEMBRE – FEBBRAIO</div>
+      <p>Hatsumōde fra l'1 e il 3 gennaio: code enormi ma l'atmosfera più autentica dell'anno. Poi mesi di grande quiete.</p>
+    </div>
+  </div>
+
+  <div class="trip-grid">
+    <div class="trip">
+      <span class="num">ITINERARIO 01</span>
+      <h3>Il classico: Kansai</h3>
+      <p>Il concentrato più denso di santuari importanti, tutto raggiungibile in treno in pochi giorni.</p>
+      <ul>
+        <li>Fushimi Inari all'alba, prima dei gruppi</li>
+        <li>Kasuga Taisha e i cervi di Nara</li>
+        <li>Ise Jingū: due complessi, Naikū e Gekū</li>
+        <li>Sumiyoshi Taisha a Osaka, architettura arcaica</li>
+      </ul>
+    </div>
+    <div class="trip">
+      <span class="num">ITINERARIO 02</span>
+      <h3>A piedi: il Kumano Kodō</h3>
+      <p>Cammini di montagna patrimonio UNESCO, gemellati con il Cammino di Santiago: chi li percorre entrambi riceve un doppio attestato.</p>
+      <ul>
+        <li>Tre grandi santuari: Hongū, Nachi, Hayatama</li>
+        <li>La cascata Nachi, alta 133 metri, è essa stessa il kami</li>
+        <li>Tappe da 4 a 8 ore, alloggio in <i>minshuku</i></li>
+        <li>Primavera e autunno le stagioni migliori</li>
+      </ul>
+    </div>
+    <div class="trip">
+      <span class="num">ITINERARIO 03</span>
+      <h3>Lontano dalla folla: Izumo</h3>
+      <p>Il versante del Mar del Giappone, quasi ignorato dai circuiti turistici e centrale nei miti del Kojiki.</p>
+      <ul>
+        <li>Izumo Taisha: qui si battono le mani quattro volte</li>
+        <li>Nel decimo mese lunare vi si riunirebbero tutti i kami</li>
+        <li>I luoghi di Susanoo e Yamata no Orochi</li>
+        <li>Itsukushima e il torii sull'acqua a due ore</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="goshuin">
+    <div class="stamp">印</div>
+    <div>
+      <h3>Il goshuin, il souvenir giusto</h3>
+      <p>Molti santuari appongono a mano, con inchiostro e sigillo rosso, un <i>goshuin</i>: calligrafia e timbro sul tuo quaderno personale (<i>goshuinchō</i>), in cambio di un'offerta simbolica. Non è un timbro turistico ma la prova di una visita compiuta: compra il quaderno al primo santuario e non usarlo per altro.</p>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <a href="templi.html" class="btn btn-primary">I 23 santuari con le mappe →</a>
+    <a href="rituali.html" class="btn btn-ghost">Galateo e calendario delle feste</a>
+  </div>
+</section>
+
 <!-- ============ TECH / GITHUB ============ -->
 <section class="tech">
   <div class="tech-inner">
@@ -736,7 +1048,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene il codice sorgente di ogni pagina del sito.</p>
     <div class="stack-row">
       <span class="stack-chip">HTML · CSS · JS</span>
-      <span class="stack-chip">6 sentieri · 190+ schede</span>
+      <span class="stack-chip">8 sentieri · 190+ schede</span>
       <span class="stack-chip">100% gratuito</span>
     </div>
     <div class="cta-row">
@@ -820,7 +1132,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
 
 /* ---------- Reveal on scroll ---------- */
 (function(){
-  const els = document.querySelectorAll('.path-card, .shrine, .reveal');
+  const els = document.querySelectorAll('.path-card, .shrine, .place, .trip, .reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
