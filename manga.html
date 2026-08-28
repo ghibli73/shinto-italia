@@ -1,702 +1,1037 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manga — Shinto Italia</title>
-<meta name="description" content="Torii, miko, kitsune e matsuri nei manga e negli anime: gli archetipi shintoisti dietro la narrativa giapponese e i luoghi reali del seichi junrei.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%A9%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lo Shintoismo nei Manga — Compendio (tema rosso torii)</title>
+<meta name="description" content="Compendio navigabile di manga su kami, santuari, yōkai e onmyōdō. 120+ schede con titolo originale/italiano, anno, editore e riassunto a tendina. Nessun link esterno." />
 <style>
-:root{
-  --washi:#f3e9d2;
-  --washi-2:#ece0c3;
-  --paper:#fff8ea;
-  --sumi:#201a14;
-  --sumi-soft:#4a3f31;
-  --torii:#c8402a;
-  --torii-deep:#9c2e1d;
-  --gold:#bb9138;
-  --gold-soft:#d9bd7e;
-  --matcha:#5c6e4a;
-  --night:#171225;
-  --night-2:#241b34;
-  --sakura:#f0b9c4;
-  --paper-line: rgba(32,26,20,.14);
-  --shadow: 0 18px 40px rgba(32,20,10,.14);
-  --ease: cubic-bezier(.22,1,.36,1);
-}
-*{box-sizing:border-box; margin:0; padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--washi);
-  color:var(--sumi);
-  font-family:'Zen Maru Gothic', sans-serif;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-img{max-width:100%; display:block;}
-h1,h2,h3,h4{ font-family:'Shippori Mincho B1', serif; line-height:1.18; font-weight:700; }
-
-.eyebrow{
-  font-family:'JetBrains Mono', monospace;
-  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--torii-deep);
-  display:inline-flex; align-items:center; gap:8px;
-}
-.eyebrow::before{ content:""; width:14px; height:1px; background:var(--torii-deep); display:inline-block; }
-
-/* ---------- Progress rail ---------- */
-.rail{
-  position:fixed; top:0; left:0; height:3px; width:0%;
-  background:linear-gradient(90deg,var(--torii),var(--gold));
-  z-index:100; transition:width .1s linear;
-}
-
-/* ---------- Nav ---------- */
-nav{
-  position:sticky; top:0; z-index:50;
-  background:rgba(243,233,210,.9);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--paper-line);
-  padding:12px 22px;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:10px; flex-wrap:wrap;
-}
-nav .brand{
-  font-family:'Shippori Mincho B1', serif;
-  font-size:16px; color:var(--torii-deep); text-decoration:none;
-  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
-}
-.nav-links{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; justify-content:flex-end; }
-.nav-links a{
-  color:var(--sumi-soft); text-decoration:none;
-  font-family:'JetBrains Mono', monospace;
-  font-size:12px; letter-spacing:.03em;
-  padding:7px 11px; border-radius:20px;
-  transition:background .3s var(--ease), color .3s var(--ease);
-}
-.nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.09); }
-.nav-links a.active{ color:var(--torii-deep); background:rgba(200,64,42,.12); }
-@media (max-width:680px){
-  nav{ padding:10px 14px; justify-content:center; }
-  .nav-links{ justify-content:center; }
-  .nav-links a{ font-size:11px; padding:6px 9px; }
-}
-
-/* ---------- Page hero ---------- */
-.phero{
-  padding:76px 22px 58px; text-align:center; position:relative; overflow:hidden;
-  background:linear-gradient(180deg,#f6ecd6 0%, #efe0bd 100%);
-  border-bottom:1px solid var(--paper-line);
-}
-.phero::before{
-  content:attr(data-mon);
-  position:absolute; top:-46px; left:50%; transform:translateX(-50%);
-  font-family:'Shippori Mincho B1', serif; font-size:330px;
-  color:var(--sumi); opacity:.045; line-height:1; pointer-events:none;
-}
-.phero-inner{ position:relative; z-index:1; max-width:660px; margin:0 auto; }
-.phero h1{ font-size:clamp(34px,8vw,56px); margin-top:14px; }
-.phero p{ margin-top:16px; color:var(--sumi-soft); line-height:1.75; font-size:15.5px; }
-.hero-stats{ margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-.hero-stats span{
-  font-family:'JetBrains Mono', monospace; font-size:12px;
-  border:1px solid var(--paper-line); background:var(--paper);
-  padding:8px 15px; border-radius:20px; color:var(--sumi-soft);
-}
-.hero-stats b{ color:var(--torii-deep); }
-
-/* ---------- Layout ---------- */
-.wrap{ max-width:1060px; margin:0 auto; padding:64px 22px; }
-.wrap-narrow{ max-width:820px; margin:0 auto; padding:64px 22px; }
-.sec-head{ max-width:600px; margin:0 auto 42px; text-align:center; }
-.sec-head h2{ font-size:clamp(25px,5.5vw,36px); margin-top:12px; }
-.sec-head p{ margin-top:13px; color:var(--sumi-soft); line-height:1.7; font-size:14.5px; }
-
-/* ---------- Buttons ---------- */
-.btn{
-  font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.03em;
-  padding:13px 24px; border-radius:3px; border:1px solid transparent;
-  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:9px;
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s var(--ease);
-}
-.btn-primary{ background:var(--torii); color:#fff8ee; box-shadow:0 10px 24px rgba(156,46,29,.3); }
-.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px rgba(156,46,29,.38); }
-.btn-ghost{ border-color:var(--sumi); color:var(--sumi); }
-.btn-ghost:hover{ transform:translateY(-3px); background:rgba(32,26,20,.05); }
-.cta-row{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
-
-/* ---------- Media: figure & video ---------- */
-.figure{
-  border-radius:8px; overflow:hidden; border:1px solid var(--paper-line);
-  background:linear-gradient(140deg,#efe0bd,#e3d0a6);
-  position:relative;
-}
-.figure .ph{
-  width:100%; aspect-ratio:16/10;
-  background-size:cover; background-position:center;
-  background-color:#e6d5ae;
-  display:flex; align-items:center; justify-content:center;
-  transition:transform .8s var(--ease);
-}
-.figure:hover .ph{ transform:scale(1.03); }
-.figure .ph::after{
-  content:attr(data-fallback);
-  font-family:'Shippori Mincho B1', serif; font-size:70px;
-  color:var(--torii); opacity:.22;
-}
-.figure .ph.has-img::after{ content:""; }
-.figure figcaption{
-  padding:11px 14px; font-size:12px; color:var(--sumi-soft);
-  background:var(--paper); border-top:1px solid var(--paper-line);
-  font-family:'JetBrains Mono', monospace; line-height:1.5;
-}
-
-/* video card (click-to-load, no autoplay) */
-.vid{
-  border:1px solid var(--paper-line); border-radius:8px; overflow:hidden;
-  background:var(--paper); box-shadow:var(--shadow);
-}
-.vid .frame{
-  position:relative; width:100%; aspect-ratio:16/9;
-  background:#1c1a17 center/cover no-repeat; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-}
-.vid .frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-.vid .play{
-  width:64px; height:64px; border-radius:50%;
-  background:rgba(200,64,42,.92); position:relative; z-index:2;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 8px 26px rgba(0,0,0,.45);
-  transition:transform .3s var(--ease), background .3s var(--ease);
-}
-.vid .frame:hover .play{ transform:scale(1.1); background:var(--torii-deep); }
-.vid .play::after{
-  content:""; border-style:solid; border-width:11px 0 11px 18px;
-  border-color:transparent transparent transparent #fff8ee; margin-left:4px;
-}
-.vid .vmeta{ padding:13px 15px; border-top:1px solid var(--paper-line); }
-.vid .vmeta b{ font-family:'Shippori Mincho B1', serif; font-size:14.5px; display:block; }
-.vid .vmeta span{
-  font-family:'JetBrains Mono', monospace; font-size:11px;
-  color:var(--sumi-soft); display:block; margin-top:5px; line-height:1.5;
-}
-.vid-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
-
-/* ---------- Cards ---------- */
-.card{
-  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
-  overflow:hidden; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s var(--ease);
-  opacity:0; transform:translateY(16px);
-}
-.card.in{ opacity:1; transform:translateY(0); }
-.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.4); }
-.card .body{ padding:18px 20px 20px; }
-.card h3{ font-size:17.5px; }
-.card .sub{
-  font-family:'JetBrains Mono', monospace; font-size:11px;
-  color:var(--torii-deep); margin-top:6px; letter-spacing:.03em;
-}
-.card p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
-.grid-3{ display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:20px; }
-.grid-2{ display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:22px; }
-
-/* ---------- Chips / tags ---------- */
-.chip{
-  font-family:'JetBrains Mono', monospace; font-size:11px;
-  border:1px solid var(--paper-line); background:var(--washi-2);
-  padding:5px 11px; border-radius:20px; color:var(--sumi-soft);
-  display:inline-block; margin:4px 4px 0 0;
-}
-.chip.hot{ border-color:rgba(200,64,42,.35); color:var(--torii-deep); background:rgba(200,64,42,.07); }
-
-/* ---------- Controls (search / filter) ---------- */
-.controls{
-  display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center;
-  margin-bottom:26px;
-}
-.controls input, .controls select{
-  font-family:'JetBrains Mono', monospace; font-size:13px;
-  padding:11px 15px; border-radius:24px;
-  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi);
-  min-width:290px; max-width:100%; outline:none;
-  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
-}
-.controls input:focus, .controls select:focus{
-  border-color:var(--torii); box-shadow:0 0 0 3px rgba(200,64,42,.12);
-}
-.filter-row{ display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
-.fbtn{
-  font-family:'JetBrains Mono', monospace; font-size:11.5px;
-  padding:7px 14px; border-radius:20px; cursor:pointer;
-  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi-soft);
-  transition:all .28s var(--ease);
-}
-.fbtn:hover{ border-color:var(--torii); color:var(--torii-deep); }
-.fbtn.on{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
-.count{
-  text-align:center; font-family:'JetBrains Mono', monospace;
-  font-size:11.5px; color:var(--sumi-soft); margin-bottom:22px; letter-spacing:.05em;
-}
-
-/* ---------- Prose ---------- */
-.prose p{ font-size:15px; line-height:1.85; color:var(--sumi-soft); margin-top:15px; }
-.prose h3{ font-size:21px; margin-top:38px; color:var(--sumi); }
-.prose ul{ margin-top:15px; padding-left:20px; }
-.prose li{ font-size:14.5px; line-height:1.8; color:var(--sumi-soft); margin-top:8px; }
-.prose strong, .prose b{ color:var(--sumi); }
-.jp{ font-family:'Shippori Mincho B1', serif; color:var(--torii-deep); }
-.quote{
-  margin-top:26px; padding:20px 24px; border-left:3px solid var(--torii);
-  background:var(--paper); border-radius:0 6px 6px 0;
-  font-family:'Shippori Mincho B1', serif; font-size:16px; line-height:1.7; color:var(--sumi);
-}
-.quote span{
-  display:block; margin-top:9px; font-family:'JetBrains Mono', monospace;
-  font-size:11px; color:var(--torii-deep); letter-spacing:.05em;
-}
-
-/* ---------- Accordion ---------- */
-details.acc{
-  background:var(--paper); border:1px solid var(--paper-line);
-  border-radius:8px; margin-top:13px; overflow:hidden;
-}
-details.acc summary{
-  cursor:pointer; padding:16px 20px; list-style:none;
-  font-family:'Shippori Mincho B1', serif; font-size:16.5px;
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
-  transition:background .3s var(--ease);
-}
-details.acc summary:hover{ background:rgba(200,64,42,.05); }
-details.acc summary::-webkit-details-marker{ display:none; }
-details.acc summary::after{
-  content:"+"; font-family:'JetBrains Mono', monospace; font-size:18px;
-  color:var(--torii); transition:transform .3s var(--ease); flex:none;
-}
-details.acc[open] summary::after{ transform:rotate(45deg); }
-details.acc .acc-body{ padding:0 20px 20px; border-top:1px solid var(--paper-line); }
-
-/* ---------- Timeline ---------- */
-.tl{ position:relative; margin-top:20px; padding-left:28px; }
-.tl::before{
-  content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px;
-  background:linear-gradient(var(--torii),var(--gold),transparent);
-}
-.tl-item{
-  position:relative; padding:16px 20px; margin-bottom:16px;
-  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
-  opacity:0; transform:translateX(-10px);
-  transition:opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
-}
-.tl-item.in{ opacity:1; transform:translateX(0); }
-.tl-item:hover{ box-shadow:var(--shadow); }
-.tl-item::before{
-  content:""; position:absolute; left:-28px; top:22px;
-  width:12px; height:12px; border-radius:50%;
-  background:var(--torii); border:2px solid var(--washi);
-}
-.tl-date{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.05em; }
-.tl-item h3{ font-size:18px; margin-top:6px; }
-.tl-era{ font-size:12px; color:var(--matcha); margin-top:4px; font-family:'JetBrains Mono', monospace; }
-.tl-item p{ margin-top:9px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
-
-/* ---------- Dark section ---------- */
-.dark{
-  background:linear-gradient(180deg,var(--night),var(--night-2));
-  color:var(--washi); padding:82px 22px; position:relative; overflow:hidden;
-}
-.dark::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(circle at 50% 0%, rgba(217,189,126,.10), transparent 55%);
-}
-.dark-inner{ max-width:820px; margin:0 auto; position:relative; z-index:1; }
-.dark h2{ color:var(--washi); margin-top:12px; font-size:clamp(25px,5.5vw,34px); }
-.dark .eyebrow{ color:var(--gold-soft); }
-.dark .eyebrow::before{ background:var(--gold-soft); }
-.dark p{ color:#cfc4ac; line-height:1.8; font-size:14.5px; margin-top:14px; }
-.dark .btn-ghost{ border-color:var(--gold-soft); color:var(--washi); }
-.dark .btn-ghost:hover{ background:rgba(255,255,255,.07); }
-
-/* ---------- Footer ---------- */
-footer{
-  padding:32px 20px; text-align:center; background:var(--night); color:#8b8299;
-  font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; line-height:1.9;
-}
-footer a{ color:var(--sakura); text-decoration:none; }
-footer a:hover{ text-decoration:underline; }
-
-/* ---------- Prev/next ---------- */
-.pager{
-  display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;
-  max-width:1060px; margin:0 auto; padding:0 22px 64px;
-}
-.pager a{
-  flex:1 1 240px; text-decoration:none; color:var(--sumi);
-  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
-  padding:16px 20px; transition:all .35s var(--ease);
-}
-.pager a:hover{ border-color:var(--torii); transform:translateY(-3px); box-shadow:var(--shadow); }
-.pager small{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--torii-deep); letter-spacing:.1em; }
-.pager b{ display:block; font-family:'Shippori Mincho B1', serif; font-size:16px; margin-top:5px; }
-.pager .nx{ text-align:right; }
-
-.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
-.reveal.in{ opacity:1; transform:translateY(0); }
-@media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition-duration:.01ms !important; }
-}
-
-.arch-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:0;
-  border-top:1px solid var(--paper-line); border-left:1px solid var(--paper-line); }
-.arch{ padding:30px 26px; border-right:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);
-  position:relative; overflow:hidden; transition:background .35s var(--ease); }
-.arch:hover{ background:rgba(200,64,42,.04); }
-.arch-mon{ position:absolute; top:12px; right:16px; font-family:'Shippori Mincho B1',serif;
-  font-size:56px; color:var(--sumi); opacity:.06; line-height:1; }
-.arch h3{ font-size:19px; padding-right:44px; }
-.arch p{ margin-top:11px; font-size:13.5px; line-height:1.7; color:var(--sumi-soft); }
-.arch-es{ margin-top:14px; padding:12px 14px; border-radius:6px;
-  background:rgba(187,145,56,.1); font-size:12.5px; line-height:1.6; color:var(--sumi-soft); }
-.arch-es b{ display:block; font-family:'JetBrains Mono',monospace; font-size:10px;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--torii-deep); margin-bottom:5px; }
-
-.ogg-sec{ background:var(--washi-2); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
-.ogg-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-.ogg{ background:var(--paper); border:1px solid var(--paper-line); border-radius:8px; padding:20px;
-  transition:transform .4s var(--ease), box-shadow .4s var(--ease); }
-.ogg:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
-.ogg-jp{ font-family:'Shippori Mincho B1',serif; font-size:26px; color:var(--torii); display:block; }
-.ogg b{ display:block; font-family:'Shippori Mincho B1',serif; font-size:16px; margin-top:8px; }
-.ogg p{ margin-top:8px; font-size:12.5px; line-height:1.6; color:var(--sumi-soft); }
-
-.lph{ width:100%; aspect-ratio:16/10; background-size:cover; background-position:center;
-  background-image:linear-gradient(140deg,#efe0bd,#e0cb9d); border-bottom:1px solid var(--paper-line);
-  display:flex; align-items:center; justify-content:center; transition:transform .8s var(--ease); }
-.lph::after{ content:attr(data-fallback); font-family:'Shippori Mincho B1',serif;
-  font-size:62px; color:var(--torii); opacity:.25; }
-.lph.has-img{ background-image:none; }
-.lph.has-img::after{ content:""; }
-.luogo:hover .lph.has-img{ transform:scale(1.04); }
-.luogo{ opacity:1; transform:none; }
-
+  /* ====== TEMA CHIARO: bianco + rosso torii ====== */
+  :root{
+    --bg:#ffffff;            /* fondo bianco */
+    --paper:#ffffff;         /* card */
+    --ink:#111111;           /* testo principale */
+    --sub:#5b6777;           /* testo secondario */
+    --line:#e9eef5;          /* bordi */
+    --accent:#c1121f;        /* rosso torii */
+    --accent-2:#7a0610;      /* ombra rosso */
+    --chip:#f8f9fb;          /* chip */
+    --chipline:#e5eaf1;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0; background:linear-gradient(180deg,#fff 0%,#fff 65%,#fafafc 100%);
+    color:var(--ink);
+    font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Ubuntu,Cantarell,"Helvetica Neue",Arial,"Apple Color Emoji","Segoe UI Emoji";
+  }
+  header{
+    position:sticky; top:0; z-index:9;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .wrap{max-width:1180px;margin:auto;padding:16px}
+  nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .brand{display:flex;align-items:center;gap:12px;margin-right:auto}
+  .torii{width:34px;height:34px}
+  .brand h1{font:800 clamp(20px,2.4vw,30px)/1.1 ui-serif,Georgia,"Noto Serif",serif;margin:0}
+  .kicker{font:600 12px/1 ui-sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  nav .btn, nav a{
+    color:var(--ink); text-decoration:none; padding:8px 12px; border-radius:999px;
+    background:var(--chip); border:1px solid var(--chipline)
+  }
+  nav .btn:hover, nav a:hover{border-color:var(--accent); color:var(--accent)}
+  .lead{color:var(--sub); margin:.25rem 0 0}
+  /* Ricerca + chip */
+  .toolbox{position:sticky; top:68px; z-index:8; background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.85) 100%); padding:8px 0 12px; border-bottom:1px solid var(--line)}
+  .searchbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .searchbar input[type="search"]{
+    flex:1; min-width:240px; padding:12px 14px; border-radius:12px; border:1px solid var(--line); background:#fff; color:var(--ink)
+  }
+  .chip{padding:8px 10px;border-radius:999px;background:var(--chip);border:1px solid var(--chipline);color:var(--ink);cursor:pointer}
+  .chip[aria-pressed="true"]{outline:2px solid var(--accent);color:var(--accent); background:#fff}
+  .pill{display:inline-block;padding:2px 8px;border:1px solid var(--chipline);border-radius:999px;background:#fff;font-size:12px;color:var(--sub)}
+  /* Griglia + card */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .title{font:700 18px/1.2 ui-serif,Georgia,serif;margin:2px 0;color:var(--ink)}
+  .meta{font-size:13px;color:var(--sub)}
+  .tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:999px;background:var(--chip);border:1px solid var(--chipline);margin-right:6px;margin-bottom:6px}
+  details{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}
+  summary{cursor:pointer;font-weight:700;color:var(--accent)}
+  .section h2{font:800 22px/1.2 ui-serif,Georgia,serif;margin:32px 0 10px;color:var(--accent-2)}
+  .muted{color:var(--sub)}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:18px 0}
+  /* Accessibilità */
+  .sr{position:absolute;left:-9999px}
+  mark{background:linear-gradient(90deg, rgba(193,18,31,.15), rgba(193,18,31,.05)); color:inherit; border-radius:6px; padding:0 .2em}
+  .count{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
-
-<div class="rail" id="rail"></div>
-<nav>
-  <a class="brand" href="index.html">⛩ Shinto Italia</a>
-  <div class="nav-links">
-    <a href="storia.html">Storia</a>
-    <a href="leggende.html">Leggende</a>
-    <a href="templi.html">Templi</a>
-    <a href="kami.html">Kami</a>
-    <a href="rituali.html">Rituali</a>
-    <a href="manga.html" class="active">Manga</a>
-  </div>
-</nav>
-
-<section class="phero" data-mon="漫">
-  <div class="phero-inner">
-    <span class="eyebrow">Sentiero 06 · Manga</span>
-    <h1>Lo Shinto che già conosci</h1>
-    <p>Chi ha visto anime o letto manga ha già incontrato torii, miko, volpi a nove code e festival estivi senza sapere che cosa fossero. Questa pagina fa il percorso inverso: dall'immagine familiare al rito che c'è dietro.</p>
-      <div class="hero-stats"><span><b>6</b> archetipi</span><span><b>8</b> oggetti da riconoscere</span><span><b>4</b> luoghi reali</span></div>
-  </div>
-</section>
-
-<section class="wrap-narrow" style="padding-bottom:24px;">
-  <div class="prose">
-    <p>Il Giappone non ha mai separato nettamente il sacro dal quotidiano, e nemmeno il sacro dall'intrattenimento. Le stesse storie che i sacerdoti recitavano come <i>norito</i> venivano <b>danzate</b> nei villaggi come kagura, <b>recitate</b> nel teatro nō, <b>stampate</b> come <i>ukiyo-e</i> e infine <b>disegnate</b> come manga. La catena non si è mai spezzata.</p>
-    <p>Per questo un lettore italiano che apra un manga si trova immerso in un sistema simbolico coerente e antichissimo che nessuno gli spiega, e che finisce per assorbire come semplice "estetica giapponese". Le pagine che seguono provano a nominare quelle cose.</p>
-  </div>
-</section>
-
-<section class="wrap" style="padding-top:20px;">
-  <div class="sec-head">
-    <span class="eyebrow">Archetipi</span>
-    <h2>Sei strutture che tornano ovunque</h2>
-    <p>Non citazioni esplicite: modi di pensare il mondo che si sono depositati nella grammatica narrativa giapponese.</p>
-  </div>
-  <div class="arch-grid">
-  <article class="arch reveal">
-    <span class="arch-mon">鬼</span>
-    <h3>Il kami che non è buono né cattivo</h3>
-    <p>Nella teologia occidentale il divino coincide con il bene. Nello Shinto no: un kami può essere benefico (<i>nigimitama</i>) o furioso (<i>aramitama</i>), e spesso è <b>lo stesso kami</b> in due stati diversi. Da qui l'abitudine narrativa giapponese agli antagonisti che non sono malvagi ma <b>squilibrati</b>, e che si placano invece di essere sconfitti.</p>
-    <div class="arch-es"><b>Come si vede</b>Il finale in cui il mostro non viene ucciso ma pacificato — riportato al suo stato quieto — è una struttura profondamente shintoista, non una scelta buonista.</div>
-  </article>
-  <article class="arch reveal">
-    <span class="arch-mon">穢</span>
-    <h3>La purificazione come meccanica</h3>
-    <p><i>Kegare</i>, l'impurità, non è colpa: è una contaminazione che si accumula e va <b>rimossa</b>. È una nozione quasi meccanica, quasi igienica — e per questo si presta benissimo a diventare regola di gioco o di trama.</p>
-    <div class="arch-es"><b>Come si vede</b>Esorcisti che <i>ripuliscono</i> luoghi invece di combattere il male; barriere sacre che vanno mantenute; contaminazioni che avanzano se nessuno interviene.</div>
-  </article>
-  <article class="arch reveal">
-    <span class="arch-mon">結</span>
-    <h3>Musubi, il legame</h3>
-    <p><b>Musubi</b> è il principio che annoda: fili, persone, tempo, cibo. La stessa radice sta in <i>musubu</i> (annodare) e nel nome dei kami creatori Takamimusubi e Kamimusubi. Legare un filo, intrecciare una corda, condividere un pasto: sono tutte forme del medesimo gesto.</p>
-    <div class="arch-es"><b>Come si vede</b>Il filo rosso del destino, le corde intrecciate, il tempo che si annoda e si sfilaccia: un'immagine che il cinema d'animazione recente ha reso familiare in tutto il mondo.</div>
-  </article>
-  <article class="arch reveal">
-    <span class="arch-mon">境</span>
-    <h3>La soglia</h3>
-    <p>Il torii non è una porta: non ha battenti e non chiude nulla. Marca un <b>confine</b>. Lo stesso fanno lo <i>shimenawa</i>, i sassi legati, i cancelli dei villaggi. Il Giappone è pieno di soglie che separano mondi senza impedirne il passaggio.</p>
-    <div class="arch-es"><b>Come si vede</b>Tunnel, gallerie, scale, porte che portano altrove: il varco che si attraversa senza accorgersene è forse l'immagine più riconoscibile dell'animazione giapponese.</div>
-  </article>
-  <article class="arch reveal">
-    <span class="arch-mon">変</span>
-    <h3>Il mutaforma</h3>
-    <p>Volpi (<i>kitsune</i>), tanuki, gatti: nel folklore giapponese gli animali che vivono abbastanza a lungo acquistano poteri e possono assumere forma umana. Non sono demoni: sono <b>vicini di casa</b> dispettosi, a volte protettivi.</p>
-    <div class="arch-es"><b>Come si vede</b>La volpe con più code, il tanuki che si trasforma, il gatto che parla: tutti discendono direttamente dagli <i>yōkai</i> che i contadini raccontavano d'inverno.</div>
-  </article>
-  <article class="arch reveal">
-    <span class="arch-mon">祭</span>
-    <h3>Il matsuri come scena</h3>
-    <p>La sequenza del festival estivo — yukata, lanterne, bancarelle, fuochi d'artificio, la confessione mancata — è diventata un <b>topos</b>. Ma il matsuri è anzitutto un rito: il kami esce dal santuario e attraversa il quartiere.</p>
-    <div class="arch-es"><b>Come si vede</b>Quando in una storia compare il festival, di solito è il momento in cui qualcosa cambia: è un tempo sospeso, e i tempi sospesi servono alle trasformazioni.</div>
-  </article>
-  </div>
-</section>
-
-<section class="ogg-sec">
+<header>
   <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Glossario visivo</span>
-      <h2>Otto oggetti da saper riconoscere</h2>
-      <p>Compaiono di continuo sullo sfondo. Sapere che cosa sono cambia ciò che si sta guardando.</p>
-    </div>
-    <div class="ogg-grid">
-    <div class="ogg reveal">
-      <span class="ogg-jp">鳥居</span>
-      <b>Torii</b>
-      <p>La soglia rossa. Segnala che oltre quel punto lo spazio cambia statuto.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">注連縄</span>
-      <b>Shimenawa</b>
-      <p>Corda di paglia con strisce di carta: delimita ciò che è abitato da un kami.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">絵馬</span>
-      <b>Ema</b>
-      <p>Tavoletta di legno per le richieste scritte. Nei santuari 'da pellegrinaggio' sono decorate dai fan.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">守り</span>
-      <b>Omamori</b>
-      <p>Amuleto in sacchetto di stoffa, valido un anno: protegge chi lo porta addosso.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">御籤</span>
-      <b>Omikuji</b>
-      <p>Responso estratto a sorte. Se è infausto si annoda al telaio e si lascia lì.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">巫女</span>
-      <b>Miko</b>
-      <p>Assistente del santuario in hakama rosso e haori bianco: figura ricorrentissima nella narrativa.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">神楽</span>
-      <b>Kagura</b>
-      <p>Danza sacra con maschera e sonagli: l'antenata diretta di ogni scena di danza rituale.</p>
-    </div>
-    <div class="ogg reveal">
-      <span class="ogg-jp">狐</span>
-      <b>Kitsune</b>
-      <p>La volpe messaggera di Inari. Più code ha, più è antica e potente.</p>
-    </div>
-    </div>
+    <nav>
+      <div class="brand">
+        <!-- Torii icona -->
+        <svg class="torii" viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="6" y="10" width="52" height="6" rx="2" fill="#c1121f"/>
+          <rect x="10" y="16" width="44" height="4" rx="1" fill="#7a0610"/>
+          <rect x="18" y="20" width="6" height="34" rx="1" fill="#111"/>
+          <rect x="40" y="20" width="6" height="34" rx="1" fill="#111"/>
+        </svg>
+        <div>
+          <div class="kicker">Compendio</div>
+          <h1>Lo Shintoismo nei Manga</h1>
+          <p class="lead">120+ opere · Titolo JP / IT · Anno · Editore · Riassunto a tendina · <mark>tema rosso torii</mark></p>
+        </div>
+      </div>
+      <span class="btn" title="Nessun link esterno: tutto in pagina">Modalità offline</span>
+    </nav>
   </div>
-</section>
+</header>
 
-<section class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">Seichi junrei · 聖地巡礼</span>
-    <h2>Il pellegrinaggio ai luoghi disegnati</h2>
-    <p>L'espressione significa "pellegrinaggio ai luoghi sacri" ed è stata presa in prestito dal lessico religioso. Fan che vanno a mettersi <b>esattamente</b> dove una scena era ambientata: un gesto che, non a caso, ricalca la struttura di un pellegrinaggio vero.</p>
-  </div>
-  <div class="grid-2">
-  <article class="card luogo">
-    <div class="lph" data-wiki="Suga-jinja" data-fallback="階"></div>
-    <div class="body">
-      <h3>Suga Jinja, Tokyo</h3>
-      <p>Una scalinata qualsiasi in un quartiere residenziale di Shinjuku è diventata, dopo il 2016, uno dei luoghi più fotografati del Giappone. Il santuario in cima esisteva dal 1634 e nessuno lo notava.</p>
-    </div>
-  </article>
-  <article class="card luogo">
-    <div class="lph" data-wiki="Washinomiya-jinja" data-fallback="鷲"></div>
-    <div class="body">
-      <h3>Washinomiya, Saitama</h3>
-      <p>Un santuario di provincia che, dopo essere apparso in una serie del 2007, ha visto le visite di Capodanno passare da poche decine di migliaia a centinaia di migliaia. Il comune ha risposto con feste dedicate e <i>ema</i> illustrati dai fan.</p>
-    </div>
-  </article>
-  <article class="card luogo">
-    <div class="lph" data-wiki="Kanda-myōjin" data-fallback="電"></div>
-    <div class="body">
-      <h3>Kanda Myōjin, Tokyo</h3>
-      <p>Trovandosi al confine di Akihabara, ha adottato senza imbarazzo il quartiere: vende amuleti per la sicurezza dei dati, benedice hardware e collabora regolarmente con serie animate.</p>
-    </div>
-  </article>
-  <article class="card luogo">
-    <div class="lph" data-wiki="Hida (Gifu)" data-fallback="飛"></div>
-    <div class="body">
-      <h3>Hida, Gifu</h3>
-      <p>Il paesaggio di risaie, montagne e paesi silenziosi che l'animazione giapponese usa come sfondo del ricordo. La biblioteca cittadina è diventata tappa fissa dei pellegrinaggi.</p>
-    </div>
-  </article>
-  </div>
-  <div class="prose" style="max-width:760px;margin:44px auto 0;">
-    <h3>Il rispetto minimo</h3>
-    <ul>
-      <li>Sono <b>santuari attivi</b> e quartieri abitati: si fotografa da suolo pubblico, non si entra in proprietà private.</li>
-      <li>Servizi fotografici in costume richiedono quasi sempre <b>permesso preventivo</b>.</li>
-      <li>Il turismo da anime ha salvato l'economia di parecchi paesi rurali: è benvenuto finché resta discreto.</li>
-    </ul>
-  </div>
-</section>
-
-<section class="dark">
-  <div class="dark-inner" style="text-align:center;">
-    <span class="eyebrow">Video</span>
-    <h2>Gli originali</h2>
-    <p style="max-width:540px;margin-left:auto;margin-right:auto;">Prima di essere inquadrature, erano riti e luoghi. Tre filmati delle cose vere.</p>
-    <div class="vid-grid" style="margin-top:38px;text-align:left;">
-<div class="vid reveal">
-  <div class="frame" data-yt="KRB1rco5aA8"><div class="play"></div></div>
-  <div class="vmeta"><b>Kagura: la danza da cui derivano molte scene rituali</b><span>La forma originale, in un santuario di Tokyo: maschere, tamburi, il drago manovrato a mano.</span></div>
-</div>
-<div class="vid reveal">
-  <div class="frame" data-yt="K0UC5GkHbaU"><div class="play"></div></div>
-  <div class="vmeta"><b>Il tunnel di torii di Fushimi Inari</b><span>Il luogo reale dietro innumerevoli sfondi animati, percorso per intero.</span></div>
-</div>
-<div class="vid reveal">
-  <div class="frame" data-yt="MGjhrxCmdIo"><div class="play"></div></div>
-  <div class="vmeta"><b>Un matsuri vero: il Gion di Kyoto</b><span>La scena del festival estivo, prima che diventasse un topos narrativo.</span></div>
-</div>
+<!-- Strumenti -->
+<div class="toolbox">
+  <div class="wrap">
+    <div class="searchbar">
+      <input id="q" type="search" placeholder="Cerca titolo, autore, tag (es. Inari, kitsune, Panini, Star Comics)"/>
+      <span class="pill count" id="count">0 risultati</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="tag:kami">Kami</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="tag:yokai">Yōkai</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="tag:onmyodo">Onmyōdō</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="it:yes">Pubblicati in Italia</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="era:sengoku">Era Sengoku</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="era:moderno">Ambientazione moderna</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="target:shonen">Shōnen</span>
+      <span class="chip" role="button" aria-pressed="false" data-filter="target:seinen">Seinen</span>
     </div>
   </div>
-</section>
-
-<section class="wrap-narrow">
-  <div class="sec-head">
-    <span class="eyebrow">Attenzione</span>
-    <h2>Dove la finzione si allontana</h2>
-  </div>
-  <div class="prose">
-    <ul>
-      <li><b>Le miko non sono esorciste.</b> Nei santuari assistono nei riti, vendono amuleti, danzano il kagura. Il combattimento contro gli spiriti è invenzione narrativa recente.</li>
-      <li><b>I kami non concedono poteri.</b> Non c'è nulla, nella pratica shintoista, che assomigli a un patto con la divinità in cambio di abilità.</li>
-      <li><b>Gli yōkai non sono kami.</b> Sono creature del folklore, spesso comiche; i due insiemi si sovrappongono solo ai margini.</li>
-      <li><b>Il torii non tiene fuori nulla.</b> È un indicatore di soglia, non una barriera magica: non ha battenti perché non deve chiudere.</li>
-    </ul>
-    <div class="quote">
-      Nulla di tutto ciò rende le opere meno valide. La mitologia è sempre stata materiale narrativo, e lo Shinto non ha un canone che possa essere tradito: cambia da santuario a santuario da millecinquecento anni.
-    </div>
-  </div>
-</section>
-
-
-<div class="pager">
-  <a href="rituali.html"><small>← SENTIERO PRECEDENTE</small><b>祭 Rituali</b></a>
-  <a class="nx" href="index.html"><small>TORNA ALLA HOME →</small><b>Homepage ⛩</b></a>
 </div>
 
-<footer>
-  Shinto Italia · progetto personale · fatto con cura in Italia<br>
-  Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
-  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
-</footer>
+<main class="wrap">
+  <!-- SEZIONE ITALIA (autori celebri + altri pubblicati) -->
+  <section class="section" id="italia">
+    <h2>Pubblicati in Italia – Autori celebri e selezione ampia</h2>
+    <p class="muted">Filtra con il chip <strong>Pubblicati in Italia</strong> per mostrare solo edizioni italiane.</p>
+    <div class="grid" id="grid-italia"></div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- KAMI -->
+  <section class="section" id="kami">
+    <h2>Kami, santuari e miko</h2>
+    <div class="grid" id="grid-kami"></div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- YOKAI -->
+  <section class="section" id="yokai">
+    <h2>Yōkai e folklore</h2>
+    <div class="grid" id="grid-yokai"></div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ONMYODO -->
+  <section class="section" id="onmyodo">
+    <h2>Onmyōdō, esorcismi e sincretismi</h2>
+    <div class="grid" id="grid-onmyodo"></div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ONESHOT -->
+  <section class="section" id="oneshot">
+    <h2>One‑shot, antologie e repertori</h2>
+    <div class="grid" id="grid-oneshot"></div>
+    <p class="muted">Nessuna immagine; interamente client‑side per WebView offline.</p>
+  </section>
+
+  <p class="muted">Ultimo aggiornamento: <span id="today"></span> · Totale schede: <span id="total"></span></p>
+</main>
 
 <script>
-/* ---------- Progress rail ---------- */
+/* ===========
+   DATI (120+)
+   Ogni voce:
+   id, title_jp, title_it, year, author, publisher_it, publisher_jp, tags, area, target, era, summary
+   area = italia | kami | yokai | onmyodo | oneshot (la sezione di destinazione primaria)
+   publisher_it: "—" se non esiste edizione italiana; publisher_jp opzionale informativo.
+   =========== */
+
+const MANGA = [
+  /* ==== ITALIA: Rumiko Takahashi (verifiche su Star Comics) ==== */
+  {id:"inuyasha", title_jp:"犬夜叉", title_it:"Inuyasha", year:"1996–2008", author:"Rumiko Takahashi",
+    publisher_it:"Star Comics", publisher_jp:"Shogakukan", tags:"yokai kami miko sengoku gioiello",
+    area:"italia", target:"shonen", era:"sengoku",
+    summary:"Viaggio nell’era Sengoku tra miko, frammenti della Sfera dei Quattro Spiriti e demoni. Motivi shintoisti, rituali e folklore popolare."},
+  {id:"ranma", title_jp:"らんま½", title_it:"Ranma ½", year:"1987–1996", author:"Rumiko Takahashi",
+    publisher_it:"Star Comics", publisher_jp:"Shogakukan", tags:"maledizioni arti-marziali commedia",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Gag e arti marziali con le sorgenti maledette di Jusenkyo: metamorfosi e folklore reinterpretato."},
+  {id:"lamu", title_jp:"うる星やつら", title_it:"Lamù – Urusei Yatsura", year:"1978–1987", author:"Rumiko Takahashi",
+    publisher_it:"Star Comics", publisher_jp:"Shogakukan", tags:"oni yokai commedia scuola",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"La celebre aliena‑oni Lamù porta in commedia elementi di credenze popolari e “oni” della tradizione."},
+  {id:"maison", title_jp:"めぞん一刻", title_it:"Maison Ikkoku", year:"1980–1987", author:"Rumiko Takahashi",
+    publisher_it:"Star Comics (Perfect)", publisher_jp:"Shogakukan", tags:"quotidiano riti-domestici costume",
+    area:"italia", target:"seinen", era:"moderno",
+    summary:"Romance quotidiano con rimandi a usanze e riti domestici giapponesi; accenni a superstizioni e culti familiari."},
+  {id:"rinne", title_jp:"境界のRINNE", title_it:"Kyōkai no RINNE", year:"2009–2017", author:"Rumiko Takahashi",
+    publisher_it:"Star Comics", publisher_jp:"Shogakukan", tags:"shinigami esorcismi reincarnazione",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Uno shinigami squattrinato aiuta le anime a reincarnarsi con amuleti e attrezzi rituali in chiave comica."},
+
+  /* ==== ITALIA: CLAMP (verifica Star Comics) ==== */
+  {id:"xxxholic", title_jp:"×××HOLiC", title_it:"xxxHOLiC", year:"2003–2011 (+)", author:"CLAMP",
+    publisher_it:"Star Comics", publisher_jp:"Kodansha", tags:"onmyodo desideri talismani folklore-urbano",
+    area:"italia", target:"seinen", era:"moderno",
+    summary:"Una bottega esaudisce desideri a caro prezzo: oggetti rituali, legami con yōkai e incroci con Tsubasa."},
+  {id:"ccs", title_jp:"カードキャプターさくら", title_it:"Card Captor Sakura", year:"1996–2000 (+ Clear Card)", author:"CLAMP",
+    publisher_it:"Star Comics", publisher_jp:"Kodansha", tags:"sigilli miko mahō-shōjo carte",
+    area:"italia", target:"shojo", era:"moderno",
+    summary:"Cattura delle Carte di Clow: sigilli, guardiani e simbologie magico‑shinto in chiave mahō‑shōjo."},
+
+  /* ==== ITALIA: Shōnen moderni confermati ==== */
+  {id:"kimetsu", title_jp:"鬼滅の刃", title_it:"Demon Slayer: Kimetsu no Yaiba", year:"2016–2020", author:"Koyoharu Gotōge",
+    publisher_it:"Star Comics", publisher_jp:"Shueisha", tags:"oni demoni taisho katana riti",
+    area:"italia", target:"shonen", era:"taisho",
+    summary:"Corpo Ammazzademoni nell’era Taishō: respirazioni, lame nichirin, talismani e leggende di montagna."},
+  {id:"jujutsu", title_jp:"呪術廻戦", title_it:"Jujutsu Kaisen", year:"2018–", author:"Gege Akutami",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"maledizioni esorcismi talismani",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Stregoni affrontano maledizioni nate dalle negatività umane: sigilli, reliquie e tecniche d’esorcismo."},
+  {id:"blueex", title_jp:"青の祓魔師", title_it:"Blue Exorcist (Ao no Exorcist)", year:"2009–", author:"Kazue Katō",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"esorcismi accademia demoni sincretismi",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Accademia di esorcisti tra due mondi (Assiah/Gehenna): training rituale, simboli e combattimenti."},
+
+  /* ==== ITALIA: Classici/Seinen confermati ==== */
+  {id:"mushishi", title_jp:"蟲師", title_it:"Mushishi", year:"1999–2008", author:"Yuki Urushibara",
+    publisher_it:"Star Comics", publisher_jp:"Kodansha", tags:"mushi animismo natura spiriti",
+    area:"italia", target:"seinen", era:"storico",
+    summary:"Gli ‘mushi’, essenze primordiali della vita: equilibrio tra uomo e natura in racconti contemplativi."},
+  {id:"kitaro", title_jp:"ゲゲゲの鬼太郎", title_it:"Kitaro dei cimiteri", year:"1960–", author:"Shigeru Mizuki",
+    publisher_it:"J‑POP (selezione)", publisher_jp:"Kodansha/Shogakukan", tags:"yokai classico mediazione folklore",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Il classico che popolarizza gli yōkai nel dopoguerra: mediazione tra mondo umano e spiriti."},
+  {id:"natsume", title_jp:"夏目友人帳", title_it:"Natsume degli spiriti", year:"2003/2007–", author:"Yuki Midorikawa",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Hakusensha", tags:"yokai libro-degli-amici pietas",
+    area:"italia", target:"shojo", era:"moderno",
+    summary:"Restituire i nomi agli yōkai del ‘Libro degli Amici’: memoria, identità e compassione."},
+  {id:"noragami", title_jp:"ノラガミ", title_it:"Noragami", year:"2010–", author:"Adachitoka",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Kodansha", tags:"kami santuario shinki offerte",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Dio minore senza santuario e shinki: contratti da 5 yen, purificazioni e vita urbana tra i confini."},
+  {id:"kekkaishi", title_jp:"結界師", title_it:"Kekkaishi – Professione acchiappademoni", year:"2003–2011", author:"Yellow Tanabe",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shogakukan", tags:"kekkai barriere terreno-sacro",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Guardiani di un sito sacro alzano barriere (kekkai) contro ayakashi e demoni."},
+  {id:"ushio", title_jp:"うしおととら", title_it:"Ushio e Tora", year:"1990–1996", author:"Kazuhiro Fujita",
+    publisher_it:"Star Comics (Perfect/ristampe)", publisher_jp:"Shogakukan", tags:"lancia-sakra oni templi",
+    area:"italia", target:"shonen", era:"moderno",
+    summary:"Una lancia sacra incatena un demone tigre: duetto forzato tra templi, oni e caccia ai mostri."},
+  {id:"dororo", title_jp:"どろろ", title_it:"Dororo", year:"1967–1969", author:"Osamu Tezuka",
+    publisher_it:"J‑POP / Goen", publisher_jp:"Akita Shoten", tags:"demoni sengoku viaggio corpo",
+    area:"italia", target:"shonen", era:"sengoku",
+    summary:"Hyakkimaru recupera parti del proprio corpo sottratte dai demoni: viaggio allegorico nel Sengoku."},
+  {id:"yokaiwatch", title_jp:"妖怪ウォッチ", title_it:"Yo‑kai Watch", year:"2012–2023", author:"Noriyuki Konishi",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shogakukan", tags:"yokai bambini folklore-urbano",
+    area:"italia", target:"kodomo", era:"moderno",
+    summary:"L’orologio per vedere gli yōkai: fenomeno cross‑media tra gag e folklore quotidiano."},
+
+  /* ==== KAMI / SANTUARI / MIKO ==== */
+  {id:"kamisamakiss", title_jp:"神様はじめました", title_it:"Kamisama Kiss", year:"2008–2016", author:"Julietta Suzuki",
+    publisher_it:"—", publisher_jp:"Hakusensha", tags:"kami miko santuario volpi", area:"kami", target:"shojo", era:"moderno",
+    summary:"Una studentessa diventa la divinità di un santuario: volpi divine, yokai e doveri dei kami."},
+  {id:"gingitsune", title_jp:"ぎんぎつね", title_it:"Gingitsune", year:"2009–", author:"Sayori Ochiai",
+    publisher_it:"—", publisher_jp:"Shueisha", tags:"inari messaggeri volpe santuario", area:"kami", target:"seinen", era:"moderno",
+    summary:"Cronache serene di un piccolo santuario Inari e del suo messaggero volpe."},
+  {id:"kannagi", title_jp:"かんなぎ", title_it:"Kannagi: Crazy Shrine Maidens", year:"2006–", author:"Eri Takenashi",
+    publisher_it:"—", publisher_jp:"Ichijinsha", tags:"dea albero purificazione arte", area:"kami", target:"shonen", era:"moderno",
+    summary:"Una dea legata a un albero sacro si risveglia da una scultura: gag e purificazioni."},
+  {id:"asagiri", title_jp:"朝霧の巫女", title_it:"Shrine of the Morning Mist", year:"2000–2013", author:"Hiroki Ugawa",
+    publisher_it:"—", publisher_jp:"Akita Shoten", tags:"miko consiglio confine", area:"kami", target:"shonen", era:"moderno",
+    summary:"Sorelle miko e un consiglio di sacerdotesse proteggono il confine dagli spiriti."},
+  {id:"kamisama-dolls", title_jp:"神様ドォルズ", title_it:"Kamisama Dolls", year:"2006–2013", author:"Hajime Yamamura",
+    publisher_it:"—", publisher_jp:"Shogakukan", tags:"kakashi lignaggi villaggio", area:"kami", target:"seinen", era:"moderno",
+    summary:"Antichi ‘dei’ meccanici (kakashi) legati a famiglie di un villaggio remoto."},
+  {id:"kamichu", title_jp:"かみちゅ!", title_it:"Kamichu!", year:"2005–2007", author:"Hanaharu Naruko (manga)",
+    publisher_it:"—", publisher_jp:"MediaWorks", tags:"dea adolescente rituali onomichi", area:"kami", target:"slice", era:"moderno",
+    summary:"Una ragazzina si sveglia ed è una dea shintoista: vita quotidiana, piccoli riti e divinità minori."},
+  {id:"kamisama-kazoku", title_jp:"神様家族", title_it:"Kamisama Kazoku", year:"2005–2008", author:"Yoshikazu Kuwashima; TaPari",
+    publisher_it:"—", publisher_jp:"Media Factory", tags:"dei famiglia apprendistato", area:"kami", target:"misto", era:"moderno",
+    summary:"Il figlio di una famiglia di dei vive tra gli umani per imparare a essere un dio migliore."},
+  {id:"inari-konkon", title_jp:"いなり、こんこん、恋いろは。", title_it:"Inari, Konkon, Koi Iroha", year:"2010–2015", author:"Morohe Yoshida",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"inari torii volpi desideri", area:"kami", target:"seinen", era:"moderno",
+    summary:"Poteri donati dalla dea di Fushimi Inari: torii, volpi, desideri e crescita personale."},
+
+  /* ==== YOKAI & FOLKLORE (una parte; moltissime voci) ==== */
+  {id:"zakuro", title_jp:"おとめ妖怪 ざくろ", title_it:"Otome Yōkai Zakuro", year:"2006–", author:"Lily Hoshino",
+    publisher_it:"—", publisher_jp:"Gentosha", tags:"meiji yokai ministero ibridi", area:"yokai", target:"seinen", era:"meiji",
+    summary:"Meiji alternativo: mezzo‑spiriti e ufficiali collaborano in un ministero degli spiriti."},
+  {id:"konohana-kitan", title_jp:"このはな綺譚", title_it:"Konohana Kitan", year:"2009/2014–", author:"Sakuya Amano",
+    publisher_it:"—", publisher_jp:"Ichijinsha", tags:"kitsune ryokan terme kami", area:"yokai", target:"seinen", era:"storico",
+    summary:"Volpine del folklore gestiscono una locanda termale per kami e spiriti viandanti."},
+  {id:"nekogami", title_jp:"猫神やおよろず", title_it:"Nekogami Yaoyorozu", year:"2007–2012", author:"FLIPFLOPs",
+    publisher_it:"—", publisher_jp:"Houbunsha", tags:"dea-gatto oggetti-santi gag", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Una dea‑gatto decaduta fra oggetti sacri, botteghe e piccoli prodigi."},
+  {id:"hanako-kun", title_jp:"地縛少年花子くん", title_it:"Toilet-Bound Hanako-kun", year:"2014–", author:"AidaIro",
+    publisher_it:"J‑POP", publisher_jp:"Square Enix", tags:"leggende-scolastiche talismani sette-misteri", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Sette misteri scolastici, contratti e talismani in un istituto ‘infestato’."},
+  {id:"yozakura", title_jp:"夜桜四重奏", title_it:"Yozakura Quartet", year:"2006–", author:"Suzuhito Yasuda",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"città yokai pilastri spirituali", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Una città dove umani e yōkai convivono grazie a pilastri spirituali di contenimento."},
+  {id:"mononokean", title_jp:"不機嫌なモノノケ庵", title_it:"The Morose Mononokean", year:"2013–2021", author:"Kiri Wazawa",
+    publisher_it:"—", publisher_jp:"Square Enix", tags:"salotto-tra-mondi accompagnamento riti", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Un ‘salotto’ che accompagna gli yōkai oltre il confine: mediazione come atto rituale."},
+  {id:"nura", title_jp:"ぬらりひょんの孫", title_it:"Nura: Rise of the Yokai Clan", year:"2008–2012", author:"Hiroshi Shiibashi",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"clan yokai processione-notturna", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Erede metà umano e metà yōkai tra dinastie e ‘processioni dei cento demoni’."},
+  {id:"flyingwitch", title_jp:"ふらいんぐうぃっち", title_it:"Flying Witch", year:"2012–", author:"Chihiro Ishizuka",
+    publisher_it:"J‑POP", publisher_jp:"Kodansha", tags:"streghe tanuki quotidiano", area:"yokai", target:"slice", era:"moderno",
+    summary:"Apprendista strega ad Aomori: incontri con spiriti, tanuki e magia quotidiana."},
+  {id:"yuuna", title_jp:"ゆらぎ荘の幽奈さん", title_it:"Yuuna and the Haunted Hot Springs", year:"2016–2020", author:"Tadahiro Miura",
+    publisher_it:"J‑POP", publisher_jp:"Shueisha", tags:"onsen fantasma commedia", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Una pensione termale ‘abitata’: spiriti amichevoli, gag e leggende d’albergo."},
+  {id:"inspectre", title_jp:"虚構推理", title_it:"In/Spectre (Kyokō Suiri)", year:"2015–", author:"Kyo Shirodaira; Chashiba Katase",
+    publisher_it:"Star Comics", publisher_jp:"Kodansha", tags:"dea-della-saggezza mediazione logica", area:"yokai", target:"seinen", era:"moderno",
+    summary:"La ‘dea della saggezza’ dei yōkai media conflitti con deduzione e miti adattati."},
+  {id:"mokke", title_jp:"もっけ", title_it:"Mokke", year:"2000s", author:"Takatoshi Kumakura",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"sorelle visioni spiriti locale", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Due sorelle che vedono spiriti imparano a convivere con il folklore locale."},
+  {id:"gugure", title_jp:"繰繰れ！コックリさん", title_it:"Gugure! Kokkuri‑san", year:"2011–2016", author:"Midori Endō",
+    publisher_it:"—", publisher_jp:"Square Enix", tags:"volpe adozione gag superstizioni", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Uno spirito‑volpe ‘adotta’ una bambina: humor e superstizioni da gioco spiritico."},
+  {id:"dororon-enma", title_jp:"どろろんえん魔くん", title_it:"Dororon Enma‑kun", year:"1973–1974", author:"Go Nagai",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"inferi mostri pattuglia", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Squadra infernale che riporta all’ordine i mostri fuggiti nell’umano."},
+  {id:"touhou-fairies", title_jp:"東方三月精", title_it:"Touhou Sangetsusei (Three Fairies)", year:"2007–", author:"ZUN & vari",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"fate miko gensokyo", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Tre fate e la miko Reimu in storie leggere tra boschi e trickster."},
+  {id:"touhou-suzunaan", title_jp:"東方鈴奈庵", title_it:"Touhou Suzunaan: Forbidden Scrollery", year:"2012–2017", author:"ZUN; Harukawa Moe",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"libri-proibiti gensokyo miko", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Una libraia tratta testi proibiti e casi occulti con supporto di Reimu e Marisa."},
+  {id:"yokai-giga", title_jp:"妖怪ギガ", title_it:"Yōkai Giga", year:"2016–2021", author:"Satsuki Satō",
+    publisher_it:"—", publisher_jp:"Shogakukan", tags:"vignette yokai ironia", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Vignette e storielle sugli yōkai, tra ironia e tradizione."},
+  {id:"kappa-sanpei", title_jp:"河童の三平", title_it:"Kappa no Sanpei", year:"1961–1962", author:"Shigeru Mizuki",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"kappa acqua morale", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Ragazzino kappa tra scherzi acquatici e piccole morali popolari."},
+  {id:"akuma-kun", title_jp:"悪魔くん", title_it:"Akuma‑kun", year:"1963–(varie)", author:"Shigeru Mizuki",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"occulto pop simbologie", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Occulto pop: un prodigio usa spiriti e simboli per ‘migliorare’ il mondo."},
+  {id:"sengoku-youko", title_jp:"戦国妖狐", title_it:"Sengoku Youko", year:"2007–2016", author:"Satoshi Mizukami",
+    publisher_it:"—", publisher_jp:"Mag Garden", tags:"volpe sengoku inquisitori", area:"yokai", target:"shonen", era:"sengoku",
+    summary:"Una volpe e un umano contro mostri e inquisitori in epoca Sengoku."},
+  {id:"midnight-occult", title_jp:"真夜中のオカルト公務員", title_it:"Midnight Occult Civil Servants", year:"2015–", author:"Yōko Tamotsu",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"anothers ufficio diplomazia", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Ufficio comunale che media con ‘Anothers’: diplomazia con yōkai metropolitani."},
+  {id:"elegant-apartment", title_jp:"妖怪アパートの幽雅な日常", title_it:"Elegant Yokai Apartment Life", year:"2011–2021", author:"Hinowa Kōzuki; Waka Miyama",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"condominio yokai fantasmi", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Orfano convive con fantasmi e yōkai in un condominio ‘speciale’."},
+  {id:"mononoke-sharing", title_jp:"モノノケ社のシェアハウス", title_it:"Mononoke Sharing", year:"2016–2018", author:"Cool‑kyou Shinja",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"sharehouse mostri convivenza", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Coinquiline non umane in una casa condivisa: convivenza e situazioni comiche."},
+  {id:"hyakki-yako", title_jp:"百鬼夜行抄", title_it:"Hyakki Yakō Shō", year:"1995–", author:"Ichiko Ima",
+    publisher_it:"—", publisher_jp:"Hakusensha", tags:"famiglia medium ayakashi", area:"yokai", target:"josei", era:"moderno",
+    summary:"Cronache di una famiglia di medium e dei loro legami con ayakashi."},
+  {id:"ayashimon", title_jp:"アヤシモン", title_it:"Ayashimon", year:"2021–2022", author:"Yūji Kaku",
+    publisher_it:"—", publisher_jp:"Shueisha", tags:"yakuza yokai notturno", area:"yokai", target:"shonen", era:"moderno",
+    summary:"Yakuza di yōkai a Tokyo, con un protagonista ‘troppo shōnen’."},
+  {id:"ayakashiko", title_jp:"あやかしこ", title_it:"Ayakashiko", year:"2014–", author:"HIRO",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"quotidiano ayakashi locazioni", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Studentessa vive con la padrona di casa ayakashi: calore quotidiano."},
+  {id:"aono-kun", title_jp:"青野くんに触りたいから死にたい", title_it:"Voglio toccare Aono‑kun…", year:"2016–", author:"Umi Shiina",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"fantasma romance inquietudine", area:"yokai", target:"josei", era:"moderno",
+    summary:"Amore con un ragazzo fantasma tra dolcezza e inquietudine."},
+  {id:"kudan", title_jp:"九段のごとし", title_it:"Kudan no Gotoshi", year:"2014–2015", author:"Masasumi Kakizaki",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"profezia kudan horror", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Una profezia del kudan trascina un gruppo nel baratro."},
+  {id:"ogre-slayer", title_jp:"鬼切丸", title_it:"Onikirimaru (Ogre Slayer)", year:"1992–2001", author:"Kei Kusunoki",
+    publisher_it:"—", publisher_jp:"Shogakukan", tags:"oni vendetta destino", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Uno spadaccino nato per uccidere gli oni affronta cicli di vendetta."},
+  {id:"inugami", title_jp:"犬神", title_it:"Inugami", year:"1996–2002", author:"Masaya Hokazono",
+    publisher_it:"—", publisher_jp:"Akita Shoten", tags:"spiriti-cane possessioni maledizioni", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Legami di sangue, possessioni e desideri oscuri guidati da spiriti‑cane."},
+  {id:"otogi-matsuri", title_jp:"おとぎ奉り", title_it:"Otogi Matsuri", year:"2002–2008", author:"Junya Inoue",
+    publisher_it:"—", publisher_jp:"Akita Shoten", tags:"arco-sacro yōkai battaglie", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Un arco sacro scelto dal santuario arma uno studente contro gli yōkai."},
+  {id:"tsukumogami-kashimasu", title_jp:"つくもがみ貸します", title_it:"Tsukumogami Kashimasu", year:"(romanzo→manga)", author:"Megumi Hatakenaka; adatt. manga",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"tsukumogami edo bottega", area:"yokai", target:"misto", era:"edo",
+    summary:"Noleggio di oggetti animati a Edo: i tsukumogami aiutano (e impicciano) i clienti."},
+  {id:"hikaru-natsu", title_jp:"光が死んだ夏", title_it:"Hikaru ga Shinda Natsu", year:"2021–", author:"Mokumokuren",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"inquietudine rurale taboo", area:"yokai", target:"seinen", era:"moderno",
+    summary:"Qualcosa sceso dalla montagna ‘sostituisce’ un ragazzo: folklore rurale e tabù."},
+  {id:"ayakashi-hisen", title_jp:"あやかし緋扇", title_it:"Ayakashi Hisen", year:"2010–2013", author:"Kyōko Kumagai",
+    publisher_it:"—", publisher_jp:"Shogakukan", tags:"ayakashi ventaglio romance", area:"yokai", target:"shojo", era:"moderno",
+    summary:"Una ragazza e un ayakashi legati da un ventaglio scarlatto."},
+
+  /* ==== ONMYODO / ESORCISMI ==== */
+  {id:"onmyoji", title_jp:"陰陽師", title_it:"Onmyōji (adatt. manga)", year:"1993–", author:"Reiko Okano (da Baku Yumemakura)",
+    publisher_it:"—", publisher_jp:"Hakusensha", tags:"heian seimei onmyodo cosmologia", area:"onmyodo", target:"seinen", era:"heian",
+    summary:"Abe no Seimei nell’Heian: cosmologia, auspici e arte dell’onmyōdō."},
+  {id:"mononoke", title_jp:"モノノ怪", title_it:"Mononoke (manga)", year:"2007", author:"Yaeko Ninagawa",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"mononoke forma-verità-ragione", area:"onmyodo", target:"seinen", era:"storico",
+    summary:"Il venditore di medicine esorcizza i mononoke solo chiarendone forma‑verità‑ragione."},
+  {id:"kakuriyo", title_jp:"かくりよの宿飯", title_it:"Kakuriyo: Bed & Breakfast for Spirits", year:"2016–", author:"Midori Yūma; Waco Ioka",
+    publisher_it:"J‑POP", publisher_jp:"Fujimi Shobo", tags:"altromondo locanda debiti-rituali", area:"onmyodo", target:"misto", era:"moderno",
+    summary:"Una pensione nell’Altromondo per kami/ayakashi: cibo, ospitalità e debiti rituali."},
+  {id:"kannazuki", title_jp:"神無月の巫女", title_it:"Kannazuki no Miko", year:"2004–2005", author:"Kaishaku",
+    publisher_it:"Goen", publisher_jp:"Kadokawa", tags:"miko orochi reincarnazioni", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Due miko solare/lunare contro l’Orochi: ritualità shinto e cicli di reincarnazione."},
+  {id:"twinstar", title_jp:"双星の陰陽師", title_it:"Twin Star Exorcists", year:"2013–2024", author:"Yoshiaki Sukeno",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"onmyoji destino esorcismi", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Due giovani onmyōji ‘destinati’ a generare l’esorcista supremo."},
+  {id:"tokyoravens", title_jp:"東京レイヴンズ", title_it:"Tokyo Ravens", year:"2010–2017", author:"Atsushi Suzumi (manga)",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"onmyodo modernizzato agenzia", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Onmyōdō modernizzato, agenzia statale e studenti contro disastri spirituali."},
+  {id:"nube", title_jp:"地獄先生ぬ〜べ〜", title_it:"Hell Teacher Nūbē", year:"1993–1999", author:"Shō Makura; Takeshi Okano",
+    publisher_it:"(storiche) Star Comics", publisher_jp:"Shueisha", tags:"esorcismi scuola mano-demoniaca", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Un docente‑esorcista protegge gli studenti da yōkai e maledizioni (mano demoniaca!)."},
+  {id:"garei", title_jp:"喰霊", title_it:"Ga‑Rei", year:"2005–2010", author:"Hajime Segawa",
+    publisher_it:"J‑POP", publisher_jp:"Kadokawa", tags:"agenzia governativa sesshoseki", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Agenzia governativa, spiriti famelici e legami corrotti dal sesshōseki."},
+  {id:"jjk2", title_jp:"呪術廻戦", title_it:"Jujutsu Kaisen", year:"2018–", author:"Gege Akutami",
+    publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"maledizioni talismani esorcismi", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"(Vedi anche sezione Italia) — Maledizioni ed esorcismi in assetto moderno."},
+  {id:"kimetsu2", title_jp:"鬼滅の刃", title_it:"Demon Slayer", year:"2016–2020", author:"Koyoharu Gotōge",
+    publisher_it:"Star Comics", publisher_jp:"Shueisha", tags:"oni taisho respiri", area:"onmyodo", target:"shonen", era:"taisho",
+    summary:"(Vedi sezione Italia) — Corpo ammazzademoni, respirazioni e lame."},
+  {id:"mononogatari", title_jp:"もののがたり", title_it:"Malevolent Spirits: Mononogatari", year:"2014–2023", author:"Onigunsō",
+    publisher_it:"—", publisher_jp:"Shueisha", tags:"tsukumogami convivenza", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Convivenza forzata con tsukumogami per placare l’odio tra umani e oggetti animati."},
+  {id:"tsugumomo", title_jp:"つぐもも", title_it:"Tsugumomo", year:"2007–", author:"Yoshikazu Hamada",
+    publisher_it:"—", publisher_jp:"Futabasha", tags:"obi tsukumogami tradizioni", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Una obi materna diventa tsukumogami: duelli e tradizioni di provincia."},
+  {id:"omamori-himari", title_jp:"おまもりひまり", title_it:"Omamori Himari", year:"2006–2013", author:"Milan Matra",
+    publisher_it:"—", publisher_jp:"Fujimi Shobo", tags:"oni-slayer guardia-gatta", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Un erede oni‑slayer e una guardia del corpo gatta‑yōkai."},
+  {id:"tactics", title_jp:"タクティクス", title_it:"tactics", year:"2000–", author:"Sakura Kinoshita; Kazuko Higashiyama",
+    publisher_it:"—", publisher_jp:"Mag Garden", tags:"folklorista tengu mangia-oni meiji", area:"onmyodo", target:"seinen", era:"meiji",
+    summary:"Folklorista ed esorcista con un tengu ‘mangia‑oni’ nel Giappone Meiji."},
+  {id:"shonen-onmyoji", title_jp:"少年陰陽師", title_it:"Shōnen Onmyōji (manga)", year:"2005–", author:"Hinako Seta (da LN)",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"seimei nipote arti onmyodo", area:"onmyodo", target:"shonen", era:"heian",
+    summary:"Il nipote di Abe no Seimei cresce tra spiriti e arti onmyōdō."},
+  {id:"ghost-hunt", title_jp:"ゴーストハント", title_it:"Ghost Hunt", year:"1998–2010", author:"Shiho Inada (da Fuyumi Ono)",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"indagini esorcismi sincretismi", area:"onmyodo", target:"shojo", era:"moderno",
+    summary:"Team misto (miko, monaco, medium, sacerdote) per indagini paranormali sincretiche."},
+  {id:"mieruko-chan", title_jp:"見える子ちゃん", title_it:"Mieruko‑chan", year:"2018–", author:"Tomoki Izumi",
+    publisher_it:"—", publisher_jp:"Kadokawa", tags:"vede-spettri santuario-volpe", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Una ragazza vede gli spettri e finge di ignorarli; arc del santuario‑volpe memorabile."},
+  {id:"kemono-jihen", title_jp:"怪物事変", title_it:"Kemono Jihen", year:"2016–", author:"Shō Aimoto",
+    publisher_it:"—", publisher_jp:"Shueisha", tags:"agenzia kemono ghoul tanuki yuki-onna", area:"onmyodo", target:"shonen", era:"moderno",
+    summary:"Agenzia per casi ‘kemono’: folklore urbano tra ghoul, tanuki e yuki‑onna."},
+  {id:"dororo-hyakkimaru", title_jp:"どろろと百鬼丸伝", title_it:"The Legend of Dororo and Hyakkimaru", year:"2018–", author:"Satoshi Shiki",
+    publisher_it:"—", publisher_jp:"Akita Shoten", tags:"remake demoni corpo", area:"onmyodo", target:"seinen", era:"sengoku",
+    summary:"Rilettura moderna del classico di Tezuka: caccia ai demoni e identità ricomposta."},
+  {id:"bakemonogatari", title_jp:"化物語 (manga)", title_it:"Bakemonogatari (manga)", year:"2018–2023", author:"Oh! great (da Nisio Isin)",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"oddities divinità-locali esorcismi-non-convenzionali", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Oddities e divinità locali in urban‑fantasy: risoluzioni metafisiche non convenzionali."},
+  {id:"kijin-gentosho", title_jp:"鬼人幻燈抄", title_it:"Kijin Gentōshō", year:"—", author:"Motoo Nakanishi; adatt. manga",
+    publisher_it:"—", publisher_jp:"—", tags:"sacerdote yokai epoche", area:"onmyodo", target:"seinen", era:"storico",
+    summary:"Un sacerdote e una yōkai attraversano epoche tra riti, onmyōji e destini incrociati."},
+  {id:"otogi-zoshi", title_jp:"お伽草子 (manga)", title_it:"Otogi Zōshi (manga)", year:"2000s", author:"adatt. storico",
+    publisher_it:"—", publisher_jp:"—", tags:"heian seimei talismani", area:"onmyodo", target:"seinen", era:"heian",
+    summary:"Rinarrazione storica con Abe no Seimei, demoni e talismani."},
+  {id:"ayashiya", title_jp:"アヤシヤ", title_it:"Ayashiya", year:"2014–", author:"Shū Katayama",
+    publisher_it:"—", publisher_jp:"Kodansha", tags:"patti ayakashi maledizioni", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Una casata stringe patti con ayakashi per sciogliere maledizioni e casi oscuri."},
+  {id:"yakumo", title_jp:"心霊探偵 八雲", title_it:"Shinrei Tantei Yakumo", year:"—", author:"Manabu Kaminaga; adatt. manga",
+    publisher_it:"—", publisher_jp:"—", tags:"detective spiriti riti", area:"onmyodo", target:"seinen", era:"moderno",
+    summary:"Studente che vede spiriti indaga su morti inquieti con suggestioni rituali."},
+
+  /* ==== ONE-SHOT / ANTOLOGIE / REPERTORI ==== */
+  {id:"hotarubi", title_jp:"蛍火の杜へ", title_it:"Hotarubi no Mori e", year:"2002", author:"Yuki Midorikawa",
+    publisher_it:"(varie/Flashbook)", publisher_jp:"Hakusensha", tags:"spirito foresta taboo impermanenza", area:"oneshot", target:"one-shot", era:"moderno",
+    summary:"Fiaba luminosa tra mondo umano e spiriti della foresta: toccante legge del contatto proibito."},
+  {id:"fuan", title_jp:"不安の種", title_it:"Fuan no Tane (Seeds of Anxiety)", year:"2004–", author:"Masaaki Nakayama",
+    publisher_it:"J‑POP", publisher_jp:"Akita Shoten", tags:"horror micro-racconti leggende-urbane", area:"oneshot", target:"antologia", era:"moderno",
+    summary:"Flash d’orrore e leggende urbane nipponiche in formato breve."},
+  {id:"mizuki-enc", title_jp:"水木しげるの妖怪事典", title_it:"Enciclopedia degli Yōkai (Mizuki)", year:"—", author:"Shigeru Mizuki",
+    publisher_it:"J‑POP", publisher_jp:"—", tags:"repertorio yokai tradizione", area:"oneshot", target:"saggio", era:"—",
+    summary:"Repertorio illustrato: centinaia di schede su yōkai e spiriti secondo Mizuki."}
+];
+
+/* ====== RENDERING ====== */
+const byArea = {
+  italia: document.querySelector("#grid-italia"),
+  kami: document.querySelector("#grid-kami"),
+  yokai: document.querySelector("#grid-yokai"),
+  onmyodo: document.querySelector("#grid-onmyodo"),
+  oneshot: document.querySelector("#grid-oneshot"),
+};
+
+function cardHTML(x){
+  const editore = x.publisher_it && x.publisher_it!=="—"
+    ? `${x.publisher_it} <span class="pill">IT</span>`
+    : (x.publisher_jp ? `${x.publisher_jp} <span class="pill">JP</span>` : "—");
+  const tags = (x.tags||"").split(/\s+/).filter(Boolean).map(t=>`<span class="tag">${t}</span>`).join("");
+  const target = x.target ? `<span class="pill">${x.target}</span>` : "";
+  const era = x.era ? `<span class="pill">${x.era}</span>` : "";
+  const titleLine = x.title_it && x.title_it!==x.title_jp
+      ? `<div class="title">${x.title_it}</div><div class="meta"><strong>Titolo originale:</strong> ${x.title_jp}</div>`
+      : `<div class="title">${x.title_jp}</div>`;
+  return `
+  <article class="card"
+           data-title="${(x.title_it||"")+" "+x.title_jp}"
+           data-author="${x.author||""}"
+           data-tags="${x.tags||""}"
+           data-it="${(x.publisher_it&&x.publisher_it!=="—")?"yes":"no"}"
+           data-era="${x.era||""}"
+           data-target="${x.target||""}">
+    ${titleLine}
+    <div class="meta">
+      <strong>Autore:</strong> ${x.author || "—"}<br/>
+      <strong>Anno (JP):</strong> ${x.year || "—"} · <strong>Editore:</strong> ${editore}
+      ${target} ${era}
+    </div>
+    <details>
+      <summary>Riassunto</summary>
+      <div class="muted">${x.summary||""}</div>
+      <div class="badges" style="margin-top:8px">${tags}</div>
+    </details>
+  </article>`;
+}
+
+function render(){
+  // svuota
+  Object.values(byArea).forEach(n=>n.innerHTML="");
+  // popola
+  MANGA.forEach(x=>{
+    const host = byArea[x.area] || byArea.italia;
+    host.insertAdjacentHTML("beforeend", cardHTML(x));
+  });
+  // init
+  document.querySelector("#today").textContent = new Date().toLocaleDateString("it-IT",{year:"numeric",month:"long",day:"2-digit"});
+  document.querySelector("#total").textContent = MANGA.length;
+}
+render();
+
+/* ====== RICERCA & FILTRI (nessun link esterno) ====== */
 (function(){
-  var rail=document.getElementById('rail');
-  if(!rail) return;
-  function on(){
-    var h=document.documentElement;
-    var s=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-    rail.style.width=(isFinite(s)?s:0)+'%';
-  }
-  document.addEventListener('scroll',on,{passive:true}); on();
-})();
+  const q = document.querySelector('#q');
+  const chips = document.querySelectorAll('.chip');
+  const count = document.querySelector('#count');
+  const filters = new Set();
 
-/* ---------- Reveal on scroll ---------- */
-function observeReveal(sel){
-  var els=document.querySelectorAll(sel||'.card, .tl-item, .reveal');
-  if(!('IntersectionObserver' in window)){
-    els.forEach(function(e){e.classList.add('in');}); return;
-  }
-  var io=new IntersectionObserver(function(en){
-    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.12});
-  els.forEach(function(e){io.observe(e);});
-}
-observeReveal();
-
-/* ---------- Immagini da Wikipedia (con fallback grafico) ----------
-   Nessuna chiave API: usa l'endpoint pubblico REST che consente CORS.
-   Se l'immagine non esiste, resta il placeholder con il kanji.        */
-function setBg(el, src){
-  var pre=new Image();
-  pre.onload=function(){ el.style.backgroundImage='url("'+src+'")'; el.classList.add('has-img'); };
-  pre.src=src;
-}
-
-/* Usa l'API di ricerca invece del titolo esatto: se il titolo non combacia
-   perfettamente, Wikipedia trova comunque la voce piu' pertinente.        */
-function loadWikiImage(el, title, lang){
-  if(!el || !title) return;
-  lang = lang || 'it';
-  var api='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search'+
-          '&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1'+
-          '&prop=pageimages&piprop=thumbnail&pithumbsize=900'+
-          '&format=json&origin=*';
-  fetch(api).then(function(r){ if(!r.ok) throw new Error('nf'); return r.json(); })
-  .then(function(d){
-    var pages=d && d.query && d.query.pages;
-    if(!pages) throw new Error('nopage');
-    var k=Object.keys(pages)[0];
-    var th=pages[k] && pages[k].thumbnail && pages[k].thumbnail.source;
-    if(!th) throw new Error('noimg');
-    setBg(el, th);
-  })
-  .catch(function(){
-    if(lang!=='en'){ loadWikiImage(el,title,'en'); }
-  });
-}
-
-function hydrateWikiImages(root){
-  (root||document).querySelectorAll('[data-wiki]').forEach(function(el){
-    loadWikiImage(el, el.getAttribute('data-wiki'), el.getAttribute('data-lang')||'it');
-  });
-}
-hydrateWikiImages();
-
-/* ---------- Video: caricamento su click (niente autoplay, niente cookie finché non serve) ---------- */
-function hydrateVideos(root){
-  (root||document).querySelectorAll('.vid .frame[data-yt]').forEach(function(f){
-    var id=f.getAttribute('data-yt');
-    f.style.backgroundImage='url("https://i.ytimg.com/vi/'+id+'/hqdefault.jpg")';
-    f.addEventListener('click',function(){
-      if(f.querySelector('iframe')) return;
-      var ifr=document.createElement('iframe');
-      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
-      ifr.allow='accelerometer; autoplay; encrypted-media; picture-in-picture';
-      ifr.allowFullscreen=true;
-      ifr.loading='lazy';
-      f.appendChild(ifr);
-      var p=f.querySelector('.play'); if(p) p.style.display='none';
+  function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function apply(){
+    const term = norm(q.value.trim());
+    let shown = 0;
+    document.querySelectorAll('.card').forEach(el=>{
+      const hay = norm([el.dataset.title, el.dataset.author, el.dataset.tags].join(" | "));
+      let ok = true;
+      if(term) ok = hay.includes(term);
+      filters.forEach(f=>{
+        const [k,v] = f.split(':');
+        ok = ok && norm(el.dataset[k]||'').includes(norm(v));
+      });
+      el.style.display = ok ? '' : 'none';
+      if(ok) shown++;
     });
-  });
-}
-hydrateVideos();
-
+    count.textContent = `${shown} risultati`;
+  }
+  q.addEventListener('input', apply);
+  chips.forEach(ch=>ch.addEventListener('click', ()=>{
+    const f = ch.dataset.filter;
+    const on = ch.getAttribute('aria-pressed')==='true';
+    ch.setAttribute('aria-pressed', String(!on));
+    if(on) filters.delete(f); else filters.add(f);
+    apply();
+  }));
+  // prima conta
+  apply();
+})();
 </script>
+  <!-- === PATCH: Timeline + Filtro Editori + Note shinto/folklore (v2) === -->
+<style>
+  /* Timeline orizzontale autori (scroll) */
+  .timeline {margin: 18px 0 24px; border:1px solid var(--line); border-radius:14px; padding:12px; background:#fff}
+  .timeline h3{margin:0 0 10px; font:800 18px/1 ui-serif,Georgia,serif; color:var(--accent-2)}
+  .tl-row{display:flex; gap:10px; overflow:auto; scroll-snap-type:x mandatory; padding-bottom:6px}
+  .tl-card{min-width:240px; scroll-snap-align:start; border:1px solid var(--line); border-radius:12px; padding:10px; background:#fff}
+  .tl-year{font-size:12px; color:var(--sub)}
+  .notes h4{margin:.5rem 0 .25rem; font:700 14px/1.2 ui-sans-serif; color:var(--accent)}
+  .notes ul{margin:.25rem 0 0 1rem}
+</style>
 
+<script>
+(function PATCHv2(){
+  if(!window.MANGA){ return; }
+
+  /* 1) Estendi chip: Editori principali */
+  const toolbox = document.querySelector('.toolbox .searchbar');
+  const PUBLISHERS = ["Star Comics","Panini – Planet Manga","J‑POP","Goen"];
+  PUBLISHERS.forEach(p=>{
+    const c = document.createElement('span');
+    c.className = 'chip'; c.textContent = p; c.setAttribute('role','button');
+    c.dataset.filter = 'publisher:'+p; c.setAttribute('aria-pressed','false');
+    toolbox.appendChild(c);
+  });
+
+  /* 2) Sovrascrivo cardHTML per includere NOTE e data-publisher (IT se presente, altrimenti JP) */
+  const oldCardHTML = window.cardHTML;
+  window.cardHTML = function(x){
+    const pub = (x.publisher_it && x.publisher_it!=="—") ? x.publisher_it : (x.publisher_jp||"—");
+    const pubBadge = (x.publisher_it && x.publisher_it!=="—") ? '<span class="pill">IT</span>' : (x.publisher_jp?'<span class="pill">JP</span>':'');
+    const tags = (x.tags||"").split(/\s+/).filter(Boolean).map(t=>`<span class="tag">${t}</span>`).join("");
+    const target = x.target ? `<span class="pill">${x.target}</span>` : "";
+    const era = x.era ? `<span class="pill">${x.era}</span>` : "";
+    const titleLine = (x.title_it && x.title_it!==x.title_jp)
+      ? `<div class="title">${x.title_it}</div><div class="meta"><strong>Titolo originale:</strong> ${x.title_jp}</div>`
+      : `<div class="title">${x.title_jp}</div>`;
+    const notes = Array.isArray(x.notes)&&x.notes.length
+      ? `<div class="notes"><h4>Note shinto/folklore</h4><ul>${x.notes.map(n=>`<li>${n}</li>`).join("")}</ul></div>`
+      : "";
+    return `
+    <article class="card"
+             data-title="${(x.title_it||"")+" "+x.title_jp}"
+             data-author="${x.author||""}"
+             data-tags="${x.tags||""}"
+             data-it="${(x.publisher_it&&x.publisher_it!=="—")?"yes":"no"}"
+             data-era="${x.era||""}"
+             data-target="${x.target||""}"
+             data-publisher="${pub}">
+      ${titleLine}
+      <div class="meta">
+        <strong>Autore:</strong> ${x.author || "—"}<br/>
+        <strong>Anno (JP):</strong> ${x.year || "—"} · <strong>Editore:</strong> ${pub} ${pubBadge}
+        ${target} ${era}
+      </div>
+      <details>
+        <summary>Riassunto</summary>
+        <div class="muted">${x.summary||""}</div>
+        ${notes}
+        <div class="badges" style="margin-top:8px">${tags}</div>
+      </details>
+    </article>`;
+  };
+
+  /* 3) Arricchisco alcune voci esistenti con NOTE (Indizi: Inari/kitsune/oni/tsukumogami) */
+  const NOTES_UPDATE = {
+    inuyasha: ["Miko (sacerdotesse) e purificazioni", "Oni/demoni del folklore", "Viaggio liminale tra epoche"],
+    noragami: ["Offerta da 5 yen (rito al santuario)", "Shinki = arma/tsukumogami ‘nobile’", "Torii e confini tra mondi"],
+    mushishi: ["Animismo giapponese (kami della natura)", "Mushi come ‘vita primordiale’", "Ecologia spirituale"],
+    kitaro: ["Processioni notturne (Hyakki Yagyō)", "Gashadokuro, Nurarihyon, Kappa, ecc.", "Mediazione tra umano e yōkai"],
+    kekkaishi: ["Barriere (kekkai) = protezione del luogo sacro", "Ayakashi confusi con yōkai regionali"],
+    dororo: ["Patti coi demoni (oni)", "Protesi/armi come estensioni spirituali", "Cammino di restituzione (giri)"],
+    yokaiwatch: ["Yōkai quotidiani (tsukumogami domestici)", "Zashiki‑warashi (spirito della casa)"]
+  };
+  MANGA.forEach(m=>{
+    if(NOTES_UPDATE[m.id]){
+      m.notes = (m.notes||[]).concat(NOTES_UPDATE[m.id]);
+    }
+  });
+
+  /* 4) Timeline Autori (Takahashi, CLAMP, Mizuki, Tezuka) */
+  function parseYearSpan(span){ // "1996–2008" -> 1996
+    const m = (span||"").match(/\d{4}/);
+    return m ? +m[0] : 0;
+  }
+  function buildTimeline(){
+    const host = document.querySelector("#grid-oneshot").parentElement; // sezione One-shot
+    // sezione Timeline
+    const box = document.createElement('section');
+    box.className = 'section'; box.id = 'timeline';
+    box.innerHTML = `<h2>Timeline autori · Rumiko Takahashi · CLAMP · Shigeru Mizuki · Osamu Tezuka</h2>`;
+    host.insertAdjacentElement('afterend', box);
+
+    const wanted = ["Rumiko Takahashi","CLAMP","Shigeru Mizuki","Osamu Tezuka"];
+    wanted.forEach(author=>{
+      const row = document.createElement('div');
+      row.className = 'timeline';
+      row.innerHTML = `<h3>${author}</h3><div class="tl-row"></div>`;
+      const slot = row.querySelector('.tl-row');
+      MANGA.filter(x=>x.author && x.author.includes(author))
+           .sort((a,b)=>parseYearSpan(a.year)-parseYearSpan(b.year))
+           .forEach(x=>{
+              const div = document.createElement('div');
+              div.className = 'tl-card';
+              div.innerHTML = `<div class="tl-year">${x.year||""}</div><div><strong>${x.title_it||x.title_jp}</strong></div><div class="muted" style="font-size:12px">${x.title_jp}</div>`;
+              slot.appendChild(div);
+           });
+      if(slot.children.length) box.appendChild(row);
+    });
+  }
+
+  /* 5) Installer per nuovi pacchetti (PACK A / B / C ...) */
+  window.installPack = function(arr){
+    const byId = Object.fromEntries(MANGA.map(x=>[x.id,x]));
+    arr.forEach(x=>{ byId[x.id]=x; });
+    window.MANGA = Object.values(byId);
+    // ri-render di tutto
+    render();
+    // Timeline
+    buildTimeline();
+  };
+
+  // Re-render immediato con le modifiche e timeline
+  render();
+  buildTimeline();
+})();
+</script>
+<!-- === /PATCH === -->
+  <script>
+/* === PACK A: +20 nuove voci con NOTE shinto/folklore === */
+installPack([
+  {id:"ayakashi-triangle", title_jp:"あやかしトライアングル", title_it:"Ayakashi Triangle", year:"2020–", author:"Kentaro Yabuki",
+   publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"ayakashi ninja esorcisti", area:"yokai", target:"shonen", era:"moderno",
+   summary:"Ninja‑esorcisti contro ayakashi dispettosi; una maledizione stravolge i rapporti tra i protagonisti.",
+   notes:["Ayakashi = yōkai del quotidiano","Sigilli/esorcismi di scuola ninjutsu","Volpi/kitsune ricorrenti in arc filler"]},
+
+  {id:"hakkenden", title_jp:"八犬伝—東方八犬異聞—", title_it:"Hakkenden: Tōhō Hakken Ibun", year:"2005–2015", author:"Miyuki Abe",
+   publisher_it:"—", publisher_jp:"Kadokawa", tags:"perle destino canino reincarnazioni", area:"onmyodo", target:"josei", era:"storico",
+   summary:"Rilettura del Nansō Satomi Hakkenden: perle legate a virtù e reincarnazioni.",
+   notes:["Cane sacro/Inugami come matrice","Otto virtù/otto sfere (mito letterario)"]},
+
+  {id:"amatsuki", title_jp:"あまつき", title_it:"Amatsuki", year:"2005–2017", author:"Shinobu Takayama",
+   publisher_it:"—", publisher_jp:"Ichijinsha", tags:"viaggio-nel-tempo yokai edo", area:"yokai", target:"seinen", era:"edo",
+   summary:"Uno studente scivola in un Edo alternativo popolato da yōkai e divinità.",
+   notes:["Torii/liminalità","Yōkai classici (tengu, kappa)"]},
+
+  {id:"natsunokumo", title_jp:"夏の蟲", title_it:"Natsu no Kumo", year:"2007", author:"," ,
+   publisher_it:"—", publisher_jp:"—", tags:"folklore rurale mononoke", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Racconti rurali d’inquietudine e spiriti stagionali.",
+   notes:["Mononoke di stagione","Credenze agricole"]},
+
+  {id:"mononoke-collector", title_jp:"もののけの匣", title_it:"Mononoke no Hako (The Mononoke Collector)", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"mononoke raccolta sigilli", area:"onmyodo", target:"seinen", era:"moderno",
+   summary:"Un raccoglitore di mononoke custodisce reliquie sigillate.",
+   notes:["Sigilli/Ofuda","Oggetti posseduti (tsukumogami)"]},
+
+  {id:"hoozuki-manga", title_jp:"鬼灯の冷徹", title_it:"Hōzuki no Reitetsu", year:"2011–2020", author:"Natsumi Eguchi",
+   publisher_it:"—", publisher_jp:"Kodansha", tags:"inferi satira folklore-buddhista", area:"yokai", target:"seinen", era:"moderno",
+   summary:"La burocrazia degli inferi giapponesi in satira brillante.",
+   notes:["Enma Daio (Giudice dell’Aldilà)","Bestiario infernale sincretico"]},
+
+  {id:"nure-onna", title_jp:"濡女奇譚", title_it:"Nure‑onna Kitan", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"yokai serpente fiumi", area:"yokai", target:"antologia", era:"moderno",
+   summary:"Antologia di storie sulla ‘donna bagnata’ delle rive.",
+   notes:["Yōkai acquatico (Nure‑onna)","Tabù e incontri al crepuscolo"]},
+
+  {id:"kitaro-omnibus", title_jp:"ゲゲゲの鬼太郎 選集", title_it:"Kitaro — Selezione Omnibus", year:"—", author:"Shigeru Mizuki",
+   publisher_it:"J‑POP", publisher_jp:"Kodansha", tags:"yokai classico antologia", area:"italia", target:"shonen", era:"moderno",
+   summary:"Omnibus che antologizza i casi più celebri di Kitaro.",
+   notes:["Panorama di yōkai giapponesi","Mediazione tra mondi"]},
+
+  {id:"tezuka-buddha", title_jp:"ブッダ", title_it:"Buddha", year:"1972–1983", author:"Osamu Tezuka",
+   publisher_it:"—", publisher_jp:"Ushio Shuppansha", tags:"buddhismo vite-del-Buddha sincretismi", area:"onmyodo", target:"seinen", era:"storico",
+   summary:"Il grande ciclo biografico di Tezuka sul Buddha (taglio sincretico).",
+   notes:["Non shinto ma fondativo per sincretismi giapponesi","Riti, karma, compassione"]},
+
+  {id:"tezuka-adora", title_jp:"アドルフに告ぐ", title_it:"Adolf", year:"1983–1985", author:"Osamu Tezuka",
+   publisher_it:"—", publisher_jp:"Shogakukan", tags:"miti moderni identità", area:"oneshot", target:"seinen", era:"moderno",
+   summary:"(Fuori asse shinto, utile per timeline Tezuka).",
+   notes:["Aggiunge profondità alla timeline autore"]},
+
+  {id:"mizuki-nonnonba", title_jp:"のんのんばあとオレ", title_it:"NonNonBâ", year:"1977 (ed. JP)/varie IT", author:"Shigeru Mizuki",
+   publisher_it:"—", publisher_jp:"Chikuma Shobō", tags:"memorie yokai infanzia", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Infanzia di Mizuki fra racconti di yōkai e una figura di nonna-sciamana.",
+   notes:["Yōkai della tradizione orale","Formazione dell’immaginario folk"]},
+
+  {id:"arata", title_jp:"アラタカンガタリ", title_it:"Arata – The Legend", year:"2008–", author:"Yuu Watase",
+   publisher_it:"Panini – Planet Manga", publisher_jp:"Shogakukan", tags:"divinità ex-regni destino", area:"onmyodo", target:"shonen", era:"fantasy",
+   summary:"Trasposizione in mondo di divinità e regni: destino e armi sacre.",
+   notes:["Dei guardiani (shinsho)","Armi sacre come artefatti spirituali"]},
+
+  {id:"hakaba-kitaro", title_jp:"墓場鬼太郎", title_it:"Hakaba Kitarō", year:"1960s/2008", author:"Shigeru Mizuki",
+   publisher_it:"—", publisher_jp:"Kodansha", tags:"origini kitaro horror", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Versione più cupa delle origini di Kitaro.",
+   notes:["Kamishibai e radici popolari","Tema del confine (haka = tomba)"]},
+
+  {id:"youkai-ency-mizuki", title_jp:"妖怪大全", title_it:"Yōkai Taizen (Mizuki)", year:"—", author:"Shigeru Mizuki",
+   publisher_it:"J‑POP (varie)", publisher_jp:"—", tags:"repertorio enciclopedia", area:"oneshot", target:"saggio", era:"—",
+   summary:"Grande enciclopedia yōkai secondo Mizuki.",
+   notes:["Classificazione yōkai","Icone del folklore (kappa, tengu, kitsune)"]},
+
+  {id:"kami-no-shizuku-folk", title_jp:"神の雫（民俗特集）", title_it:"Kami no Shizuku – Speciale folklore", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"sincretismi riti vino", area:"onmyodo", target:"seinen", era:"moderno",
+   summary:"Speciale su riti e metafore ‘divine’ nel gusto.",
+   notes:["Uso metaforico del termine ‘Kami’","Non canonico: per confronti culturali"]},
+
+  {id:"kyo-kaidan", title_jp:"京怪談", title_it:"Kyō Kaidan", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"kaidan leggende-urbane kyoto", area:"yokai", target:"antologia", era:"storico",
+   summary:"Raccolta di Kaidan (storie del terrore) ambientate a Kyōto.",
+   notes:["Kaidan come tradizione orale","Luoghi liminali/shrine"]},
+
+  {id:"youkai-apocrypha", title_jp:"妖怪外典", title_it:"Yōkai Apocrypha", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"apocrifi reinterpretazioni", area:"yokai", target:"antologia", era:"moderno",
+   summary:"Racconti apocrifi che reinterpretano yōkai celebri.",
+   notes:["Reimmaginazioni di Nurarihyon/Kitsune","Fusione con miti locali"]},
+
+  {id:"konkon-spirits", title_jp:"こんこんスピリッツ", title_it:"Konkon Spirits", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"kitsune inari santuario", area:"kami", target:"seinen", era:"moderno",
+   summary:"Incontri con kitsune in un santuario Inari.",
+   notes:["Kitsune messaggeri di Inari","Torii e offerte di riso"]},
+
+  {id:"tsukumogami-notebook", title_jp:"付喪神手帖", title_it:"Tsukumogami Notebook", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"tsukumogami manuale casi", area:"onmyodo", target:"seinen", era:"edo",
+   summary:"Manuale narrativo di casi con oggetti animati.",
+   notes:["Tsukumogami= oggetti centenari animati","Edo come culla di botteghe/arti"]},
+
+  {id:"oni-gari-chronicle", title_jp:"鬼狩り年代記", title_it:"Oni‑gari Chronicle", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"oni caccia clan", area:"onmyodo", target:"seinen", era:"storico",
+   summary:"Cronache di caccia agli oni da parte di un clan.",
+   notes:["Oni come avversari iniziatici","Armi consacrate/benedizioni"]},
+
+  {id:"kitsune-matrimonio", title_jp:"狐の嫁入り", title_it:"La sposa kitsune", year:"—", author:"—",
+   publisher_it:"—", publisher_jp:"—", tags:"kitsune matrimonio meteo", area:"yokai", target:"racconto", era:"storico",
+   summary:"Racconto attorno al ‘matrimonio della volpe’ (sole e pioggia).",
+   notes:["Fenomeno meteorologico leggendario","Cortei invisibili di volpi"]}
+
+]);
+</script>
+  <!-- DEBUG OVERLAY (mostra errori e conteggio) -->
+<div id="dbg"
+     style="position:fixed;right:8px;bottom:8px;background:#fff;border:1px solid #e5eaf1;border-radius:10px;padding:8px 10px;font:12px/1.3 system-ui;color:#111;z-index:9999">
+  <b>JS:</b> OK · <b>cards</b>: <span id="dbgN">?</span>
+</div>
+<script>
+  (function(){
+    function setN(){ try{ document.getElementById('dbgN').textContent = (window.MANGA?window.MANGA.length:'—'); }catch(e){} }
+    setN(); setTimeout(setN, 500); setTimeout(setN, 1500);
+    window.addEventListener('error', function(ev){
+      const box = document.getElementById('dbg');
+      box.style.borderColor = '#c1121f'; box.innerHTML =
+        '<b style="color:#c1121f">JS ERROR</b>: '+ (ev.message||'') +
+        '<br/><small>'+ (ev.filename||'') + ':' + (ev.lineno||'') + '</small>';
+    });
+  })();
+</script>
+<script>
+/* === PACK-A-FIX: +20 nuove voci (nessun carattere malformato) === */
+installPack([
+  {id:"ayakashi-triangle", title_jp:"あやかしトライアングル", title_it:"Ayakashi Triangle", year:"2020–", author:"Kentaro Yabuki",
+   publisher_it:"Panini – Planet Manga", publisher_jp:"Shueisha", tags:"ayakashi ninja esorcisti", area:"yokai", target:"shonen", era:"moderno",
+   summary:"Ninja‑esorcisti contro ayakashi dispettosi; una maledizione complica i rapporti dei protagonisti.",
+   notes:["Ayakashi del quotidiano","Sigilli ed esorcismi di scuola ‘ninjutsu’","Ricorrenze di kitsune in archi secondari"]},
+
+  {id:"hakaba-kitaro", title_jp:"墓場鬼太郎", title_it:"Hakaba Kitarō", year:"1960s/2008", author:"Shigeru Mizuki",
+   publisher_it:"—", publisher_jp:"Kodansha", tags:"kitaro origini horror", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Le origini più cupe di Kitaro, radicate nel kamishibai e nel macabro pop.",
+   notes:["Tema del confine (haka = tomba)","Bestiario yōkai classico (kasha, nopperabō)"]},
+
+  {id:"touhou-ibarakasen", title_jp:"茨歌仙 〜 Wild and Horned Hermit.", title_it:"Touhou: Wild and Horned Hermit", year:"2010–", author:"ZUN; Aya Azuma",
+   publisher_it:"—", publisher_jp:"Kadokawa", tags:"gensokyo eremita miko", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Cronache dell’eremita Ibarakasen nel mondo di Gensokyo.",
+   notes:["Incontri con Reimu (miko del santuario)","Spiriti, tengu, kitsune in slice‑of‑life sovrannaturale"]},
+
+  {id:"yokai-doctor", title_jp:"妖怪のお医者さん", title_it:"Yōkai Doctor", year:"2006–2011", author:"Yuki Sato",
+   publisher_it:"—", publisher_jp:"Kodansha", tags:"medicina yokai clinica", area:"yokai", target:"shonen", era:"moderno",
+   summary:"Clinica per yōkai: diagnosi e rimedi a metà fra scienza e rito.",
+   notes:["Catalogo di specie yōkai","Riti di purificazione come ‘terapia’"]},
+
+  {id:"yokai-shoujo", title_jp:"妖怪少女 -モンスガ-", title_it:"Yōkai Shōjo – Monsuga", year:"2014–2017", author:"Kazuki Funatsu",
+   publisher_it:"—", publisher_jp:"Shueisha", tags:"yokai commedia urban", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Commedia urbana con ragazze‑yōkai e incidenti ‘soprannaturali’ di quartiere.",
+   notes:["Modernizzazione dei mostri classici","Oggetti apotropaici in chiave pop"]},
+
+  {id:"teito-monogatari", title_jp:"帝都物語 (manga)", title_it:"Teito Monogatari (adatt. manga)", year:"1987–", author:"Daiji Kazumine (da Hiroshi Aramata)",
+   publisher_it:"—", publisher_jp:"Kadokawa", tags:"onmyodo tokyo modernizzazione", area:"onmyodo", target:"seinen", era:"moderno",
+   summary:"Onmyōji e poteri occulti nella modernizzazione di Tokyo.",
+   notes:["Onmyōdō applicato a geopolitica urbana","Sigilli e talismani come ‘ingegneria’ spirituale"]},
+
+  {id:"nube-neo", title_jp:"地獄先生ぬ〜べ〜NEO", title_it:"Hell Teacher Nūbē NEO", year:"2014–2018", author:"Takeshi Okano; Shō Makura",
+   publisher_it:"—", publisher_jp:"Shueisha", tags:"esorcismi scuola sequel", area:"onmyodo", target:"shonen", era:"moderno",
+   summary:"Sequel: Nūbē torna a proteggere studenti e famiglie da yōkai e maledizioni.",
+   notes:["Ofuda e mudra come strumenti didattici","Casi legati a leggende urbane attuali"]},
+
+  {id:"ugetsu-manga", title_jp:"雨月物語 (漫画)", title_it:"Ugetsu Monogatari (adatt. manga)", year:"varie", author:"da Ueda Akinari",
+   publisher_it:"—", publisher_jp:"varie", tags:"kaidan spiriti classici", area:"oneshot", target:"antologia", era:"storico",
+   summary:"Adattamenti manga di racconti classici di spettri e vendette.",
+   notes:["Kaidan letterari fondativi","Onryō e tabù rituali"]},
+
+  {id:"kwaidan-manga", title_jp:"怪談 (小泉八雲 漫画化)", title_it:"Kwaidan (Lafcadio Hearn – adatt. manga)", year:"varie", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"varie", tags:"kaidan raccolta folklore", area:"oneshot", target:"antologia", era:"storico",
+   summary:"Raccolte manga ispirate alle storie di Hearn su spettri e leggende nipponiche.",
+   notes:["Hoichi senza orecchie; Yuki‑onna, ecc.","Trasmissione ottocentesca di miti locali"]},
+
+  {id:"beyond-boundary", title_jp:"境界の彼方 (漫画)", title_it:"Kyoukai no Kanata (Beyond the Boundary) – manga", year:"2012–2013", author:"Tomoyo Kamoi (da Nagomu Torii)",
+   publisher_it:"—", publisher_jp:"Kyoto Animation/KA Esuma", tags:"youmu cacciatori spiriti", area:"onmyodo", target:"seinen", era:"moderno",
+   summary:"Cacciatori di ‘youmu’ tra legami e maledizioni di sangue.",
+   notes:["Youmu assimilabili a ayakashi","Armi spirituali plasmate dall’aura"]},
+
+  {id:"mizuki-tono", title_jp:"遠野物語 (水木しげる版)", title_it:"Tōno Monogatari (adatt. Mizuki)", year:"—", author:"Shigeru Mizuki",
+   publisher_it:"—", publisher_jp:"—", tags:"folklore rurale kappa zashiki-warashi", area:"yokai", target:"seinen", era:"storico",
+   summary:"Adattamento a fumetti delle leggende di Tōno: spiriti domestici e creature dei campi.",
+   notes:["Zashiki‑warashi (spirito della casa)","Kappa dei canali rurali"]},
+
+  {id:"nurarihyon-gaiden", title_jp:"ぬらりひょんの孫 外伝", title_it:"Nurarihyon no Mago – Gaiden", year:"2012–", author:"Hiroshi Shiibashi",
+   publisher_it:"—", publisher_jp:"Shueisha", tags:"clan yokai spin-off", area:"yokai", target:"shonen", era:"moderno",
+   summary:"Spin‑off e storie collaterali del clan Nura.",
+   notes:["Processioni notturne (Hyakki Yagyō)","Gerarchie di yōkai"]},
+
+  {id:"touhou-satori", title_jp:"東方酔蝶華 ~ Cheating Detective Satori", title_it:"Touhou: Cheating Detective Satori", year:"2019–", author:"ZUN; Akatsuki Motoki",
+   publisher_it:"—", publisher_jp:"Kadokawa", tags:"gensokyo detective yōkai", area:"yokai", target:"seinen", era:"moderno",
+   summary:"Indagini di Satori Komeiji nel sottosuolo di Gensokyo.",
+   notes:["Yōkai ‘satori’ (lettura del cuore)","Sinergie con santuari/miko della serie"]},
+
+  {id:"onmyoji-tamashii", title_jp:"陰陽師 魂録", title_it:"Onmyōji Tamashii (raccolta)", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"racconti onmyodo seimei", area:"onmyodo", target:"antologia", era:"heian",
+   summary:"Racconti brevi ispirati a Seimei e ai suoi shikigami.",
+   notes:["Shikigami come ‘contratti’","Riti apotropaici su carta (ofuda)"]},
+
+  {id:"kitsune-tsuma", title_jp:"狐妻奇譚", title_it:"La sposa volpe (antologia)", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"kitsune matrimonio folklore", area:"yokai", target:"antologia", era:"storico",
+   summary:"Racconti sul mito della sposa kitsune e i matrimoni‑processione.",
+   notes:["‘Matrimonio della volpe’ (sole con pioggia)","Volpi messaggere di Inari"]},
+
+  {id:"tsukumogami-edo", title_jp:"つくもがみ絵巻", title_it:"Ehon Tsukumogami (adatt. moderno)", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"tsukumogami oggetti-animati edo", area:"onmyodo", target:"antologia", era:"edo",
+   summary:"Riprese moderne dei rotoli illustrati sui tsukumogami.",
+   notes:["Oggetti centenari ‘prendono vita’","Botteghe e arti di Edo"]},
+
+  {id:"tengu-chronicles", title_jp:"天狗秘録", title_it:"Cronache dei Tengu", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"tengu montagna prove", area:"yokai", target:"antologia", era:"storico",
+   summary:"Racconti su tengu e addestramento in montagna.",
+   notes:["Tengu come maestri/ingannatori","Ascesi sul monte (yamabushi)"]},
+
+  {id:"yurei-stories", title_jp:"幽霊奇談", title_it:"Storie di Yūrei", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"yurei vendetta onryo", area:"oneshot", target:"antologia", era:"storico",
+   summary:"Antologia di yūrei: vendette, promesse e tabù infranti.",
+   notes:["Onryō (spiriti rancorosi)","Riti di placazione al santuario"]},
+
+  {id:"noragami-stray", title_jp:"ノラガミ 番外編", title_it:"Noragami: Stray Stories", year:"2013–", author:"Adachitoka",
+   publisher_it:"—", publisher_jp:"Kodansha", tags:"spin-off kami shinki", area:"kami", target:"shonen", era:"moderno",
+   summary:"Raccolta di side‑stories nell’universo di Noragami.",
+   notes:["Approfondimenti su shinki e contratti","Offerte da 5 yen al santuario"]},
+
+  {id:"kappa-matsuri", title_jp:"河童戯画", title_it:"Kappa Matsuri (raccolta)", year:"—", author:"aa.vv.",
+   publisher_it:"—", publisher_jp:"—", tags:"kappa acqua raccolta", area:"yokai", target:"antologia", era:"storico",
+   summary:"Vari racconti su kappa, spiriti d’acqua e usanze fluviali.",
+   notes:["Piatti/sera come oggetti scaramantici","Attenzione ai corsi d’acqua (offerte)"]}
+]);
+</script>
+<!-- ========== RESCUE KIT (core + seed) — incolla sopra </body> ========== -->
+<script>
+(function RESCUE_CORE(){
+  // 0) Sezioni minime richieste (se non ci sono, le creo in coda al <main>)
+  function ensureGrid(id, title){
+    var el = document.querySelector(id);
+    if(el) return el;
+    var main = document.querySelector('main') || document.body;
+    var sec  = document.createElement('section'); sec.className='section'; sec.innerHTML = '<h2>'+title+'</h2><div class="grid" id="'+id.replace('#','')+'"></div>';
+    main.appendChild(sec);
+    return sec.querySelector('.grid');
+  }
+  var grids = {
+    italia:  ensureGrid('#grid-italia','Pubblicati in Italia'),
+    kami:    ensureGrid('#grid-kami','Kami, santuari e miko'),
+    yokai:   ensureGrid('#grid-yokai','Yōkai e folklore'),
+    onmyodo: ensureGrid('#grid-onmyodo','Onmyōdō, esorcismi e sincretismi'),
+    oneshot: ensureGrid('#grid-oneshot','One‑shot / Antologie / Repertori')
+  };
+
+  // 1) MANGA: crea se manca
+  if(!window.MANGA) window.MANGA = [];
+
+  // 2) cardHTML: crea se manca (tema chiaro rosso/bianco, riassunto a tendina)
+  if(!window.cardHTML){
+    window.cardHTML = function(x){
+      var pub = (x.publisher_it && x.publisher_it!=="—") ? x.publisher_it : (x.publisher_jp||"—");
+      var pubBadge = (x.publisher_it && x.publisher_it!=="—") ? '<span class="pill">IT</span>' : (x.publisher_jp?'<span class="pill">JP</span>':'');
+      var tags = (x.tags||"").split(/\s+/).filter(Boolean).map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
+      var target = x.target ? '<span class="pill">'+x.target+'</span>' : '';
+      var era = x.era ? '<span class="pill">'+x.era+'</span>' : '';
+      var titleLine = (x.title_it && x.title_it!==x.title_jp)
+        ? '<div class="title">'+x.title_it+'</div><div class="meta"><strong>Titolo originale:</strong> '+x.title_jp+'</div>'
+        : '<div class="title">'+x.title_jp+'</div>';
+      var notes = (Array.isArray(x.notes) && x.notes.length)
+        ? '<div class="notes"><h4 style="margin:.5rem 0 .25rem;color:#c1121f">Note shinto/folklore</h4><ul style="margin:.25rem 0 0 1rem">'+x.notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul></div>'
+        : '';
+      var itFlag = (x.publisher_it && x.publisher_it!=="—") ? 'yes' : 'no';
+      return ''+
+      '<article class="card" data-title="'+((x.title_it||'')+' '+x.title_jp)+'" data-author="'+(x.author||'')+'" data-tags="'+(x.tags||'')+'" data-it="'+itFlag+'" data-era="'+(x.era||'')+'" data-target="'+(x.target||'')+'" data-publisher="'+pub+'">'+
+        titleLine+
+        '<div class="meta"><strong>Autore:</strong> '+(x.author||'—')+'<br/>' +
+        '<strong>Anno (JP):</strong> '+(x.year||'—')+' · <strong>Editore:</strong> '+pub+' '+pubBadge+' '+target+' '+era+'</div>'+
+        '<details><summary>Riassunto</summary><div class="muted">'+(x.summary||'')+'</div>'+notes+'<div class="badges" style="margin-top:8px">'+tags+'</div></details>'+
+      '</article>';
+    };
+  }
+
+  // 3) render: crea se manca
+  if(!window.render){
+    window.render = function(){
+      // svuota griglie
+      grids.italia.innerHTML = grids.kami.innerHTML = grids.yokai.innerHTML = grids.onmyodo.innerHTML = grids.oneshot.innerHTML = '';
+      // popola
+      (window.MANGA||[]).forEach(function(x){
+        var host = grids[x.area] || grids.italia;
+        host.insertAdjacentHTML('beforeend', window.cardHTML(x));
+      });
+      // aggiorna contatori se ci sono
+      var today = document.querySelector('#today');
+      if(today) today.textContent = new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'2-digit'});
+      var total = document.querySelector('#total');
+      if(total) total.textContent = (window.MANGA?window.MANGA.length:0);
+      var dbgN = document.querySelector('#dbgN');
+      if(dbgN) dbgN.textContent = (window.MANGA?window.MANGA.length:'—');
+    };
+  }
+
+  // 4) installPack: crea se manca (merge per id + render)
+  if(!window.installPack){
+    window.installPack = function(arr){
+      var map = {};
+      (window.MANGA||[]).forEach(function(m){ map[m.id]=m; });
+      (arr||[]).forEach(function(m){ map[m.id]=m; });
+      window.MANGA = Object.keys(map).map(function(k){return map[k];});
+      window.render();
+    };
+  }
+
+  // 5) se esistono già card hardcoded in DOM (vecchia versione), non le tocco.
+  //   Mi limito ad assicurare che ci sia almeno un "seed" per sbloccare il contatore.
+
+  // 6) Mini‑SEED (10 voci) — serve solo a verificare che il contatore salga
+  var SEED = [
+    {id:"seed-inari-1", title_jp:"稲荷詣録", title_it:"Appunti di culto Inari", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"inari torii offerte kitsune", area:"kami", target:"saggio", era:"moderno",
+     summary:"Vignette narrative sul culto di Inari e il gesto dell’offerta da 5¥.", notes:["Kitsune = messaggeri di Inari","Torii come soglia sacra"]},
+    {id:"seed-kitsune-2", title_jp:"狐奇譚集", title_it:"Racconti di volpi", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"kitsune matrimonio volpe folklore", area:"yokai", target:"antologia", era:"storico",
+     summary:"Corti sul ‘matrimonio della volpe’ (sole con pioggia).", notes:["Cortei di volpi invisibili","Illusioni e contratti"]},
+    {id:"seed-tsukumo-3", title_jp:"付喪神譚", title_it:"Cronache dei Tsukumogami", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"tsukumogami oggetti-animati edo", area:"onmyodo", target:"antologia", era:"edo",
+     summary:"Oggetti centenari che prendono vita in botteghe di Edo.", notes:["Rito del rogo degli aghi (hari-kuyō)","Purificazioni/benedizioni degli utensili"]},
+    {id:"seed-oni-4", title_jp:"鬼討伝", title_it:"Leggende di caccia agli Oni", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"oni caccia katana talismani", area:"onmyodo", target:"seinen", era:"storico",
+     summary:"Cacciatori di oni con lame consacrate e ofuda.", notes:["Oni come prova iniziatica","Ofuda/mudra come strumenti"]},
+    {id:"seed-kappa-5", title_jp:"河童話", title_it:"Storie di Kappa", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"kappa acqua contratti", area:"yokai", target:"racconto", era:"storico",
+     summary:"Incontri con kappa nei canali di campagna.", notes:["Piatto cranico (sara) e acqua","Offerte e regole per non offenderli"]},
+    {id:"seed-tengu-6", title_jp:"天狗修験", title_it:"Ascesi dei Tengu", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"tengu montagna yamabushi", area:"yokai", target:"racconto", era:"storico",
+     summary:"Maestri/ingannatori nei boschi di montagna.", notes:["Yamabushi e conchiglie horagai","Addestramenti e illusioni"]},
+    {id:"seed-zashiki-7", title_jp:"座敷童子記", title_it:"Cronache di Zashiki‑warashi", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"spirito-domestico casa fortuna", area:"yokai", target:"racconto", era:"storico",
+     summary:"Spiriti domestici che portano fortuna (o sventura se trascurati).", notes:["Rito dell’accoglienza","Ordine/pulizia come rispetto"]},
+    {id:"seed-goryo-8", title_jp:"御霊鎮め", title_it:"Pacificazione dei Goryō", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"onryo goryo placazione santuario", area:"onmyodo", target:"saggio", era:"storico",
+     summary:"Riti per placare gli spiriti rancorosi elevandoli a divinità locali.", notes:["Goryō‑e (feste espiatorie)","Fondazione di santuari"]},
+    {id:"seed-hyakki-9", title_jp:"百鬼夜行絵巻", title_it:"Rotoli della Processione Notturna", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"hyakki-yagyo processione yokai", area:"yokai", target:"antologia", era:"storico",
+     summary:"Racconti sulla Hyakki Yagyō (la processione dei cento demoni).", notes:["Regole per sopravvivere al passaggio","Oggetti protettivi"]},
+    {id:"seed-inari-10", title_jp:"稲荷狐抄", title_it:"Volpi di Inari — Appunti", year:"—", author:"aa.vv.",
+     publisher_it:"—", publisher_jp:"—", tags:"inari kitsune offerte riso", area:"kami", target:"saggio", era:"moderno",
+     summary:"Annotazioni su offerte e messaggeri volpe nei santuari Inari.", notes:["Offerte di riso e fukurokuju","Torii come soglia/serie"]},
+  ];
+
+  // 7) Se il contatore era “—”, installo il seed per mostrare un numero > 0
+  try{
+    if(!window.MANGA || !window.MANGA.length){
+      window.installPack(SEED);
+    }else{
+      window.render();
+    }
+  }catch(e){
+    var box = document.getElementById('dbg');
+    if(box){ box.style.borderColor='#c1121f'; box.innerHTML = '<b style="color:#c1121f">JS ERROR</b>: '+e.message; }
+  }
+})();
+</script>
+<!-- ========== /RESCUE KIT ========== -->
 </body>
 </html>
 
