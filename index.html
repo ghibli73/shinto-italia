@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shinto Italia — Un sentiero verso i kami</title>
+<meta name="description" content="Un portale in italiano su miti, riti e santuari dello Shinto: storia, leggende, kami e templi del Giappone, gratuito e open source.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛩️%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -71,6 +73,52 @@ h1,h2,h3{
 }
 
 section{position:relative; z-index:1;}
+
+/* ---------- Progress rail ---------- */
+.rail{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--torii),var(--gold));
+  z-index:100;
+  transition:width .1s linear;
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(243,233,210,.88);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--paper-line);
+  padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
+}
+nav .brand{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:16px;
+  color:var(--torii-deep);
+  text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.nav-links{
+  display:flex; align-items:center; gap:2px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+nav .nav-links a{
+  color:var(--sumi-soft);
+  text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  letter-spacing:.04em;
+  padding:8px 12px;
+  border-radius:20px;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08); }
+@media (max-width:640px){
+  nav{ padding:12px 16px; justify-content:center; text-align:center; }
+  .nav-links{ justify-content:center; }
+}
 
 /* ============ HERO ============ */
 .hero{
@@ -191,6 +239,19 @@ section{position:relative; z-index:1;}
   padding:100px 20px 70px;
   max-width:1040px;
   margin:0 auto;
+  position:relative;
+}
+.sentieri::before{
+  content:"道";
+  position:absolute;
+  top:-30px; left:50%; transform:translateX(-50%);
+  font-family:'Shippori Mincho B1', serif;
+  font-size:280px;
+  color:var(--sumi);
+  opacity:.035;
+  line-height:1;
+  pointer-events:none;
+  z-index:-1;
 }
 .sec-head{
   text-align:center;
@@ -223,9 +284,16 @@ section{position:relative; z-index:1;}
   position:relative;
   overflow:hidden;
   opacity:0; transform:translateY(18px);
-  transition:opacity .7s var(--ease), transform .7s var(--ease);
+  transition:opacity .7s var(--ease), transform .7s var(--ease), background .35s var(--ease);
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
 }
 .path-card.in{ opacity:1; transform:translateY(0); }
+.path-card:hover{ background:rgba(200,64,42,.045); }
+.path-card:hover .path-num{ color:var(--torii); }
+.path-card:hover .path-arrow{ opacity:1; transform:translateX(0); }
 .path-card::before{
   content:attr(data-mon);
   position:absolute;
@@ -235,12 +303,15 @@ section{position:relative; z-index:1;}
   color:var(--sumi);
   opacity:.06;
   line-height:1;
+  transition:opacity .35s var(--ease), transform .35s var(--ease);
 }
+.path-card:hover::before{ opacity:.1; transform:scale(1.08); }
 .path-num{
   font-family:'JetBrains Mono', monospace;
   font-size:11px;
   color:var(--torii-deep);
   letter-spacing:.1em;
+  transition:color .3s var(--ease);
 }
 .path-card h3{
   font-size:20px;
@@ -252,6 +323,16 @@ section{position:relative; z-index:1;}
   font-size:13.5px;
   line-height:1.65;
   color:var(--sumi-soft);
+}
+.path-arrow{
+  display:inline-block;
+  margin-top:16px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  color:var(--torii);
+  opacity:0;
+  transform:translateX(-6px);
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
 }
 @media (max-width:760px){
   .path-grid{ grid-template-columns:repeat(2,1fr); }
@@ -432,6 +513,10 @@ section{position:relative; z-index:1;}
 @media (max-width:620px){
   .shrine-list{ grid-template-columns:1fr; }
 }
+.shrine{ text-decoration:none; display:block; }
+.shrine:hover{ border-color:var(--torii); transform:translateY(-2px); box-shadow:var(--shadow); }
+.templi .cta-row{ margin-top:44px; justify-content:center; }
+.omikuji .cta-row{ margin-top:30px; justify-content:center; }
 
 /* ============ TECH / GITHUB ============ */
 .tech{
@@ -496,6 +581,19 @@ footer a{ color:var(--sakura); text-decoration:none; }
 </head>
 <body>
 
+<div class="rail" id="rail"></div>
+<nav>
+  <a class="brand" href="index.html">⛩ Shinto Italia</a>
+  <div class="nav-links">
+    <a href="storia.html">Storia</a>
+    <a href="leggende.html">Leggende</a>
+    <a href="templi.html">Templi</a>
+    <a href="kami.html">Kami</a>
+    <a href="rituali.html">Rituali</a>
+    <a href="manga.html">Manga</a>
+  </div>
+</nav>
+
 <section class="hero">
   <canvas id="petals"></canvas>
   <div class="hero-inner">
@@ -509,11 +607,11 @@ footer a{ color:var(--sakura); text-decoration:none; }
     </svg>
     <h1><span>Shinto Italia</span>Un portale sui kami,<br>aperto a tutti</h1>
     <p class="lede">
-      App per esplorare miti, riti e santuari dello Shinto: storia, leggende, kami, templi con mappa e un pizzico di cultura pop giapponese. In italiano, gratuita, open source.
+      Un sito per esplorare miti, riti e santuari dello Shinto: storia, leggende, kami e templi, con un pizzico di cultura pop giapponese. In italiano, gratuito, open source.
     </p>
     <div class="cta-row">
-      <a href="#" class="btn btn-primary">Vedi il repository →</a>
-      <a href="#sentieri" class="btn btn-ghost">Esplora l'app</a>
+      <a href="#sentieri" class="btn btn-primary">Inizia il percorso →</a>
+      <a href="https://github.com/ghibli73/shinto-italia" class="btn btn-ghost" target="_blank" rel="noopener">Vedi il repository</a>
     </div>
   </div>
   <div class="scroll-cue"><span>SCORRI</span><span class="line"></span></div>
@@ -527,45 +625,51 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <p>Ogni sezione è un piccolo passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono.</p>
   </div>
   <div class="path-grid">
-    <div class="path-card" data-mon="史">
+    <a class="path-card" data-mon="史" href="storia.html">
       <span class="path-num">01 · STORIA</span>
       <h3>Storia</h3>
-      <p>Origini, periodi e concetti chiave dello Shinto su una mappa e timeline interattive del Giappone.</p>
-    </div>
-    <div class="path-card" data-mon="話">
+      <p>Origini, periodi e concetti chiave dello Shinto su una timeline del Giappone, dal Jōmon alla Reiwa.</p>
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card" data-mon="話" href="leggende.html">
       <span class="path-num">02 · LEGGENDE</span>
       <h3>Leggende</h3>
       <p>Riferimenti, archetipi e curiosità dai miti fondativi: dal Kojiki alle storie tramandate di santuario in santuario.</p>
-    </div>
-    <div class="path-card" data-mon="社">
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card" data-mon="社" href="templi.html">
       <span class="path-num">03 · TEMPLI</span>
       <h3>Templi</h3>
-      <p>20 santuari con mappa interattiva, indicazioni a piedi o in auto e la divinità custodita in ciascuno.</p>
-    </div>
-    <div class="path-card" data-mon="神">
+      <p>20 santuari con indicazioni utili e la divinità custodita in ciascuno.</p>
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card" data-mon="神" href="kami.html">
       <span class="path-num">04 · KAMI</span>
       <h3>Kami</h3>
       <p>Enciclopedia con filtri e profili: da Amaterasu e Susanoo a Izanagi e Izanami, con un kami del giorno a sorpresa.</p>
-    </div>
-    <div class="path-card" data-mon="祭">
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card" data-mon="祭" href="rituali.html">
       <span class="path-num">05 · RITUALI</span>
       <h3>Rituali</h3>
       <p>Harae, misogi, omikuji, ema, matsuri: i gesti quotidiani e le feste che scandiscono la vita di un santuario.</p>
-    </div>
-    <div class="path-card" data-mon="漫">
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card" data-mon="漫" href="manga.html">
       <span class="path-num">06 · MANGA</span>
       <h3>Shinto nei manga</h3>
       <p>Dove ritrovare kami, torii e rituali nella cultura pop giapponese che già conosci.</p>
-    </div>
+      <span class="path-arrow">Scopri di più →</span>
+    </a>
   </div>
 </section>
 
 <!-- ============ OMIKUJI ============ -->
 <section class="omikuji">
   <div class="omikuji-inner">
-    <span class="eyebrow">Prova l'app in miniatura</span>
+    <span class="eyebrow">Prova l'omikuji</span>
     <h2>Estrai il tuo kami del giorno</h2>
-    <p class="desc">Nell'app puoi scoprire un profilo a sorpresa tra dieci kami selezionati. Qui una piccola anteprima: tocca il fudo e scopri chi ti accompagna oggi.</p>
+    <p class="desc">Nella sezione Kami trovi il profilo completo di ogni divinità. Qui una piccola anteprima: tocca il fudo e scopri chi ti accompagna oggi.</p>
     <div class="slip-zone">
       <div class="slip" id="slip">
         <span class="tie"></span>
@@ -578,6 +682,9 @@ footer a{ color:var(--sakura); text-decoration:none; }
         <div class="domain" id="krDomain">—</div>
         <p id="krText">—</p>
       </div>
+    </div>
+    <div class="cta-row">
+      <a href="kami.html" class="btn btn-ghost" style="border-color:var(--gold-soft); color:var(--washi);">Scopri tutti i kami →</a>
     </div>
   </div>
 </section>
@@ -595,26 +702,29 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <span class="stat-chip"><b>100%</b> in italiano</span>
   </div>
   <div class="shrine-list">
-    <div class="shrine">
+    <a class="shrine" href="templi.html">
       <div class="sh-name">Ise Jingū</div>
       <div class="sh-deity">Amaterasu-Ōmikami (Naikū) · Toyouke-Ōmikami (Gekū)</div>
       <div class="sh-note">Il santuario più sacro dello Shinto, dedicato alla dea del sole.</div>
-    </div>
-    <div class="shrine">
+    </a>
+    <a class="shrine" href="templi.html">
       <div class="sh-name">Izumo Taisha</div>
       <div class="sh-deity">Ōkuninushi no Ōkami</div>
       <div class="sh-note">Uno dei santuari più antichi, legato ai miti del Kojiki e all'en-musubi (i legami).</div>
-    </div>
-    <div class="shrine">
+    </a>
+    <a class="shrine" href="templi.html">
       <div class="sh-name">Atsuta Jingū</div>
       <div class="sh-deity">Atsuta-no-Ōkami (Amaterasu tramite Kusanagi)</div>
       <div class="sh-note">Custodisce simbolicamente una delle tre insegne imperiali.</div>
-    </div>
-    <div class="shrine">
+    </a>
+    <a class="shrine" href="templi.html">
       <div class="sh-name">Fushimi Inari Taisha</div>
       <div class="sh-deity">Inari Ōkami (Ukanomitama-no-Ōkami)</div>
       <div class="sh-note">Migliaia di torii vermiglio in fila lungo il sentiero di montagna.</div>
-    </div>
+    </a>
+  </div>
+  <div class="cta-row">
+    <a href="templi.html" class="btn btn-ghost">Vedi tutti i templi →</a>
   </div>
 </section>
 
@@ -623,25 +733,36 @@ footer a{ color:var(--sakura); text-decoration:none; }
   <div class="tech-inner">
     <span class="eyebrow">Open source</span>
     <h2>Il codice del santuario</h2>
-    <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene sorgenti, contenuti e le pagine offline usate nell'app.</p>
+    <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene il codice sorgente di ogni pagina del sito.</p>
     <div class="stack-row">
-      <span class="stack-chip">WebView ibrido</span>
       <span class="stack-chip">HTML · CSS · JS</span>
-      <span class="stack-chip">Contenuti offline</span>
-      <span class="stack-chip">Android · APK</span>
+      <span class="stack-chip">6 sentieri tematici</span>
+      <span class="stack-chip">100% gratuito</span>
     </div>
     <div class="cta-row">
-      <a href="#" class="btn btn-primary">Apri su GitHub →</a>
-      <a href="#" class="btn btn-ghost">Scarica l'APK</a>
+      <a href="https://github.com/ghibli73/shinto-italia" class="btn btn-primary" target="_blank" rel="noopener">Apri su GitHub →</a>
+      <a href="https://github.com/ghibli73/shinto-italia/issues" class="btn btn-ghost" target="_blank" rel="noopener">Segnala un problema</a>
     </div>
   </div>
 </section>
 
 <footer>
-  Shinto Italia · progetto personale · fatto con cura in Italia — <a href="#">github.com</a>
+  Shinto Italia · progetto personale · fatto con cura in Italia — <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
 </footer>
 
 <script>
+/* ---------- Progress rail ---------- */
+(function(){
+  const rail = document.getElementById('rail');
+  function onScroll(){
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    rail.style.width = (isFinite(scrolled) ? scrolled : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll);
+  onScroll();
+})();
+
 /* ---------- Petali di sakura sul hero ---------- */
 (function(){
   const canvas = document.getElementById('petals');
