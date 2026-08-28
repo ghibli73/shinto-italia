@@ -1,1 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storia — Shinto Italia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#f3e9d2;
+  --washi-2:#ece0c3;
+  --sumi:#201a14;
+  --sumi-soft:#332a20;
+  --torii:#c8402a;
+  --torii-deep:#9c2e1d;
+  --gold:#bb9138;
+  --gold-soft:#d9bd7e;
+  --sakura:#f0b9c4;
+  --paper-line: rgba(32,26,20,.14);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:'Zen Maru Gothic', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+h1,h2,h3{ font-family:'Shippori Mincho B1', serif; line-height:1.15; font-weight:700; }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--torii-deep);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:14px; height:1px; background:var(--torii-deep); display:inline-block; }
+
+/* ---------- Progress rail ---------- */
+.rail{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--torii),var(--gold));
+  z-index:100;
+  transition:width .1s linear;
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(243,233,210,.88);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--paper-line);
+  padding:16px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+nav a{
+  color:var(--sumi);
+  text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12.5px;
+  letter-spacing:.05em;
+  display:inline-flex; align-items:center; gap:8px;
+}
+nav a:hover{ color:var(--torii-deep); }
+nav .brand{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:16px;
+  color:var(--torii-deep);
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:90px 24px 70px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(180deg,#f6ecd6 0%, #efe0bd 100%);
+}
+.hero::before{
+  content:"史";
+  position:absolute;
+  top:-40px; left:50%; transform:translateX(-50%);
+  font-family:'Shippori Mincho B1', serif;
+  font-size:340px;
+  color:var(--sumi);
+  opacity:.045;
+  line-height:1;
+  pointer-events:none;
+}
+.hero-inner{ position:relative; z-index:1; max-width:620px; margin:0 auto; }
+.hero h1{
+  font-size:clamp(36px,9vw,58px);
+  margin-top:14px;
+}
+.hero p{
+  margin-top:18px;
+  font-size:16px;
+  line-height:1.75;
+  color:var(--sumi-soft);
+}
+.hero-stats{
+  margin-top:34px;
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+}
+.hero-stats span{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  border:1px solid var(--paper-line);
+  padding:8px 16px;
+  border-radius:20px;
+  color:var(--sumi-soft);
+  background:#fff8ea;
+}
+.hero-stats b{ color:var(--torii-deep); }
+
+/* ---------- Era filter ---------- */
+.filters{
+  position:sticky; top:57px; z-index:40;
+  background:var(--washi);
+  border-bottom:1px solid var(--paper-line);
+  padding:16px 24px;
+  display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+}
+.chip{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11.5px; letter-spacing:.04em;
+  padding:8px 15px;
+  border-radius:20px;
+  border:1px solid var(--paper-line);
+  background:#fff8ea;
+  color:var(--sumi-soft);
+  cursor:pointer;
+  transition:all .3s var(--ease);
+  white-space:nowrap;
+}
+.chip:hover{ border-color:var(--torii); color:var(--torii-deep); }
+.chip.active{
+  background:var(--torii);
+  border-color:var(--torii);
+  color:#fff8ee;
+}
+
+/* ---------- Timeline ---------- */
+.timeline-wrap{
+  max-width:760px;
+  margin:0 auto;
+  padding:70px 24px 120px;
+  position:relative;
+}
+.spine{
+  position:absolute;
+  left:50%; top:0; bottom:0;
+  width:2px;
+  background:linear-gradient(var(--paper-line),var(--paper-line));
+  transform:translateX(-50%);
+}
+@media (max-width:680px){
+  .spine{ left:22px; }
+}
+
+.era-label{
+  position:relative;
+  text-align:center;
+  margin:60px 0 34px;
+}
+.era-label:first-child{ margin-top:0; }
+.era-label span{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.12em; text-transform:uppercase;
+  background:var(--sumi);
+  color:var(--gold-soft);
+  padding:8px 20px;
+  border-radius:20px;
+  position:relative; z-index:2;
+}
+@media (max-width:680px){
+  .era-label{ text-align:left; padding-left:0; }
+}
+
+.event{
+  position:relative;
+  width:calc(50% - 40px);
+  padding:22px 24px;
+  background:#fff8ea;
+  border:1px solid var(--paper-line);
+  border-radius:6px;
+  margin-bottom:26px;
+  opacity:0; transform:translateY(20px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.event.in{ opacity:1; transform:translateY(0); }
+.event:nth-child(odd){ margin-left:0; }
+.event:nth-child(even){ margin-left:calc(50% + 40px); }
+.event::before{
+  content:"";
+  position:absolute; top:26px;
+  width:12px; height:12px;
+  border-radius:50%;
+  background:var(--torii);
+  box-shadow:0 0 0 4px var(--washi), 0 0 0 5px var(--paper-line);
+}
+.event:nth-child(odd)::before{ right:-46px; }
+.event:nth-child(even)::before{ left:-46px; }
+
+@media (max-width:680px){
+  .event{ width:100%; margin-left:44px !important; }
+  .event::before{ left:-38px !important; right:auto !important; }
+}
+
+.event .ev-date{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  color:var(--torii-deep);
+  letter-spacing:.03em;
+}
+.event h3{
+  font-size:19px;
+  margin-top:8px;
+  color:var(--sumi);
+}
+.event .ev-area{
+  margin-top:6px;
+  font-size:12.5px;
+  color:var(--gold);
+  font-family:'JetBrains Mono', monospace;
+}
+.event p{
+  margin-top:10px;
+  font-size:14px;
+  line-height:1.65;
+  color:var(--sumi-soft);
+}
+
+/* ---------- Footer ---------- */
+footer{
+  padding:34px 20px;
+  text-align:center;
+  background:#171225;
+  color:#8b8299;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11.5px;
+  letter-spacing:.05em;
+}
+footer a{ color:var(--sakura); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<div class="rail" id="rail"></div>
+
+<nav>
+  <a href="index.html">← Torna alla home</a>
+  <span class="brand">史 Storia</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Sentiero 01 · Storia</span>
+    <h1>Dal Jōmon alla Reiwa</h1>
+    <p>Oltre 14.000 anni di storia giapponese in una timeline: dalle prime ceramiche cordate ai giorni nostri, passando per corti imperiali, shōgun e ricostruzione.</p>
+    <div class="hero-stats">
+      <span><b>19</b> tappe</span>
+      <span><b>5</b> grandi ere</span>
+      <span><b>14.000+</b> anni coperti</span>
+    </div>
+  </div>
+</section>
+
+<div class="filters" id="filters">
+  <span class="chip active" data-era="all">Tutte le ere</span>
+  <span class="chip" data-era="Preistoria">Preistoria</span>
+  <span class="chip" data-era="Antichità">Antichità</span>
+  <span class="chip" data-era="Medioevo">Medioevo</span>
+  <span class="chip" data-era="Età moderna">Età moderna</span>
+  <span class="chip" data-era="Età contemporanea">Età contemporanea</span>
+</div>
+
+<div class="timeline-wrap">
+  <div class="spine"></div>
+  <div id="timelineList"></div>
+</div>
+
+<footer>
+  Shinto Italia · progetto personale · fatto con cura in Italia — <a href="index.html">torna alla home</a>
+</footer>
+
+<script>
+const events = [
+  { era:'Preistoria', period:'Jōmon', date:'~14.000–300 a.C.', title:'Cultura Jōmon', area:'Tōhoku', summary:'Ceramiche cordate e villaggi semi-stabili.' },
+  { era:'Antichità', period:'Yayoi', date:'300 a.C.–300 d.C.', title:'Transizione Yayoi', area:'Kyūshū → Honshū', summary:'Riso in sommersione, metallurgia, stratificazione sociale.' },
+  { era:'Antichità', period:'Kofun', date:'250–538', title:'Tombe Kofun e primi Yamato', area:'Kansai', summary:'Tumuli monumentali, centralità Yamato.' },
+  { era:'Antichità', period:'Asuka', date:'538–710', title:'Riforme Taika e buddhismo', area:'Nara', summary:'Introduzione del buddhismo, riforme Taika (646).' },
+  { era:'Antichità', period:'Nara', date:'710–794', title:'Capitale a Heijō-kyō', area:'Nara', summary:'Codificazione ritsuryō; Grande Buddha.' },
+  { era:'Medioevo', period:'Heian', date:'794–1185', title:'Heian-kyō e cultura di corte', area:'Kyōto', summary:'Letteratura classica, potere Fujiwara.' },
+  { era:'Medioevo', period:'Kamakura', date:'1185–1333', title:'Bakufu di Kamakura', area:'Kanagawa', summary:'Minamoto; invasioni mongole respinte.' },
+  { era:'Medioevo', period:'Muromachi', date:'1336–1573', title:'Ashikaga e guerre Ōnin', area:'Kyōto', summary:'Cultura Higashiyama; avvio Sengoku.' },
+  { era:'Età moderna', period:'Azuchi–Momoyama', date:'1573–1603', title:'Unificazione (Oda–Toyotomi)', area:'Honshū centrale', summary:'Castelli monumentali, armi da fuoco.' },
+  { era:'Età moderna', period:'Edo', date:'1603–1868', title:'Pax Tokugawa e sakoku', area:'Edo/Tokyo', summary:'Controllo daimyō, isolamento regolato.' },
+  { era:'Età contemporanea', period:'Fine Edo', date:'1853–1854', title:'Perry e apertura dei porti', area:'Baia di Edo', summary:'Trattati ineguali; fine isolamento.' },
+  { era:'Età contemporanea', period:'Meiji', date:'1868–1912', title:'Restaurazione Meiji', area:'Tokyo', summary:'Modernizzazione, abolizione han, Costituzione 1889.' },
+  { era:'Età contemporanea', period:'Meiji', date:'1894–1895', title:'Guerra sino-giapponese', area:'Shimonoseki', summary:'Vittoria; influenza in Corea.' },
+  { era:'Età contemporanea', period:'Meiji', date:'1904–1905', title:'Guerra russo-giapponese', area:'Nord-Est', summary:'Affermazione come potenza.' },
+  { era:'Età contemporanea', period:'Shōwa', date:'1931–1945', title:'Espansione e WWII', area:'Asia orientale', summary:'Dalla Manciuria al Pacifico; resa 15/08/1945.' },
+  { era:'Età contemporanea', period:'Shōwa', date:'3 maggio 1947', title:'Costituzione del Giappone', area:'Tokyo', summary:'Art. 9 pacifista; monarchia simbolica.' },
+  { era:'Età contemporanea', period:'Shōwa', date:'1964', title:'Olimpiadi di Tokyo', area:'Tokyo', summary:'Shinkansen inaugurato.' },
+  { era:'Età contemporanea', period:'Heisei', date:'11 marzo 2011', title:'Terremoto del Tōhoku', area:'Tōhoku', summary:'M9.0, tsunami, crisi di Fukushima.' },
+  { era:'Età contemporanea', period:'Reiwa', date:'dal 1º maggio 2019', title:'Inizio era Reiwa', area:'Nazionale', summary:'Ascesa di Naruhito; continuità costituzionale.' }
+];
+
+const list = document.getElementById('timelineList');
+
+function render(filter){
+  list.innerHTML = '';
+  let lastEra = null;
+  events.forEach(ev=>{
+    if(filter !== 'all' && ev.era !== filter) return;
+    if(ev.era !== lastEra){
+      const label = document.createElement('div');
+      label.className = 'era-label';
+      label.innerHTML = `<span>${ev.era}</span>`;
+      list.appendChild(label);
+      lastEra = ev.era;
+    }
+    const card = document.createElement('div');
+    card.className = 'event';
+    card.innerHTML = `
+      <div class="ev-date">${ev.date}</div>
+      <h3>${ev.title}</h3>
+      <div class="ev-area">${ev.period} · ${ev.area}</div>
+      <p>${ev.summary}</p>
+    `;
+    list.appendChild(card);
+  });
+  observeEvents();
+}
+
+function observeEvents(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.event').forEach(el=>io.observe(el));
+}
+
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    render(chip.dataset.era);
+  });
+});
+
+render('all');
+
+/* progress rail */
+const rail = document.getElementById('rail');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  rail.style.width = scrolled + '%';
+});
+</script>
+
+</body>
+</html>
 
