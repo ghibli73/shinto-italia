@@ -1,1 +1,842 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rituali — Shinto Italia</title>
+<meta name="description" content="Purificazione, offerte, norito, matsuri e riti di passaggio dello Shinto, con calendario delle feste, foto e video.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%A9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#f3e9d2;
+  --washi-2:#ece0c3;
+  --paper:#fff8ea;
+  --sumi:#201a14;
+  --sumi-soft:#4a3f31;
+  --torii:#c8402a;
+  --torii-deep:#9c2e1d;
+  --gold:#bb9138;
+  --gold-soft:#d9bd7e;
+  --matcha:#5c6e4a;
+  --night:#171225;
+  --night-2:#241b34;
+  --sakura:#f0b9c4;
+  --paper-line: rgba(32,26,20,.14);
+  --shadow: 0 18px 40px rgba(32,20,10,.14);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:'Zen Maru Gothic', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+h1,h2,h3,h4{ font-family:'Shippori Mincho B1', serif; line-height:1.18; font-weight:700; }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--torii-deep);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:14px; height:1px; background:var(--torii-deep); display:inline-block; }
+
+/* ---------- Progress rail ---------- */
+.rail{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--torii),var(--gold));
+  z-index:100; transition:width .1s linear;
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(243,233,210,.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--paper-line);
+  padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap;
+}
+nav .brand{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:16px; color:var(--torii-deep); text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+}
+.nav-links{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; justify-content:flex-end; }
+.nav-links a{
+  color:var(--sumi-soft); text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.03em;
+  padding:7px 11px; border-radius:20px;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.09); }
+.nav-links a.active{ color:var(--torii-deep); background:rgba(200,64,42,.12); }
+@media (max-width:680px){
+  nav{ padding:10px 14px; justify-content:center; }
+  .nav-links{ justify-content:center; }
+  .nav-links a{ font-size:11px; padding:6px 9px; }
+}
+
+/* ---------- Page hero ---------- */
+.phero{
+  padding:76px 22px 58px; text-align:center; position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#f6ecd6 0%, #efe0bd 100%);
+  border-bottom:1px solid var(--paper-line);
+}
+.phero::before{
+  content:attr(data-mon);
+  position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  font-family:'Shippori Mincho B1', serif; font-size:330px;
+  color:var(--sumi); opacity:.045; line-height:1; pointer-events:none;
+}
+.phero-inner{ position:relative; z-index:1; max-width:660px; margin:0 auto; }
+.phero h1{ font-size:clamp(34px,8vw,56px); margin-top:14px; }
+.phero p{ margin-top:16px; color:var(--sumi-soft); line-height:1.75; font-size:15.5px; }
+.hero-stats{ margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-stats span{
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  border:1px solid var(--paper-line); background:var(--paper);
+  padding:8px 15px; border-radius:20px; color:var(--sumi-soft);
+}
+.hero-stats b{ color:var(--torii-deep); }
+
+/* ---------- Layout ---------- */
+.wrap{ max-width:1060px; margin:0 auto; padding:64px 22px; }
+.wrap-narrow{ max-width:820px; margin:0 auto; padding:64px 22px; }
+.sec-head{ max-width:600px; margin:0 auto 42px; text-align:center; }
+.sec-head h2{ font-size:clamp(25px,5.5vw,36px); margin-top:12px; }
+.sec-head p{ margin-top:13px; color:var(--sumi-soft); line-height:1.7; font-size:14.5px; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.03em;
+  padding:13px 24px; border-radius:3px; border:1px solid transparent;
+  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s var(--ease);
+}
+.btn-primary{ background:var(--torii); color:#fff8ee; box-shadow:0 10px 24px rgba(156,46,29,.3); }
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px rgba(156,46,29,.38); }
+.btn-ghost{ border-color:var(--sumi); color:var(--sumi); }
+.btn-ghost:hover{ transform:translateY(-3px); background:rgba(32,26,20,.05); }
+.cta-row{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+
+/* ---------- Media: figure & video ---------- */
+.figure{
+  border-radius:8px; overflow:hidden; border:1px solid var(--paper-line);
+  background:linear-gradient(140deg,#efe0bd,#e3d0a6);
+  position:relative;
+}
+.figure .ph{
+  width:100%; aspect-ratio:16/10;
+  background-size:cover; background-position:center;
+  background-color:#e6d5ae;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .8s var(--ease);
+}
+.figure:hover .ph{ transform:scale(1.03); }
+.figure .ph::after{
+  content:attr(data-fallback);
+  font-family:'Shippori Mincho B1', serif; font-size:70px;
+  color:var(--torii); opacity:.22;
+}
+.figure .ph.has-img::after{ content:""; }
+.figure figcaption{
+  padding:11px 14px; font-size:12px; color:var(--sumi-soft);
+  background:var(--paper); border-top:1px solid var(--paper-line);
+  font-family:'JetBrains Mono', monospace; line-height:1.5;
+}
+
+/* video card (click-to-load, no autoplay) */
+.vid{
+  border:1px solid var(--paper-line); border-radius:8px; overflow:hidden;
+  background:var(--paper); box-shadow:var(--shadow);
+}
+.vid .frame{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:#1c1a17 center/cover no-repeat; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.vid .frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.vid .play{
+  width:64px; height:64px; border-radius:50%;
+  background:rgba(200,64,42,.92); position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 26px rgba(0,0,0,.45);
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.vid .frame:hover .play{ transform:scale(1.1); background:var(--torii-deep); }
+.vid .play::after{
+  content:""; border-style:solid; border-width:11px 0 11px 18px;
+  border-color:transparent transparent transparent #fff8ee; margin-left:4px;
+}
+.vid .vmeta{ padding:13px 15px; border-top:1px solid var(--paper-line); }
+.vid .vmeta b{ font-family:'Shippori Mincho B1', serif; font-size:14.5px; display:block; }
+.vid .vmeta span{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--sumi-soft); display:block; margin-top:5px; line-height:1.5;
+}
+.vid-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+
+/* ---------- Cards ---------- */
+.card{
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  overflow:hidden; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s var(--ease);
+  opacity:0; transform:translateY(16px);
+}
+.card.in{ opacity:1; transform:translateY(0); }
+.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.4); }
+.card .body{ padding:18px 20px 20px; }
+.card h3{ font-size:17.5px; }
+.card .sub{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--torii-deep); margin-top:6px; letter-spacing:.03em;
+}
+.card p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+.grid-3{ display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:20px; }
+.grid-2{ display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:22px; }
+
+/* ---------- Chips / tags ---------- */
+.chip{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  border:1px solid var(--paper-line); background:var(--washi-2);
+  padding:5px 11px; border-radius:20px; color:var(--sumi-soft);
+  display:inline-block; margin:4px 4px 0 0;
+}
+.chip.hot{ border-color:rgba(200,64,42,.35); color:var(--torii-deep); background:rgba(200,64,42,.07); }
+
+/* ---------- Controls (search / filter) ---------- */
+.controls{
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center;
+  margin-bottom:26px;
+}
+.controls input, .controls select{
+  font-family:'JetBrains Mono', monospace; font-size:13px;
+  padding:11px 15px; border-radius:24px;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi);
+  min-width:290px; max-width:100%; outline:none;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.controls input:focus, .controls select:focus{
+  border-color:var(--torii); box-shadow:0 0 0 3px rgba(200,64,42,.12);
+}
+.filter-row{ display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
+.fbtn{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  padding:7px 14px; border-radius:20px; cursor:pointer;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi-soft);
+  transition:all .28s var(--ease);
+}
+.fbtn:hover{ border-color:var(--torii); color:var(--torii-deep); }
+.fbtn.on{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
+.count{
+  text-align:center; font-family:'JetBrains Mono', monospace;
+  font-size:11.5px; color:var(--sumi-soft); margin-bottom:22px; letter-spacing:.05em;
+}
+
+/* ---------- Prose ---------- */
+.prose p{ font-size:15px; line-height:1.85; color:var(--sumi-soft); margin-top:15px; }
+.prose h3{ font-size:21px; margin-top:38px; color:var(--sumi); }
+.prose ul{ margin-top:15px; padding-left:20px; }
+.prose li{ font-size:14.5px; line-height:1.8; color:var(--sumi-soft); margin-top:8px; }
+.prose strong, .prose b{ color:var(--sumi); }
+.jp{ font-family:'Shippori Mincho B1', serif; color:var(--torii-deep); }
+.quote{
+  margin-top:26px; padding:20px 24px; border-left:3px solid var(--torii);
+  background:var(--paper); border-radius:0 6px 6px 0;
+  font-family:'Shippori Mincho B1', serif; font-size:16px; line-height:1.7; color:var(--sumi);
+}
+.quote span{
+  display:block; margin-top:9px; font-family:'JetBrains Mono', monospace;
+  font-size:11px; color:var(--torii-deep); letter-spacing:.05em;
+}
+
+/* ---------- Accordion ---------- */
+details.acc{
+  background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:8px; margin-top:13px; overflow:hidden;
+}
+details.acc summary{
+  cursor:pointer; padding:16px 20px; list-style:none;
+  font-family:'Shippori Mincho B1', serif; font-size:16.5px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  transition:background .3s var(--ease);
+}
+details.acc summary:hover{ background:rgba(200,64,42,.05); }
+details.acc summary::-webkit-details-marker{ display:none; }
+details.acc summary::after{
+  content:"+"; font-family:'JetBrains Mono', monospace; font-size:18px;
+  color:var(--torii); transition:transform .3s var(--ease); flex:none;
+}
+details.acc[open] summary::after{ transform:rotate(45deg); }
+details.acc .acc-body{ padding:0 20px 20px; border-top:1px solid var(--paper-line); }
+
+/* ---------- Timeline ---------- */
+.tl{ position:relative; margin-top:20px; padding-left:28px; }
+.tl::before{
+  content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(var(--torii),var(--gold),transparent);
+}
+.tl-item{
+  position:relative; padding:16px 20px; margin-bottom:16px;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  opacity:0; transform:translateX(-10px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
+}
+.tl-item.in{ opacity:1; transform:translateX(0); }
+.tl-item:hover{ box-shadow:var(--shadow); }
+.tl-item::before{
+  content:""; position:absolute; left:-28px; top:22px;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--torii); border:2px solid var(--washi);
+}
+.tl-date{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.05em; }
+.tl-item h3{ font-size:18px; margin-top:6px; }
+.tl-era{ font-size:12px; color:var(--matcha); margin-top:4px; font-family:'JetBrains Mono', monospace; }
+.tl-item p{ margin-top:9px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+
+/* ---------- Dark section ---------- */
+.dark{
+  background:linear-gradient(180deg,var(--night),var(--night-2));
+  color:var(--washi); padding:82px 22px; position:relative; overflow:hidden;
+}
+.dark::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 0%, rgba(217,189,126,.10), transparent 55%);
+}
+.dark-inner{ max-width:820px; margin:0 auto; position:relative; z-index:1; }
+.dark h2{ color:var(--washi); margin-top:12px; font-size:clamp(25px,5.5vw,34px); }
+.dark .eyebrow{ color:var(--gold-soft); }
+.dark .eyebrow::before{ background:var(--gold-soft); }
+.dark p{ color:#cfc4ac; line-height:1.8; font-size:14.5px; margin-top:14px; }
+.dark .btn-ghost{ border-color:var(--gold-soft); color:var(--washi); }
+.dark .btn-ghost:hover{ background:rgba(255,255,255,.07); }
+
+/* ---------- Footer ---------- */
+footer{
+  padding:32px 20px; text-align:center; background:var(--night); color:#8b8299;
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; line-height:1.9;
+}
+footer a{ color:var(--sakura); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+
+/* ---------- Prev/next ---------- */
+.pager{
+  display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;
+  max-width:1060px; margin:0 auto; padding:0 22px 64px;
+}
+.pager a{
+  flex:1 1 240px; text-decoration:none; color:var(--sumi);
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  padding:16px 20px; transition:all .35s var(--ease);
+}
+.pager a:hover{ border-color:var(--torii); transform:translateY(-3px); box-shadow:var(--shadow); }
+.pager small{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--torii-deep); letter-spacing:.1em; }
+.pager b{ display:block; font-family:'Shippori Mincho B1', serif; font-size:16px; margin-top:5px; }
+.pager .nx{ text-align:right; }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition-duration:.01ms !important; }
+}
+
+.rito-nav{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+.rito-nav a{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; text-decoration:none;
+  padding:8px 14px; border-radius:20px; border:1px solid var(--paper-line);
+  background:var(--paper); color:var(--sumi-soft); transition:all .3s var(--ease);
+}
+.rito-nav a:hover{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
+.rito{ padding:50px 0; border-top:1px solid var(--paper-line); scroll-margin-top:70px; }
+.rito:first-child{ border-top:none; padding-top:14px; }
+.rito-head{ display:flex; align-items:center; gap:18px; }
+.rito-mon{
+  font-family:'Shippori Mincho B1',serif; font-size:46px; color:var(--torii);
+  opacity:.9; line-height:1; flex:none;
+  width:76px; height:76px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--paper-line); border-radius:50%; background:var(--paper);
+}
+.rito-head h2{ font-size:clamp(24px,5vw,32px); margin-top:8px; }
+.rito-grid{ display:grid; grid-template-columns:1fr 330px; gap:36px; margin-top:28px; align-items:start; }
+@media (max-width:880px){ .rito-grid{ grid-template-columns:1fr; gap:26px; } }
+.gloss-wrap{ margin-top:16px; }
+.gloss{
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  padding:13px 16px; margin-top:10px;
+}
+.gloss b{
+  font-family:'Shippori Mincho B1',serif; font-size:14.5px; color:var(--torii-deep); display:block;
+}
+.gloss span{ display:block; margin-top:6px; font-size:12.5px; line-height:1.6; color:var(--sumi-soft); }
+
+/* Calendario */
+.cal-sec{ background:var(--washi-2); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
+.fest-list{ display:grid; gap:12px; }
+.fest{
+  display:grid; grid-template-columns:110px 1fr; gap:18px; align-items:start;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px; padding:16px 18px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .3s var(--ease);
+}
+.fest:hover{ transform:translateX(4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.35); }
+.f-when{ text-align:center; border-right:1px solid var(--paper-line); padding-right:14px; }
+.f-when b{ display:block; font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--torii-deep); }
+.f-when span{ display:block; margin-top:5px; font-family:'Shippori Mincho B1',serif;
+  font-size:17px; color:var(--sumi); }
+.f-body h4{ font-family:'Shippori Mincho B1',serif; font-size:17px; }
+.f-loc{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--matcha); margin-top:5px; }
+.f-body p{ margin-top:8px; font-size:13.5px; line-height:1.6; color:var(--sumi-soft); }
+@media (max-width:560px){
+  .fest{ grid-template-columns:1fr; gap:10px; }
+  .f-when{ display:flex; gap:10px; align-items:baseline; text-align:left;
+    border-right:none; border-bottom:1px solid var(--paper-line); padding:0 0 9px; }
+  .f-when span{ margin-top:0; font-size:15px; }
+}
+.empty{ text-align:center; color:var(--sumi-soft); font-family:'JetBrains Mono',monospace; font-size:13px; padding:34px 0; }
+
+/* Steps */
+.steps{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.step{ background:var(--paper); border:1px solid var(--paper-line); border-radius:8px; padding:20px; }
+.step span{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:30px; height:30px; border-radius:50%; background:var(--torii); color:#fff8ee;
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+}
+.step b{ display:block; font-family:'Shippori Mincho B1',serif; font-size:16.5px; margin-top:12px; }
+.step p{ margin-top:8px; font-size:13px; line-height:1.65; color:var(--sumi-soft); }
+
+</style>
+</head>
+<body>
+
+<div class="rail" id="rail"></div>
+<nav>
+  <a class="brand" href="index.html">⛩ Shinto Italia</a>
+  <div class="nav-links">
+    <a href="storia.html">Storia</a>
+    <a href="leggende.html">Leggende</a>
+    <a href="templi.html">Templi</a>
+    <a href="kami.html">Kami</a>
+    <a href="rituali.html" class="active">Rituali</a>
+    <a href="manga.html">Manga</a>
+  </div>
+</nav>
+
+<section class="phero" data-mon="祭">
+  <div class="phero-inner">
+    <span class="eyebrow">Sentiero 05 · Rituali</span>
+    <h1>I gesti che tengono aperto il canale</h1>
+    <p>Lo Shinto è una religione di pratiche più che di dottrine: non chiede di credere qualcosa, chiede di fare qualcosa. Purificarsi, offrire, pronunciare, festeggiare, accompagnare i passaggi della vita.</p>
+      <div class="hero-stats"><span><b>5</b> famiglie di riti</span><span><b>14</b> feste in calendario</span><span><b>927</b> anno dell'Engishiki</span></div>
+  </div>
+</section>
+
+<section class="wrap-narrow" style="padding-bottom:0;">
+  <div class="rito-nav">
+    <a href="#harae">祩 Purificazione</a>
+    <a href="#shinsen">食 Offerte</a>
+    <a href="#norito">祝 Preghiere</a>
+    <a href="#matsuri">祭 Feste</a>
+    <a href="#passaggi">生 Riti di vita</a>
+    <a href="#calendario">暦 Calendario</a>
+  </div>
+</section>
+
+<section class="wrap">
+<article class="rito reveal" id="harae">
+  <div class="rito-head">
+    <span class="rito-mon">祩</span>
+    <div>
+      <div class="eyebrow">Purificazione</div>
+      <h2>Misogi e Harae</h2>
+    </div>
+  </div>
+  <div class="rito-grid">
+    <div class="prose"><p>Lo Shinto non ha il concetto di peccato come colpa morale permanente. Ha invece <b>tsumi</b> (trasgressione) e <b>kegare</b> (impurità): condizioni che si accumulano — per contatto con la morte, la malattia, il sangue, o semplicemente col passare del tempo — e che <b>si possono lavare via</b>. Da qui l'enorme importanza dei riti di purificazione.</p><p><b>Misogi</b> è l'abluzione con l'acqua: nel mare, in un fiume, sotto una cascata gelata. Nasce dal mito: Izanagi, tornato da Yomi contaminato dalla morte, si immerge in un fiume in Kyūshū e dai suoi lavacri nascono Amaterasu, Tsukuyomi e Susanoo. La versione quotidiana e abbreviata è il <b>temizu</b> alla vasca all'ingresso di ogni santuario.</p><p><b>Harae</b> è l'insieme più ampio dei riti purificatori celebrati dal sacerdote: agitare l'<i>ōnusa</i> (l'asta con strisce di carta bianca) sopra le persone, gli oggetti, perfino le automobili nuove. Due volte l'anno, il 30 giugno e il 31 dicembre, si celebra il grande <b>Ōharae</b> che purifica l'intera comunità.</p></div>
+    <aside>
+      <figure class="figure reveal">
+  <div class="ph" data-wiki="Misogi" data-lang="it" data-fallback="祩"></div>
+  <figcaption>Abluzioni rituali sotto una cascata (misogi)</figcaption>
+</figure>
+      <div class="gloss-wrap"><div class="gloss"><b>Chinowa</b><span>L'anello di canne alto più di un uomo che si attraversa a fine giugno, tre volte, seguendo un otto: ogni passaggio lascia dietro una porzione di impurità.</span></div><div class="gloss"><b>Shide</b><span>Le strisce di carta bianca piegate a zigzag: segnano il confine del sacro e, agitate, lo purificano.</span></div><div class="gloss"><b>Temizu</b><span>Sinistra, destra, bocca con la sinistra, poi si inclina il mestolo per lavare il manico. Mai bere direttamente dal mestolo.</span></div></div>
+    </aside>
+  </div>
+</article>
+<article class="rito reveal" id="shinsen">
+  <div class="rito-head">
+    <span class="rito-mon">食</span>
+    <div>
+      <div class="eyebrow">Le offerte</div>
+      <h2>Shinsen</h2>
+    </div>
+  </div>
+  <div class="rito-grid">
+    <div class="prose"><p><b>Shinsen</b> è il cibo offerto ai kami: riso, <i>sake</i>, sale, acqua, alghe, verdure, frutta, pesce e, in certi santuari, carne. Non è un gesto simbolico ma un'ospitalità concreta: si offre al kami ciò che si mangerebbe.</p><p>La tradizione distingue tre modi: <b>seisen</b> (crudo, gli ingredienti nella loro forma naturale), <b>jukusen</b> (cotto e preparato) e <b>sosen</b> (interamente vegetale). La disposizione sui vassoi <i>sanbō</i> segue un ordine gerarchico preciso: il riso per primo, sempre al centro.</p><p>Il rito culmina nel <b>naorai</b>: dopo la cerimonia le offerte vengono ritirate e <b>condivise</b> dai partecipanti. Mangiare ciò che il kami ha gradito significa entrare in comunione con lui. È la ragione per cui il sake bevuto al santuario si chiama <i>omiki</i>, sake divino.</p></div>
+    <aside>
+      <figure class="figure reveal">
+  <div class="ph" data-wiki="Shinsen" data-lang="it" data-fallback="食"></div>
+  <figcaption>Offerte di cibo disposte davanti all'altare (shinsen)</figcaption>
+</figure>
+      <div class="gloss-wrap"><div class="gloss"><b>Omiki</b><span>Il sake offerto e poi bevuto: nei matrimoni shintoisti gli sposi ne bevono tre sorsi da tre coppe, il san-san-kudō.</span></div><div class="gloss"><b>Kagami-mochi</b><span>Le due focacce di riso sovrapposte con il mandarino in cima, offerte a Capodanno.</span></div><div class="gloss"><b>Ema</b><span>Tavolette di legno su cui si scrive una richiesta. Il nome significa 'cavallo dipinto': in origine si offrivano cavalli veri.</span></div></div>
+    </aside>
+  </div>
+</article>
+<article class="rito reveal" id="norito">
+  <div class="rito-head">
+    <span class="rito-mon">祝</span>
+    <div>
+      <div class="eyebrow">Le preghiere</div>
+      <h2>Norito</h2>
+    </div>
+  </div>
+  <div class="rito-grid">
+    <div class="prose"><p>I <b>norito</b> sono i testi liturgici recitati dal sacerdote. Non sono preghiere di richiesta personale ma <b>formule di parola efficace</b>: la lingua giapponese antica riteneva che le parole avessero un potere intrinseco, il <i>kotodama</i>, lo spirito della parola.</p><p>Per questo i norito si recitano in giapponese arcaico, con una cantillazione lenta e senza inflessioni emotive, e sono scritti in una grafia particolare che ne conserva la pronuncia antica. Il corpus classico è raccolto nell'<b>Engishiki</b> (927), che ne codifica ventisette.</p><p>Il più noto è l'<b>Ōharae no kotoba</b>, la grande formula di purificazione, che elenca le trasgressioni e le dichiara spazzate via — portate dal vento in mare, inghiottite dai gorghi, disperse nel mondo sotterraneo. È un testo che agisce descrivendo l'azione.</p></div>
+    <aside>
+      <figure class="figure reveal">
+  <div class="ph" data-wiki="Norito" data-lang="it" data-fallback="祝"></div>
+  <figcaption>Recitazione di formule liturgiche da parte di un sacerdote (kannushi)</figcaption>
+</figure>
+      <div class="gloss-wrap"><div class="gloss"><b>Kotodama</b><span>Lo 'spirito della parola': la convinzione che pronunciare correttamente produca l'effetto nominato.</span></div><div class="gloss"><b>Engishiki</b><span>Il codice del 927 che fissa procedure rituali e testi: la fonte principale sui riti antichi.</span></div><div class="gloss"><b>Yogoto</b><span>Formule augurali distinte dalle purificatorie: si recitano per intronizzazioni e inaugurazioni.</span></div></div>
+    </aside>
+  </div>
+</article>
+<article class="rito reveal" id="matsuri">
+  <div class="rito-head">
+    <span class="rito-mon">祭</span>
+    <div>
+      <div class="eyebrow">Le feste</div>
+      <h2>Matsuri</h2>
+    </div>
+  </div>
+  <div class="rito-grid">
+    <div class="prose"><p>Il <b>matsuri</b> è il momento in cui il kami esce. Lo spirito viene trasferito dall'honden a un <b>mikoshi</b>, un palanchino portatile, e portato in processione per le strade del quartiere: il santuario si sposta nel mondo, e il quartiere diventa per un giorno spazio sacro.</p><p>Il mikoshi viene <b>scosso e sballottato</b> di proposito, spesso violentemente, tra grida ritmiche. Non è mancanza di rispetto: agitare il kami ne aumenta l'energia, e quell'energia si riversa sulla comunità che lo porta.</p><p>Attorno alla processione si dispone tutto il resto: bancarelle di <i>takoyaki</i> e mele candite, giochi con i pesci rossi, danze <b>kagura</b>, musica di corte <b>gagaku</b>, tamburi <i>taiko</i>, fuochi d'artificio. La distinzione fra sacro e festa popolare, qui, semplicemente non esiste.</p><div style="margin-top:26px;"><div class="vid reveal">
+  <div class="frame" data-yt="MGjhrxCmdIo"><div class="play"></div></div>
+  <div class="vmeta"><b>Gion Matsuri — Kyoto</b><span>I carri yamaboko, tra i più grandi del Giappone, trainati per le vie di Kyoto in luglio.</span></div>
+</div></div></div>
+    <aside>
+      <figure class="figure reveal">
+  <div class="ph" data-wiki="Matsuri" data-lang="it" data-fallback="祭"></div>
+  <figcaption>Yukata e lanterne durante un matsuri estivo</figcaption>
+</figure>
+      <div class="gloss-wrap"><div class="gloss"><b>Mikoshi</b><span>Il palanchino portatile del kami: può pesare oltre una tonnellata e richiedere cinquanta portatori.</span></div><div class="gloss"><b>Kagura</b><span>Danza sacra. Il nome deriva da kamukura, 'seggio del kami': la danzatrice è il luogo dove il kami scende.</span></div><div class="gloss"><b>Dashi / Yamaboko</b><span>I carri monumentali del Gion Matsuri, alti fino a 25 metri e mossi senza chiodi.</span></div></div>
+    </aside>
+  </div>
+</article>
+<article class="rito reveal" id="passaggi">
+  <div class="rito-head">
+    <span class="rito-mon">生</span>
+    <div>
+      <div class="eyebrow">I passaggi</div>
+      <h2>Riti di vita</h2>
+    </div>
+  </div>
+  <div class="rito-grid">
+    <div class="prose"><p>Lo Shinto presidia gli inizi, il Buddhismo le fini: è il compromesso pratico che struttura la vita religiosa giapponese. Si nasce shintoisti, ci si sposa spesso in stile cristiano o shintoista, si muore buddhisti. Nessuno percepisce contraddizione.</p><p><b>Miyamairi</b>: circa un mese dopo la nascita il neonato viene portato al santuario del quartiere. Il sacerdote ne pronuncia il nome davanti al kami e chiede protezione: è la presentazione ufficiale del nuovo membro alla comunità divina del luogo.</p><p><b>Shichi-Go-San</b>: il 15 novembre bambini di tre e cinque anni (maschi) e di tre e sette (femmine) vengono condotti al santuario in kimono. Le età dispari sono considerate propizie; la festa conserva antiche usanze come il <i>kamioki</i>, il primo giorno in cui si smetteva di rasare i capelli ai bambini.</p><p><b>Shinzen kekkon</b>: le nozze davanti al kami, con i sacerdoti che officiano e il momento centrale del <b>san-san-kudō</b>, tre sorsi da tre coppe per ciascuno degli sposi. È una forma moderna, codificata in epoca Meiji e diffusasi dopo il matrimonio del futuro imperatore Taishō nel 1900.</p></div>
+    <aside>
+      <figure class="figure reveal">
+  <div class="ph" data-wiki="Shichi-Go-San" data-lang="it" data-fallback="生"></div>
+  <figcaption>Shichi-Go-San: bambini condotti al santuario in abito tradizionale</figcaption>
+</figure>
+      <div class="gloss-wrap"><div class="gloss"><b>Hatsumōde</b><span>La prima visita dell'anno, fra il 1° e il 3 gennaio: la pratica shintoista più diffusa in assoluto.</span></div><div class="gloss"><b>Omamori</b><span>Amuleti in sacchetto di stoffa, comprati per un anno e poi restituiti al santuario per essere bruciati.</span></div><div class="gloss"><b>Jich̄insai</b><span>La purificazione del terreno prima di costruire: ancora oggi celebrata su quasi ogni cantiere giapponese.</span></div></div>
+    </aside>
+  </div>
+</article>
+</section>
+
+<section class="cal-sec" id="calendario">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Calendario</span>
+      <h2>Quattordici feste da segnare</h2>
+      <p>Le date sono indicative: molte seguono il calendario lunare o vengono spostate al fine settimana più vicino.</p>
+    </div>
+    <div class="controls">
+      <input type="search" id="fq" placeholder="Cerca festa o città…" aria-label="Cerca festa">
+      <select id="fm" aria-label="Filtra per mese"><option value="all">Tutti i mesi</option><option value="Gennaio">Gennaio</option><option value="Febbraio">Febbraio</option><option value="Marzo">Marzo</option><option value="Aprile">Aprile</option><option value="Maggio">Maggio</option><option value="Giugno">Giugno</option><option value="Luglio">Luglio</option><option value="Agosto">Agosto</option><option value="Settembre">Settembre</option><option value="Ottobre">Ottobre</option><option value="Novembre">Novembre</option><option value="Dicembre">Dicembre</option></select>
+    </div>
+    <div class="count" id="fcount"></div>
+    <div class="fest-list" id="flist">
+    <div class="fest" data-mese="Gennaio" data-search="hatsumōde tutto il giappone gennaio la prima visita al santuario dell&#x27;anno: code enormi a meiji jingū e fushimi inari.">
+      <div class="f-when"><b>Gennaio</b><span>1–3</span></div>
+      <div class="f-body">
+        <h4>Hatsumōde</h4>
+        <div class="f-loc">Tutto il Giappone</div>
+        <p>La prima visita al santuario dell&#x27;anno: code enormi a Meiji Jingū e Fushimi Inari.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Febbraio" data-search="setsubun vari santuari febbraio lancio dei fagioli (mamemaki) e benedizioni.">
+      <div class="f-when"><b>Febbraio</b><span>3 (variabile)</span></div>
+      <div class="f-body">
+        <h4>Setsubun</h4>
+        <div class="f-loc">Vari santuari</div>
+        <p>Lancio dei fagioli (mamemaki) e benedizioni.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Febbraio" data-search="setsubun tutto il giappone febbraio si lanciano fagioli di soia gridando &#x27;fuori i demoni, dentro la fortuna&#x27; per scacciare gli oni.">
+      <div class="f-when"><b>Febbraio</b><span>3</span></div>
+      <div class="f-body">
+        <h4>Setsubun</h4>
+        <div class="f-loc">Tutto il Giappone</div>
+        <p>Si lanciano fagioli di soia gridando &#x27;fuori i demoni, dentro la fortuna&#x27; per scacciare gli oni.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Maggio" data-search="aoi matsuri kyoto (kamigamo &amp; shimogamo) maggio corteo in abiti di corte e riti presso i santuari kamo.">
+      <div class="f-when"><b>Maggio</b><span>15</span></div>
+      <div class="f-body">
+        <h4>Aoi Matsuri</h4>
+        <div class="f-loc">Kyoto (Kamigamo &amp; Shimogamo)</div>
+        <p>Corteo in abiti di corte e riti presso i santuari Kamo.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Maggio" data-search="kanda matsuri tokyo (kanda myōjin) maggio sfilate di mikoshi nel quartiere chiyoda (alternanza con sannō).">
+      <div class="f-when"><b>Maggio</b><span>2° weekend (anni pari)</span></div>
+      <div class="f-body">
+        <h4>Kanda Matsuri</h4>
+        <div class="f-loc">Tokyo (Kanda Myōjin)</div>
+        <p>Sfilate di mikoshi nel quartiere Chiyoda (alternanza con Sannō).</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Maggio" data-search="sanjā matsuri tokyo (asakusa jinja) maggio popolare festival con mikoshi e processioni.">
+      <div class="f-when"><b>Maggio</b><span>3° weekend</span></div>
+      <div class="f-body">
+        <h4>Sanjā Matsuri</h4>
+        <div class="f-loc">Tokyo (Asakusa Jinja)</div>
+        <p>Popolare festival con mikoshi e processioni.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Giugno" data-search="nagoshi no harae vari santuari giugno purificazione di metà anno con passaggio nel chinowa.">
+      <div class="f-when"><b>Giugno</b><span>30</span></div>
+      <div class="f-body">
+        <h4>Nagoshi no Harae</h4>
+        <div class="f-loc">Vari santuari</div>
+        <p>Purificazione di metà anno con passaggio nel chinowa.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Giugno" data-search="nagoshi no harae tutto il giappone giugno grande purificazione di metà anno: si attraversa il chinowa, l&#x27;anello di canne intrecciate.">
+      <div class="f-when"><b>Giugno</b><span>30</span></div>
+      <div class="f-body">
+        <h4>Nagoshi no Harae</h4>
+        <div class="f-loc">Tutto il Giappone</div>
+        <p>Grande purificazione di metà anno: si attraversa il chinowa, l&#x27;anello di canne intrecciate.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Luglio" data-search="gion matsuri kyoto (yasaka jinja) luglio processioni yamaboko, riti a yasaka jinja.">
+      <div class="f-when"><b>Luglio</b><span>1–31 (clou 17 &amp; 24)</span></div>
+      <div class="f-body">
+        <h4>Gion Matsuri</h4>
+        <div class="f-loc">Kyoto (Yasaka Jinja)</div>
+        <p>Processioni Yamaboko, riti a Yasaka Jinja.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Luglio" data-search="tenjin matsuri osaka (ōsaka tenmangū) luglio processione terrestre e fluviale con fuochi.">
+      <div class="f-when"><b>Luglio</b><span>24–25</span></div>
+      <div class="f-body">
+        <h4>Tenjin Matsuri</h4>
+        <div class="f-loc">Osaka (Ōsaka Tenmangū)</div>
+        <p>Processione terrestre e fluviale con fuochi.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Agosto" data-search="nebuta matsuri aomori agosto carri con enormi lanterne di carta illuminate raffiguranti guerrieri e demoni.">
+      <div class="f-when"><b>Agosto</b><span>2–7</span></div>
+      <div class="f-body">
+        <h4>Nebuta Matsuri</h4>
+        <div class="f-loc">Aomori</div>
+        <p>Carri con enormi lanterne di carta illuminate raffiguranti guerrieri e demoni.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Novembre" data-search="shichi-go-san tutto il giappone novembre bambini di 3, 5 e 7 anni portati al santuario in abito tradizionale per invocare crescita e salute.">
+      <div class="f-when"><b>Novembre</b><span>15</span></div>
+      <div class="f-body">
+        <h4>Shichi-Go-San</h4>
+        <div class="f-loc">Tutto il Giappone</div>
+        <p>Bambini di 3, 5 e 7 anni portati al santuario in abito tradizionale per invocare crescita e salute.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Dicembre" data-search="chichibu yomatsuri saitama (chichibu) dicembre carri illuminati e fuochi; tra i tre grandi festival di carri.">
+      <div class="f-when"><b>Dicembre</b><span>2–3</span></div>
+      <div class="f-body">
+        <h4>Chichibu Yomatsuri</h4>
+        <div class="f-loc">Saitama (Chichibu)</div>
+        <p>Carri illuminati e fuochi; tra i tre grandi festival di carri.</p>
+      </div>
+    </div>
+    <div class="fest" data-mese="Dicembre" data-search="ōharae tutto il giappone dicembre purificazione di fine anno che cancella le impurità accumulate nei sei mesi precedenti.">
+      <div class="f-when"><b>Dicembre</b><span>31</span></div>
+      <div class="f-body">
+        <h4>Ōharae</h4>
+        <div class="f-loc">Tutto il Giappone</div>
+        <p>Purificazione di fine anno che cancella le impurità accumulate nei sei mesi precedenti.</p>
+      </div>
+    </div>
+    </div>
+    <p class="empty" id="fempty" hidden>Nessuna festa corrisponde alla ricerca.</p>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="dark-inner" style="text-align:center;">
+    <span class="eyebrow">Video</span>
+    <h2>Vedere i riti</h2>
+    <p style="max-width:520px;margin-left:auto;margin-right:auto;">Tre filmati per capire come questi gesti appaiono davvero, fuori dalla pagina scritta.</p>
+    <div class="vid-grid" style="margin-top:38px;text-align:left;">
+<div class="vid reveal">
+  <div class="frame" data-yt="awtM4Payd4A"><div class="play"></div></div>
+  <div class="vmeta"><b>Shintoismo, la religione giapponese</b><span>Introduzione in italiano ai concetti di kami, purezza e pratica quotidiana.</span></div>
+</div>
+<div class="vid reveal">
+  <div class="frame" data-yt="PL0mUjl0iyg"><div class="play"></div></div>
+  <div class="vmeta"><b>Religione in Giappone: shintoismo e buddhismo</b><span>Come si combinano le due tradizioni nella vita di una persona giapponese.</span></div>
+</div>
+<div class="vid reveal">
+  <div class="frame" data-yt="MGjhrxCmdIo"><div class="play"></div></div>
+  <div class="vmeta"><b>Gion Matsuri — il grande festival di Kyoto</b><span>Il matsuri più famoso del Giappone, in corso per tutto il mese di luglio.</span></div>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap-narrow">
+  <div class="sec-head">
+    <span class="eyebrow">In pratica</span>
+    <h2>Cosa fare, passo per passo</h2>
+    <p>La sequenza standard di una visita, valida in quasi tutto il Giappone.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><span>1</span><b>Inchino al torii</b><p>Un breve inchino prima di attraversare. Si cammina di lato, non al centro.</p></div>
+    <div class="step reveal"><span>2</span><b>Temizu</b><p>Mano sinistra, mano destra, un sorso d'acqua versato nella sinistra, poi si sciacqua il manico.</p></div>
+    <div class="step reveal"><span>3</span><b>Offerta</b><p>Si depone una moneta nella cassetta. Cinque yen porta bene per assonanza con "legame".</p></div>
+    <div class="step reveal"><span>4</span><b>Campana</b><p>Si suona la corda del sonaglio, se c'è: serve ad annunciare la propria presenza.</p></div>
+    <div class="step reveal"><span>5</span><b>Ni-rei ni-hakushu ichi-rei</b><p>Due inchini profondi, due battiti di mani, la preghiera in silenzio, un ultimo inchino.</p></div>
+    <div class="step reveal"><span>6</span><b>Uscita</b><p>Un ultimo inchino voltandosi verso il santuario, dopo aver riattraversato il torii.</p></div>
+  </div>
+</section>
+
+
+<div class="pager">
+  <a href="kami.html"><small>← SENTIERO PRECEDENTE</small><b>神 Kami</b></a>
+  <a class="nx" href="manga.html"><small>SENTIERO SUCCESSIVO →</small><b>Manga 漫</b></a>
+</div>
+
+<footer>
+  Shinto Italia · progetto personale · fatto con cura in Italia<br>
+  Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
+  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+</footer>
+
+<script>
+/* ---------- Progress rail ---------- */
+(function(){
+  var rail=document.getElementById('rail');
+  if(!rail) return;
+  function on(){
+    var h=document.documentElement;
+    var s=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    rail.style.width=(isFinite(s)?s:0)+'%';
+  }
+  document.addEventListener('scroll',on,{passive:true}); on();
+})();
+
+/* ---------- Reveal on scroll ---------- */
+function observeReveal(sel){
+  var els=document.querySelectorAll(sel||'.card, .tl-item, .reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in');}); return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e);});
+}
+observeReveal();
+
+/* ---------- Immagini da Wikipedia (con fallback grafico) ----------
+   Nessuna chiave API: usa l'endpoint pubblico REST che consente CORS.
+   Se l'immagine non esiste, resta il placeholder con il kanji.        */
+function setBg(el, src){
+  var pre=new Image();
+  pre.onload=function(){ el.style.backgroundImage='url("'+src+'")'; el.classList.add('has-img'); };
+  pre.src=src;
+}
+
+/* Usa l'API di ricerca invece del titolo esatto: se il titolo non combacia
+   perfettamente, Wikipedia trova comunque la voce piu' pertinente.        */
+function loadWikiImage(el, title, lang){
+  if(!el || !title) return;
+  lang = lang || 'it';
+  var api='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search'+
+          '&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1'+
+          '&prop=pageimages&piprop=thumbnail&pithumbsize=900'+
+          '&format=json&origin=*';
+  fetch(api).then(function(r){ if(!r.ok) throw new Error('nf'); return r.json(); })
+  .then(function(d){
+    var pages=d && d.query && d.query.pages;
+    if(!pages) throw new Error('nopage');
+    var k=Object.keys(pages)[0];
+    var th=pages[k] && pages[k].thumbnail && pages[k].thumbnail.source;
+    if(!th) throw new Error('noimg');
+    setBg(el, th);
+  })
+  .catch(function(){
+    if(lang!=='en'){ loadWikiImage(el,title,'en'); }
+  });
+}
+
+function hydrateWikiImages(root){
+  (root||document).querySelectorAll('[data-wiki]').forEach(function(el){
+    loadWikiImage(el, el.getAttribute('data-wiki'), el.getAttribute('data-lang')||'it');
+  });
+}
+hydrateWikiImages();
+
+/* ---------- Video: caricamento su click (niente autoplay, niente cookie finché non serve) ---------- */
+function hydrateVideos(root){
+  (root||document).querySelectorAll('.vid .frame[data-yt]').forEach(function(f){
+    var id=f.getAttribute('data-yt');
+    f.style.backgroundImage='url("https://i.ytimg.com/vi/'+id+'/hqdefault.jpg")';
+    f.addEventListener('click',function(){
+      if(f.querySelector('iframe')) return;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.allow='accelerometer; autoplay; encrypted-media; picture-in-picture';
+      ifr.allowFullscreen=true;
+      ifr.loading='lazy';
+      f.appendChild(ifr);
+      var p=f.querySelector('.play'); if(p) p.style.display='none';
+    });
+  });
+}
+hydrateVideos();
+
+/* ---------- Calendario feste ---------- */
+(function(){
+  var q=document.getElementById('fq'), sel=document.getElementById('fm'), list=document.getElementById('flist');
+  if(!list) return;
+  var items=[].slice.call(list.querySelectorAll('.fest'));
+  var count=document.getElementById('fcount'), empty=document.getElementById('fempty');
+  function apply(){
+    var term=(q.value||'').toLowerCase().trim(), m=sel.value, n=0;
+    items.forEach(function(c){
+      var okM = m==='all' || c.getAttribute('data-mese')===m;
+      var okQ = !term || c.getAttribute('data-search').indexOf(term)>-1;
+      var show=okM&&okQ; c.style.display=show?'':'none'; if(show) n++;
+    });
+    count.textContent = n + (n===1?' festa':' feste');
+    empty.hidden = n>0;
+  }
+  q.addEventListener('input',apply); sel.addEventListener('change',apply); apply();
+})();
+
+</script>
+
+</body>
+</html>
 
