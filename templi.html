@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Templi — Shinto Italia</title>
-<meta name="description" content="Ventitré santuari shintoisti del Giappone: divinità custodite, come arrivarci, galateo della visita, foto e video.">
+<meta name="description" content="84 santuari shintoisti: mappa dei dodici principali, database completo con ricerca e filtri, le sei tappe della visita e gli oggetti sacri.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%A9%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -349,46 +349,181 @@ footer a:hover{ text-decoration:underline; }
   *{ animation:none !important; transition-duration:.01ms !important; }
 }
 
-.temple .ph{
-  width:100%; aspect-ratio:16/10; background-size:cover; background-position:center;
-  background-color:#e6d5ae; display:flex; align-items:center; justify-content:center;
-  border-bottom:1px solid var(--paper-line);
+/* ---------- mini-kami ---------- */
+.okami{ width:100%; height:auto; display:block; }
+.okami .gu{ fill:#ff8fa8; opacity:.5; transition:opacity .35s var(--ease); }
+.okami .oc{ transform-box:fill-box; transform-origin:center; animation:sbatti 5.5s infinite; }
+@keyframes sbatti{ 0%,92%,100%{ transform:scaleY(1);} 95%{ transform:scaleY(.12);} }
+.okami .sc{ transform-box:fill-box; transform-origin:center; opacity:.7;
+  animation:brilla 3s ease-in-out infinite; }
+.okami .s1{ animation-delay:.8s; } .okami .s2{ animation-delay:1.7s; }
+@keyframes brilla{ 0%,100%{ opacity:.2; transform:scale(.7);} 50%{ opacity:.95; transform:scale(1.25);} }
+
+/* ---------- hero ---------- */
+.thero{ position:relative; overflow:hidden; text-align:center;
+  padding:66px 22px 56px;
+  background:linear-gradient(180deg,#fdf1e3 0%,#f6e7d2 55%,#efe0bd 100%);
+  border-bottom:1px solid var(--paper-line); }
+.thero-in{ position:relative; z-index:2; max-width:660px; margin:0 auto; }
+.thero h1{ font-size:clamp(32px,7.5vw,54px); margin-top:14px; }
+.thero p{ margin-top:16px; color:var(--sumi-soft); line-height:1.75; font-size:15.5px; }
+.t-fluttua{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.t-fluttua span{ position:absolute; width:60px; opacity:.55; }
+.fl1{ left:5%;  top:16%; animation:galleggia 6s ease-in-out infinite; }
+.fl2{ left:16%; top:62%; width:52px !important; animation:galleggia 7s ease-in-out infinite .9s; }
+.fl3{ right:7%; top:20%; width:50px !important; animation:galleggia 6.5s ease-in-out infinite .4s; }
+.fl4{ right:15%; top:64%; animation:galleggia 7.5s ease-in-out infinite 1.4s; }
+.fl5{ left:44%; top:5%;  width:44px !important; opacity:.35 !important;
+      animation:galleggia 8s ease-in-out infinite .6s; }
+@keyframes galleggia{ 0%,100%{ transform:translateY(0) rotate(-4deg);} 50%{ transform:translateY(-16px) rotate(4deg);} }
+@media (max-width:820px){ .t-fluttua{ display:none; } }
+.thero-nav{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:26px; }
+.thero-nav a{ font-family:'JetBrains Mono',monospace; font-size:11.5px; text-decoration:none;
+  padding:8px 15px; border-radius:20px; border:1px solid var(--paper-line);
+  background:var(--paper); color:var(--sumi-soft); transition:all .3s var(--ease); }
+.thero-nav a:hover{ background:var(--torii); color:#fff8ee; border-color:var(--torii);
+  transform:translateY(-2px); }
+
+/* ---------- percorso ---------- */
+.perc-sec{ background:var(--washi-2); border-bottom:1px solid var(--paper-line); }
+.sentiero{ position:relative; display:grid;
+  grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:820px){ .sentiero{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .sentiero{ grid-template-columns:1fr; } }
+/* freccia fra una tappa e la successiva: non a fine riga */
+@media (min-width:821px){
+  .tappa-k::after{ content:"→"; position:absolute; right:-14px; top:56px;
+    font-family:'JetBrains Mono',monospace; font-size:17px; color:var(--torii);
+    opacity:.45; z-index:2; }
+  .tappa-k:nth-child(3n)::after{ content:none; }
+}
+.tappa-k{ position:relative; background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:14px; padding:20px 18px; text-align:center;
+  animation:entra .6s var(--ease) both; animation-delay:calc(var(--i) * .1s);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease); }
+@keyframes entra{ from{ opacity:0; transform:translateY(18px);} }
+.tappa-k:hover{ transform:translateY(-7px); box-shadow:0 16px 32px rgba(170,110,80,.22); }
+.tk-ico{ width:78px; margin:0 auto 10px; position:relative; z-index:1; }
+.tappa-k:hover .tk-ico{ animation:saltella .6s var(--ease); }
+.tappa-k:hover .okami .gu{ opacity:.9; }
+@keyframes saltella{ 0%,100%{ transform:translateY(0) rotate(0);} 40%{ transform:translateY(-10px) rotate(-6deg);} }
+.tk-num{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--torii-deep);
+  letter-spacing:.14em; display:block; }
+.tappa-k b{ display:block; font-family:'Shippori Mincho B1',serif; font-size:18px; margin-top:4px; }
+.tk-jp{ font-family:'Shippori Mincho B1',serif; font-size:12px; color:var(--torii-deep); display:block; margin-top:2px; }
+.tk-ruolo{ display:inline-block; margin-top:8px; font-family:'JetBrains Mono',monospace;
+  font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--matcha);
+  background:rgba(92,110,74,.12); padding:4px 10px; border-radius:20px; }
+.tappa-k p{ margin-top:10px; font-size:12.5px; line-height:1.62; color:var(--sumi-soft); text-align:left; }
+
+/* ---------- oggetti sacri ---------- */
+.ogg-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.ogg-k{ display:flex; gap:15px; align-items:flex-start;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:14px; padding:18px;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease); }
+.ogg-k:hover{ transform:translateY(-5px) rotate(-.5deg); border-color:#f0bda8;
+  box-shadow:0 16px 30px rgba(170,110,80,.2); }
+.ok-ico{ width:62px; flex:none; }
+.ogg-k:hover .ok-ico{ animation:saltella .7s var(--ease); }
+.ogg-k:hover .okami .gu{ opacity:.9; }
+.ok-txt b{ font-family:'Shippori Mincho B1',serif; font-size:16.5px; }
+.ok-jp{ font-family:'Shippori Mincho B1',serif; font-size:12px; color:var(--torii-deep);
+  margin-left:8px; }
+.ok-txt p{ margin-top:8px; font-size:12.8px; line-height:1.65; color:var(--sumi-soft); }
+
+/* ---------- mappa ---------- */
+.mappa-sec{ background:linear-gradient(180deg,#e9eff2,#e3ebef);
+  border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);
+  padding:52px 22px; }
+.mappa-wrap{ max-width:1100px; margin:0 auto; display:grid;
+  grid-template-columns:1fr 340px; gap:34px; align-items:start; }
+@media (max-width:940px){ .mappa-wrap{ grid-template-columns:1fr; } }
+.mappa-box{ position:relative; background:#dfe9ef; border:1px solid var(--paper-line);
+  border-radius:12px; padding:10px; }
+#mappa{ width:100%; height:auto; display:block; }
+.isola{ fill:#efe3c9; stroke:#b39562; stroke-width:1.4; stroke-linejoin:round; }
+.pin{ cursor:pointer; }
+.pin .dot{ fill:var(--torii); transition:transform .3s var(--ease); transform-box:fill-box; transform-origin:center; }
+.pin .alone{ fill:var(--torii); opacity:.16; transform-box:fill-box; transform-origin:center;
+  animation:pulsa 2.6s ease-in-out infinite; }
+@keyframes pulsa{ 0%,100%{ transform:scale(.75); opacity:.10;} 50%{ transform:scale(1.15); opacity:.28;} }
+.pin:hover .dot, .pin:focus .dot{ transform:scale(1.5); }
+.pin:focus{ outline:none; }
+.pin .et{ font-family:'JetBrains Mono',monospace; font-size:10.5px; fill:#3a2f21;
+  text-anchor:middle; opacity:0; transition:opacity .25s var(--ease);
+  paint-order:stroke; stroke:#f3ead6; stroke-width:3.5; stroke-linejoin:round; }
+.pin:hover .et, .pin:focus .et, .pin.evid .et{ opacity:1; }
+.pin.evid .dot{ fill:var(--gold); transform:scale(1.4); }
+.legenda{ position:absolute; left:18px; bottom:16px;
+  font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--sumi-soft);
+  background:rgba(255,248,234,.9); border:1px solid var(--paper-line);
+  border-radius:20px; padding:7px 14px; display:flex; align-items:center; gap:7px; }
+.lgd{ width:11px; height:11px; border-radius:50%; background:var(--torii); display:inline-block; }
+.lista-top{ list-style:none; counter-reset:t; display:grid; gap:6px; }
+.lista-top a{ counter-increment:t; display:flex; align-items:baseline; gap:10px;
+  text-decoration:none; background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:8px; padding:10px 14px; transition:all .3s var(--ease); }
+.lista-top a::before{ content:counter(t,decimal-leading-zero);
+  font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--torii-deep); flex:none; }
+.lista-top a:hover{ border-color:var(--torii); transform:translateX(4px); }
+.lista-top b{ font-family:'Shippori Mincho B1',serif; font-size:14.5px; color:var(--sumi); }
+.lista-top span{ margin-left:auto; font-family:'JetBrains Mono',monospace;
+  font-size:10px; color:var(--matcha); }
+
+/* ---------- schede principali ---------- */
+.top-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
+.top-card{ background:var(--paper); border:1px solid var(--paper-line); border-radius:14px;
+  overflow:hidden; scroll-margin-top:80px;
+  transition:transform .45s var(--ease), box-shadow .45s var(--ease), border-color .3s var(--ease); }
+.top-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); border-color:var(--torii); }
+.top-card.evid{ border-color:var(--gold); box-shadow:0 0 0 3px rgba(187,145,56,.28); }
+.tc-foto{ width:100%; aspect-ratio:16/10; background-size:cover; background-position:center;
   background-image:linear-gradient(140deg,#efe0bd,#e0cb9d);
-  transition:transform .8s var(--ease);
-}
-.temple .ph::after{
-  content:attr(data-fallback); font-family:'Shippori Mincho B1',serif;
-  font-size:64px; color:var(--torii); opacity:.25;
-}
-.temple .ph.has-img{ background-image:none; }
-.temple .ph.has-img::after{ content:""; }
-.temple:hover .ph.has-img{ transform:scale(1.04); }
-.deity{
-  margin-top:12px; font-size:12.5px; line-height:1.6; color:var(--sumi-soft);
-  padding-top:11px; border-top:1px dashed var(--paper-line);
-}
-.deity b, .curio b{
-  display:block; font-family:'JetBrains Mono',monospace; font-size:10px;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--torii-deep); margin-bottom:4px;
-}
-.curio{
-  margin-top:11px; font-size:12.5px; line-height:1.6; color:var(--sumi-soft);
-  background:rgba(187,145,56,.09); border-radius:6px; padding:11px 13px;
-}
-.maps{ margin-top:14px; display:flex; gap:7px; flex-wrap:wrap; }
-.maps a{
-  font-family:'JetBrains Mono',monospace; font-size:11px; text-decoration:none;
-  padding:7px 12px; border-radius:20px; border:1px solid var(--paper-line);
-  color:var(--sumi-soft); transition:all .28s var(--ease);
-}
-.maps a:hover{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
-.anatomy{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:0;
-  border-top:1px solid var(--paper-line); border-left:1px solid var(--paper-line); }
-.an-item{ padding:26px 22px; border-right:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
-.an-n{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.1em; }
-.an-item b{ display:block; font-family:'Shippori Mincho B1',serif; font-size:19px; margin-top:8px; }
-.an-item p{ margin-top:9px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
-.empty{ text-align:center; color:var(--sumi-soft); font-family:'JetBrains Mono',monospace; font-size:13px; padding:40px 0; }
+  border-bottom:1px solid var(--paper-line);
+  display:flex; align-items:center; justify-content:center; transition:transform .8s var(--ease); }
+.tc-foto::after{ content:attr(data-fallback); font-family:'Shippori Mincho B1',serif;
+  font-size:62px; color:var(--torii); opacity:.25; }
+.tc-foto.has-img{ background-image:none; } .tc-foto.has-img::after{ content:""; }
+.top-card:hover .tc-foto.has-img{ transform:scale(1.05); }
+.tc-body{ padding:18px 20px 20px; }
+.tc-jp{ font-family:'Shippori Mincho B1',serif; font-size:13px; color:var(--torii-deep); }
+.top-card h3{ font-size:18.5px; margin-top:4px; }
+.tc-dove{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--matcha); margin-top:6px; }
+.tc-kami{ margin-top:11px; padding-top:10px; border-top:1px dashed var(--paper-line);
+  font-size:12.5px; line-height:1.55; color:var(--sumi-soft); }
+.tc-kami b{ display:block; font-family:'JetBrains Mono',monospace; font-size:9.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--torii-deep); margin-bottom:4px; }
+.top-card p{ margin-top:10px; font-size:13px; line-height:1.65; color:var(--sumi-soft); }
+.tc-map{ display:inline-block; margin-top:12px; font-family:'JetBrains Mono',monospace;
+  font-size:11px; color:var(--torii-deep); text-decoration:none;
+  border-bottom:1px dashed rgba(200,64,42,.45); padding-bottom:2px; }
+.tc-map:hover{ color:var(--torii); border-bottom-style:solid; }
+
+/* ---------- database ---------- */
+.db-sec{ background:var(--washi-2); border-top:1px solid var(--paper-line); }
+.db-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:14px; }
+.db{ display:flex; gap:14px; align-items:flex-start; background:var(--paper);
+  border:1px solid var(--paper-line); border-radius:12px; padding:14px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .3s var(--ease); }
+.db:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.4); }
+.db-foto{ width:88px; height:78px; flex:none; border-radius:9px; background-size:cover;
+  background-position:center; background-image:linear-gradient(140deg,#efe0bd,#e0cb9d);
+  border:1px solid var(--paper-line); display:flex; align-items:center; justify-content:center; }
+.db-foto::after{ content:attr(data-fallback); font-family:'Shippori Mincho B1',serif;
+  font-size:30px; color:var(--torii); opacity:.3; }
+.db-foto.has-img{ background-image:none; } .db-foto.has-img::after{ content:""; }
+.db-body{ min-width:0; }
+.db h4{ font-family:'Shippori Mincho B1',serif; font-size:15.5px; line-height:1.3; }
+.db-top{ color:var(--gold); font-size:12px; }
+.db-jp{ font-family:'Shippori Mincho B1',serif; font-size:11.5px; color:var(--torii-deep); margin-top:3px; }
+.db-kami{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--matcha);
+  margin-top:5px; line-height:1.5; }
+.db p{ margin-top:8px; font-size:12.3px; line-height:1.6; color:var(--sumi-soft); }
+.db-tag{ margin-top:9px; display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+.db-tag a{ font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--torii-deep);
+  text-decoration:none; border-bottom:1px dashed rgba(200,64,42,.4); }
+.vuoto{ text-align:center; color:var(--sumi-soft); font-family:'JetBrains Mono',monospace;
+  font-size:13px; padding:40px 0; }
 
 </style>
 </head>
@@ -409,419 +544,1623 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </nav>
 
-<section class="phero" data-mon="社">
-  <div class="phero-inner">
+<svg class="ok-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="ok-torii" viewBox="0 0 120 120"><radialGradient id="og-torii" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#ffd9d0"/><stop offset="100%" stop-color="#f4a294"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-torii)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="16" y="30" width="88" height="10" rx="3" fill="#c8402a"/><rect x="23" y="43" width="74" height="6" rx="2" fill="#c8402a"/><rect x="31" y="49" width="10" height="48" rx="2" fill="#c8402a"/><rect x="79" y="49" width="10" height="48" rx="2" fill="#c8402a"/><ellipse class="oc" cx="51.5" cy="66.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="66.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 71.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="69.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="69.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-shimenawa" viewBox="0 0 120 120"><radialGradient id="og-shimenawa" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#fff3d6"/><stop offset="100%" stop-color="#f0dca6"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-shimenawa)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><path d="M10 50 q50 -20 100 0 q-50 22 -100 0 z" fill="#a8842f"/><path d="M18 47 q14 -7 26 -2 M50 42 q14 -4 26 2 M80 46 q10 0 18 5" stroke="#f0dca6" stroke-width="3" fill="none" stroke-linecap="round" opacity=".75"/><path d="M26 62 l9 0 l-6 9 l6 0 l-9 12 l-3 -9 l4 0 z" fill="#fffdf6" stroke="#a8842f" stroke-width="1.4" stroke-linejoin="round"/><path d="M50 62 l9 0 l-6 9 l6 0 l-9 12 l-3 -9 l4 0 z" fill="#fffdf6" stroke="#a8842f" stroke-width="1.4" stroke-linejoin="round"/><path d="M74 62 l9 0 l-6 9 l6 0 l-9 12 l-3 -9 l4 0 z" fill="#fffdf6" stroke="#a8842f" stroke-width="1.4" stroke-linejoin="round"/><path d="M94 62 l9 0 l-6 9 l6 0 l-9 12 l-3 -9 l4 0 z" fill="#fffdf6" stroke="#a8842f" stroke-width="1.4" stroke-linejoin="round"/><ellipse class="oc" cx="52.8" cy="44.0" rx="2.1" ry="2.6" fill="#3a2b22"/><ellipse class="oc" cx="67.2" cy="44.0" rx="2.1" ry="2.6" fill="#3a2b22"/><path d="M57.5 48.2 q2.5 2.7 5.1 0" fill="none" stroke="#3a2b22" stroke-width="1.2" stroke-linecap="round"/><ellipse class="gu" cx="48.1" cy="46.7" rx="3.4" ry="2.0"/><ellipse class="gu" cx="71.9" cy="46.7" rx="3.4" ry="2.0"/></symbol><symbol id="ok-komainu" viewBox="0 0 120 120"><radialGradient id="og-komainu" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e9e2d3"/><stop offset="100%" stop-color="#cfc3ab"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-komainu)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><path d="M34 46 L38 28 L54 42 Z" fill="#6d6047"/><path d="M86 46 L82 28 L66 42 Z" fill="#6d6047"/><circle cx="60" cy="66" r="30" fill="#6d6047"/><path d="M22 92 q-8 -14 4 -22" stroke="#6d6047" stroke-width="6" fill="none" stroke-linecap="round"/><ellipse class="oc" cx="51.5" cy="64.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="64.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 69.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="67.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="67.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-temizuya" viewBox="0 0 120 120"><radialGradient id="og-temizuya" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#d8eef8"/><stop offset="100%" stop-color="#a8d8ee"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-temizuya)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="20" y="60" width="80" height="34" rx="6" fill="#2f88ad"/><rect x="26" y="54" width="68" height="8" rx="3" fill="#a8d8ee"/><path d="M74 30 h20 v5 h-8 v22" stroke="#2f88ad" stroke-width="4" fill="none"/><ellipse cx="88" cy="60" rx="9" ry="5" fill="#a8d8ee"/><path d="M46 34 q3 8 0 12 M56 30 q3 9 0 13" stroke="#a8d8ee" stroke-width="3" stroke-linecap="round" fill="none"/><ellipse class="oc" cx="49.5" cy="76.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="66.5" cy="76.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M55.0 81.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="44.0" cy="79.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="72.0" cy="79.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-saisen" viewBox="0 0 120 120"><radialGradient id="og-saisen" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e7dcc6"/><stop offset="100%" stop-color="#cbb894"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-saisen)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="18" y="52" width="84" height="46" rx="5" fill="#7a6134"/><rect x="24" y="44" width="72" height="10" rx="3" fill="#cbb894"/><rect x="44" y="46" width="32" height="5" rx="2" fill="#4a3a22"/><circle cx="60" cy="30" r="8" fill="#cbb894" stroke="#7a6134" stroke-width="2"/><ellipse class="oc" cx="51.5" cy="74.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="74.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 79.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="77.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="77.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-suzu" viewBox="0 0 120 120"><radialGradient id="og-suzu" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#fdeec2"/><stop offset="100%" stop-color="#f4d68a"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-suzu)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><path d="M60 22 v10" stroke="#bb9138" stroke-width="4" stroke-linecap="round"/><path d="M32 74 q0 -42 28 -42 q28 0 28 42 z" fill="#bb9138"/><rect x="28" y="74" width="64" height="8" rx="4" fill="#f4d68a"/><path d="M56 84 h8 v14 h-8 z" fill="#f4d68a"/><ellipse class="oc" cx="51.5" cy="58.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="58.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 63.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="61.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="61.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-ema" viewBox="0 0 120 120"><radialGradient id="og-ema" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#f7e0c8"/><stop offset="100%" stop-color="#e8bf95"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-ema)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><path d="M60 26 L100 44 V92 a5 5 0 0 1 -5 5 H25 a5 5 0 0 1 -5 -5 V44 Z" fill="#a86a34"/><path d="M60 32 L94 47 V90 H26 V47 Z" fill="#e8bf95"/><path d="M52 22 l8 6 l8 -6" stroke="#a86a34" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse class="oc" cx="51.5" cy="68.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="68.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 73.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="71.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="71.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-omamori" viewBox="0 0 120 120"><radialGradient id="og-omamori" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#ffdce8"/><stop offset="100%" stop-color="#f6b3ca"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-omamori)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="32" y="34" width="56" height="70" rx="8" fill="#c2417a"/><rect x="40" y="44" width="40" height="52" rx="5" fill="#f6b3ca"/><path d="M44 34 q16 -18 32 0" stroke="#c2417a" stroke-width="3.5" fill="none"/><circle cx="60" cy="34" r="4" fill="#f6b3ca"/><ellipse class="oc" cx="51.5" cy="70.0" rx="2.5" ry="3.1" fill="#3a2b22"/><ellipse class="oc" cx="68.5" cy="70.0" rx="2.5" ry="3.1" fill="#3a2b22"/><path d="M57.0 75.0 q3.0 3.2 6.0 0" fill="none" stroke="#3a2b22" stroke-width="1.4" stroke-linecap="round"/><ellipse class="gu" cx="46.0" cy="73.2" rx="4.0" ry="2.4"/><ellipse class="gu" cx="74.0" cy="73.2" rx="4.0" ry="2.4"/></symbol><symbol id="ok-omikuji" viewBox="0 0 120 120"><radialGradient id="og-omikuji" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#f2f2ee"/><stop offset="100%" stop-color="#dcdcd4"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-omikuji)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="42" y="26" width="36" height="76" rx="5" fill="#7b7a6e"/><rect x="48" y="34" width="24" height="60" rx="3" fill="#dcdcd4"/><path d="M20 46 q22 -12 40 4 q18 16 40 4" stroke="#7b7a6e" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".55"/><ellipse class="oc" cx="53.2" cy="68.0" rx="2.0" ry="2.5" fill="#3a2b22"/><ellipse class="oc" cx="66.8" cy="68.0" rx="2.0" ry="2.5" fill="#3a2b22"/><path d="M57.6 72.0 q2.4 2.6 4.8 0" fill="none" stroke="#3a2b22" stroke-width="1.1" stroke-linecap="round"/><ellipse class="gu" cx="48.8" cy="70.6" rx="3.2" ry="1.9"/><ellipse class="gu" cx="71.2" cy="70.6" rx="3.2" ry="1.9"/></symbol><symbol id="ok-gohei" viewBox="0 0 120 120"><radialGradient id="og-gohei" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#f5f1e6"/><stop offset="100%" stop-color="#e2dbc7"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-gohei)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="55" y="52" width="10" height="52" rx="4" fill="#8d8577"/><path d="M60 16 h26 l-13 11 l13 11 l-26 0 z" fill="#e2dbc7" stroke="#8d8577" stroke-width="2" stroke-linejoin="round"/><path d="M60 38 h26 l-13 11 l13 11 l-26 0 z" fill="#e2dbc7" stroke="#8d8577" stroke-width="2" stroke-linejoin="round"/><path d="M60 16 h-26 l13 11 l-13 11 h26 z" fill="#fffdf6" stroke="#8d8577" stroke-width="2" stroke-linejoin="round"/><path d="M60 38 h-26 l13 11 l-13 11 h26 z" fill="#fffdf6" stroke="#8d8577" stroke-width="2" stroke-linejoin="round"/><ellipse class="oc" cx="53.2" cy="82.0" rx="2.0" ry="2.5" fill="#3a2b22"/><ellipse class="oc" cx="66.8" cy="82.0" rx="2.0" ry="2.5" fill="#3a2b22"/><path d="M57.6 86.0 q2.4 2.6 4.8 0" fill="none" stroke="#3a2b22" stroke-width="1.1" stroke-linecap="round"/><ellipse class="gu" cx="48.8" cy="84.6" rx="3.2" ry="1.9"/><ellipse class="gu" cx="71.2" cy="84.6" rx="3.2" ry="1.9"/></symbol><symbol id="ok-kagami" viewBox="0 0 120 120"><radialGradient id="og-kagami" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e6ecf5"/><stop offset="100%" stop-color="#c3cfe2"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-kagami)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><circle cx="60" cy="58" r="34" fill="#5a6d8c"/><circle cx="60" cy="58" r="26" fill="#c3cfe2"/><path d="M44 46 q10 -8 20 -4" stroke="#fffdf6" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/><path d="M40 92 h40 l-6 12 h-28 z" fill="#5a6d8c"/><ellipse class="oc" cx="52.8" cy="60.0" rx="2.1" ry="2.6" fill="#3a2b22"/><ellipse class="oc" cx="67.2" cy="60.0" rx="2.1" ry="2.6" fill="#3a2b22"/><path d="M57.5 64.2 q2.5 2.7 5.1 0" fill="none" stroke="#3a2b22" stroke-width="1.2" stroke-linecap="round"/><ellipse class="gu" cx="48.1" cy="62.7" rx="3.4" ry="2.0"/><ellipse class="gu" cx="71.9" cy="62.7" rx="3.4" ry="2.0"/></symbol><symbol id="ok-magatama" viewBox="0 0 120 120"><radialGradient id="og-magatama" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e2f0e2"/><stop offset="100%" stop-color="#b6dbb9"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-magatama)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><path d="M74 34 a32 32 0 1 0 14 30 a17 17 0 1 1 -14 -30 z" fill="#3d8560"/><circle cx="72" cy="46" r="6" fill="#fffdf6" opacity=".85"/><ellipse class="oc" cx="44.8" cy="66.0" rx="2.1" ry="2.6" fill="#3a2b22"/><ellipse class="oc" cx="59.2" cy="66.0" rx="2.1" ry="2.6" fill="#3a2b22"/><path d="M49.5 70.2 q2.5 2.7 5.1 0" fill="none" stroke="#3a2b22" stroke-width="1.2" stroke-linecap="round"/><ellipse class="gu" cx="40.1" cy="68.7" rx="3.4" ry="2.0"/><ellipse class="gu" cx="63.9" cy="68.7" rx="3.4" ry="2.0"/></symbol><symbol id="ok-toro" viewBox="0 0 120 120"><radialGradient id="og-toro" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e8e6de"/><stop offset="100%" stop-color="#ccc8b8"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-toro)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="52" y="86" width="16" height="18" rx="3" fill="#6f6a58"/><rect x="36" y="76" width="48" height="10" rx="3" fill="#ccc8b8"/><rect x="40" y="46" width="40" height="30" rx="4" fill="#6f6a58"/><rect x="46" y="52" width="28" height="18" rx="3" fill="#fff6d8"/><path d="M30 42 h60 l-10 -10 h-40 z" fill="#ccc8b8"/><circle cx="60" cy="28" r="5" fill="#6f6a58"/><ellipse class="oc" cx="54.0" cy="62.0" rx="1.8" ry="2.2" fill="#3a2b22"/><ellipse class="oc" cx="66.0" cy="62.0" rx="1.8" ry="2.2" fill="#3a2b22"/><path d="M57.9 65.5 q2.1 2.2 4.2 0" fill="none" stroke="#3a2b22" stroke-width="1.0" stroke-linecap="round"/></symbol><symbol id="ok-sakaki" viewBox="0 0 120 120"><radialGradient id="og-sakaki" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#e3f1d8"/><stop offset="100%" stop-color="#bcdfa6"/></radialGradient><rect width="120" height="120" rx="26" fill="url(#og-sakaki)"/><circle class="sc s0" cx="18" cy="22" r="2.2" fill="#fff"/><circle class="sc s1" cx="102" cy="30" r="1.7" fill="#fff"/><circle class="sc s2" cx="16" cy="100" r="1.8" fill="#fff"/><rect x="56" y="62" width="8" height="42" rx="3" fill="#5a8f3c"/><ellipse cx="38" cy="52" rx="20" ry="13" fill="#5a8f3c" transform="rotate(-24 38 52)"/><ellipse cx="82" cy="52" rx="20" ry="13" fill="#5a8f3c" transform="rotate(24 82 52)"/><ellipse cx="60" cy="34" rx="15" ry="20" fill="#bcdfa6"/><ellipse class="oc" cx="53.2" cy="78.0" rx="2.0" ry="2.5" fill="#3a2b22"/><ellipse class="oc" cx="66.8" cy="78.0" rx="2.0" ry="2.5" fill="#3a2b22"/><path d="M57.6 82.0 q2.4 2.6 4.8 0" fill="none" stroke="#3a2b22" stroke-width="1.1" stroke-linecap="round"/><ellipse class="gu" cx="48.8" cy="80.6" rx="3.2" ry="1.9"/><ellipse class="gu" cx="71.2" cy="80.6" rx="3.2" ry="1.9"/></symbol></defs></svg>
+<section class="thero">
+  <div class="t-fluttua" aria-hidden="true">
+    <span class="fl1"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label=""><use href="#ok-torii"/></svg></span>
+    <span class="fl2"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label=""><use href="#ok-komainu"/></svg></span>
+    <span class="fl3"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label=""><use href="#ok-suzu"/></svg></span>
+    <span class="fl4"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label=""><use href="#ok-ema"/></svg></span>
+    <span class="fl5"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label=""><use href="#ok-omamori"/></svg></span>
+  </div>
+  <div class="thero-in">
     <span class="eyebrow">Sentiero 03 · Templi</span>
-    <h1>Ventitré santuari, un solo sandō</h1>
-    <p>Dal torii galleggiante di Miyajima alla foresta piantata a mano di Tokyo: i luoghi dove i kami vengono ospitati, con come arrivarci e cosa cercare una volta lì.</p>
-      <div class="hero-stats"><span><b>23</b> santuari</span><span><b>5</b> regioni</span><span><b>2000+</b> anni di culto</span></div>
+    <h1>Ottantaquattro santuari</h1>
+    <p>Un jinja non è un edificio ma un percorso. Qui trovi le tappe che lo compongono, gli oggetti che ci vivono dentro, i dodici santuari da cui partire e il database completo.</p>
+    <div class="hero-stats">
+      <span><b>84</b> santuari</span>
+      <span><b>12</b> principali</span>
+      <span><b>14</b> oggetti sacri</span>
+    </div>
+    <div class="thero-nav">
+      <a href="#percorso">鳥居 Il percorso</a>
+      <a href="#oggetti">鈴 Oggetti sacri</a>
+      <a href="#principali">★ I principali</a>
+      <a href="#database">検 Database</a>
+    </div>
   </div>
 </section>
 
-<section class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">Come si legge un santuario</span>
-    <h2>Prima di attraversare il torii</h2>
-    <p>Un jinja non è un edificio ma un percorso. Conoscerne le tappe cambia completamente la visita.</p>
-  </div>
-
-  <div class="anatomy">
-    <div class="an-item reveal"><span class="an-n">01</span><b>Torii</b><p>La soglia. Segna il passaggio dal profano al sacro: ci si inchina leggermente prima di attraversarlo e si cammina ai lati, non al centro, che è la via dei kami.</p></div>
-    <div class="an-item reveal"><span class="an-n">02</span><b>Sandō</b><p>Il viale d'accesso. Spesso lungo e alberato: l'allungamento del percorso è deliberato, serve a separare mentalmente dal mondo esterno.</p></div>
-    <div class="an-item reveal"><span class="an-n">03</span><b>Temizuya</b><p>La vasca per le abluzioni. Si sciacqua la mano sinistra, poi la destra, poi si porta acqua alla bocca con la sinistra: è <i>misogi</i> in forma abbreviata.</p></div>
-    <div class="an-item reveal"><span class="an-n">04</span><b>Komainu</b><p>La coppia di guardiani leonini. Uno ha la bocca aperta (<i>a</i>), l'altro chiusa (<i>un</i>): insieme pronunciano l'inizio e la fine di tutte le cose.</p></div>
-    <div class="an-item reveal"><span class="an-n">05</span><b>Haiden</b><p>La sala delle preghiere, aperta ai visitatori. Il gesto standard: due inchini, due battiti di mani, una preghiera silenziosa, un ultimo inchino.</p></div>
-    <div class="an-item reveal"><span class="an-n">06</span><b>Honden</b><p>Il sancta sanctorum, quasi sempre chiuso. Custodisce lo <i>shintai</i>, l'oggetto in cui il kami risiede: uno specchio, una spada, a volte una montagna intera.</p></div>
+<section class="perc-sec" id="percorso">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Il percorso</span>
+      <h2>Sei tappe, dal torii al kami</h2>
+      <p>Ogni santuario, dal più minuscolo al più monumentale, segue questa sequenza. Conoscerla cambia completamente la visita.</p>
+    </div>
+    <div class="sentiero">
+      <div class="tappa-k" style="--i:0">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Torii"><use href="#ok-torii"/></svg></div>
+        <span class="tk-num">01</span>
+        <b>Torii</b><span class="tk-jp">鳥居</span>
+        <span class="tk-ruolo">La soglia</span>
+        <p>Non ha battenti e non chiude nulla: segna il passaggio dal profano al sacro. Ci si inchina prima di attraversarlo e si cammina ai lati, mai al centro, che è la via dei kami.</p>
+      </div>
+      <div class="tappa-k" style="--i:1">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Sandō"><use href="#ok-toro"/></svg></div>
+        <span class="tk-num">02</span>
+        <b>Sandō</b><span class="tk-jp">参道</span>
+        <span class="tk-ruolo">Il viale</span>
+        <p>Spesso lungo e alberato, fiancheggiato da lanterne di pietra. L'allungamento è deliberato: serve a separare mentalmente dal mondo che si è appena lasciato.</p>
+      </div>
+      <div class="tappa-k" style="--i:2">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Temizuya"><use href="#ok-temizuya"/></svg></div>
+        <span class="tk-num">03</span>
+        <b>Temizuya</b><span class="tk-jp">手水舎</span>
+        <span class="tk-ruolo">L'acqua</span>
+        <p>Sinistra, destra, un sorso versato nella sinistra, poi si inclina il mestolo per lavarne il manico. È il <i>misogi</i> in forma abbreviata. Mai bere dal mestolo.</p>
+      </div>
+      <div class="tappa-k" style="--i:3">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Komainu"><use href="#ok-komainu"/></svg></div>
+        <span class="tk-num">04</span>
+        <b>Komainu</b><span class="tk-jp">狛犬</span>
+        <span class="tk-ruolo">I guardiani</span>
+        <p>La coppia leonina all'ingresso. Uno ha la bocca aperta (<i>a</i>), l'altro chiusa (<i>un</i>): insieme pronunciano l'inizio e la fine di tutte le cose.</p>
+      </div>
+      <div class="tappa-k" style="--i:4">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Haiden"><use href="#ok-suzu"/></svg></div>
+        <span class="tk-num">05</span>
+        <b>Haiden</b><span class="tk-jp">拝殿</span>
+        <span class="tk-ruolo">La preghiera</span>
+        <p>La sala aperta ai visitatori. Si suona il sonaglio, si offre una moneta, poi due inchini, due battiti di mani, la preghiera in silenzio e un ultimo inchino.</p>
+      </div>
+      <div class="tappa-k" style="--i:5">
+        <div class="tk-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Honden"><use href="#ok-kagami"/></svg></div>
+        <span class="tk-num">06</span>
+        <b>Honden</b><span class="tk-jp">本殿</span>
+        <span class="tk-ruolo">Il cuore</span>
+        <p>Il sancta sanctorum, quasi sempre chiuso. Custodisce lo <i>shintai</i>, l'oggetto in cui il kami risiede: uno specchio, una spada, a volte una montagna intera.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="wrap" id="lista" style="padding-top:0;">
+<section class="wrap" id="oggetti">
   <div class="sec-head">
-    <span class="eyebrow">Elenco completo</span>
-    <h2>I santuari</h2>
-    <p>Cerca per nome, luogo o divinità, oppure filtra per regione. Ogni scheda porta direttamente a Google Maps.</p>
+    <span class="eyebrow">Oggetti sacri</span>
+    <h2>Cosa si trova dentro un santuario</h2>
+    <p>Quattordici oggetti che compaiono di continuo e che quasi nessuna guida spiega davvero.</p>
   </div>
+  <div class="ogg-grid">
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Shimenawa"><use href="#ok-shimenawa"/></svg></div>
+        <div class="ok-txt">
+          <b>Shimenawa</b><span class="ok-jp">注連縄</span>
+          <p>Fune di paglia di riso intrecciata, con strisce di carta piegate a zigzag. Delimita ciò che è abitato da un kami: un albero, una roccia, l'ingresso di una sala. Quella di Izumo Taisha pesa oltre cinque tonnellate.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Gohei / Ōnusa"><use href="#ok-gohei"/></svg></div>
+        <div class="ok-txt">
+          <b>Gohei / Ōnusa</b><span class="ok-jp">幣束</span>
+          <p>La bacchetta con le cascate di carta bianca che il sacerdote agita sopra persone e oggetti. Non è un gesto simbolico: è lo strumento tecnico della purificazione.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Saisen-bako"><use href="#ok-saisen"/></svg></div>
+        <div class="ok-txt">
+          <b>Saisen-bako</b><span class="ok-jp">賽銭箱</span>
+          <p>La cassetta delle offerte davanti all'haiden. Le monete si depongono, non si lanciano. La moneta da cinque yen è la più gradita: <i>goen</i> suona come "legame propizio".</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Suzu"><use href="#ok-suzu"/></svg></div>
+        <div class="ok-txt">
+          <b>Suzu</b><span class="ok-jp">鈴</span>
+          <p>Il grande sonaglio con la corda intrecciata. Suonarlo serve ad annunciare la propria presenza e, si dice, ad allontanare le influenze impure prima della preghiera.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Ema"><use href="#ok-ema"/></svg></div>
+        <div class="ok-txt">
+          <b>Ema</b><span class="ok-jp">絵馬</span>
+          <p>Tavoletta di legno su cui si scrive una richiesta e la si appende. Il nome significa "cavallo dipinto": in origine si offrivano cavalli veri, poi immagini, infine sole tavolette.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Omamori"><use href="#ok-omamori"/></svg></div>
+        <div class="ok-txt">
+          <b>Omamori</b><span class="ok-jp">お守り</span>
+          <p>Amuleto in sacchetto di stoffa cucito, che non va mai aperto. Vale un anno: allo scadere si riporta al santuario perché venga bruciato, e se ne prende uno nuovo.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Omikuji"><use href="#ok-omikuji"/></svg></div>
+        <div class="ok-txt">
+          <b>Omikuji</b><span class="ok-jp">御籤</span>
+          <p>Il responso estratto a sorte, dal grande augurio (<i>daikichi</i>) alla grande sfortuna (<i>daikyō</i>). Se è infausto si annoda al telaio apposito: la sfortuna resta al santuario.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Kagami"><use href="#ok-kagami"/></svg></div>
+        <div class="ok-txt">
+          <b>Kagami</b><span class="ok-jp">鏡</span>
+          <p>Lo specchio, spesso lo <i>shintai</i> stesso. Non riflette il fedele per vanità ma per mostrargli il proprio cuore: lo Yata-no-Kagami di Ise è una delle tre insegne imperiali.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Magatama"><use href="#ok-magatama"/></svg></div>
+        <div class="ok-txt">
+          <b>Magatama</b><span class="ok-jp">勾玉</span>
+          <p>Perla ricurva a virgola, in giada o agata, in uso dal periodo Jōmon. Gli Yasakani-no-Magatama sono la terza delle insegne imperiali, insieme a specchio e spada.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Tōrō"><use href="#ok-toro"/></svg></div>
+        <div class="ok-txt">
+          <b>Tōrō</b><span class="ok-jp">灯籠</span>
+          <p>Lanterne di pietra o bronzo lungo il sandō, quasi sempre donazioni di fedeli. A Kasuga Taisha sono circa tremila e vengono accese tutte due volte l'anno.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Komainu"><use href="#ok-komainu"/></svg></div>
+        <div class="ok-txt">
+          <b>Komainu</b><span class="ok-jp">狛犬</span>
+          <p>I due guardiani all'ingresso. In alcuni santuari non sono leoni: volpi da Inari, cervi a Kasuga, scimmie a Hie, lupi a Mitsumine.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Sakaki"><use href="#ok-sakaki"/></svg></div>
+        <div class="ok-txt">
+          <b>Sakaki</b><span class="ok-jp">榊</span>
+          <p>Ramo dell'omonimo albero sempreverde, offerto sull'altare come <i>tamagushi</i> con strisce di carta. Il sempreverde rappresenta ciò che non decade.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Chozuya"><use href="#ok-temizuya"/></svg></div>
+        <div class="ok-txt">
+          <b>Chozuya</b><span class="ok-jp">手水舎</span>
+          <p>La vasca per le abluzioni all'ingresso. L'acqua deve scorrere: mai stagnante, perché l'acqua ferma non purifica.</p>
+        </div>
+      </div>
+      <div class="ogg-k">
+        <div class="ok-ico"><svg class="okami" viewBox="0 0 120 120" role="img" aria-label="Goshuin"><use href="#ok-torii"/></svg></div>
+        <div class="ok-txt">
+          <b>Goshuin</b><span class="ok-jp">御朱印</span>
+          <p>Calligrafia e sigillo vermiglio apposti a mano sul proprio quaderno (<i>goshuinchō</i>), in cambio di un'offerta. Non è un timbro turistico ma la prova di una visita compiuta.</p>
+        </div>
+      </div>
+  </div>
+</section>
 
-  <div class="controls">
-    <input type="search" id="q" placeholder="Cerca santuario, città o kami…" aria-label="Cerca">
+<section class="mappa-sec" id="principali">
+  <div class="mappa-wrap">
+    <div class="mappa-box">
+      <svg id="mappa" viewBox="0 0 640 700" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Mappa del Giappone con i dodici santuari principali">
+  <g class="isole">
+      <path class="isola" id="isl-honshu" d="M443.8 193.0 L461.0 214.5 L464.4 235.9 L478.2 266.0 L478.2 300.3 L450.6 330.3 L447.2 351.8 L447.2 386.1 L440.3 411.8 L433.4 441.9 L423.1 463.3 L405.9 476.2 L381.8 476.2 L371.5 489.1 L361.2 484.8 L326.8 489.1 L306.2 484.8 L302.7 506.2 L275.2 532.0 L254.6 536.2 L240.8 514.8 L227.0 493.3 L189.2 497.6 L154.8 501.9 L120.4 514.8 L99.8 519.1 L103.2 497.6 L123.8 484.8 L154.8 467.6 L182.3 450.4 L223.6 446.2 L258.0 446.2 L282.1 420.4 L299.3 394.7 L309.6 368.9 L319.9 364.6 L313.0 390.4 L354.3 377.5 L395.6 343.2 L412.8 300.3 L412.8 257.4 L423.1 231.7 Z"/>
+      <path class="isola" id="isl-hokkaido" d="M412.8 175.9 L447.2 158.7 L467.8 145.9 L522.9 175.9 L564.2 133.0 L595.1 115.8 L588.2 72.9 L560.7 85.8 L516.0 72.9 L481.6 64.3 L467.8 25.7 L461.0 21.4 L430.0 85.8 L412.8 128.7 L405.9 150.2 Z"/>
+      <path class="isola" id="isl-kyushu" d="M99.8 523.4 L127.3 536.2 L134.2 566.3 L120.4 609.2 L99.8 634.9 L75.7 626.3 L75.7 579.1 L61.9 566.3 L65.4 544.8 L82.6 532.0 Z"/>
+      <path class="isola" id="isl-shikoku" d="M206.4 501.9 L230.5 519.1 L213.3 540.5 L189.2 544.8 L168.6 562.0 L151.4 544.8 L158.2 519.1 L192.6 501.9 Z"/>
+      <path class="isola" id="isl-sado" d="M350.9 330.3 L364.6 338.9 L361.2 351.8 L350.9 351.8 L344.0 338.9 Z"/>
+      <path class="isola" id="isl-awaji" d="M230.5 489.1 L240.8 497.6 L237.4 506.2 L230.5 501.9 Z"/>
+  </g>
+  <g class="pins">
+    <g class="pin" data-id="t0" tabindex="0" role="button" aria-label="Ise Jingū"><circle class="alone" cx="300.1" cy="495.3" r="16"/><circle class="dot" cx="300.1" cy="495.3" r="7"/><text class="et" x="300.1" y="482.3">Ise Jingū</text></g>
+    <g class="pin" data-id="t1" tabindex="0" role="button" aria-label="Izumo Taisha"><circle class="alone" cx="161.2" cy="454.7" r="16"/><circle class="dot" cx="161.2" cy="454.7" r="7"/><text class="et" x="161.2" y="441.7">Izumo Taisha</text></g>
+    <g class="pin" data-id="t2" tabindex="0" role="button" aria-label="Fushimi Inari Taisha"><circle class="alone" cx="267.4" cy="473.3" r="16"/><circle class="dot" cx="267.4" cy="473.3" r="7"/><text class="et" x="267.4" y="460.3">Fushimi Inari Taisha</text></g>
+    <g class="pin" data-id="t3" tabindex="0" role="button" aria-label="Itsukushima Jinja"><circle class="alone" cx="148.6" cy="502.1" r="16"/><circle class="dot" cx="148.6" cy="502.1" r="7"/><text class="et" x="148.6" y="489.1">Itsukushima Jinja</text></g>
+    <g class="pin" data-id="t4" tabindex="0" role="button" aria-label="Meiji Jingū"><circle class="alone" cx="402.4" cy="442.9" r="16"/><circle class="dot" cx="402.4" cy="442.9" r="7"/><text class="et" x="402.4" y="429.9">Meiji Jingū</text></g>
+    <g class="pin" data-id="t5" tabindex="0" role="button" aria-label="Kasuga Taisha"><circle class="alone" cx="270.0" cy="485.6" r="16"/><circle class="dot" cx="270.0" cy="485.6" r="7"/><text class="et" x="270.0" y="472.6">Kasuga Taisha</text></g>
+    <g class="pin" data-id="t6" tabindex="0" role="button" aria-label="Atsuta Jingū"><circle class="alone" cx="306.4" cy="466.4" r="16"/><circle class="dot" cx="306.4" cy="466.4" r="7"/><text class="et" x="306.4" y="453.4">Atsuta Jingū</text></g>
+    <g class="pin" data-id="t7" tabindex="0" role="button" aria-label="Usa Jingū"><circle class="alone" cx="116.1" cy="535.1" r="16"/><circle class="dot" cx="116.1" cy="535.1" r="7"/><text class="et" x="116.1" y="522.1">Usa Jingū</text></g>
+    <g class="pin" data-id="t8" tabindex="0" role="button" aria-label="Kumano Hongū Taisha"><circle class="alone" cx="267.4" cy="521.7" r="16"/><circle class="dot" cx="267.4" cy="521.7" r="7"/><text class="et" x="267.4" y="508.70000000000005">Kumano Hongū Taisha</text></g>
+    <g class="pin" data-id="t9" tabindex="0" role="button" aria-label="Nikkō Tōshō-gū"><circle class="alone" cx="399.0" cy="396.5" r="16"/><circle class="dot" cx="399.0" cy="396.5" r="7"/><text class="et" x="399.0" y="383.5">Nikkō Tōshō-gū</text></g>
+    <g class="pin" data-id="t10" tabindex="0" role="button" aria-label="Dazaifu Tenmangū"><circle class="alone" cx="87.2" cy="535.3" r="16"/><circle class="dot" cx="87.2" cy="535.3" r="7"/><text class="et" x="87.2" y="522.3">Dazaifu Tenmangū</text></g>
+    <g class="pin" data-id="t11" tabindex="0" role="button" aria-label="Suwa Taisha"><circle class="alone" cx="348.0" cy="428.9" r="16"/><circle class="dot" cx="348.0" cy="428.9" r="7"/><text class="et" x="348.0" y="415.9">Suwa Taisha</text></g>
+  </g>
+</svg>
+      <div class="legenda"><span class="lgd"></span> I dodici santuari principali</div>
+    </div>
+    <div class="mappa-side">
+      <div class="sec-head" style="text-align:left; margin:0 0 18px;">
+        <span class="eyebrow">La mappa</span>
+        <h2 style="font-size:clamp(22px,4vw,30px);">I dodici principali</h2>
+        <p style="font-size:14px;">Tocca un punto per saltare alla scheda. Sono i santuari da cui conviene cominciare: per antichità, importanza o perché spiegano qualcosa che gli altri non spiegano.</p>
+      </div>
+      <ol class="lista-top" id="listaTop">
+        <li><a href="#t0" data-goto="t0"><b>Ise Jingū</b><span>Mie</span></a></li>
+        <li><a href="#t1" data-goto="t1"><b>Izumo Taisha</b><span>Shimane</span></a></li>
+        <li><a href="#t2" data-goto="t2"><b>Fushimi Inari Taisha</b><span>Kyōto</span></a></li>
+        <li><a href="#t3" data-goto="t3"><b>Itsukushima Jinja</b><span>Hiroshima</span></a></li>
+        <li><a href="#t4" data-goto="t4"><b>Meiji Jingū</b><span>Tokyo</span></a></li>
+        <li><a href="#t5" data-goto="t5"><b>Kasuga Taisha</b><span>Nara</span></a></li>
+        <li><a href="#t6" data-goto="t6"><b>Atsuta Jingū</b><span>Aichi</span></a></li>
+        <li><a href="#t7" data-goto="t7"><b>Usa Jingū</b><span>Ōita</span></a></li>
+        <li><a href="#t8" data-goto="t8"><b>Kumano Hongū Taisha</b><span>Wakayama</span></a></li>
+        <li><a href="#t9" data-goto="t9"><b>Nikkō Tōshō-gū</b><span>Tochigi</span></a></li>
+        <li><a href="#t10" data-goto="t10"><b>Dazaifu Tenmangū</b><span>Fukuoka</span></a></li>
+        <li><a href="#t11" data-goto="t11"><b>Suwa Taisha</b><span>Nagano</span></a></li>
+      </ol>
+    </div>
   </div>
-  <div class="filter-row" id="filters">
-    <button class="fbtn on" data-region="all">Tutte le regioni</button>
-  <button class="fbtn" data-region="Kantō">Kantō</button>
-  <button class="fbtn" data-region="Kansai">Kansai</button>
-  <button class="fbtn" data-region="Chūbu">Chūbu</button>
-  <button class="fbtn" data-region="Chūgoku">Chūgoku</button>
-  <button class="fbtn" data-region="Kyūshū">Kyūshū</button>
-  </div>
-  <div class="count" id="count"></div>
+</section>
 
-  <div class="grid-3" id="grid">
-  <article class="card temple" data-region="Kansai" data-search="fushimi inari taisha kyoto, japan inari ōkami (ukanomitama-no-ōkami) santuario capo degli inari, celebre per i tunnel di torii vermiglioni del monte inari.">
-    <div class="ph" data-wiki="Fushimi Inari-taisha" data-fallback="稲"></div>
-    <div class="body">
-      <h3>Fushimi Inari Taisha</h3>
-      <div class="sub">Kyoto, Japan · Kansai</div>
-      <p>Santuario capo degli Inari, celebre per i tunnel di torii vermiglioni del Monte Inari.</p>
-      <div class="deity"><b>Divinità</b> Inari Ōkami (Ukanomitama-no-Ōkami)</div>
-      <div class="curio"><b>Da sapere</b> Il percorso completo fino alla vetta del monte Inari richiede circa 2-3 ore. I torii sono donazioni di privati e aziende: il nome del donatore è inciso sul montante destro.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Fushimi%20Inari%20Taisha%2C%20Kyoto" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Fushimi%20Inari%20Taisha%2C%20Kyoto&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Fushimi%20Inari%20Taisha%2C%20Kyoto&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+<section class="wrap" style="padding-top:20px;">
+  <div class="top-grid">
+    <article class="top-card" id="t0">
+      <div class="tc-foto" data-wiki="Ise jingū" data-fallback="伊"></div>
+      <div class="tc-body">
+        <div class="tc-jp">伊勢神宮</div>
+        <h3>Ise Jingū</h3>
+        <div class="tc-dove">Mie · Kansai</div>
+        <div class="tc-kami"><b>Kami</b>Amaterasu-Ōmikami (Naikū) · Toyouke-Ōmikami (Gekū)</div>
+        <p>Il santuario più sacro dello Shinto. Ricostruito identico ogni vent'anni dal 690: l'ultimo rinnovo è del 2013, il prossimo è atteso per il 2033.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Ise%20Jing%C5%AB%20Mie%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="meiji jingu tokyo, japan anime dell&#x27;imperatore meiji e dell&#x27;imperatrice shōken grande foresta sacra nel cuore di tokyo; santuario dedicato alla modernizzazione del giappone.">
-    <div class="ph" data-wiki="Meiji jingū" data-fallback="明"></div>
-    <div class="body">
-      <h3>Meiji Jingu</h3>
-      <div class="sub">Tokyo, Japan · Kantō</div>
-      <p>Grande foresta sacra nel cuore di Tokyo; santuario dedicato alla modernizzazione del Giappone.</p>
-      <div class="deity"><b>Divinità</b> Anime dell&#x27;Imperatore Meiji e dell&#x27;Imperatrice Shōken</div>
-      <div class="curio"><b>Da sapere</b> La foresta che lo circonda non è naturale: 100.000 alberi donati da tutto il Giappone furono piantati a mano negli anni Venti, progettati per diventare un bosco autosufficiente in un secolo.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Meiji%20Jingu%2C%20Tokyo" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Meiji%20Jingu%2C%20Tokyo&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Meiji%20Jingu%2C%20Tokyo&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t1">
+      <div class="tc-foto" data-wiki="Izumo-taisha" data-fallback="出"></div>
+      <div class="tc-body">
+        <div class="tc-jp">出雲大社</div>
+        <h3>Izumo Taisha</h3>
+        <div class="tc-dove">Shimane · Chūgoku</div>
+        <div class="tc-kami"><b>Kami</b>Ōkuninushi no Ōkami</div>
+        <p>Santuario dei legami. Ci si batte le mani quattro volte invece di due. Nel decimo mese lunare tutti i kami del Giappone vi si radunerebbero.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Izumo%20Taisha%20Shimane%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Giappone" data-search="ise jingu (naikū/gekū) ise, mie, japan amaterasu-ōmikami (naikū) e toyouke-ōmikami (gekū) il complesso shintoista più sacro: naikū per amaterasu, gekū per toyouke; rinnovato ciclicamente.">
-    <div class="ph" data-wiki="Ise Jingu (Naikū/Gekū)" data-fallback="⛩"></div>
-    <div class="body">
-      <h3>Ise Jingu (Naikū/Gekū)</h3>
-      <div class="sub">Ise, Mie, Japan · Giappone</div>
-      <p>Il complesso shintoista più sacro: Naikū per Amaterasu, Gekū per Toyouke; rinnovato ciclicamente.</p>
-      <div class="deity"><b>Divinità</b> Amaterasu-Ōmikami (Naikū) e Toyouke-Ōmikami (Gekū)</div>
-      <div class="curio"><b>Da sapere</b> Ogni vent&#x27;anni il santuario viene interamente ricostruito accanto a sé stesso (shikinen sengū): l&#x27;ultimo rinnovo è del 2013, il prossimo è atteso per il 2033.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Ise%20Jingu%20%28Naik%C5%AB/Gek%C5%AB%29%2C%20Ise" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Ise%20Jingu%20%28Naik%C5%AB/Gek%C5%AB%29%2C%20Ise&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Ise%20Jingu%20%28Naik%C5%AB/Gek%C5%AB%29%2C%20Ise&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t2">
+      <div class="tc-foto" data-wiki="Fushimi Inari-taisha" data-fallback="稲"></div>
+      <div class="tc-body">
+        <div class="tc-jp">伏見稲荷大社</div>
+        <h3>Fushimi Inari Taisha</h3>
+        <div class="tc-dove">Kyōto · Kansai</div>
+        <div class="tc-kami"><b>Kami</b>Inari Ōkami (Ukanomitama-no-Ōkami)</div>
+        <p>Capo di circa trentamila santuari Inari. Ogni torii è la donazione di una persona o di un'azienda, con il nome inciso sul montante destro.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Fushimi%20Inari%20Taisha%20Ky%C5%8Dto%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Chūgoku" data-search="izumo taisha izumo, shimane, japan ōkuninushi no ōkami antichissimo santuario legato ai miti del kojiki; famoso per l’en-musubi (legami).">
-    <div class="ph" data-wiki="Izumo-taisha" data-fallback="出"></div>
-    <div class="body">
-      <h3>Izumo Taisha</h3>
-      <div class="sub">Izumo, Shimane, Japan · Chūgoku</div>
-      <p>Antichissimo santuario legato ai miti del Kojiki; famoso per l’en-musubi (legami).</p>
-      <div class="deity"><b>Divinità</b> Ōkuninushi no Ōkami</div>
-      <div class="curio"><b>Da sapere</b> Nel decimo mese lunare tutti i kami del Giappone si radunerebbero qui: altrove quel mese si chiama kannazuki (mese senza dèi), a Izumo kamiarizuki (mese con gli dèi).</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Izumo%20Taisha%2C%20Izumo" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Izumo%20Taisha%2C%20Izumo&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Izumo%20Taisha%2C%20Izumo&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t3">
+      <div class="tc-foto" data-wiki="Santuario di Itsukushima" data-fallback="厳"></div>
+      <div class="tc-body">
+        <div class="tc-jp">厳島神社</div>
+        <h3>Itsukushima Jinja</h3>
+        <div class="tc-dove">Hiroshima · Chūgoku</div>
+        <div class="tc-kami"><b>Kami</b>Le tre dee Munakata</div>
+        <p>Costruito sull'acqua perché l'isola era troppo sacra per essere calpestata. Il grande torii non è infisso nel fondale: sta in piedi per il proprio peso.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Itsukushima%20Jinja%20Hiroshima%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Chūgoku" data-search="itsukushima shrine miyajima (hatsukaichi), hiroshima, japan tre dee munakata: ichikishimahime, tagorihime, tagitsuhime torii &#x27;galleggiante&#x27; sull’acqua e complesso su palafitte, patrimonio unesco.">
-    <div class="ph" data-wiki="Santuario di Itsukushima" data-fallback="厳"></div>
-    <div class="body">
-      <h3>Itsukushima Shrine</h3>
-      <div class="sub">Miyajima (Hatsukaichi), Hiroshima, Japan · Chūgoku</div>
-      <p>Torii &#x27;galleggiante&#x27; sull’acqua e complesso su palafitte, Patrimonio UNESCO.</p>
-      <div class="deity"><b>Divinità</b> Tre dee Munakata: Ichikishimahime, Tagorihime, Tagitsuhime</div>
-      <div class="curio"><b>Da sapere</b> Il grande torii non è infisso nel fondale: sta in piedi per il proprio peso, circa 60 tonnellate, con pietre zavorra nascoste nella struttura.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Itsukushima%20Shrine%2C%20Miyajima%20%28Hatsukaichi%29" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Itsukushima%20Shrine%2C%20Miyajima%20%28Hatsukaichi%29&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Itsukushima%20Shrine%2C%20Miyajima%20%28Hatsukaichi%29&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t4">
+      <div class="tc-foto" data-wiki="Meiji jingū" data-fallback="明"></div>
+      <div class="tc-body">
+        <div class="tc-jp">明治神宮</div>
+        <h3>Meiji Jingū</h3>
+        <div class="tc-dove">Tokyo · Kantō</div>
+        <div class="tc-kami"><b>Kami</b>Imperatore Meiji e imperatrice Shōken</div>
+        <p>I centomila alberi della foresta furono donati da tutto il Giappone e piantati a mano negli anni Venti, progettati per diventare un bosco autosufficiente in un secolo.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Meiji%20Jing%C5%AB%20Tokyo%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="kasuga taisha nara, japan quattro kami: takemikazuchi, futsunushi, ame-no-koyane, himegami santuario vermiglione nel parco dei cervi, famoso per migliaia di lanterne.">
-    <div class="ph" data-wiki="Kasuga-taisha" data-fallback="春"></div>
-    <div class="body">
-      <h3>Kasuga Taisha</h3>
-      <div class="sub">Nara, Japan · Kansai</div>
-      <p>Santuario vermiglione nel parco dei cervi, famoso per migliaia di lanterne.</p>
-      <div class="deity"><b>Divinità</b> Quattro kami: Takemikazuchi, Futsunushi, Ame-no-Koyane, Himegami</div>
-      <div class="curio"><b>Da sapere</b> Circa 3.000 lanterne di pietra e bronzo vengono accese due volte l&#x27;anno (febbraio e agosto) nella festa Mantōrō. I cervi del parco sono considerati messaggeri dei kami.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Kasuga%20Taisha%2C%20Nara" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kasuga%20Taisha%2C%20Nara&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kasuga%20Taisha%2C%20Nara&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t5">
+      <div class="tc-foto" data-wiki="Kasuga-taisha" data-fallback="春"></div>
+      <div class="tc-body">
+        <div class="tc-jp">春日大社</div>
+        <h3>Kasuga Taisha</h3>
+        <div class="tc-dove">Nara · Kansai</div>
+        <div class="tc-kami"><b>Kami</b>Takemikazuchi, Futsunushi, Ame-no-Koyane, Himegami</div>
+        <p>Circa tremila lanterne di pietra e bronzo, accese due volte l'anno nella festa Mantōrō. I cervi del parco sono considerati messaggeri dei kami.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Kasuga%20Taisha%20Nara%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="tsurugaoka hachimangu kamakura, kanagawa, japan hachiman (emperor ōjin), empress jingu, himegami cuore spirituale di kamakura e del clan minamoto; viale dankazura di ciliegi.">
-    <div class="ph" data-wiki="Tsurugaoka Hachiman-gū" data-fallback="鶴"></div>
-    <div class="body">
-      <h3>Tsurugaoka Hachimangu</h3>
-      <div class="sub">Kamakura, Kanagawa, Japan · Kantō</div>
-      <p>Cuore spirituale di Kamakura e del clan Minamoto; viale Dankazura di ciliegi.</p>
-      <div class="deity"><b>Divinità</b> Hachiman (Emperor Ōjin), Empress Jingu, Himegami</div>
-      <div class="curio"><b>Da sapere</b> Il viale Dankazura che porta al santuario si restringe progressivamente per creare un&#x27;illusione ottica di maggiore lunghezza.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Tsurugaoka%20Hachimangu%2C%20Kamakura" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Tsurugaoka%20Hachimangu%2C%20Kamakura&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Tsurugaoka%20Hachimangu%2C%20Kamakura&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t6">
+      <div class="tc-foto" data-wiki="Atsuta jingū" data-fallback="熱"></div>
+      <div class="tc-body">
+        <div class="tc-jp">熱田神宮</div>
+        <h3>Atsuta Jingū</h3>
+        <div class="tc-dove">Aichi · Chūbu</div>
+        <div class="tc-kami"><b>Kami</b>Atsuta-no-Ōkami</div>
+        <p>Custodisce Kusanagi-no-Tsurugi, la spada trovata da Susanoo nella coda di Yamata no Orochi. Nessuno può vederla.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Atsuta%20Jing%C5%AB%20Aichi%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Chūbu" data-search="atsuta jingu nagoya, aichi, japan atsuta-no-ōkami (amaterasu-ōmikami rappresentata da kusanagi) custodisce la spada sacra kusanagi, tra i tre tesori imperiali.">
-    <div class="ph" data-wiki="Atsuta jingū" data-fallback="熱"></div>
-    <div class="body">
-      <h3>Atsuta Jingu</h3>
-      <div class="sub">Nagoya, Aichi, Japan · Chūbu</div>
-      <p>Custodisce la spada sacra Kusanagi, tra i tre tesori imperiali.</p>
-      <div class="deity"><b>Divinità</b> Atsuta-no-Ōkami (Amaterasu-Ōmikami rappresentata da Kusanagi)</div>
-      <div class="curio"><b>Da sapere</b> Custodisce Kusanagi-no-Tsurugi, la spada trovata da Susanoo nella coda di Yamata no Orochi. Nessuno può vederla: la sua esistenza è materia di fede.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Atsuta%20Jingu%2C%20Nagoya" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Atsuta%20Jingu%2C%20Nagoya&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Atsuta%20Jingu%2C%20Nagoya&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t7">
+      <div class="tc-foto" data-wiki="Usa jingū" data-fallback="宇"></div>
+      <div class="tc-body">
+        <div class="tc-jp">宇佐神宮</div>
+        <h3>Usa Jingū</h3>
+        <div class="tc-dove">Ōita · Kyūshū</div>
+        <div class="tc-kami"><b>Kami</b>Hachiman-Ōkami, Himegami, imperatrice Jingū</div>
+        <p>Casa madre di oltre quarantamila santuari Hachiman, e primo grande laboratorio della fusione fra Shinto e buddhismo.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Usa%20Jing%C5%AB%20%C5%8Cita%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="sumiyoshi taisha osaka, japan sumiyoshi sanjin e imperatrice jingū capo dei sumiyoshi; ponte taiko-bashi e culto marittimo antico.">
-    <div class="ph" data-wiki="Sumiyoshi-taisha" data-fallback="住"></div>
-    <div class="body">
-      <h3>Sumiyoshi Taisha</h3>
-      <div class="sub">Osaka, Japan · Kansai</div>
-      <p>Capo dei Sumiyoshi; ponte Taiko-bashi e culto marittimo antico.</p>
-      <div class="deity"><b>Divinità</b> Sumiyoshi Sanjin e Imperatrice Jingū</div>
-      <div class="curio"><b>Da sapere</b> L&#x27;architettura sumiyoshi-zukuri è tra le più antiche del Giappone, precedente all&#x27;influenza continentale: tetto dritto e nessuna verniciatura cinese.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Sumiyoshi%20Taisha%2C%20Osaka" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Sumiyoshi%20Taisha%2C%20Osaka&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Sumiyoshi%20Taisha%2C%20Osaka&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t8">
+      <div class="tc-foto" data-wiki="Kumano Hongū Taisha" data-fallback="熊"></div>
+      <div class="tc-body">
+        <div class="tc-jp">熊野本宮大社</div>
+        <h3>Kumano Hongū Taisha</h3>
+        <div class="tc-dove">Wakayama · Kansai</div>
+        <div class="tc-kami"><b>Kami</b>Ketsumiko-no-Ōkami</div>
+        <p>Arrivo dei cammini Kumano Kodō, patrimonio UNESCO gemellati con il Cammino di Santiago. Il torii Ōyunohara è il più grande del mondo: 34 metri.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Hong%C5%AB%20Taisha%20Wakayama%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kyūshū" data-search="usa jingu usa, ōita, japan hachiman (emperor ōjin), empress jingu, hime-ōkami santuario capo di hachiman; culla dello shinbutsu-shūgō.">
-    <div class="ph" data-wiki="Usa jingū" data-fallback="宇"></div>
-    <div class="body">
-      <h3>Usa Jingu</h3>
-      <div class="sub">Usa, Ōita, Japan · Kyūshū</div>
-      <p>Santuario capo di Hachiman; culla dello shinbutsu-shūgō.</p>
-      <div class="deity"><b>Divinità</b> Hachiman (Emperor Ōjin), Empress Jingu, Hime-Ōkami</div>
-      <div class="curio"><b>Da sapere</b> Da qui parte la rete di oltre 40.000 santuari Hachiman. Fu anche il primo grande centro di fusione tra Shinto e Buddhismo (shinbutsu-shūgō).</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Usa%20Jingu%2C%20Usa" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Usa%20Jingu%2C%20Usa&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Usa%20Jingu%2C%20Usa&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t9">
+      <div class="tc-foto" data-wiki="Nikkō Tōshō-gū" data-fallback="東"></div>
+      <div class="tc-body">
+        <div class="tc-jp">日光東照宮</div>
+        <h3>Nikkō Tōshō-gū</h3>
+        <div class="tc-dove">Tochigi · Kantō</div>
+        <div class="tc-kami"><b>Kami</b>Tokugawa Ieyasu (Tōshō-Daigongen)</div>
+        <p>L'opposto esatto della sobrietà di Ise: oro e intagli ovunque. Qui si trovano le tre scimmie che non vedono, non sentono, non parlano.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Nikk%C5%8D%20T%C5%8Dsh%C5%8D-g%C5%AB%20Tochigi%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kyūshū" data-search="dazaifu tenmangu dazaifu, fukuoka, japan sugawara no michizane (tenjin) santuario di tenjin, dio dello studio; celebre per i pruni.">
-    <div class="ph" data-wiki="Dazaifu Tenman-gū" data-fallback="天"></div>
-    <div class="body">
-      <h3>Dazaifu Tenmangu</h3>
-      <div class="sub">Dazaifu, Fukuoka, Japan · Kyūshū</div>
-      <p>Santuario di Tenjin, dio dello studio; celebre per i pruni.</p>
-      <div class="deity"><b>Divinità</b> Sugawara no Michizane (Tenjin)</div>
-      <div class="curio"><b>Da sapere</b> Sugawara no Michizane, esiliato qui e morto in disgrazia, fu divinizzato come Tenjin dopo una serie di calamità attribuite al suo spirito adirato.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Dazaifu%20Tenmangu%2C%20Dazaifu" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Dazaifu%20Tenmangu%2C%20Dazaifu&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Dazaifu%20Tenmangu%2C%20Dazaifu&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t10">
+      <div class="tc-foto" data-wiki="Dazaifu Tenman-gū" data-fallback="天"></div>
+      <div class="tc-body">
+        <div class="tc-jp">太宰府天満宮</div>
+        <h3>Dazaifu Tenmangū</h3>
+        <div class="tc-dove">Fukuoka · Kyūshū</div>
+        <div class="tc-kami"><b>Kami</b>Sugawara no Michizane (Tenjin)</div>
+        <p>Michizane fu esiliato qui e morì in disgrazia. Dopo fulmini e morti sospette la corte lo divinizzò per placarlo: oggi è il kami degli studenti.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Dazaifu%20Tenmang%C5%AB%20Fukuoka%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="kumano nachi taisha nachikatsuura, wakayama, japan kumano nachi ōkami / divinità della cascata parte dei kumano sanzan accanto alla cascata nachi (133 m), venerata fin dall’antichità.">
-    <div class="ph" data-wiki="Kumano Nachi Taisha" data-fallback="那"></div>
-    <div class="body">
-      <h3>Kumano Nachi Taisha</h3>
-      <div class="sub">Nachikatsuura, Wakayama, Japan · Kansai</div>
-      <p>Parte dei Kumano Sanzan accanto alla cascata Nachi (133 m), venerata fin dall’antichità.</p>
-      <div class="deity"><b>Divinità</b> Kumano Nachi Ōkami / divinità della cascata</div>
-      <div class="curio"><b>Da sapere</b> La cascata Nachi, alta 133 metri, è essa stessa oggetto di culto: è il kami, non un semplice sfondo del santuario.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Nachi%20Taisha%2C%20Nachikatsuura" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kumano%20Nachi%20Taisha%2C%20Nachikatsuura&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kumano%20Nachi%20Taisha%2C%20Nachikatsuura&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
+    </article>
+    <article class="top-card" id="t11">
+      <div class="tc-foto" data-wiki="Suwa-taisha" data-fallback="諠"></div>
+      <div class="tc-body">
+        <div class="tc-jp">諠訪大社</div>
+        <h3>Suwa Taisha</h3>
+        <div class="tc-dove">Nagano · Chūbu</div>
+        <div class="tc-kami"><b>Kami</b>Takeminakata, Yasakatome</div>
+        <p>Quattro complessi attorno al lago Suwa. Ogni sei anni l'Onbashira: tronchi enormi trascinati giù dalla montagna con uomini a cavalcioni.</p>
+        <a class="tc-map" href="https://www.google.com/maps/search/?api=1&amp;query=Suwa%20Taisha%20Nagano%20Japan"
+           target="_blank" rel="noopener">Apri su Maps ↗</a>
       </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="ōmiwa jinja (miwa) sakurai, nara, japan ōmononushi (associato a ōkuninushi) monte miwa come shintai: il monte stesso è la divinità; culto arcaico senza honden.">
-    <div class="ph" data-wiki="Ōmiwa-jinja" data-fallback="三"></div>
-    <div class="body">
-      <h3>Ōmiwa Jinja (Miwa)</h3>
-      <div class="sub">Sakurai, Nara, Japan · Kansai</div>
-      <p>Monte Miwa come shintai: il monte stesso è la divinità; culto arcaico senza honden.</p>
-      <div class="deity"><b>Divinità</b> Ōmononushi (associato a Ōkuninushi)</div>
-      <div class="curio"><b>Da sapere</b> Non ha honden (sala principale): il monte Miwa alle sue spalle è il corpo stesso della divinità. È una delle forme di culto più arcaiche sopravvissute.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Cmiwa%20Jinja%20%28Miwa%29%2C%20Sakurai" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C5%8Cmiwa%20Jinja%20%28Miwa%29%2C%20Sakurai&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=%C5%8Cmiwa%20Jinja%20%28Miwa%29%2C%20Sakurai&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="hie jinja (akasaka) tokyo, japan ōyamakui no kami (sannō) guardiano dell’antica edo; celebre sannō matsuri e tunnel di torii.">
-    <div class="ph" data-wiki="Hie-jinja" data-fallback="日"></div>
-    <div class="body">
-      <h3>Hie Jinja (Akasaka)</h3>
-      <div class="sub">Tokyo, Japan · Kantō</div>
-      <p>Guardiano dell’antica Edo; celebre Sannō Matsuri e tunnel di torii.</p>
-      <div class="deity"><b>Divinità</b> Ōyamakui no Kami (Sannō)</div>
-      <div class="curio"><b>Da sapere</b> Il messaggero del kami è la scimmia (saru), che gioca sull&#x27;omofonia con &#x27;allontanare&#x27; (saru): amuleti popolari contro le disgrazie.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Hie%20Jinja%20%28Akasaka%29%2C%20Tokyo" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hie%20Jinja%20%28Akasaka%29%2C%20Tokyo&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hie%20Jinja%20%28Akasaka%29%2C%20Tokyo&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="kanda myojin chiyoda, tokyo, japan daikokuten (ōnamuchi/ōkuninushi), ebisu (sukunahikona), taira no masakado santuario storico vicino ad akihabara; kanda matsuri tra i tre grandi festival.">
-    <div class="ph" data-wiki="Kanda-myōjin" data-fallback="神"></div>
-    <div class="body">
-      <h3>Kanda Myojin</h3>
-      <div class="sub">Chiyoda, Tokyo, Japan · Kantō</div>
-      <p>Santuario storico vicino ad Akihabara; Kanda Matsuri tra i tre grandi festival.</p>
-      <div class="deity"><b>Divinità</b> Daikokuten (Ōnamuchi/Ōkuninushi), Ebisu (Sukunahikona), Taira no Masakado</div>
-      <div class="curio"><b>Da sapere</b> Vicino ad Akihabara, offre benedizioni per apparecchi elettronici e progetti IT: sacerdoti che purificano server e schede madri.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Kanda%20Myojin%2C%20Chiyoda" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kanda%20Myojin%2C%20Chiyoda&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kanda%20Myojin%2C%20Chiyoda&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="nezu jinja bunkyō, tokyo, japan susanoo-no-mikoto (deità principale) esempio intatto di architettura edo, celebre per i tunnel di torii e l’azalea garden.">
-    <div class="ph" data-wiki="Nezu-jinja" data-fallback="根"></div>
-    <div class="body">
-      <h3>Nezu Jinja</h3>
-      <div class="sub">Bunkyō, Tokyo, Japan · Kantō</div>
-      <p>Esempio intatto di architettura Edo, celebre per i tunnel di torii e l’Azalea Garden.</p>
-      <div class="deity"><b>Divinità</b> Susanoo-no-Mikoto (deità principale)</div>
-      <div class="curio"><b>Da sapere</b> Sopravvissuto ai bombardamenti del 1945, conserva un complesso Edo del 1706 pressoché intatto: raro a Tokyo. Il giardino di azalee fiorisce ad aprile.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Nezu%20Jinja%2C%20Bunky%C5%8D" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nezu%20Jinja%2C%20Bunky%C5%8D&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nezu%20Jinja%2C%20Bunky%C5%8D&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="hakone jinja hakone, kanagawa, japan ninigi-no-mikoto, konohanasakuya-hime, hikohohodemi (hoori) torii sul lago ashi e culto dei tre ōkami di hakone.">
-    <div class="ph" data-wiki="Hakone-jinja" data-fallback="箱"></div>
-    <div class="body">
-      <h3>Hakone Jinja</h3>
-      <div class="sub">Hakone, Kanagawa, Japan · Kantō</div>
-      <p>Torii sul lago Ashi e culto dei tre Ōkami di Hakone.</p>
-      <div class="deity"><b>Divinità</b> Ninigi-no-Mikoto, Konohanasakuya-hime, Hikohohodemi (Hoori)</div>
-      <div class="curio"><b>Da sapere</b> Il torii della Pace sorge nell&#x27;acqua del lago Ashi: fotografarlo richiede spesso ore di coda, ma all&#x27;alba è quasi deserto.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Hakone%20Jinja%2C%20Hakone" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hakone%20Jinja%2C%20Hakone&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hakone%20Jinja%2C%20Hakone&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="nikkō tōshō-gū nikkō, tochigi, japan tokugawa ieyasu (tōshō daigongen) mausoleo sontuoso del fondatore dello shogunato tokugawa; sculture celebri.">
-    <div class="ph" data-wiki="Nikkō Tōshō-gū" data-fallback="東"></div>
-    <div class="body">
-      <h3>Nikkō Tōshō-gū</h3>
-      <div class="sub">Nikkō, Tochigi, Japan · Kantō</div>
-      <p>Mausoleo sontuoso del fondatore dello shogunato Tokugawa; sculture celebri.</p>
-      <div class="deity"><b>Divinità</b> Tokugawa Ieyasu (Tōshō Daigongen)</div>
-      <div class="curio"><b>Da sapere</b> Qui si trovano le tre scimmie &#x27;non vedo, non sento, non parlo&#x27; (mizaru, kikazaru, iwazaru), scolpite sulla stalla sacra.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Nikk%C5%8D%20T%C5%8Dsh%C5%8D-g%C5%AB%2C%20Nikk%C5%8D" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nikk%C5%8D%20T%C5%8Dsh%C5%8D-g%C5%AB%2C%20Nikk%C5%8D&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Nikk%C5%8D%20T%C5%8Dsh%C5%8D-g%C5%AB%2C%20Nikk%C5%8D&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kantō" data-search="futarasan jinja nikkō, tochigi, japan ōkuninushi, tagorihime, ajisukitakahikone santuario dei tre monti sacri di nikkō; ampio complesso naturale.">
-    <div class="ph" data-wiki="Futarasan-jinja" data-fallback="二"></div>
-    <div class="body">
-      <h3>Futarasan Jinja</h3>
-      <div class="sub">Nikkō, Tochigi, Japan · Kantō</div>
-      <p>Santuario dei tre monti sacri di Nikkō; ampio complesso naturale.</p>
-      <div class="deity"><b>Divinità</b> Ōkuninushi, Tagorihime, Ajisukitakahikone</div>
-      <div class="curio"><b>Da sapere</b> Dedicato ai tre monti sacri di Nikkō. Possiede alcune spade classificate Tesoro Nazionale e sorgenti considerate curative.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Futarasan%20Jinja%2C%20Nikk%C5%8D" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Futarasan%20Jinja%2C%20Nikk%C5%8D&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Futarasan%20Jinja%2C%20Nikk%C5%8D&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="namba yasaka jinja osaka, japan susanoo-no-mikoto, kushiinadahime, yahashira-no-mikogami iconico shishiden a testa di leone; talismano contro il male e per il successo.">
-    <div class="ph" data-wiki="Namba Yasaka-jinja" data-fallback="難"></div>
-    <div class="body">
-      <h3>Namba Yasaka Jinja</h3>
-      <div class="sub">Osaka, Japan · Kansai</div>
-      <p>Iconico Shishiden a testa di leone; talismano contro il male e per il successo.</p>
-      <div class="deity"><b>Divinità</b> Susanoo-no-Mikoto, Kushiinadahime, Yahashira-no-Mikogami</div>
-      <div class="curio"><b>Da sapere</b> Il palco a forma di testa di leone gigante (Shishiden), alto 12 metri, si dice inghiotta gli spiriti maligni e attiri la buona sorte.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Namba%20Yasaka%20Jinja%2C%20Osaka" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Namba%20Yasaka%20Jinja%2C%20Osaka&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Namba%20Yasaka%20Jinja%2C%20Osaka&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="kifune jinja kyoto, japan takaokami-no-kami (divinità delle acque) santuario del dio dell’acqua e della pioggia; famose scale con lanterne.">
-    <div class="ph" data-wiki="Kifune-jinja" data-fallback="貴"></div>
-    <div class="body">
-      <h3>Kifune Jinja</h3>
-      <div class="sub">Kyoto, Japan · Kansai</div>
-      <p>Santuario del dio dell’acqua e della pioggia; famose scale con lanterne.</p>
-      <div class="deity"><b>Divinità</b> Takaokami-no-Kami (divinità delle acque)</div>
-      <div class="curio"><b>Da sapere</b> Santuario dell&#x27;acqua e della pioggia. Gli omikuji si leggono immergendoli nella sorgente: l&#x27;inchiostro compare solo a contatto con l&#x27;acqua.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Kifune%20Jinja%2C%20Kyoto" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kifune%20Jinja%2C%20Kyoto&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kifune%20Jinja%2C%20Kyoto&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kyūshū" data-search="hakozakigū (hakozaki shrine) fukuoka, japan hachiman/emperor ōjin, empress jingū, tamayori-hime importante hachimangu di fukuoka, noto per hojoya e tamaseseri; motto &#x27;tekikoku-kōfuku&#x27;.">
-    <div class="ph" data-wiki="Hakozaki-gū" data-fallback="筥"></div>
-    <div class="body">
-      <h3>Hakozakigū (Hakozaki Shrine)</h3>
-      <div class="sub">Fukuoka, Japan · Kyūshū</div>
-      <p>Importante Hachimangu di Fukuoka, noto per Hojoya e Tamaseseri; motto &#x27;Tekikoku-kōfuku&#x27;.</p>
-      <div class="deity"><b>Divinità</b> Hachiman/Emperor Ōjin, Empress Jingū, Tamayori-hime</div>
-      <div class="curio"><b>Da sapere</b> Recita &#x27;Tekikoku Kōfuku&#x27; (il nemico si arrende), riferimento alle invasioni mongole respinte dal kamikaze, il vento divino.</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Hakozakig%C5%AB%20%28Hakozaki%20Shrine%29%2C%20Fukuoka" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hakozakig%C5%AB%20%28Hakozaki%20Shrine%29%2C%20Fukuoka&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hakozakig%C5%AB%20%28Hakozaki%20Shrine%29%2C%20Fukuoka&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
-  <article class="card temple" data-region="Kansai" data-search="kumano hongu taisha hongu, wakayama, japan ketsumimiko (kumano hongū ōkami) cuore del culto kumano; antico santuario a oyunohara, parte dei kumano sanzan.">
-    <div class="ph" data-wiki="Kumano Hongū Taisha" data-fallback="熊"></div>
-    <div class="body">
-      <h3>Kumano Hongu Taisha</h3>
-      <div class="sub">Hongu, Wakayama, Japan · Kansai</div>
-      <p>Cuore del culto Kumano; antico santuario a Oyunohara, parte dei Kumano Sanzan.</p>
-      <div class="deity"><b>Divinità</b> Ketsumimiko (Kumano Hongū Ōkami)</div>
-      <div class="curio"><b>Da sapere</b> Punto d&#x27;arrivo dei cammini Kumano Kodō, patrimonio UNESCO gemellato con il Cammino di Santiago. Il torii Ōyunohara è il più grande al mondo (34 m).</div>
-      <div class="maps">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Hongu%20Taisha%2C%20Hongu" target="_blank" rel="noopener">Apri su Maps</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kumano%20Hongu%20Taisha%2C%20Hongu&amp;travelmode=walking" target="_blank" rel="noopener">A piedi</a>
-        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kumano%20Hongu%20Taisha%2C%20Hongu&amp;travelmode=driving" target="_blank" rel="noopener">In auto</a>
-      </div>
-    </div>
-  </article>
+    </article>
   </div>
-  <p class="empty" id="empty" hidden>Nessun santuario corrisponde alla ricerca.</p>
+</section>
+
+<section class="db-sec" id="database">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Database</span>
+      <h2>Tutti i santuari</h2>
+      <p>Cerca per nome, prefettura, kami o parola chiave. Filtra per regione e per famiglia di santuario.</p>
+    </div>
+    <div class="controls">
+      <input type="search" id="q" placeholder="Cerca santuario, kami, prefettura…" aria-label="Cerca">
+      <select id="tipo" aria-label="Filtra per famiglia">
+        <option value="all">Tutte le famiglie</option><option value="Ise / Shinmei">Ise / Shinmei</option><option value="Inari">Inari</option><option value="Hachiman">Hachiman</option><option value="Tenjin">Tenjin</option><option value="Kumano">Kumano</option><option value="Suwa">Suwa</option><option value="Sumiyoshi">Sumiyoshi</option><option value="Sengen">Sengen</option><option value="Gion / Yasaka">Gion / Yasaka</option><option value="Imperiale">Imperiale</option><option value="Locale">Locale</option>
+      </select>
+    </div>
+    <div class="filter-row" id="filtri">
+      <button class="fbtn on" data-reg="all">Tutto il Giappone</button>
+    <button class="fbtn" data-reg="Hokkaidō">Hokkaidō</button>
+    <button class="fbtn" data-reg="Tōhoku">Tōhoku</button>
+    <button class="fbtn" data-reg="Kantō">Kantō</button>
+    <button class="fbtn" data-reg="Chūbu">Chūbu</button>
+    <button class="fbtn" data-reg="Kansai">Kansai</button>
+    <button class="fbtn" data-reg="Chūgoku">Chūgoku</button>
+    <button class="fbtn" data-reg="Shikoku">Shikoku</button>
+    <button class="fbtn" data-reg="Kyūshū">Kyūshū</button>
+    <button class="fbtn" data-reg="Okinawa">Okinawa</button>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="db-grid" id="dbGrid">
+      <article class="db" data-reg="Kansai" data-tipo="Ise / Shinmei"
+               data-cerca="ise jingū 伊勢神宮 mie kansai ise / shinmei amaterasu-ōmikami (naikū) · toyouke-ōmikami (gekū) il santuario più sacro dello shinto. ricostruito identico ogni vent&#x27;anni dal 690: l&#x27;ultimo rinnovo è del 2013, il prossimo è atteso per il 2033.">
+        <div class="db-foto" data-lazy="Ise jingū" data-fallback="伊"></div>
+        <div class="db-body">
+          <h4>Ise Jingū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">伊勢神宮 · Mie</div>
+          <div class="db-kami">Amaterasu-Ōmikami (Naikū) · Toyouke-Ōmikami (Gekū)</div>
+          <p>Il santuario più sacro dello Shinto. Ricostruito identico ogni vent'anni dal 690: l'ultimo rinnovo è del 2013, il prossimo è atteso per il 2033.</p>
+          <div class="db-tag"><span class="chip">Ise / Shinmei</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Ise%20Jing%C5%AB%20Mie%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="izumo taisha 出雲大社 shimane chūgoku locale ōkuninushi no ōkami santuario dei legami. ci si batte le mani quattro volte invece di due. nel decimo mese lunare tutti i kami del giappone vi si radunerebbero.">
+        <div class="db-foto" data-lazy="Izumo-taisha" data-fallback="出"></div>
+        <div class="db-body">
+          <h4>Izumo Taisha <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">出雲大社 · Shimane</div>
+          <div class="db-kami">Ōkuninushi no Ōkami</div>
+          <p>Santuario dei legami. Ci si batte le mani quattro volte invece di due. Nel decimo mese lunare tutti i kami del Giappone vi si radunerebbero.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Izumo%20Taisha%20Shimane%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Inari"
+               data-cerca="fushimi inari taisha 伏見稲荷大社 kyōto kansai inari inari ōkami (ukanomitama-no-ōkami) capo di circa trentamila santuari inari. ogni torii è la donazione di una persona o di un&#x27;azienda, con il nome inciso sul montante destro.">
+        <div class="db-foto" data-lazy="Fushimi Inari-taisha" data-fallback="稲"></div>
+        <div class="db-body">
+          <h4>Fushimi Inari Taisha <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">伏見稲荷大社 · Kyōto</div>
+          <div class="db-kami">Inari Ōkami (Ukanomitama-no-Ōkami)</div>
+          <p>Capo di circa trentamila santuari Inari. Ogni torii è la donazione di una persona o di un'azienda, con il nome inciso sul montante destro.</p>
+          <div class="db-tag"><span class="chip">Inari</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Fushimi%20Inari%20Taisha%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="itsukushima jinja 厳島神社 hiroshima chūgoku locale le tre dee munakata costruito sull&#x27;acqua perché l&#x27;isola era troppo sacra per essere calpestata. il grande torii non è infisso nel fondale: sta in piedi per il proprio peso.">
+        <div class="db-foto" data-lazy="Santuario di Itsukushima" data-fallback="厳"></div>
+        <div class="db-body">
+          <h4>Itsukushima Jinja <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">厳島神社 · Hiroshima</div>
+          <div class="db-kami">Le tre dee Munakata</div>
+          <p>Costruito sull'acqua perché l'isola era troppo sacra per essere calpestata. Il grande torii non è infisso nel fondale: sta in piedi per il proprio peso.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Itsukushima%20Jinja%20Hiroshima%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Imperiale"
+               data-cerca="meiji jingū 明治神宮 tokyo kantō imperiale imperatore meiji e imperatrice shōken i centomila alberi della foresta furono donati da tutto il giappone e piantati a mano negli anni venti, progettati per diventare un bosco autosufficiente in un secolo.">
+        <div class="db-foto" data-lazy="Meiji jingū" data-fallback="明"></div>
+        <div class="db-body">
+          <h4>Meiji Jingū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">明治神宮 · Tokyo</div>
+          <div class="db-kami">Imperatore Meiji e imperatrice Shōken</div>
+          <p>I centomila alberi della foresta furono donati da tutto il Giappone e piantati a mano negli anni Venti, progettati per diventare un bosco autosufficiente in un secolo.</p>
+          <div class="db-tag"><span class="chip">Imperiale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Meiji%20Jing%C5%AB%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="kasuga taisha 春日大社 nara kansai locale takemikazuchi, futsunushi, ame-no-koyane, himegami circa tremila lanterne di pietra e bronzo, accese due volte l&#x27;anno nella festa mantōrō. i cervi del parco sono considerati messaggeri dei kami.">
+        <div class="db-foto" data-lazy="Kasuga-taisha" data-fallback="春"></div>
+        <div class="db-body">
+          <h4>Kasuga Taisha <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">春日大社 · Nara</div>
+          <div class="db-kami">Takemikazuchi, Futsunushi, Ame-no-Koyane, Himegami</div>
+          <p>Circa tremila lanterne di pietra e bronzo, accese due volte l'anno nella festa Mantōrō. I cervi del parco sono considerati messaggeri dei kami.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kasuga%20Taisha%20Nara%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Imperiale"
+               data-cerca="atsuta jingū 熱田神宮 aichi chūbu imperiale atsuta-no-ōkami custodisce kusanagi-no-tsurugi, la spada trovata da susanoo nella coda di yamata no orochi. nessuno può vederla.">
+        <div class="db-foto" data-lazy="Atsuta jingū" data-fallback="熱"></div>
+        <div class="db-body">
+          <h4>Atsuta Jingū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">熱田神宮 · Aichi</div>
+          <div class="db-kami">Atsuta-no-Ōkami</div>
+          <p>Custodisce Kusanagi-no-Tsurugi, la spada trovata da Susanoo nella coda di Yamata no Orochi. Nessuno può vederla.</p>
+          <div class="db-tag"><span class="chip">Imperiale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Atsuta%20Jing%C5%AB%20Aichi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Hachiman"
+               data-cerca="usa jingū 宇佐神宮 ōita kyūshū hachiman hachiman-ōkami, himegami, imperatrice jingū casa madre di oltre quarantamila santuari hachiman, e primo grande laboratorio della fusione fra shinto e buddhismo.">
+        <div class="db-foto" data-lazy="Usa jingū" data-fallback="宇"></div>
+        <div class="db-body">
+          <h4>Usa Jingū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">宇佐神宮 · Ōita</div>
+          <div class="db-kami">Hachiman-Ōkami, Himegami, imperatrice Jingū</div>
+          <p>Casa madre di oltre quarantamila santuari Hachiman, e primo grande laboratorio della fusione fra Shinto e buddhismo.</p>
+          <div class="db-tag"><span class="chip">Hachiman</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Usa%20Jing%C5%AB%20%C5%8Cita%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Kumano"
+               data-cerca="kumano hongū taisha 熊野本宮大社 wakayama kansai kumano ketsumiko-no-ōkami arrivo dei cammini kumano kodō, patrimonio unesco gemellati con il cammino di santiago. il torii ōyunohara è il più grande del mondo: 34 metri.">
+        <div class="db-foto" data-lazy="Kumano Hongū Taisha" data-fallback="熊"></div>
+        <div class="db-body">
+          <h4>Kumano Hongū Taisha <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">熊野本宮大社 · Wakayama</div>
+          <div class="db-kami">Ketsumiko-no-Ōkami</div>
+          <p>Arrivo dei cammini Kumano Kodō, patrimonio UNESCO gemellati con il Cammino di Santiago. Il torii Ōyunohara è il più grande del mondo: 34 metri.</p>
+          <div class="db-tag"><span class="chip">Kumano</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Hong%C5%AB%20Taisha%20Wakayama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="nikkō tōshō-gū 日光東照宮 tochigi kantō locale tokugawa ieyasu (tōshō-daigongen) l&#x27;opposto esatto della sobrietà di ise: oro e intagli ovunque. qui si trovano le tre scimmie che non vedono, non sentono, non parlano.">
+        <div class="db-foto" data-lazy="Nikkō Tōshō-gū" data-fallback="東"></div>
+        <div class="db-body">
+          <h4>Nikkō Tōshō-gū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">日光東照宮 · Tochigi</div>
+          <div class="db-kami">Tokugawa Ieyasu (Tōshō-Daigongen)</div>
+          <p>L'opposto esatto della sobrietà di Ise: oro e intagli ovunque. Qui si trovano le tre scimmie che non vedono, non sentono, non parlano.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Nikk%C5%8D%20T%C5%8Dsh%C5%8D-g%C5%AB%20Tochigi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Tenjin"
+               data-cerca="dazaifu tenmangū 太宰府天満宮 fukuoka kyūshū tenjin sugawara no michizane (tenjin) michizane fu esiliato qui e morì in disgrazia. dopo fulmini e morti sospette la corte lo divinizzò per placarlo: oggi è il kami degli studenti.">
+        <div class="db-foto" data-lazy="Dazaifu Tenman-gū" data-fallback="天"></div>
+        <div class="db-body">
+          <h4>Dazaifu Tenmangū <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">太宰府天満宮 · Fukuoka</div>
+          <div class="db-kami">Sugawara no Michizane (Tenjin)</div>
+          <p>Michizane fu esiliato qui e morì in disgrazia. Dopo fulmini e morti sospette la corte lo divinizzò per placarlo: oggi è il kami degli studenti.</p>
+          <div class="db-tag"><span class="chip">Tenjin</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Dazaifu%20Tenmang%C5%AB%20Fukuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Suwa"
+               data-cerca="suwa taisha 諠訪大社 nagano chūbu suwa takeminakata, yasakatome quattro complessi attorno al lago suwa. ogni sei anni l&#x27;onbashira: tronchi enormi trascinati giù dalla montagna con uomini a cavalcioni.">
+        <div class="db-foto" data-lazy="Suwa-taisha" data-fallback="諠"></div>
+        <div class="db-body">
+          <h4>Suwa Taisha <span class="db-top" title="Fra i principali">★</span></h4>
+          <div class="db-jp">諠訪大社 · Nagano</div>
+          <div class="db-kami">Takeminakata, Yasakatome</div>
+          <p>Quattro complessi attorno al lago Suwa. Ogni sei anni l'Onbashira: tronchi enormi trascinati giù dalla montagna con uomini a cavalcioni.</p>
+          <div class="db-tag"><span class="chip">Suwa</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Suwa%20Taisha%20Nagano%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Hachiman"
+               data-cerca="tsurugaoka hachimangū 鶴岡八幡宮 kanagawa kantō hachiman ōjin, himeokami, jingū santuario dei minamoto. il viale dankazura si restringe progressivamente per sembrare più lungo di quanto sia.">
+        <div class="db-foto" data-lazy="Tsurugaoka Hachiman-gū" data-fallback="鶴"></div>
+        <div class="db-body">
+          <h4>Tsurugaoka Hachimangū </h4>
+          <div class="db-jp">鶴岡八幡宮 · Kanagawa</div>
+          <div class="db-kami">Ōjin, Himeokami, Jingū</div>
+          <p>Santuario dei Minamoto. Il viale Dankazura si restringe progressivamente per sembrare più lungo di quanto sia.</p>
+          <div class="db-tag"><span class="chip">Hachiman</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Tsurugaoka%20Hachimang%C5%AB%20Kanagawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="kanda myōjin 神田明神 tokyo kantō locale ōnamuchi, sukunahikona, taira no masakado al confine di akihabara: vende amuleti per la sicurezza dei dati e benedice hardware e schede madri.">
+        <div class="db-foto" data-lazy="Kanda-myōjin" data-fallback="神"></div>
+        <div class="db-body">
+          <h4>Kanda Myōjin </h4>
+          <div class="db-jp">神田明神 · Tokyo</div>
+          <div class="db-kami">Ōnamuchi, Sukunahikona, Taira no Masakado</div>
+          <p>Al confine di Akihabara: vende amuleti per la sicurezza dei dati e benedice hardware e schede madri.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kanda%20My%C5%8Djin%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="hie jinja 日枝神社 tokyo kantō locale ōyamakui-no-kami il messaggero è la scimmia (&lt;i&gt;saru&lt;/i&gt;), che gioca sull&#x27;omofonia con &quot;allontanare&quot;: amuleti popolari contro le disgrazie.">
+        <div class="db-foto" data-lazy="Hie-jinja" data-fallback="日"></div>
+        <div class="db-body">
+          <h4>Hie Jinja </h4>
+          <div class="db-jp">日枝神社 · Tokyo</div>
+          <div class="db-kami">Ōyamakui-no-kami</div>
+          <p>Il messaggero è la scimmia (<i>saru</i>), che gioca sull'omofonia con "allontanare": amuleti popolari contro le disgrazie.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hie%20Jinja%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="nezu jinja 根津神社 tokyo kantō locale susanoo, ōyamakui, homudawake sopravvissuto ai bombardamenti del 1945, conserva un complesso edo del 1706 quasi intatto. il giardino di azalee fiorisce in aprile.">
+        <div class="db-foto" data-lazy="Nezu-jinja" data-fallback="根"></div>
+        <div class="db-body">
+          <h4>Nezu Jinja </h4>
+          <div class="db-jp">根津神社 · Tokyo</div>
+          <div class="db-kami">Susanoo, Ōyamakui, Homudawake</div>
+          <p>Sopravvissuto ai bombardamenti del 1945, conserva un complesso Edo del 1706 quasi intatto. Il giardino di azalee fiorisce in aprile.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Nezu%20Jinja%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="yasukuni jinja 靖国神社 tokyo kantō locale i caduti in guerra dal 1869 fra i luoghi più controversi del paese: vi sono consacrati anche criminali di guerra, e le visite ufficiali provocano regolarmente crisi diplomatiche.">
+        <div class="db-foto" data-lazy="Santuario Yasukuni" data-fallback="靖"></div>
+        <div class="db-body">
+          <h4>Yasukuni Jinja </h4>
+          <div class="db-jp">靖国神社 · Tokyo</div>
+          <div class="db-kami">I caduti in guerra dal 1869</div>
+          <p>Fra i luoghi più controversi del paese: vi sono consacrati anche criminali di guerra, e le visite ufficiali provocano regolarmente crisi diplomatiche.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Yasukuni%20Jinja%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Ise / Shinmei"
+               data-cerca="tokyo daijingū 東京大神宮 tokyo kantō ise / shinmei amaterasu, toyouke, i tre kami della creazione chiamato &quot;l&#x27;ise di tokyo&quot;. qui si celebrò il primo matrimonio shintoista moderno: da allora è meta di chi cerca un legame.">
+        <div class="db-foto" data-lazy="Tokyo Daijingū" data-fallback="大"></div>
+        <div class="db-body">
+          <h4>Tokyo Daijingū </h4>
+          <div class="db-jp">東京大神宮 · Tokyo</div>
+          <div class="db-kami">Amaterasu, Toyouke, i tre kami della creazione</div>
+          <p>Chiamato "l'Ise di Tokyo". Qui si celebrò il primo matrimonio shintoista moderno: da allora è meta di chi cerca un legame.</p>
+          <div class="db-tag"><span class="chip">Ise / Shinmei</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Tokyo%20Daijing%C5%AB%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="kashima jingū 鹿島神宮 ibaraki kantō locale takemikazuchi-no-ōkami custodisce il &lt;i&gt;kaname-ishi&lt;/i&gt;, la pietra che secondo la tradizione tiene fermo il pesce gatto gigante causa dei terremoti.">
+        <div class="db-foto" data-lazy="Kashima jingū" data-fallback="鹿"></div>
+        <div class="db-body">
+          <h4>Kashima Jingū </h4>
+          <div class="db-jp">鹿島神宮 · Ibaraki</div>
+          <div class="db-kami">Takemikazuchi-no-Ōkami</div>
+          <p>Custodisce il <i>kaname-ishi</i>, la pietra che secondo la tradizione tiene fermo il pesce gatto gigante causa dei terremoti.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kashima%20Jing%C5%AB%20Ibaraki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="katori jingū 香取神宮 chiba kantō locale futsunushi-no-ōkami insieme a kashima forma la coppia dei santuari militari dell&#x27;est. anche qui una pietra di ancoraggio contro i terremoti.">
+        <div class="db-foto" data-lazy="Katori jingū" data-fallback="香"></div>
+        <div class="db-body">
+          <h4>Katori Jingū </h4>
+          <div class="db-jp">香取神宮 · Chiba</div>
+          <div class="db-kami">Futsunushi-no-Ōkami</div>
+          <p>Insieme a Kashima forma la coppia dei santuari militari dell'est. Anche qui una pietra di ancoraggio contro i terremoti.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Katori%20Jing%C5%AB%20Chiba%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="ōarai isosaki jinja 大洗磯前神社 ibaraki kantō locale ōnamuchi, sukunahikona il torii kamiiso sorge su uno scoglio battuto dalle onde: all&#x27;alba il sole vi sorge esattamente in mezzo.">
+        <div class="db-foto" data-lazy="Ōarai Isosaki-jinja" data-fallback="磯"></div>
+        <div class="db-body">
+          <h4>Ōarai Isosaki Jinja </h4>
+          <div class="db-jp">大洗磯前神社 · Ibaraki</div>
+          <div class="db-kami">Ōnamuchi, Sukunahikona</div>
+          <p>Il torii Kamiiso sorge su uno scoglio battuto dalle onde: all'alba il sole vi sorge esattamente in mezzo.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Carai%20Isosaki%20Jinja%20Ibaraki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="hikawa jinja 氷川神社 saitama kantō locale susanoo, kushinadahime, ōnamuchi capostipite di circa 280 santuari hikawa. il viale d&#x27;accesso è lungo due chilometri, il più lungo del giappone.">
+        <div class="db-foto" data-lazy="Hikawa-jinja Ōmiya" data-fallback="氷"></div>
+        <div class="db-body">
+          <h4>Hikawa Jinja </h4>
+          <div class="db-jp">氷川神社 · Saitama</div>
+          <div class="db-kami">Susanoo, Kushinadahime, Ōnamuchi</div>
+          <p>Capostipite di circa 280 santuari Hikawa. Il viale d'accesso è lungo due chilometri, il più lungo del Giappone.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hikawa%20Jinja%20Saitama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="mitsumine jinja 三峧神社 saitama kantō locale izanagi, izanami a 1.100 metri di quota: i guardiani non sono leoni ma lupi, animale considerato protettore contro incendi e furti.">
+        <div class="db-foto" data-lazy="Mitsumine-jinja" data-fallback="峧"></div>
+        <div class="db-body">
+          <h4>Mitsumine Jinja </h4>
+          <div class="db-jp">三峧神社 · Saitama</div>
+          <div class="db-kami">Izanagi, Izanami</div>
+          <p>A 1.100 metri di quota: i guardiani non sono leoni ma lupi, animale considerato protettore contro incendi e furti.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Mitsumine%20Jinja%20Saitama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="musashi mitake jinja 武蔵御岳神社 tokyo kantō locale ōmagatsumi, kushinadahime anche qui i lupi come messaggeri. è uno dei pochi santuari dove si possono portare i cani a ricevere una benedizione.">
+        <div class="db-foto" data-lazy="Musashi-Mitake-jinja" data-fallback="岳"></div>
+        <div class="db-body">
+          <h4>Musashi Mitake Jinja </h4>
+          <div class="db-jp">武蔵御岳神社 · Tokyo</div>
+          <div class="db-kami">Ōmagatsumi, Kushinadahime</div>
+          <p>Anche qui i lupi come messaggeri. È uno dei pochi santuari dove si possono portare i cani a ricevere una benedizione.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Musashi%20Mitake%20Jinja%20Tokyo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="hakone jinja 箱根神社 kanagawa kantō locale ninigi, konohanasakuya-hime, hoori il torii della pace sorge nell&#x27;acqua del lago ashi. all&#x27;alba è quasi deserto, in giornata la fila per la foto dura ore.">
+        <div class="db-foto" data-lazy="Hakone-jinja" data-fallback="箱"></div>
+        <div class="db-body">
+          <h4>Hakone Jinja </h4>
+          <div class="db-jp">箱根神社 · Kanagawa</div>
+          <div class="db-kami">Ninigi, Konohanasakuya-hime, Hoori</div>
+          <p>Il torii della Pace sorge nell'acqua del lago Ashi. All'alba è quasi deserto, in giornata la fila per la foto dura ore.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hakone%20Jinja%20Kanagawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="enoshima jinja 江島神社 kanagawa kantō locale le tre dee munakata tre santuari sull&#x27;isola di enoshima, storicamente fusi con il culto di benzaiten, dea buddhista della musica.">
+        <div class="db-foto" data-lazy="Enoshima-jinja" data-fallback="江"></div>
+        <div class="db-body">
+          <h4>Enoshima Jinja </h4>
+          <div class="db-jp">江島神社 · Kanagawa</div>
+          <div class="db-kami">Le tre dee Munakata</div>
+          <p>Tre santuari sull'isola di Enoshima, storicamente fusi con il culto di Benzaiten, dea buddhista della musica.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Enoshima%20Jinja%20Kanagawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="samukawa jinja 寒川神社 kanagawa kantō locale samukawa-hiko, samukawa-hime l&#x27;unico santuario giapponese specializzato in &lt;i&gt;happōyoke&lt;/i&gt;, la protezione dalle sfortune provenienti da ogni direzione.">
+        <div class="db-foto" data-lazy="Samukawa-jinja" data-fallback="寒"></div>
+        <div class="db-body">
+          <h4>Samukawa Jinja </h4>
+          <div class="db-jp">寒川神社 · Kanagawa</div>
+          <div class="db-kami">Samukawa-hiko, Samukawa-hime</div>
+          <p>L'unico santuario giapponese specializzato in <i>happōyoke</i>, la protezione dalle sfortune provenienti da ogni direzione.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Samukawa%20Jinja%20Kanagawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="futarasan jinja 二荒山神社 tochigi kantō locale ōnamuchi, tagorihime, ajisukitakahikone dedicato ai tre monti sacri di nikkō. possiede spade classificate tesoro nazionale e sorgenti considerate curative.">
+        <div class="db-foto" data-lazy="Futarasan-jinja" data-fallback="二"></div>
+        <div class="db-body">
+          <h4>Futarasan Jinja </h4>
+          <div class="db-jp">二荒山神社 · Tochigi</div>
+          <div class="db-kami">Ōnamuchi, Tagorihime, Ajisukitakahikone</div>
+          <p>Dedicato ai tre monti sacri di Nikkō. Possiede spade classificate Tesoro Nazionale e sorgenti considerate curative.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Futarasan%20Jinja%20Tochigi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kantō" data-tipo="Locale"
+               data-cerca="chichibu jinja 秩父神社 saitama kantō locale yagokoroomoikane, principe chichibu gli intagli sono attribuiti a hidari jingorō. il chichibu yomatsuri di dicembre è fra i tre grandi festival di carri del giappone.">
+        <div class="db-foto" data-lazy="Chichibu-jinja" data-fallback="秩"></div>
+        <div class="db-body">
+          <h4>Chichibu Jinja </h4>
+          <div class="db-jp">秩父神社 · Saitama</div>
+          <div class="db-kami">Yagokoroomoikane, principe Chichibu</div>
+          <p>Gli intagli sono attribuiti a Hidari Jingorō. Il Chichibu Yomatsuri di dicembre è fra i tre grandi festival di carri del Giappone.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kantō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Chichibu%20Jinja%20Saitama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Gion / Yasaka"
+               data-cerca="yasaka jinja 八坂神社 kyōto kansai gion / yasaka susanoo, kushinadahime centro del gion matsuri, nato come rito di protezione dalle epidemie. di notte le centinaia di lanterne restano accese.">
+        <div class="db-foto" data-lazy="Yasaka-jinja" data-fallback="坂"></div>
+        <div class="db-body">
+          <h4>Yasaka Jinja </h4>
+          <div class="db-jp">八坂神社 · Kyōto</div>
+          <div class="db-kami">Susanoo, Kushinadahime</div>
+          <p>Centro del Gion Matsuri, nato come rito di protezione dalle epidemie. Di notte le centinaia di lanterne restano accese.</p>
+          <div class="db-tag"><span class="chip">Gion / Yasaka</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Yasaka%20Jinja%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="shimogamo jinja 下鴨神社 kyōto kansai locale kamo taketsunumi, tamayorihime patrimonio unesco, immerso nella foresta primaria di tadasu no mori: alberi che crescono lì da secoli dentro la città.">
+        <div class="db-foto" data-lazy="Shimogamo-jinja" data-fallback="鴨"></div>
+        <div class="db-body">
+          <h4>Shimogamo Jinja </h4>
+          <div class="db-jp">下鴨神社 · Kyōto</div>
+          <div class="db-kami">Kamo Taketsunumi, Tamayorihime</div>
+          <p>Patrimonio UNESCO, immerso nella foresta primaria di Tadasu no Mori: alberi che crescono lì da secoli dentro la città.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Shimogamo%20Jinja%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="kamigamo jinja 上賀茂神社 kyōto kansai locale kamo wakeikazuchi fra i più antichi di kyoto. i due coni di sabbia davanti all&#x27;ingresso rappresentano la montagna sacra e servono a purificare.">
+        <div class="db-foto" data-lazy="Kamigamo-jinja" data-fallback="上"></div>
+        <div class="db-body">
+          <h4>Kamigamo Jinja </h4>
+          <div class="db-jp">上賀茂神社 · Kyōto</div>
+          <div class="db-kami">Kamo Wakeikazuchi</div>
+          <p>Fra i più antichi di Kyoto. I due coni di sabbia davanti all'ingresso rappresentano la montagna sacra e servono a purificare.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kamigamo%20Jinja%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Tenjin"
+               data-cerca="kitano tenmangū 北野天満宮 kyōto kansai tenjin sugawara no michizane il primo santuario dedicato a michizane. duemila pruni fioriscono a febbraio: il pruno era il suo albero prediletto.">
+        <div class="db-foto" data-lazy="Kitano Tenman-gū" data-fallback="北"></div>
+        <div class="db-body">
+          <h4>Kitano Tenmangū </h4>
+          <div class="db-jp">北野天満宮 · Kyōto</div>
+          <div class="db-kami">Sugawara no Michizane</div>
+          <p>Il primo santuario dedicato a Michizane. Duemila pruni fioriscono a febbraio: il pruno era il suo albero prediletto.</p>
+          <div class="db-tag"><span class="chip">Tenjin</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kitano%20Tenmang%C5%AB%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Imperiale"
+               data-cerca="heian jingū 平安神宮 kyōto kansai imperiale imperatori kanmu e kōmei costruito nel 1895 per gli 1100 anni di kyoto: riproduce in scala ridotta il palazzo imperiale dell&#x27;epoca heian.">
+        <div class="db-foto" data-lazy="Heian jingū" data-fallback="平"></div>
+        <div class="db-body">
+          <h4>Heian Jingū </h4>
+          <div class="db-jp">平安神宮 · Kyōto</div>
+          <div class="db-kami">Imperatori Kanmu e Kōmei</div>
+          <p>Costruito nel 1895 per gli 1100 anni di Kyoto: riproduce in scala ridotta il palazzo imperiale dell'epoca Heian.</p>
+          <div class="db-tag"><span class="chip">Imperiale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Heian%20Jing%C5%AB%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="kifune jinja 貴船神社 kyōto kansai locale takaokami-no-kami santuario dell&#x27;acqua e della pioggia. gli omikuji si leggono immergendoli nella sorgente: l&#x27;inchiostro compare solo a contatto con l&#x27;acqua.">
+        <div class="db-foto" data-lazy="Kifune-jinja" data-fallback="貴"></div>
+        <div class="db-body">
+          <h4>Kifune Jinja </h4>
+          <div class="db-jp">貴船神社 · Kyōto</div>
+          <div class="db-kami">Takaokami-no-kami</div>
+          <p>Santuario dell'acqua e della pioggia. Gli omikuji si leggono immergendoli nella sorgente: l'inchiostro compare solo a contatto con l'acqua.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kifune%20Jinja%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="matsunoo taisha 松尾大社 kyōto kansai locale ōyamakui, nakatsushima-hime protettore dei produttori di sake e miso. il piazzale è pieno di botti donate dalle distillerie di tutto il paese.">
+        <div class="db-foto" data-lazy="Matsunoo-taisha" data-fallback="松"></div>
+        <div class="db-body">
+          <h4>Matsunoo Taisha </h4>
+          <div class="db-jp">松尾大社 · Kyōto</div>
+          <div class="db-kami">Ōyamakui, Nakatsushima-hime</div>
+          <p>Protettore dei produttori di sake e miso. Il piazzale è pieno di botti donate dalle distillerie di tutto il paese.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Matsunoo%20Taisha%20Ky%C5%8Dto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Sumiyoshi"
+               data-cerca="sumiyoshi taisha 住吉大社 ōsaka kansai sumiyoshi i tre kami sumiyoshi, imperatrice jingū l&#x27;architettura &lt;i&gt;sumiyoshi-zukuri&lt;/i&gt; è fra le più antiche: tetto dritto, nessuna verniciatura, precedente all&#x27;influenza continentale.">
+        <div class="db-foto" data-lazy="Sumiyoshi-taisha" data-fallback="住"></div>
+        <div class="db-body">
+          <h4>Sumiyoshi Taisha </h4>
+          <div class="db-jp">住吉大社 · Ōsaka</div>
+          <div class="db-kami">I tre kami Sumiyoshi, imperatrice Jingū</div>
+          <p>L'architettura <i>sumiyoshi-zukuri</i> è fra le più antiche: tetto dritto, nessuna verniciatura, precedente all'influenza continentale.</p>
+          <div class="db-tag"><span class="chip">Sumiyoshi</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Sumiyoshi%20Taisha%20%C5%8Csaka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Gion / Yasaka"
+               data-cerca="namba yasaka jinja 難波八坂神社 ōsaka kansai gion / yasaka susanoo il palco a forma di testa di leone gigante, alto dodici metri, si dice inghiotta gli spiriti maligni e attiri la buona sorte.">
+        <div class="db-foto" data-lazy="Namba Yasaka-jinja" data-fallback="難"></div>
+        <div class="db-body">
+          <h4>Namba Yasaka Jinja </h4>
+          <div class="db-jp">難波八坂神社 · Ōsaka</div>
+          <div class="db-kami">Susanoo</div>
+          <p>Il palco a forma di testa di leone gigante, alto dodici metri, si dice inghiotta gli spiriti maligni e attiri la buona sorte.</p>
+          <div class="db-tag"><span class="chip">Gion / Yasaka</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Namba%20Yasaka%20Jinja%20%C5%8Csaka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Tenjin"
+               data-cerca="ōsaka tenmangū 大阪天満宮 ōsaka kansai tenjin sugawara no michizane cuore del tenjin matsuri del 24–25 luglio, con la processione di barche illuminate sul fiume e i fuochi d&#x27;artificio.">
+        <div class="db-foto" data-lazy="Osaka Tenmangū" data-fallback="天"></div>
+        <div class="db-body">
+          <h4>Ōsaka Tenmangū </h4>
+          <div class="db-jp">大阪天満宮 · Ōsaka</div>
+          <div class="db-kami">Sugawara no Michizane</div>
+          <p>Cuore del Tenjin Matsuri del 24–25 luglio, con la processione di barche illuminate sul fiume e i fuochi d'artificio.</p>
+          <div class="db-tag"><span class="chip">Tenjin</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Csaka%20Tenmang%C5%AB%20%C5%8Csaka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="ōmiwa jinja 大神神社 nara kansai locale ōmononushi-no-ōkami non ha honden: il monte miwa alle sue spalle è il corpo stesso della divinità. una delle forme di culto più arcaiche sopravvissute.">
+        <div class="db-foto" data-lazy="Ōmiwa-jinja" data-fallback="三"></div>
+        <div class="db-body">
+          <h4>Ōmiwa Jinja </h4>
+          <div class="db-jp">大神神社 · Nara</div>
+          <div class="db-kami">Ōmononushi-no-Ōkami</div>
+          <p>Non ha honden: il monte Miwa alle sue spalle è il corpo stesso della divinità. Una delle forme di culto più arcaiche sopravvissute.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Cmiwa%20Jinja%20Nara%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="isonokami jingū 石上神宮 nara kansai locale futsu-no-mitama-no-ōkami fra i più antichi in assoluto. custodisce la nanatsusaya-no-tachi, spada a sette rami del iv secolo, tesoro nazionale.">
+        <div class="db-foto" data-lazy="Isonokami jingū" data-fallback="石"></div>
+        <div class="db-body">
+          <h4>Isonokami Jingū </h4>
+          <div class="db-jp">石上神宮 · Nara</div>
+          <div class="db-kami">Futsu-no-Mitama-no-Ōkami</div>
+          <p>Fra i più antichi in assoluto. Custodisce la Nanatsusaya-no-Tachi, spada a sette rami del IV secolo, Tesoro Nazionale.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Isonokami%20Jing%C5%AB%20Nara%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Imperiale"
+               data-cerca="kashihara jingū 橿原神宮 nara kansai imperiale imperatore jinmu fondato nel 1890 nel luogo dove la tradizione colloca l&#x27;intronizzazione del primo imperatore, nel 660 a.c.">
+        <div class="db-foto" data-lazy="Kashihara jingū" data-fallback="橿"></div>
+        <div class="db-body">
+          <h4>Kashihara Jingū </h4>
+          <div class="db-jp">橿原神宮 · Nara</div>
+          <div class="db-kami">Imperatore Jinmu</div>
+          <p>Fondato nel 1890 nel luogo dove la tradizione colloca l'intronizzazione del primo imperatore, nel 660 a.C.</p>
+          <div class="db-tag"><span class="chip">Imperiale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kashihara%20Jing%C5%AB%20Nara%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Kumano"
+               data-cerca="kumano nachi taisha 熊野那智大社 wakayama kansai kumano kumano fusumi-no-ōkami la cascata nachi, alta 133 metri, non è lo sfondo del santuario: è essa stessa il kami, oggetto diretto di culto.">
+        <div class="db-foto" data-lazy="Kumano Nachi Taisha" data-fallback="那"></div>
+        <div class="db-body">
+          <h4>Kumano Nachi Taisha </h4>
+          <div class="db-jp">熊野那智大社 · Wakayama</div>
+          <div class="db-kami">Kumano Fusumi-no-Ōkami</div>
+          <p>La cascata Nachi, alta 133 metri, non è lo sfondo del santuario: è essa stessa il kami, oggetto diretto di culto.</p>
+          <div class="db-tag"><span class="chip">Kumano</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Nachi%20Taisha%20Wakayama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Kumano"
+               data-cerca="kumano hayatama taisha 熊野速玉大社 wakayama kansai kumano kumano hayatama-no-ōkami il terzo dei kumano sanzan. poco lontano la roccia gotobiki-iwa, dove secondo la tradizione i kami scesero per la prima volta.">
+        <div class="db-foto" data-lazy="Kumano Hayatama Taisha" data-fallback="速"></div>
+        <div class="db-body">
+          <h4>Kumano Hayatama Taisha </h4>
+          <div class="db-jp">熊野速玉大社 · Wakayama</div>
+          <div class="db-kami">Kumano Hayatama-no-Ōkami</div>
+          <p>Il terzo dei Kumano Sanzan. Poco lontano la roccia Gotobiki-iwa, dove secondo la tradizione i kami scesero per la prima volta.</p>
+          <div class="db-tag"><span class="chip">Kumano</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kumano%20Hayatama%20Taisha%20Wakayama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="tsubaki ōkami yashiro 椿大神社 mie kansai locale sarutahiko-no-ōkami, ame-no-uzume capo dei santuari dedicati a sarutahiko, kami dei crocevia. è la casa madre del santuario tsubaki d&#x27;america.">
+        <div class="db-foto" data-lazy="Tsubaki Ōkami Yashiro" data-fallback="椿"></div>
+        <div class="db-body">
+          <h4>Tsubaki Ōkami Yashiro </h4>
+          <div class="db-jp">椿大神社 · Mie</div>
+          <div class="db-kami">Sarutahiko-no-Ōkami, Ame-no-Uzume</div>
+          <p>Capo dei santuari dedicati a Sarutahiko, kami dei crocevia. È la casa madre del santuario Tsubaki d'America.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Tsubaki%20%C5%8Ckami%20Yashiro%20Mie%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="futami okitama jinja 二見興玉神社 mie kansai locale sarutahiko-no-ōkami custodisce le meoto iwa, le &quot;rocce sposate&quot; unite da uno shimenawa di trenta metri, sostituito tre volte l&#x27;anno.">
+        <div class="db-foto" data-lazy="Meoto Iwa" data-fallback="二"></div>
+        <div class="db-body">
+          <h4>Futami Okitama Jinja </h4>
+          <div class="db-jp">二見興玉神社 · Mie</div>
+          <div class="db-kami">Sarutahiko-no-Ōkami</div>
+          <p>Custodisce le Meoto Iwa, le "rocce sposate" unite da uno shimenawa di trenta metri, sostituito tre volte l'anno.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Futami%20Okitama%20Jinja%20Mie%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="hiyoshi taisha 日吉大社 shiga kansai locale ōyamakui, ōnamuchi capostipite di circa 3.800 santuari hie e hiyoshi. la scimmia è il messaggero, e qui è protetta come animale sacro.">
+        <div class="db-foto" data-lazy="Hiyoshi-taisha" data-fallback="吉"></div>
+        <div class="db-body">
+          <h4>Hiyoshi Taisha </h4>
+          <div class="db-jp">日吉大社 · Shiga</div>
+          <div class="db-kami">Ōyamakui, Ōnamuchi</div>
+          <p>Capostipite di circa 3.800 santuari Hie e Hiyoshi. La scimmia è il messaggero, e qui è protetta come animale sacro.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hiyoshi%20Taisha%20Shiga%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="taga taisha 多賀大社 shiga kansai locale izanagi, izanami dedicato alla coppia primordiale. popolarissimo per la longevità: un detto locale dice che chi vi si reca guadagna anni di vita.">
+        <div class="db-foto" data-lazy="Taga-taisha" data-fallback="多"></div>
+        <div class="db-body">
+          <h4>Taga Taisha </h4>
+          <div class="db-jp">多賀大社 · Shiga</div>
+          <div class="db-kami">Izanagi, Izanami</div>
+          <p>Dedicato alla coppia primordiale. Popolarissimo per la longevità: un detto locale dice che chi vi si reca guadagna anni di vita.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Taga%20Taisha%20Shiga%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="nishinomiya jinja 西宮神社 hyōgo kansai locale ebisu (hiruko) capo dei santuari ebisu. il 10 gennaio si corre la &quot;gara del primo devoto&quot;: chi arriva per primo all&#x27;altare porta fortuna a tutta la città.">
+        <div class="db-foto" data-lazy="Nishinomiya-jinja" data-fallback="鯛"></div>
+        <div class="db-body">
+          <h4>Nishinomiya Jinja </h4>
+          <div class="db-jp">西宮神社 · Hyōgo</div>
+          <div class="db-kami">Ebisu (Hiruko)</div>
+          <p>Capo dei santuari Ebisu. Il 10 gennaio si corre la "gara del primo devoto": chi arriva per primo all'altare porta fortuna a tutta la città.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Nishinomiya%20Jinja%20Hy%C5%8Dgo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Locale"
+               data-cerca="ikuta jinja 生田神社 hyōgo kansai locale wakahirume-no-mikoto fra i più antichi del giappone. ha dato il nome al quartiere di kobe e sopravvissuto al terremoto del 1995.">
+        <div class="db-foto" data-lazy="Ikuta-jinja" data-fallback="生"></div>
+        <div class="db-body">
+          <h4>Ikuta Jinja </h4>
+          <div class="db-jp">生田神社 · Hyōgo</div>
+          <div class="db-kami">Wakahirume-no-Mikoto</div>
+          <p>Fra i più antichi del Giappone. Ha dato il nome al quartiere di Kobe e sopravvissuto al terremoto del 1995.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Ikuta%20Jinja%20Hy%C5%8Dgo%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Sengen"
+               data-cerca="fujisan hongū sengen taisha 富士山本宮浅間大社 shizuoka chūbu sengen konohanasakuya-hime capo di circa 1.300 santuari sengen. l&#x27;intera vetta del fuji sopra gli 3.360 metri è proprietà del santuario.">
+        <div class="db-foto" data-lazy="Fujisan Hongū Sengen Taisha" data-fallback="富"></div>
+        <div class="db-body">
+          <h4>Fujisan Hongū Sengen Taisha </h4>
+          <div class="db-jp">富士山本宮浅間大社 · Shizuoka</div>
+          <div class="db-kami">Konohanasakuya-hime</div>
+          <p>Capo di circa 1.300 santuari Sengen. L'intera vetta del Fuji sopra gli 3.360 metri è proprietà del santuario.</p>
+          <div class="db-tag"><span class="chip">Sengen</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Fujisan%20Hong%C5%AB%20Sengen%20Taisha%20Shizuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="kunōzan tōshō-gū 久能山東照宮 shizuoka chūbu locale tokugawa ieyasu prima sepoltura di ieyasu, precedente a nikkō. ci si arriva con 1.159 scalini oppure in funivia dal mare.">
+        <div class="db-foto" data-lazy="Kunōzan Tōshō-gū" data-fallback="久"></div>
+        <div class="db-body">
+          <h4>Kunōzan Tōshō-gū </h4>
+          <div class="db-jp">久能山東照宮 · Shizuoka</div>
+          <div class="db-kami">Tokugawa Ieyasu</div>
+          <p>Prima sepoltura di Ieyasu, precedente a Nikkō. Ci si arriva con 1.159 scalini oppure in funivia dal mare.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kun%C5%8Dzan%20T%C5%8Dsh%C5%8D-g%C5%AB%20Shizuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="mishima taisha 三島大社 shizuoka chūbu locale ōyamatsumi, kotoshironushi qui minamoto no yoritomo pregò prima di sollevarsi contro i taira. un osmanto di 1.200 anni è monumento naturale.">
+        <div class="db-foto" data-lazy="Mishima-taisha" data-fallback="島"></div>
+        <div class="db-body">
+          <h4>Mishima Taisha </h4>
+          <div class="db-jp">三島大社 · Shizuoka</div>
+          <div class="db-kami">Ōyamatsumi, Kotoshironushi</div>
+          <p>Qui Minamoto no Yoritomo pregò prima di sollevarsi contro i Taira. Un osmanto di 1.200 anni è monumento naturale.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Mishima%20Taisha%20Shizuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="togakushi jinja 戸隆神社 nagano chūbu locale ame-no-tajikarao cinque santuari in quota. il viale che porta all&#x27;okusha è un tunnel di cedri secolari lungo due chilometri.">
+        <div class="db-foto" data-lazy="Togakushi-jinja" data-fallback="戸"></div>
+        <div class="db-body">
+          <h4>Togakushi Jinja </h4>
+          <div class="db-jp">戸隆神社 · Nagano</div>
+          <div class="db-kami">Ame-no-Tajikarao</div>
+          <p>Cinque santuari in quota. Il viale che porta all'Okusha è un tunnel di cedri secolari lungo due chilometri.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Togakushi%20Jinja%20Nagano%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="shirayama hime jinja 白山比咥神社 ishikawa chūbu locale kukurihime, izanagi, izanami capo di circa 2.000 santuari hakusan, legati al culto del monte bianco, una delle tre montagne sacre del giappone.">
+        <div class="db-foto" data-lazy="Shirayama Hime-jinja" data-fallback="白"></div>
+        <div class="db-body">
+          <h4>Shirayama Hime Jinja </h4>
+          <div class="db-jp">白山比咥神社 · Ishikawa</div>
+          <div class="db-kami">Kukurihime, Izanagi, Izanami</div>
+          <p>Capo di circa 2.000 santuari Hakusan, legati al culto del monte bianco, una delle tre montagne sacre del Giappone.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Shirayama%20Hime%20Jinja%20Ishikawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="keta taisha 気多大社 ishikawa chūbu locale ōnamuchi sulla penisola di noto, dietro il santuario si estende una foresta primaria in cui è vietato entrare da secoli.">
+        <div class="db-foto" data-lazy="Keta-taisha" data-fallback="気"></div>
+        <div class="db-body">
+          <h4>Keta Taisha </h4>
+          <div class="db-jp">気多大社 · Ishikawa</div>
+          <div class="db-kami">Ōnamuchi</div>
+          <p>Sulla penisola di Noto, dietro il santuario si estende una foresta primaria in cui è vietato entrare da secoli.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Keta%20Taisha%20Ishikawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="oyama jinja 尾山神社 ishikawa chūbu locale maeda toshiie il portale d&#x27;ingresso, del 1875, mescola stile giapponese, cinese ed europeo e ha vetrate colorate: un unicum.">
+        <div class="db-foto" data-lazy="Oyama-jinja Kanazawa" data-fallback="尾"></div>
+        <div class="db-body">
+          <h4>Oyama Jinja </h4>
+          <div class="db-jp">尾山神社 · Ishikawa</div>
+          <div class="db-kami">Maeda Toshiie</div>
+          <p>Il portale d'ingresso, del 1875, mescola stile giapponese, cinese ed europeo e ha vetrate colorate: un unicum.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Oyama%20Jinja%20Ishikawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūbu" data-tipo="Locale"
+               data-cerca="kehi jingū 気比神宮 fukui chūbu locale izasawake-no-mikoto il suo grande torii di legno del 1645 è fra i tre più celebri del giappone e sopravvisse ai bombardamenti del 1945.">
+        <div class="db-foto" data-lazy="Kehi jingū" data-fallback="比"></div>
+        <div class="db-body">
+          <h4>Kehi Jingū </h4>
+          <div class="db-jp">気比神宮 · Fukui</div>
+          <div class="db-kami">Izasawake-no-Mikoto</div>
+          <p>Il suo grande torii di legno del 1645 è fra i tre più celebri del Giappone e sopravvisse ai bombardamenti del 1945.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūbu</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kehi%20Jing%C5%AB%20Fukui%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kansai" data-tipo="Ise / Shinmei"
+               data-cerca="ise grand shrine bekkū – tsukiyomi 月読宮 mie kansai ise / shinmei tsukuyomi-no-mikoto santuario ausiliario di ise dedicato al fratello lunare di amaterasu, raramente visitato dai turisti.">
+        <div class="db-foto" data-lazy="Tsukiyomi-gū" data-fallback="月"></div>
+        <div class="db-body">
+          <h4>Ise Grand Shrine Bekkū – Tsukiyomi </h4>
+          <div class="db-jp">月読宮 · Mie</div>
+          <div class="db-kami">Tsukuyomi-no-Mikoto</div>
+          <p>Santuario ausiliario di Ise dedicato al fratello lunare di Amaterasu, raramente visitato dai turisti.</p>
+          <div class="db-tag"><span class="chip">Ise / Shinmei</span>
+            <span class="chip">Kansai</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Ise%20Grand%20Shrine%20Bekk%C5%AB%20%E2%80%93%20Tsukiyomi%20Mie%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Tōhoku" data-tipo="Locale"
+               data-cerca="dewa sanzan jinja 出羽三山神社 yamagata tōhoku locale ideha, ukanomitama, ōyamatsumi i tre monti del passato, presente e futuro. sul monte haguro 2.446 scalini di pietra e una pagoda a cinque piani del x secolo.">
+        <div class="db-foto" data-lazy="Dewa Sanzan" data-fallback="羽"></div>
+        <div class="db-body">
+          <h4>Dewa Sanzan Jinja </h4>
+          <div class="db-jp">出羽三山神社 · Yamagata</div>
+          <div class="db-kami">Ideha, Ukanomitama, Ōyamatsumi</div>
+          <p>I tre monti del passato, presente e futuro. Sul monte Haguro 2.446 scalini di pietra e una pagoda a cinque piani del X secolo.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Tōhoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Dewa%20Sanzan%20Jinja%20Yamagata%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Tōhoku" data-tipo="Locale"
+               data-cerca="shiogama jinja 鹿島神社 (塩竈) miyagi tōhoku locale shiotsuchi-no-oji protettore dei naviganti e dei parti. duecentodue scalini ripidi conducono al piazzale, affacciato sulla baia di matsushima.">
+        <div class="db-foto" data-lazy="Shiogama-jinja" data-fallback="塩"></div>
+        <div class="db-body">
+          <h4>Shiogama Jinja </h4>
+          <div class="db-jp">鹿島神社 (塩竈) · Miyagi</div>
+          <div class="db-kami">Shiotsuchi-no-Oji</div>
+          <p>Protettore dei naviganti e dei parti. Duecentodue scalini ripidi conducono al piazzale, affacciato sulla baia di Matsushima.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Tōhoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Shiogama%20Jinja%20Miyagi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Tōhoku" data-tipo="Hachiman"
+               data-cerca="ōsaki hachimangū 大崎八幡宮 miyagi tōhoku hachiman hachiman-ōkami laccato in nero e oro, eretto da date masamune nel 1607: uno dei più antichi edifici in stile &lt;i&gt;gongen-zukuri&lt;/i&gt; rimasti.">
+        <div class="db-foto" data-lazy="Ōsaki Hachiman-gū" data-fallback="崎"></div>
+        <div class="db-body">
+          <h4>Ōsaki Hachimangū </h4>
+          <div class="db-jp">大崎八幡宮 · Miyagi</div>
+          <div class="db-kami">Hachiman-Ōkami</div>
+          <p>Laccato in nero e oro, eretto da Date Masamune nel 1607: uno dei più antichi edifici in stile <i>gongen-zukuri</i> rimasti.</p>
+          <div class="db-tag"><span class="chip">Hachiman</span>
+            <span class="chip">Tōhoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Csaki%20Hachimang%C5%AB%20Miyagi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Hokkaidō" data-tipo="Imperiale"
+               data-cerca="hokkaidō jingū 北海道神宮 hokkaidō hokkaidō imperiale tre kami di sviluppo e imperatore meiji fondato nel 1869 per &quot;insediare&quot; i kami giapponesi nell&#x27;isola: un santuario che è anche un atto politico verso il popolo ainu.">
+        <div class="db-foto" data-lazy="Hokkaidō-jingū" data-fallback="北"></div>
+        <div class="db-body">
+          <h4>Hokkaidō Jingū </h4>
+          <div class="db-jp">北海道神宮 · Hokkaidō</div>
+          <div class="db-kami">Tre kami di sviluppo e imperatore Meiji</div>
+          <p>Fondato nel 1869 per "insediare" i kami giapponesi nell'isola: un santuario che è anche un atto politico verso il popolo ainu.</p>
+          <div class="db-tag"><span class="chip">Imperiale</span>
+            <span class="chip">Hokkaidō</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hokkaid%C5%8D%20Jing%C5%AB%20Hokkaid%C5%8D%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="yaegaki jinja 八重垣神社 shimane chūgoku locale susanoo, kushinadahime si fa galleggiare una moneta su una foglia nello stagno: se affonda in fretta l&#x27;amore è vicino, se resta a galla ci vorrà tempo.">
+        <div class="db-foto" data-lazy="Yaegaki-jinja" data-fallback="垣"></div>
+        <div class="db-body">
+          <h4>Yaegaki Jinja </h4>
+          <div class="db-jp">八重垣神社 · Shimane</div>
+          <div class="db-kami">Susanoo, Kushinadahime</div>
+          <p>Si fa galleggiare una moneta su una foglia nello stagno: se affonda in fretta l'amore è vicino, se resta a galla ci vorrà tempo.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Yaegaki%20Jinja%20Shimane%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="hinomisaki jinja 日御碇神社 shimane chūgoku locale amaterasu, susanoo sull&#x27;estremo occidentale: qui si venera il tramonto, mentre a ise si venera l&#x27;alba. vermiglio acceso contro il mare.">
+        <div class="db-foto" data-lazy="Hinomisaki-jinja" data-fallback="御"></div>
+        <div class="db-body">
+          <h4>Hinomisaki Jinja </h4>
+          <div class="db-jp">日御碇神社 · Shimane</div>
+          <div class="db-kami">Amaterasu, Susanoo</div>
+          <p>Sull'estremo occidentale: qui si venera il tramonto, mentre a Ise si venera l'alba. Vermiglio acceso contro il mare.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hinomisaki%20Jinja%20Shimane%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="kamosu jinja 神魂神社 shimane chūgoku locale izanami conserva il più antico honden in stile &lt;i&gt;taisha-zukuri&lt;/i&gt; esistente, del 1583, classificato tesoro nazionale.">
+        <div class="db-foto" data-lazy="Kamosu-jinja" data-fallback="魂"></div>
+        <div class="db-body">
+          <h4>Kamosu Jinja </h4>
+          <div class="db-jp">神魂神社 · Shimane</div>
+          <div class="db-kami">Izanami</div>
+          <p>Conserva il più antico honden in stile <i>taisha-zukuri</i> esistente, del 1583, classificato Tesoro Nazionale.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kamosu%20Jinja%20Shimane%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Locale"
+               data-cerca="kibitsu jinja 吉備津神社 okayama chūgoku locale ōkibitsuhiko-no-mikoto il corridoio coperto lungo 360 metri e il rito di divinazione con il paiolo, che predice il futuro dal suono del vapore.">
+        <div class="db-foto" data-lazy="Kibitsu-jinja" data-fallback="備"></div>
+        <div class="db-body">
+          <h4>Kibitsu Jinja </h4>
+          <div class="db-jp">吉備津神社 · Okayama</div>
+          <div class="db-kami">Ōkibitsuhiko-no-Mikoto</div>
+          <p>Il corridoio coperto lungo 360 metri e il rito di divinazione con il paiolo, che predice il futuro dal suono del vapore.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kibitsu%20Jinja%20Okayama%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Chūgoku" data-tipo="Inari"
+               data-cerca="motonosumi jinja 元乃隈神社 yamaguchi chūgoku inari inari ōkami centoventitré torii scendono lungo una scogliera fino al mare. la cassetta delle offerte è in cima al torii, a sei metri: centrarla porta fortuna.">
+        <div class="db-foto" data-lazy="Motonosumi-jinja" data-fallback="元"></div>
+        <div class="db-body">
+          <h4>Motonosumi Jinja </h4>
+          <div class="db-jp">元乃隈神社 · Yamaguchi</div>
+          <div class="db-kami">Inari Ōkami</div>
+          <p>Centoventitré torii scendono lungo una scogliera fino al mare. La cassetta delle offerte è in cima al torii, a sei metri: centrarla porta fortuna.</p>
+          <div class="db-tag"><span class="chip">Inari</span>
+            <span class="chip">Chūgoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Motonosumi%20Jinja%20Yamaguchi%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Shikoku" data-tipo="Locale"
+               data-cerca="kotohira-gū 金刀比羅宮 kagawa shikoku locale ōmononushi il &quot;konpira-san&quot; dei naviganti: 785 scalini fino alla sala principale, 1.368 fino all&#x27;estremo. esistono portantine per chi non ce la fa.">
+        <div class="db-foto" data-lazy="Kotohira-gū" data-fallback="金"></div>
+        <div class="db-body">
+          <h4>Kotohira-gū </h4>
+          <div class="db-jp">金刀比羅宮 · Kagawa</div>
+          <div class="db-kami">Ōmononushi</div>
+          <p>Il "Konpira-san" dei naviganti: 785 scalini fino alla sala principale, 1.368 fino all'estremo. Esistono portantine per chi non ce la fa.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Shikoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kotohira-g%C5%AB%20Kagawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Shikoku" data-tipo="Locale"
+               data-cerca="ōyamazumi jinja 大山祇神社 ehime shikoku locale ōyamatsumi-no-kami conserva circa l&#x27;ottanta per cento delle armature classificate tesoro nazionale del giappone, offerte dai guerrieri come ex voto.">
+        <div class="db-foto" data-lazy="Ōyamazumi-jinja" data-fallback="祇"></div>
+        <div class="db-body">
+          <h4>Ōyamazumi Jinja </h4>
+          <div class="db-jp">大山祇神社 · Ehime</div>
+          <div class="db-kami">Ōyamatsumi-no-kami</div>
+          <p>Conserva circa l'ottanta per cento delle armature classificate Tesoro Nazionale del Giappone, offerte dai guerrieri come ex voto.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Shikoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=%C5%8Cyamazumi%20Jinja%20Ehime%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Shikoku" data-tipo="Hachiman"
+               data-cerca="isaniwa jinja 伊佐尔波神社 ehime shikoku hachiman hachiman-ōkami vicino al dōgo onsen, è uno dei tre grandi esempi superstiti di architettura &lt;i&gt;hachiman-zukuri&lt;/i&gt;.">
+        <div class="db-foto" data-lazy="Isaniwa-jinja" data-fallback="伊"></div>
+        <div class="db-body">
+          <h4>Isaniwa Jinja </h4>
+          <div class="db-jp">伊佐尔波神社 · Ehime</div>
+          <div class="db-kami">Hachiman-Ōkami</div>
+          <p>Vicino al Dōgo Onsen, è uno dei tre grandi esempi superstiti di architettura <i>hachiman-zukuri</i>.</p>
+          <div class="db-tag"><span class="chip">Hachiman</span>
+            <span class="chip">Shikoku</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Isaniwa%20Jinja%20Ehime%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="munakata taisha 宗像大社 fukuoka kyūshū locale le tre dee munakata patrimonio unesco. l&#x27;isola di okinoshima, che ne fa parte, è vietata alle donne e ai visitatori: vi si trovarono 80.000 oggetti rituali.">
+        <div class="db-foto" data-lazy="Munakata-taisha" data-fallback="宗"></div>
+        <div class="db-body">
+          <h4>Munakata Taisha </h4>
+          <div class="db-jp">宗像大社 · Fukuoka</div>
+          <div class="db-kami">Le tre dee Munakata</div>
+          <p>Patrimonio UNESCO. L'isola di Okinoshima, che ne fa parte, è vietata alle donne e ai visitatori: vi si trovarono 80.000 oggetti rituali.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Munakata%20Taisha%20Fukuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Gion / Yasaka"
+               data-cerca="kushida jinja 滄田神社 fukuoka kyūshū gion / yasaka ōkuninushi, amaterasu, susanoo cuore dello hakata gion yamakasa di luglio: squadre di uomini corrono per la città portando carri da una tonnellata.">
+        <div class="db-foto" data-lazy="Kushida-jinja" data-fallback="滄"></div>
+        <div class="db-body">
+          <h4>Kushida Jinja </h4>
+          <div class="db-jp">滄田神社 · Fukuoka</div>
+          <div class="db-kami">Ōkuninushi, Amaterasu, Susanoo</div>
+          <p>Cuore dello Hakata Gion Yamakasa di luglio: squadre di uomini corrono per la città portando carri da una tonnellata.</p>
+          <div class="db-tag"><span class="chip">Gion / Yasaka</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kushida%20Jinja%20Fukuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Hachiman"
+               data-cerca="hakozakigū 筀崎宮 fukuoka kyūshū hachiman ōjin, jingū, tamayorihime sul portale campeggia l&#x27;iscrizione &quot;tekikoku kōfuku&quot;, il nemico si arrende: riferimento alle invasioni mongole respinte dal kamikaze.">
+        <div class="db-foto" data-lazy="Hakozaki-gū" data-fallback="筀"></div>
+        <div class="db-body">
+          <h4>Hakozakigū </h4>
+          <div class="db-jp">筀崎宮 · Fukuoka</div>
+          <div class="db-kami">Ōjin, Jingū, Tamayorihime</div>
+          <p>Sul portale campeggia l'iscrizione "Tekikoku Kōfuku", il nemico si arrende: riferimento alle invasioni mongole respinte dal kamikaze.</p>
+          <div class="db-tag"><span class="chip">Hachiman</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Hakozakig%C5%AB%20Fukuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="kashii-gū 香椒宮 fukuoka kyūshū locale imperatore chūai, imperatrice jingū unico esempio dello stile architettonico &lt;i&gt;kashii-zukuri&lt;/i&gt;, che non si trova in nessun altro santuario.">
+        <div class="db-foto" data-lazy="Kashii-gū" data-fallback="椒"></div>
+        <div class="db-body">
+          <h4>Kashii-gū </h4>
+          <div class="db-jp">香椒宮 · Fukuoka</div>
+          <div class="db-kami">Imperatore Chūai, imperatrice Jingū</div>
+          <p>Unico esempio dello stile architettonico <i>kashii-zukuri</i>, che non si trova in nessun altro santuario.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kashii-g%C5%AB%20Fukuoka%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Inari"
+               data-cerca="yūtoku inari jinja 祐徳稲荷神社 saga kyūshū inari ukanomitama, ōmiyanome terzo grande santuario inari del paese. la struttura vermiglia è sospesa su palafitte a diciotto metri dal suolo.">
+        <div class="db-foto" data-lazy="Yūtoku Inari Shrine" data-fallback="祐"></div>
+        <div class="db-body">
+          <h4>Yūtoku Inari Jinja </h4>
+          <div class="db-jp">祐徳稲荷神社 · Saga</div>
+          <div class="db-kami">Ukanomitama, Ōmiyanome</div>
+          <p>Terzo grande santuario Inari del paese. La struttura vermiglia è sospesa su palafitte a diciotto metri dal suolo.</p>
+          <div class="db-tag"><span class="chip">Inari</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Y%C5%ABtoku%20Inari%20Jinja%20Saga%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Suwa"
+               data-cerca="suwa jinja 諠訪神社 (長崎) nagasaki kyūshū suwa takeminakata, yasakatome fondato per contrastare il cristianesimo a nagasaki. il suo kunchi di ottobre mescola danze cinesi e olandesi ai riti shintoisti.">
+        <div class="db-foto" data-lazy="Suwa-jinja Nagasaki" data-fallback="訪"></div>
+        <div class="db-body">
+          <h4>Suwa Jinja </h4>
+          <div class="db-jp">諠訪神社 (長崎) · Nagasaki</div>
+          <div class="db-kami">Takeminakata, Yasakatome</div>
+          <p>Fondato per contrastare il cristianesimo a Nagasaki. Il suo Kunchi di ottobre mescola danze cinesi e olandesi ai riti shintoisti.</p>
+          <div class="db-tag"><span class="chip">Suwa</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Suwa%20Jinja%20Nagasaki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="aso jinja 阿蘇神社 kumamoto kyūshū locale takeiwatatsu-no-mikoto uno dei più antichi del giappone, legato al vulcano aso. il portale crollato nel terremoto del 2016 è stato ricostruito nel 2023.">
+        <div class="db-foto" data-lazy="Aso-jinja" data-fallback="阿"></div>
+        <div class="db-body">
+          <h4>Aso Jinja </h4>
+          <div class="db-jp">阿蘇神社 · Kumamoto</div>
+          <div class="db-kami">Takeiwatatsu-no-Mikoto</div>
+          <p>Uno dei più antichi del Giappone, legato al vulcano Aso. Il portale crollato nel terremoto del 2016 è stato ricostruito nel 2023.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Aso%20Jinja%20Kumamoto%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="takachiho jinja 高千穂神社 miyazaki kyūshū locale takachiho sumeragami ogni notte dell&#x27;anno, senza eccezioni, vi si danza il kagura: quattro dei trentatré quadri che compongono il ciclo completo.">
+        <div class="db-foto" data-lazy="Takachiho-jinja" data-fallback="高"></div>
+        <div class="db-body">
+          <h4>Takachiho Jinja </h4>
+          <div class="db-jp">高千穂神社 · Miyazaki</div>
+          <div class="db-kami">Takachiho Sumeragami</div>
+          <p>Ogni notte dell'anno, senza eccezioni, vi si danza il kagura: quattro dei trentatré quadri che compongono il ciclo completo.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Takachiho%20Jinja%20Miyazaki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="amano iwato jinja 天岩戸神社 miyazaki kyūshū locale amaterasu-ōmikami custodisce la caverna dove amaterasu si nascose. poco distante l&#x27;amano yasukawara, dove gli ottocento miriadi di kami tennero consiglio.">
+        <div class="db-foto" data-lazy="Amano Iwato Jinja" data-fallback="岩"></div>
+        <div class="db-body">
+          <h4>Amano Iwato Jinja </h4>
+          <div class="db-jp">天岩戸神社 · Miyazaki</div>
+          <div class="db-kami">Amaterasu-Ōmikami</div>
+          <p>Custodisce la caverna dove Amaterasu si nascose. Poco distante l'Amano Yasukawara, dove gli ottocento miriadi di kami tennero consiglio.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Amano%20Iwato%20Jinja%20Miyazaki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="udo jingū 鰵戸神宮 miyazaki kyūshū locale ugayafukiaezu-no-mikoto costruito dentro una grotta marina. si lanciano palline d&#x27;argilla verso una cavità nella roccia sottostante: centrarla esaudisce un desiderio.">
+        <div class="db-foto" data-lazy="Udo jingū" data-fallback="鰵"></div>
+        <div class="db-body">
+          <h4>Udo Jingū </h4>
+          <div class="db-jp">鰵戸神宮 · Miyazaki</div>
+          <div class="db-kami">Ugayafukiaezu-no-Mikoto</div>
+          <p>Costruito dentro una grotta marina. Si lanciano palline d'argilla verso una cavità nella roccia sottostante: centrarla esaudisce un desiderio.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Udo%20Jing%C5%AB%20Miyazaki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="aoshima jinja 青島神社 miyazaki kyūshū locale hoori, toyotamahime su un&#x27;isola subtropicale circondata dalle &quot;tavole da lavare dei giganti&quot;, formazioni rocciose a strisce regolari.">
+        <div class="db-foto" data-lazy="Aoshima-jinja" data-fallback="青"></div>
+        <div class="db-body">
+          <h4>Aoshima Jinja </h4>
+          <div class="db-jp">青島神社 · Miyazaki</div>
+          <div class="db-kami">Hoori, Toyotamahime</div>
+          <p>Su un'isola subtropicale circondata dalle "tavole da lavare dei giganti", formazioni rocciose a strisce regolari.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Aoshima%20Jinja%20Miyazaki%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Kyūshū" data-tipo="Locale"
+               data-cerca="kirishima jingū 霧島神宮 kagoshima kyūshū locale ninigi-no-mikoto dedicato al nipote di amaterasu disceso dal cielo. distrutto più volte dalle eruzioni, l&#x27;edificio attuale è del 1715.">
+        <div class="db-foto" data-lazy="Kirishima-jingū" data-fallback="霧"></div>
+        <div class="db-body">
+          <h4>Kirishima Jingū </h4>
+          <div class="db-jp">霧島神宮 · Kagoshima</div>
+          <div class="db-kami">Ninigi-no-Mikoto</div>
+          <p>Dedicato al nipote di Amaterasu disceso dal cielo. Distrutto più volte dalle eruzioni, l'edificio attuale è del 1715.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Kyūshū</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Kirishima%20Jing%C5%AB%20Kagoshima%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+      <article class="db" data-reg="Okinawa" data-tipo="Locale"
+               data-cerca="naminoue-gū 波上宮 okinawa okinawa locale izanami, hayatamao, kotosakao il principale santuario di okinawa, su una scogliera sopra il mare. il culto locale ryukyuano ha radici diverse da quello giapponese.">
+        <div class="db-foto" data-lazy="Naminoue-gū" data-fallback="波"></div>
+        <div class="db-body">
+          <h4>Naminoue-gū </h4>
+          <div class="db-jp">波上宮 · Okinawa</div>
+          <div class="db-kami">Izanami, Hayatamao, Kotosakao</div>
+          <p>Il principale santuario di Okinawa, su una scogliera sopra il mare. Il culto locale ryukyuano ha radici diverse da quello giapponese.</p>
+          <div class="db-tag"><span class="chip">Locale</span>
+            <span class="chip">Okinawa</span>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Naminoue-g%C5%AB%20Okinawa%20Japan"
+               target="_blank" rel="noopener">Maps ↗</a></div>
+        </div>
+      </article>
+    </div>
+    <p class="vuoto" id="vuoto" hidden>Nessun santuario corrisponde alla ricerca.</p>
+  </div>
 </section>
 
 <section class="dark">
   <div class="dark-inner" style="text-align:center;">
     <span class="eyebrow">Video</span>
     <h2>Camminare dentro un santuario</h2>
-    <p style="max-width:520px;margin-left:auto;margin-right:auto;">I video si caricano solo quando li avvii: nessuna riproduzione automatica.</p>
+    <p style="max-width:520px;margin-left:auto;margin-right:auto;">I filmati si caricano solo quando li avvii.</p>
     <div class="vid-grid" style="margin-top:38px;text-align:left;">
 <div class="vid reveal">
   <div class="frame" data-yt="K0UC5GkHbaU"><div class="play"></div></div>
-  <div class="vmeta"><b>Fushimi Inari Taisha — camminata in 4K</b><span>Salita completa tra i senbon torii, dalla stazione alla montagna. Nessun commento: solo il sandō.</span></div>
-</div>
-<div class="vid reveal">
-  <div class="frame" data-yt="rbCirvgaZxc"><div class="play"></div></div>
-  <div class="vmeta"><b>Il sentiero degli dèi — Fushimi Inari</b><span>Ripresa cinematografica del santuario di Kyoto all'ora blu, quando i gruppi turistici sono già andati via.</span></div>
+  <div class="vmeta"><b>Fushimi Inari Taisha — camminata in 4K</b><span>La salita completa fra i senbon torii, dalla stazione alla vetta del monte Inari.</span></div>
 </div>
 <div class="vid reveal">
   <div class="frame" data-yt="cW6N8PheRT8"><div class="play"></div></div>
-  <div class="vmeta"><b>Come visitare Fushimi Inari — guida pratica</b><span>Storia breve del santuario, orari migliori, percorsi alternativi e cosa evitare.</span></div>
+  <div class="vmeta"><b>Come visitare un santuario — guida pratica</b><span>Orari migliori, percorsi alternativi e cosa evitare durante la visita.</span></div>
+</div>
+<div class="vid reveal">
+  <div class="frame" data-yt="rbCirvgaZxc"><div class="play"></div></div>
+  <div class="vmeta"><b>Il sentiero degli dèi all'ora blu</b><span>Ripresa cinematografica quando i gruppi turistici sono già andati via.</span></div>
 </div>
     </div>
   </div>
@@ -835,10 +2174,10 @@ footer a:hover{ text-decoration:underline; }
   <div class="prose">
     <ul>
       <li><b>Non camminare al centro del sandō.</b> Quella è la corsia dei kami: i giapponesi tengono istintivamente la destra o la sinistra.</li>
-      <li><b>Le monete si offrono, non si lanciano.</b> La moneta da 5 yen (<span class="jp">五円</span>, <i>goen</i>) è la più gradita: suona come "legame propizio".</li>
+      <li><b>Le monete si offrono, non si lanciano.</b> Cinque yen (<span class="jp">五円</span>, <i>goen</i>) suona come "legame propizio".</li>
       <li><b>Due inchini, due battiti, una preghiera, un inchino.</b> A Izumo Taisha e Usa Jingū i battiti sono quattro: ogni santuario può avere la sua variante.</li>
-      <li><b>L'omikuji infausto si lega.</b> Si annoda al telaio apposito per lasciare la sfortuna al santuario invece di portarsela a casa.</li>
-      <li><b>Fotografare l'honden è spesso vietato.</b> Cerca i cartelli: dove non ci sono, vale il buon senso di non fotografare cerimonie in corso.</li>
+      <li><b>L'omikuji infausto si lega</b> al telaio apposito, per lasciare la sfortuna al santuario invece di portarsela a casa.</li>
+      <li><b>Fotografare l'honden è spesso vietato.</b> Dove non ci sono cartelli vale il buon senso di non riprendere cerimonie in corso.</li>
     </ul>
   </div>
 </section>
@@ -939,33 +2278,82 @@ function hydrateVideos(root){
 }
 hydrateVideos();
 
-/* ---------- Filtri templi ---------- */
+/* ---------- mappa: evidenzia e porta alla scheda ---------- */
 (function(){
-  var q=document.getElementById('q'), grid=document.getElementById('grid');
+  var svg=document.getElementById('mappa'); if(!svg) return;
+  function evidenzia(id){
+    document.querySelectorAll('.pin').forEach(function(p){
+      p.classList.toggle('evid', p.getAttribute('data-id')===id);
+    });
+    document.querySelectorAll('.top-card').forEach(function(c){
+      c.classList.toggle('evid', c.id===id);
+    });
+  }
+  function vai(id){
+    evidenzia(id);
+    var el=document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  svg.querySelectorAll('.pin').forEach(function(p){
+    var id=p.getAttribute('data-id');
+    p.addEventListener('click', function(){ vai(id); });
+    p.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); vai(id); }
+    });
+  });
+  var lista=document.getElementById('listaTop');
+  if(lista) lista.addEventListener('click', function(e){
+    var a=e.target.closest('[data-goto]'); if(!a) return;
+    e.preventDefault(); vai(a.getAttribute('data-goto'));
+  });
+})();
+
+/* ---------- database: ricerca, filtri, foto pigre ---------- */
+(function(){
+  var q=document.getElementById('q'), grid=document.getElementById('dbGrid');
   if(!grid) return;
-  var cards=[].slice.call(grid.querySelectorAll('.temple'));
-  var count=document.getElementById('count'), empty=document.getElementById('empty');
-  var region='all';
-  function apply(){
-    var term=(q.value||'').toLowerCase().trim();
-    var n=0;
-    cards.forEach(function(c){
-      var okR = region==='all' || c.getAttribute('data-region')===region;
-      var okQ = !term || c.getAttribute('data-search').indexOf(term)>-1;
-      var show = okR && okQ;
-      c.style.display = show ? '' : 'none';
-      if(show){ n++; c.classList.add('in'); }
+  var sel=document.getElementById('tipo');
+  var schede=[].slice.call(grid.querySelectorAll('.db'));
+  var count=document.getElementById('count'), vuoto=document.getElementById('vuoto');
+  var reg='all';
+
+  /* le 84 foto si caricano solo quando la scheda entra nello schermo:
+     evitiamo 84 richieste tutte insieme all'apertura della pagina */
+  var pigro = ('IntersectionObserver' in window) ? new IntersectionObserver(function(vis){
+    vis.forEach(function(v){
+      if(!v.isIntersecting) return;
+      var el=v.target.querySelector('.db-foto[data-lazy]');
+      if(el){
+        el.setAttribute('data-wiki', el.getAttribute('data-lazy'));
+        el.removeAttribute('data-lazy');
+        if(typeof loadWikiImage==='function') loadWikiImage(el, el.getAttribute('data-wiki'));
+      }
+      pigro.unobserve(v.target);
+    });
+  }, {rootMargin:'200px'}) : null;
+  if(pigro) schede.forEach(function(s){ pigro.observe(s); });
+
+  function applica(){
+    var t=(q.value||'').toLowerCase().trim(), tp=sel.value, n=0;
+    schede.forEach(function(c){
+      var okR = reg==='all' || c.getAttribute('data-reg')===reg;
+      var okT = tp==='all'  || c.getAttribute('data-tipo')===tp;
+      var okQ = !t || c.getAttribute('data-cerca').indexOf(t)>-1;
+      var mostra = okR&&okT&&okQ;
+      c.style.display = mostra?'':'none';
+      if(mostra){ n++; if(pigro) pigro.observe(c); }
     });
     count.textContent = n + (n===1?' santuario':' santuari');
-    empty.hidden = n>0;
+    vuoto.hidden = n>0;
   }
-  q.addEventListener('input', apply);
-  document.getElementById('filters').addEventListener('click', function(e){
+  q.addEventListener('input', applica);
+  sel.addEventListener('change', applica);
+  document.getElementById('filtri').addEventListener('click', function(e){
     var b=e.target.closest('.fbtn'); if(!b) return;
-    document.querySelectorAll('#filters .fbtn').forEach(function(x){x.classList.remove('on');});
-    b.classList.add('on'); region=b.getAttribute('data-region'); apply();
+    document.querySelectorAll('#filtri .fbtn').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on'); reg=b.getAttribute('data-reg'); applica();
   });
-  apply();
+  applica();
 })();
 
 </script>
