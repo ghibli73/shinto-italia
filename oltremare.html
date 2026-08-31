@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oltremare — Shinto Italia</title>
+<meta name="description" content="Lo Shinto fuori dal Giappone: il santuario di San Marino, le Hawaii, il Nordamerica, il Brasile e la storia dei santuari coloniali.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%A9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#f3e9d2;
+  --washi-2:#ece0c3;
+  --paper:#fff8ea;
+  --sumi:#201a14;
+  --sumi-soft:#4a3f31;
+  --torii:#c8402a;
+  --torii-deep:#9c2e1d;
+  --gold:#bb9138;
+  --gold-soft:#d9bd7e;
+  --matcha:#5c6e4a;
+  --night:#171225;
+  --night-2:#241b34;
+  --sakura:#f0b9c4;
+  --paper-line: rgba(32,26,20,.14);
+  --shadow: 0 18px 40px rgba(32,20,10,.14);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:'Zen Maru Gothic', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+h1,h2,h3,h4{ font-family:'Shippori Mincho B1', serif; line-height:1.18; font-weight:700; }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--torii-deep);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:14px; height:1px; background:var(--torii-deep); display:inline-block; }
+
+/* ---------- Progress rail ---------- */
+.rail{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--torii),var(--gold));
+  z-index:100; transition:width .1s linear;
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(243,233,210,.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--paper-line);
+  padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap;
+}
+nav .brand{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:16px; color:var(--torii-deep); text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+}
+.nav-links{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; justify-content:flex-end; }
+.nav-links a{
+  color:var(--sumi-soft); text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.03em;
+  padding:7px 11px; border-radius:20px;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.09); }
+.nav-links a.active{ color:var(--torii-deep); background:rgba(200,64,42,.12); }
+@media (max-width:680px){
+  nav{ padding:10px 14px; justify-content:center; }
+  .nav-links{ justify-content:center; }
+  .nav-links a{ font-size:11px; padding:6px 9px; }
+}
+
+/* ---------- Page hero ---------- */
+.phero{
+  padding:76px 22px 58px; text-align:center; position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#f6ecd6 0%, #efe0bd 100%);
+  border-bottom:1px solid var(--paper-line);
+}
+.phero::before{
+  content:attr(data-mon);
+  position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  font-family:'Shippori Mincho B1', serif; font-size:330px;
+  color:var(--sumi); opacity:.045; line-height:1; pointer-events:none;
+}
+.phero-inner{ position:relative; z-index:1; max-width:660px; margin:0 auto; }
+.phero h1{ font-size:clamp(34px,8vw,56px); margin-top:14px; }
+.phero p{ margin-top:16px; color:var(--sumi-soft); line-height:1.75; font-size:15.5px; }
+.hero-stats{ margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-stats span{
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  border:1px solid var(--paper-line); background:var(--paper);
+  padding:8px 15px; border-radius:20px; color:var(--sumi-soft);
+}
+.hero-stats b{ color:var(--torii-deep); }
+
+/* ---------- Layout ---------- */
+.wrap{ max-width:1060px; margin:0 auto; padding:64px 22px; }
+.wrap-narrow{ max-width:820px; margin:0 auto; padding:64px 22px; }
+.sec-head{ max-width:600px; margin:0 auto 42px; text-align:center; }
+.sec-head h2{ font-size:clamp(25px,5.5vw,36px); margin-top:12px; }
+.sec-head p{ margin-top:13px; color:var(--sumi-soft); line-height:1.7; font-size:14.5px; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.03em;
+  padding:13px 24px; border-radius:3px; border:1px solid transparent;
+  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s var(--ease);
+}
+.btn-primary{ background:var(--torii); color:#fff8ee; box-shadow:0 10px 24px rgba(156,46,29,.3); }
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px rgba(156,46,29,.38); }
+.btn-ghost{ border-color:var(--sumi); color:var(--sumi); }
+.btn-ghost:hover{ transform:translateY(-3px); background:rgba(32,26,20,.05); }
+.cta-row{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+
+/* ---------- Media: figure & video ---------- */
+.figure{
+  border-radius:8px; overflow:hidden; border:1px solid var(--paper-line);
+  background:linear-gradient(140deg,#efe0bd,#e3d0a6);
+  position:relative;
+}
+.figure .ph{
+  width:100%; aspect-ratio:16/10;
+  background-size:cover; background-position:center;
+  background-color:#e6d5ae;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .8s var(--ease);
+}
+.figure:hover .ph{ transform:scale(1.03); }
+.figure .ph::after{
+  content:attr(data-fallback);
+  font-family:'Shippori Mincho B1', serif; font-size:70px;
+  color:var(--torii); opacity:.22;
+}
+.figure .ph.has-img::after{ content:""; }
+.figure figcaption{
+  padding:11px 14px; font-size:12px; color:var(--sumi-soft);
+  background:var(--paper); border-top:1px solid var(--paper-line);
+  font-family:'JetBrains Mono', monospace; line-height:1.5;
+}
+
+/* video card (click-to-load, no autoplay) */
+.vid{
+  border:1px solid var(--paper-line); border-radius:8px; overflow:hidden;
+  background:var(--paper); box-shadow:var(--shadow);
+}
+.vid .frame{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:#1c1a17 center/cover no-repeat; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.vid .frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.vid .play{
+  width:64px; height:64px; border-radius:50%;
+  background:rgba(200,64,42,.92); position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 26px rgba(0,0,0,.45);
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.vid .frame:hover .play{ transform:scale(1.1); background:var(--torii-deep); }
+.vid .play::after{
+  content:""; border-style:solid; border-width:11px 0 11px 18px;
+  border-color:transparent transparent transparent #fff8ee; margin-left:4px;
+}
+.vid .vmeta{ padding:13px 15px; border-top:1px solid var(--paper-line); }
+.vid .vmeta b{ font-family:'Shippori Mincho B1', serif; font-size:14.5px; display:block; }
+.vid .vmeta span{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--sumi-soft); display:block; margin-top:5px; line-height:1.5;
+}
+.vid-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+
+/* ---------- Cards ---------- */
+.card{
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  overflow:hidden; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s var(--ease);
+  opacity:0; transform:translateY(16px);
+}
+.card.in{ opacity:1; transform:translateY(0); }
+.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.4); }
+.card .body{ padding:18px 20px 20px; }
+.card h3{ font-size:17.5px; }
+.card .sub{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--torii-deep); margin-top:6px; letter-spacing:.03em;
+}
+.card p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+.grid-3{ display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:20px; }
+.grid-2{ display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:22px; }
+
+/* ---------- Chips / tags ---------- */
+.chip{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  border:1px solid var(--paper-line); background:var(--washi-2);
+  padding:5px 11px; border-radius:20px; color:var(--sumi-soft);
+  display:inline-block; margin:4px 4px 0 0;
+}
+.chip.hot{ border-color:rgba(200,64,42,.35); color:var(--torii-deep); background:rgba(200,64,42,.07); }
+
+/* ---------- Controls (search / filter) ---------- */
+.controls{
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center;
+  margin-bottom:26px;
+}
+.controls input, .controls select{
+  font-family:'JetBrains Mono', monospace; font-size:13px;
+  padding:11px 15px; border-radius:24px;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi);
+  min-width:290px; max-width:100%; outline:none;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.controls input:focus, .controls select:focus{
+  border-color:var(--torii); box-shadow:0 0 0 3px rgba(200,64,42,.12);
+}
+.filter-row{ display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
+.fbtn{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  padding:7px 14px; border-radius:20px; cursor:pointer;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi-soft);
+  transition:all .28s var(--ease);
+}
+.fbtn:hover{ border-color:var(--torii); color:var(--torii-deep); }
+.fbtn.on{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
+.count{
+  text-align:center; font-family:'JetBrains Mono', monospace;
+  font-size:11.5px; color:var(--sumi-soft); margin-bottom:22px; letter-spacing:.05em;
+}
+
+/* ---------- Prose ---------- */
+.prose p{ font-size:15px; line-height:1.85; color:var(--sumi-soft); margin-top:15px; }
+.prose h3{ font-size:21px; margin-top:38px; color:var(--sumi); }
+.prose ul{ margin-top:15px; padding-left:20px; }
+.prose li{ font-size:14.5px; line-height:1.8; color:var(--sumi-soft); margin-top:8px; }
+.prose strong, .prose b{ color:var(--sumi); }
+.jp{ font-family:'Shippori Mincho B1', serif; color:var(--torii-deep); }
+.quote{
+  margin-top:26px; padding:20px 24px; border-left:3px solid var(--torii);
+  background:var(--paper); border-radius:0 6px 6px 0;
+  font-family:'Shippori Mincho B1', serif; font-size:16px; line-height:1.7; color:var(--sumi);
+}
+.quote span{
+  display:block; margin-top:9px; font-family:'JetBrains Mono', monospace;
+  font-size:11px; color:var(--torii-deep); letter-spacing:.05em;
+}
+
+/* ---------- Accordion ---------- */
+details.acc{
+  background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:8px; margin-top:13px; overflow:hidden;
+}
+details.acc summary{
+  cursor:pointer; padding:16px 20px; list-style:none;
+  font-family:'Shippori Mincho B1', serif; font-size:16.5px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  transition:background .3s var(--ease);
+}
+details.acc summary:hover{ background:rgba(200,64,42,.05); }
+details.acc summary::-webkit-details-marker{ display:none; }
+details.acc summary::after{
+  content:"+"; font-family:'JetBrains Mono', monospace; font-size:18px;
+  color:var(--torii); transition:transform .3s var(--ease); flex:none;
+}
+details.acc[open] summary::after{ transform:rotate(45deg); }
+details.acc .acc-body{ padding:0 20px 20px; border-top:1px solid var(--paper-line); }
+
+/* ---------- Timeline ---------- */
+.tl{ position:relative; margin-top:20px; padding-left:28px; }
+.tl::before{
+  content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(var(--torii),var(--gold),transparent);
+}
+.tl-item{
+  position:relative; padding:16px 20px; margin-bottom:16px;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  opacity:0; transform:translateX(-10px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
+}
+.tl-item.in{ opacity:1; transform:translateX(0); }
+.tl-item:hover{ box-shadow:var(--shadow); }
+.tl-item::before{
+  content:""; position:absolute; left:-28px; top:22px;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--torii); border:2px solid var(--washi);
+}
+.tl-date{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.05em; }
+.tl-item h3{ font-size:18px; margin-top:6px; }
+.tl-era{ font-size:12px; color:var(--matcha); margin-top:4px; font-family:'JetBrains Mono', monospace; }
+.tl-item p{ margin-top:9px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+
+/* ---------- Dark section ---------- */
+.dark{
+  background:linear-gradient(180deg,var(--night),var(--night-2));
+  color:var(--washi); padding:82px 22px; position:relative; overflow:hidden;
+}
+.dark::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 0%, rgba(217,189,126,.10), transparent 55%);
+}
+.dark-inner{ max-width:820px; margin:0 auto; position:relative; z-index:1; }
+.dark h2{ color:var(--washi); margin-top:12px; font-size:clamp(25px,5.5vw,34px); }
+.dark .eyebrow{ color:var(--gold-soft); }
+.dark .eyebrow::before{ background:var(--gold-soft); }
+.dark p{ color:#cfc4ac; line-height:1.8; font-size:14.5px; margin-top:14px; }
+.dark .btn-ghost{ border-color:var(--gold-soft); color:var(--washi); }
+.dark .btn-ghost:hover{ background:rgba(255,255,255,.07); }
+
+/* ---------- Footer ---------- */
+footer{
+  padding:32px 20px; text-align:center; background:var(--night); color:#8b8299;
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; line-height:1.9;
+}
+footer a{ color:var(--sakura); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+
+/* ---------- Prev/next ---------- */
+.pager{
+  display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;
+  max-width:1060px; margin:0 auto; padding:0 22px 64px;
+}
+.pager a{
+  flex:1 1 240px; text-decoration:none; color:var(--sumi);
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  padding:16px 20px; transition:all .35s var(--ease);
+}
+.pager a:hover{ border-color:var(--torii); transform:translateY(-3px); box-shadow:var(--shadow); }
+.pager small{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--torii-deep); letter-spacing:.1em; }
+.pager b{ display:block; font-family:'Shippori Mincho B1', serif; font-size:16px; margin-top:5px; }
+.pager .nx{ text-align:right; }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition-duration:.01ms !important; }
+}
+
+/* ---------- ondate ---------- */
+.ondate-sec{ background:var(--washi-2); border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line); }
+.ondate{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0;
+  border-top:1px solid var(--paper-line); border-left:1px solid var(--paper-line); }
+.onda{ position:relative; padding:28px 22px; overflow:hidden;
+  border-right:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);
+  background:var(--paper); transition:background .35s var(--ease); }
+.onda:hover{ background:#fffdf5; }
+.o-mon{ position:absolute; top:10px; right:14px; font-family:'Shippori Mincho B1',serif;
+  font-size:64px; color:var(--sumi); opacity:.06; line-height:1; }
+.o-num{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.1em; }
+.o-anni{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--matcha); margin-top:6px; }
+.onda h3{ font-size:19px; margin-top:8px; }
+.onda p{ margin-top:10px; font-size:13.5px; line-height:1.68; color:var(--sumi-soft); }
+
+/* ---------- luoghi ---------- */
+.luogo{ display:grid; grid-template-columns:380px 1fr; gap:34px; align-items:start;
+  padding:42px 0; border-top:1px solid var(--paper-line); scroll-margin-top:70px; }
+.luogo:first-of-type{ border-top:none; }
+.luogo:nth-of-type(even) .l-media{ order:2; }
+@media (max-width:860px){ .luogo{ grid-template-columns:1fr; gap:22px; }
+  .luogo:nth-of-type(even) .l-media{ order:0; } }
+.luogo.evidenza{ background:linear-gradient(120deg, rgba(187,145,56,.10), transparent 60%);
+  border-radius:12px; padding:34px; border-top:none; margin-bottom:8px; }
+.l-head{ display:flex; gap:15px; align-items:flex-start; }
+.fl{ width:44px; height:30px; border-radius:4px; flex:none; margin-top:4px;
+  border:1px solid rgba(0,0,0,.16); box-shadow:0 2px 6px rgba(0,0,0,.12); }
+.fl-sm{ background:linear-gradient(180deg,#fff 50%,#5eb6e4 50%); }
+.fl-us{ background:repeating-linear-gradient(180deg,#b22234 0 4.2px,#fff 4.2px 8.4px); }
+.fl-ca{ background:linear-gradient(90deg,#d52b1e 27%,#fff 27% 73%,#d52b1e 73%); }
+.fl-br{ background:#009c3b; position:relative; }
+.fl-br::after{ content:""; position:absolute; inset:22% 16%; background:#fedf00;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); }
+.fl-eu{ background:#003399; position:relative; }
+.fl-eu::after{ content:"\2b50"; position:absolute; inset:0; color:#ffcc00; font-size:11px;
+  display:flex; align-items:center; justify-content:center; }
+.badge-first{ display:inline-block; background:var(--gold); color:#2b2113;
+  font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em;
+  padding:4px 11px; border-radius:12px; margin-bottom:9px; }
+.luogo h2{ font-size:clamp(23px,4.6vw,31px); }
+.l-where{ font-family:'JetBrains Mono',monospace; font-size:11.5px;
+  color:var(--torii-deep); margin-top:7px; letter-spacing:.03em; }
+.l-body .prose{ margin-top:16px; }
+.l-body .prose p{ font-size:14.5px; }
+.facts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px; margin-top:20px; }
+.fact{ background:var(--paper); border:1px solid var(--paper-line); border-radius:8px; padding:12px 14px; }
+.fact b{ display:block; font-family:'JetBrains Mono',monospace; font-size:9.5px;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--torii-deep); }
+.fact span{ display:block; margin-top:5px; font-size:13px; color:var(--sumi); line-height:1.45; }
+
+/* ---------- numeri coloniali ---------- */
+.colonial-nums{ display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+  gap:12px; margin-top:26px; }
+.colonial-nums div{ background:rgba(255,255,255,.05); border:1px solid rgba(217,189,126,.25);
+  border-radius:8px; padding:16px 12px; text-align:center; }
+.colonial-nums b{ display:block; font-family:'Shippori Mincho B1',serif;
+  font-size:26px; color:var(--gold-soft); line-height:1; }
+.colonial-nums span{ display:block; margin-top:7px; font-family:'JetBrains Mono',monospace;
+  font-size:10.5px; color:#a99e8a; letter-spacing:.05em; }
+
+</style>
+</head>
+<body>
+
+<div class="rail" id="rail"></div>
+<nav>
+  <a class="brand" href="index.html">⛩ Shinto Italia</a>
+  <div class="nav-links">
+    <a href="storia.html">Storia</a>
+    <a href="leggende.html">Leggende</a>
+    <a href="templi.html">Templi</a>
+    <a href="kami.html">Kami</a>
+    <a href="rituali.html">Rituali</a>
+    <a href="manga.html">Manga</a>
+    <a href="oltremare.html" class="active">Oltremare</a>
+    <a href="viaggio.html">Viaggio</a>
+  </div>
+</nav>
+
+<section class="phero" data-mon="海">
+  <div class="phero-inner">
+    <span class="eyebrow">Sentiero 07 · Oltremare</span>
+    <h1>Lo Shinto fuori dal Giappone</h1>
+    <p>Una religione che nasce dal territorio può attraversare l'oceano? La risposta è sì, ma la storia di come è successo comprende l'emigrazione, il colonialismo e, solo di recente, la conversione volontaria.</p>
+      <div class="hero-stats"><span><b>1</b> santuario in Europa</span><span><b>~7</b> alle Hawaii</span><span><b>1.640</b> coloniali, quasi tutti perduti</span></div>
+  </div>
+</section>
+
+<section class="wrap-narrow" style="padding-bottom:24px;">
+  <div class="prose">
+    <p>Il problema è concreto. Un kami non è un'idea trasportabile: <b>abita un luogo</b>. La cascata di Nachi non è il simbolo di una divinità, è la divinità. Come si porta tutto questo a San Paolo o alle Hawaii?</p>
+    <p>La risposta tecnica esiste da secoli e si chiama <b><i>bunrei</i></b> (分霊), "divisione dello spirito". Il kami può essere diviso senza diminuire: una parte resta, una parte viene trasferita in un nuovo <i>shintai</i> e <b>installata</b> altrove con una cerimonia apposita. È il meccanismo che ha permesso a Inari di abitare trentamila santuari, e che ha permesso ad Amaterasu di arrivare a Serravalle.</p>
+    <div class="quote">
+      Il kami si divide ma non si dimezza. La fiamma che accende un'altra candela non si spegne, e nessuna delle due è una copia.
+      <span>Il principio del bunrei, spiegato come lo spiegano i sacerdoti</span>
+    </div>
+  </div>
+</section>
+
+<section class="ondate-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Quattro ondate</span>
+      <h2>Come i kami hanno lasciato l'arcipelago</h2>
+      <p>Quattro movimenti diversissimi fra loro, che troppo spesso vengono raccontati come se fossero la stessa cosa.</p>
+    </div>
+    <div class="ondate">
+      <div class="onda reveal">
+        <span class="o-mon">移</span>
+        <span class="o-num">01</span>
+        <div class="o-anni">1868 – 1930</div>
+        <h3>L'emigrazione</h3>
+        <p>Contadini giapponesi partono per Hawaii, California, Perù e Brasile. Portano con sé i kami del villaggio e costruiscono santuari con le proprie mani: sono luoghi di comunità prima che di culto.</p>
+      </div><div class="onda reveal">
+        <span class="o-mon">旗</span>
+        <span class="o-num">02</span>
+        <div class="o-anni">1895 – 1945</div>
+        <h3>L'impero</h3>
+        <p>Lo Stato costruisce circa <b>1.640 santuari</b> nei territori occupati. Non sono per la diaspora: servono ad assimilare le popolazioni colonizzate. In Corea la visita diventa obbligatoria per gli studenti.</p>
+      </div><div class="onda reveal">
+        <span class="o-mon">終</span>
+        <span class="o-num">03</span>
+        <div class="o-anni">1945</div>
+        <h3>Il crollo</h3>
+        <p>Con la resa quasi tutti i santuari coloniali vengono demoliti, spesso dai giapponesi stessi in ritirata o dalle popolazioni liberate. Alle Hawaii e in Brasile, invece, quelli della diaspora sopravvivono.</p>
+      </div><div class="onda reveal">
+        <span class="o-mon">新</span>
+        <span class="o-num">04</span>
+        <div class="o-anni">1986 – oggi</div>
+        <h3>La rinascita</h3>
+        <p>Nascono santuari voluti da praticanti non giapponesi: Tsubaki America nel 1986, San Marino nel 2014. Per la prima volta lo Shinto esce dai confini etnici e vengono ordinati sacerdoti occidentali.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <span class="eyebrow">La mappa di oggi</span>
+    <h2>Dove si prega, adesso</h2>
+    <p>Cinque realtà molto diverse per origine, riconoscimento e forma del culto.</p>
+  </div>
+<article class="luogo evidenza reveal" id="sanmarino">
+  <div class="l-media">
+    <figure class="figure reveal">
+  <div class="ph" data-wiki="Santuario shintoista di San Marino" data-lang="it" data-fallback="山"></div>
+  <figcaption>Il torii bianco e il piccolo honden fra i vigneti di Serravalle</figcaption>
+</figure>
+  </div>
+  <div class="l-body">
+    <div class="l-head">
+      <span class="fl fl-sm"></span>
+      <div>
+        <span class="badge-first">Unico riconosciuto in Europa</span>
+        <h2>San Marino Jinja</h2>
+        <div class="l-where">Serravalle, Repubblica di San Marino · 2014</div>
+      </div>
+    </div>
+    <div class="prose"><p>È il santuario shintoista più vicino a chi legge: un'ora da Bologna, meno da Rimini. Costruito in Giappone in legno di cedro, smontato, spedito via mare e rimontato al Podere Lesignano, dove è stato inaugurato il <b>22 giugno 2014</b>.</p><p>Nasce come memoriale per le oltre <b>29.000 vittime</b> del terremoto e maremoto del Tōhoku dell'11 marzo 2011, per iniziativa della Japan–San Marino Friendship Society. È consacrato ad <b>Amaterasu</b> e riprende nelle proporzioni l'Ise Jingū.</p><p>È l'unico santuario in Europa riconosciuto dalla <b>Jinja Honchō</b>, l'associazione che riunisce circa 80.000 santuari giapponesi. Dal 2019 vi si possono celebrare matrimoni shintoisti con validità civile sammarinese.</p></div>
+    <div class="facts"><div class="fact"><b>Kami</b><span>Amaterasu-Ōmikami</span></div><div class="fact"><b>Inaugurazione</b><span>22 giugno 2014</span></div><div class="fact"><b>Riconoscimento</b><span>Jinja Honchō</span></div><div class="fact"><b>Visita</b><span>libera, tutto l&#x27;anno</span></div></div>
+  </div>
+</article>
+<article class="luogo reveal" id="hawaii">
+  <div class="l-media">
+    <figure class="figure reveal">
+  <div class="ph" data-wiki="Izumo Taishakyo Mission of Hawaii" data-lang="it" data-fallback="島"></div>
+  <figcaption>Izumo Taishakyō Mission, Honolulu: uno dei santuari più antichi fuori dal Giappone</figcaption>
+</figure>
+  </div>
+  <div class="l-body">
+    <div class="l-head">
+      <span class="fl fl-us"></span>
+      <div>
+        
+        <h2>Le Hawaii</h2>
+        <div class="l-where">Honolulu, Hilo, Wailuku, Waipahu · dal 1898</div>
+      </div>
+    </div>
+    <div class="prose"><p>Qui si concentra la quasi totalità dei santuari statunitensi. Nascono con l'emigrazione di fine Ottocento verso le piantagioni di canna e non se ne sono più andati, sopravvivendo anche al sequestro dei beni durante la guerra.</p><p>Restano attivi <b>Hawaii Izumo Taishakyō</b>, <b>Kotohira Jinsha – Hawaii Dazaifu Tenmangū</b>, il <b>Daijingū</b>, <b>Hawaii Ishizuchi Jinja</b>, <b>Hilo Daijingū</b>, la <b>Maui Jinsha</b> e la <b>Wakamiya Inari</b>.</p></div>
+    <div class="facts"><div class="fact"><b>Santuari attivi</b><span>7 circa</span></div><div class="fact"><b>Origine</b><span>emigrazione 1885–1924</span></div><div class="fact"><b>Particolarità</b><span>riti in inglese e giapponese</span></div></div>
+  </div>
+</article>
+<article class="luogo reveal" id="nordamerica">
+  <div class="l-media">
+    <figure class="figure reveal">
+  <div class="ph" data-wiki="Tsubaki Grand Shrine of America" data-lang="it" data-fallback="洋"></div>
+  <figcaption>Tsubaki Grand Shrine of America, per vent'anni a Granite Falls</figcaption>
+</figure>
+  </div>
+  <div class="l-body">
+    <div class="l-head">
+      <span class="fl fl-ca"></span>
+      <div>
+        
+        <h2>Nordamerica</h2>
+        <div class="l-where">California, Washington, British Columbia · dal 1986</div>
+      </div>
+    </div>
+    <div class="prose"><p>Il <b>Tsubaki Grand Shrine of America</b> nasce nel 1986 a Stockton, in California: è il primo santuario costruito negli Stati Uniti continentali dopo la guerra. Nel 2001 si trasferisce a Granite Falls, nello stato di Washington, in venticinque acri di foresta di cedri.</p><p>Il suo sacerdote, <b>Koichi Barrish</b>, è fra i primi non giapponesi a ricevere l'ordinazione. Nel 2023–24 i kami sono stati trasferiti con una cerimonia in <b>British Columbia</b>, in Canada, e la sede di Granite Falls ha chiuso al pubblico.</p><p>A Los Angeles opera lo <b>Shusse Inari of America</b>, ramo di un santuario di Matsue: ha sacerdozio e attività regolari ma, per ora, nessuna sede propria.</p></div>
+    <div class="facts"><div class="fact"><b>Kami</b><span>Sarutahiko-no-Ōkami, Ame-no-Uzume</span></div><div class="fact"><b>Casa madre</b><span>Tsubaki Ōkami Yashiro, Mie</span></div><div class="fact"><b>Oggi</b><span>British Columbia, Canada</span></div></div>
+  </div>
+</article>
+<article class="luogo reveal" id="brasile">
+  <div class="l-media">
+    <figure class="figure reveal">
+  <div class="ph" data-wiki="Liberdade (distretto di San Paolo)" data-lang="it" data-fallback="米"></div>
+  <figcaption>Il torii monumentale del quartiere Liberdade, San Paolo</figcaption>
+</figure>
+  </div>
+  <div class="l-body">
+    <div class="l-head">
+      <span class="fl fl-br"></span>
+      <div>
+        
+        <h2>Brasile</h2>
+        <div class="l-where">San Paolo, Paraná, Mato Grosso do Sul · dal 1908</div>
+      </div>
+    </div>
+    <div class="prose"><p>La più grande comunità giapponese del mondo fuori dal Giappone: circa <b>due milioni di <i>nikkei</i></b>, arrivati dal 1908 per lavorare nelle piantagioni di caffè. Nel quartiere <b>Liberdade</b> di San Paolo i torii vermigli scandiscono le strade.</p><p>Lo Shinto brasiliano ha preso una strada tutta sua: santuari fondati dagli immigrati stessi, culto degli antenati, e in diversi casi <b>ibridazioni con lo spiritismo</b> e le religioni popolari brasiliane. Molte di queste realtà non hanno legami formali con la Jinja Honchō.</p></div>
+    <div class="facts"><div class="fact"><b>Comunità</b><span>~2 milioni di nikkei</span></div><div class="fact"><b>Dal</b><span>1908</span></div><div class="fact"><b>Carattere</b><span>autonomo e sincretico</span></div></div>
+  </div>
+</article>
+<article class="luogo reveal" id="europa">
+  <div class="l-media">
+    <figure class="figure reveal">
+  <div class="ph" data-wiki="Yamakage Shinto" data-lang="it" data-fallback="欧"></div>
+  <figcaption>Kamidana, l'altare domestico: la forma più diffusa di Shinto in Europa</figcaption>
+</figure>
+  </div>
+  <div class="l-body">
+    <div class="l-head">
+      <span class="fl fl-eu"></span>
+      <div>
+        
+        <h2>Il resto d&#x27;Europa</h2>
+        <div class="l-where">Paesi Bassi, Francia, Regno Unito</div>
+      </div>
+    </div>
+    <div class="prose"><p>Fuori da San Marino, l'Europa non ha santuari pubblici riconosciuti dalla Jinja Honchō. Ad <b>Amsterdam</b> opera dal 1981 un <i>saigū</i> dello <b>Yamakage Shinto</b>, ramo del cosiddetto Shinto settario, guidato dal sacerdote olandese Paul de Leeuw.</p><p>In <b>Francia</b> un piccolo santuario donato da un santuario giapponese è ospitato all'interno di un tempio buddhista. Per il resto lo Shinto europeo vive soprattutto in forma domestica, attraverso i <i>kamidana</i>.</p></div>
+    <div class="facts"><div class="fact"><b>Amsterdam</b><span>Yamakage Shintō, dal 1981</span></div><div class="fact"><b>Riconosciuti Jinja Honchō</b><span>solo San Marino</span></div><div class="fact"><b>Forma prevalente</b><span>kamidana domestico</span></div></div>
+  </div>
+</article>
+</section>
+
+<section class="dark">
+  <div class="dark-inner">
+    <span class="eyebrow">La parte scomoda</span>
+    <h2>I <i>kaigai jinja</i> coloniali</h2>
+    <p>Fra il 1895 e il 1945 l'impero giapponese eresse circa <b>1.640 santuari</b> nei territori occupati. Non erano luoghi di culto per emigrati: erano <b>strumenti di assimilazione</b>. Dopo il 1931 in Corea la visita al santuario divenne obbligatoria per gli studenti, e dal 1936 le scuole che rifiutavano venivano chiuse. Circa il sessanta per cento delle famiglie di Taiwan ricevette d'ufficio un talismano di Ise.</p>
+    <p>Nell'agosto del 1945 quasi tutto fu distrutto nel giro di pochi giorni. Il Chōsen Jingū di Seul venne smantellato dagli stessi giapponesi; lo Shōnan Jinja di Singapore fu incendiato prima dell'arrivo dei britannici, e i suoi ruderi giacciono ancora nella foresta di MacRitchie. A Taiwan diversi santuari sono stati riconvertiti in <b>memoriali dei caduti cinesi</b>: gli stessi edifici, un significato rovesciato.</p>
+    <div class="colonial-nums">
+      <div><b>995</b><span>Corea</span></div>
+      <div><b>243</b><span>Manciuria</span></div>
+      <div><b>184</b><span>Taiwan</span></div>
+      <div><b>128</b><span>Karafuto</span></div>
+      <div><b>51</b><span>Cina</span></div>
+      <div><b>27</b><span>Isole del Sud</span></div>
+    </div>
+    <p style="margin-top:24px; font-size:13px; color:#a99e8a;">Dati: Nakajima Michio, censimento dei santuari d'oltremare prebellici. Un santuario shintoista in Corea o a Taiwan non ha lo stesso significato di uno alle Hawaii: confonderli significa non capire né gli uni né gli altri.</p>
+  </div>
+</section>
+
+<section class="wrap-narrow">
+  <div class="sec-head">
+    <span class="eyebrow">Questioni aperte</span>
+    <h2>Si può essere shintoisti senza essere giapponesi?</h2>
+  </div>
+  <div class="prose">
+    <p>La domanda divide. Da un lato lo Shinto <b>non ha conversione</b>: non esiste un rito d'ingresso, non c'è una professione di fede, non si è mai preteso che i praticanti fossero solo giapponesi. Dall'altro è legato a una lingua, a un paesaggio e a una comunità in modo così stretto da rendere il trapianto sempre un po' incompleto.</p>
+    <p>Nella pratica la Jinja Honchō ha <b>ordinato sacerdoti non giapponesi</b> — l'americano Koichi Barrish, l'italiano Francesco Brigante a San Marino — e riconosciuto santuari all'estero. Ma resta molto cauta: la maggior parte delle realtà che si presentano online come "santuari" non ha alcun riconoscimento.</p>
+    <h3>Come distinguere</h3>
+    <ul>
+      <li><b>Riconoscimento formale.</b> Un santuario legittimo ha una casa madre in Giappone e una cerimonia documentata di <i>bunrei</i>.</li>
+      <li><b>Un sacerdozio verificabile.</b> L'ordinazione passa da istituzioni precise, come le università Kokugakuin e Kōgakkan.</li>
+      <li><b>Kamidana non significa jinja.</b> Un altare domestico è pratica legittima e diffusissima, ma non fa di una casa un santuario.</li>
+      <li><b>Attenzione ai titoli.</b> Chiamarsi <i>gūji</i> o <i>kannushi</i> senza percorso formativo non ha valore in Giappone.</li>
+    </ul>
+  </div>
+  <div class="cta-row">
+    <a href="storia.html" class="btn btn-ghost">Da dove nasce lo Shinto di Stato →</a>
+    <a href="templi.html" class="btn btn-ghost">I santuari in Giappone</a>
+  </div>
+</section>
+
+
+<div class="pager">
+  <a href="manga.html"><small>← SENTIERO PRECEDENTE</small><b>漫 Manga</b></a>
+  <a class="nx" href="viaggio.html"><small>SENTIERO SUCCESSIVO →</small><b>Viaggio 参</b></a>
+</div>
+
+<footer>
+  Shinto Italia · progetto personale · fatto con cura in Italia<br>
+  Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
+  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+</footer>
+
+<script>
+/* ---------- Progress rail ---------- */
+(function(){
+  var rail=document.getElementById('rail');
+  if(!rail) return;
+  function on(){
+    var h=document.documentElement;
+    var s=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    rail.style.width=(isFinite(s)?s:0)+'%';
+  }
+  document.addEventListener('scroll',on,{passive:true}); on();
+})();
+
+/* ---------- Reveal on scroll ---------- */
+function observeReveal(sel){
+  var els=document.querySelectorAll(sel||'.card, .tl-item, .reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in');}); return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e);});
+}
+observeReveal();
+
+/* ---------- Immagini da Wikipedia (con fallback grafico) ----------
+   Nessuna chiave API: usa l'endpoint pubblico REST che consente CORS.
+   Se l'immagine non esiste, resta il placeholder con il kanji.        */
+function setBg(el, src){
+  var pre=new Image();
+  pre.onload=function(){ el.style.backgroundImage='url("'+src+'")'; el.classList.add('has-img'); };
+  pre.src=src;
+}
+
+/* Usa l'API di ricerca invece del titolo esatto: se il titolo non combacia
+   perfettamente, Wikipedia trova comunque la voce piu' pertinente.        */
+function loadWikiImage(el, title, lang){
+  if(!el || !title) return;
+  lang = lang || 'it';
+  var api='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search'+
+          '&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1'+
+          '&prop=pageimages&piprop=thumbnail&pithumbsize=900'+
+          '&format=json&origin=*';
+  fetch(api).then(function(r){ if(!r.ok) throw new Error('nf'); return r.json(); })
+  .then(function(d){
+    var pages=d && d.query && d.query.pages;
+    if(!pages) throw new Error('nopage');
+    var k=Object.keys(pages)[0];
+    var th=pages[k] && pages[k].thumbnail && pages[k].thumbnail.source;
+    if(!th) throw new Error('noimg');
+    setBg(el, th);
+  })
+  .catch(function(){
+    if(lang!=='en'){ loadWikiImage(el,title,'en'); }
+  });
+}
+
+function hydrateWikiImages(root){
+  (root||document).querySelectorAll('[data-wiki]').forEach(function(el){
+    loadWikiImage(el, el.getAttribute('data-wiki'), el.getAttribute('data-lang')||'it');
+  });
+}
+hydrateWikiImages();
+
+/* ---------- Video: caricamento su click (niente autoplay, niente cookie finché non serve) ---------- */
+function hydrateVideos(root){
+  (root||document).querySelectorAll('.vid .frame[data-yt]').forEach(function(f){
+    var id=f.getAttribute('data-yt');
+    f.style.backgroundImage='url("https://i.ytimg.com/vi/'+id+'/hqdefault.jpg")';
+    f.addEventListener('click',function(){
+      if(f.querySelector('iframe')) return;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.allow='accelerometer; autoplay; encrypted-media; picture-in-picture';
+      ifr.allowFullscreen=true;
+      ifr.loading='lazy';
+      f.appendChild(ifr);
+      var p=f.querySelector('.play'); if(p) p.style.display='none';
+    });
+  });
+}
+hydrateVideos();
+
+</script>
+
+</body>
+</html>
