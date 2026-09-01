@@ -215,29 +215,51 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 }
 .torii-btn{
   position:relative;
-  width:min(88vw, 860px, 96svh);
-  aspect-ratio:600 / 560;
+  height:min(100%, 900px);
+  width:auto;
+  max-width:96vw;
+  aspect-ratio:968 / 1142;   /* proporzioni reali della fotografia */
   flex:none;              /* dentro un flex si restringerebbe, falsando la scena */
   background:none; border:none; padding:0; margin:0;
   cursor:pointer;
   pointer-events:auto;
-  transform-origin:center 72%;
+  transform-origin:50% 76%;   /* il centro del varco */
   transition:transform .7s var(--ease);
   -webkit-tap-highlight-color:transparent;
 }
 .torii-btn svg{ width:100%; height:100%; display:block; overflow:visible; }
 .torii-btn:focus-visible{ outline:3px solid var(--gold-soft); outline-offset:14px; border-radius:8px; }
 
-/* legno del torii */
-.t-legno{ fill:#c8402a; transition:fill .5s var(--ease); }
-.t-ombra{ fill:#9c2e1d; }
-.torii-btn:hover .t-legno,
-.torii-btn:focus .t-legno,
-.torii-btn:focus-visible .t-legno{ fill:#e04a30; }
+/* la fotografia del torii */
+.t-img{
+  width:100%; height:100%;
+  object-fit:contain;
+  display:block;
+  /* ombra portata: senza, il torii sembra incollato sopra al video */
+  filter:drop-shadow(0 26px 34px rgba(0,0,0,.55));
+  transition:filter .55s var(--ease), transform .55s var(--ease);
+}
+.torii-btn:hover .t-img,
+.torii-btn:focus .t-img,
+.torii-btn:focus-visible .t-img{
+  filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))
+         drop-shadow(0 0 30px rgba(200,64,42,.9))
+         brightness(1.1) saturate(1.14);
+  transform:scale(1.022);
+}
+
+/* il varco: rettangolo invisibile che segue il vuoto sotto la shide,
+   misurato sulla foto. Serve al testo e al punto di fuga dell'attraversamento. */
+.t-varco{
+  position:absolute;
+  left:24.8%; right:25%;
+  top:58%; bottom:6%;
+  pointer-events:none;
+}
 
 /* alone rosso dietro il torii, acceso al passaggio */
 .t-alone{
-  position:absolute; left:50%; top:56%;
+  position:absolute; left:50%; top:64%;
   width:118%; aspect-ratio:1; translate:-50% -50%;
   border-radius:50%;
   background:radial-gradient(circle, rgba(200,64,42,.55), rgba(200,64,42,0) 62%);
@@ -295,10 +317,11 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 .hero-testo{
   position:relative; z-index:5;
   text-align:center;
-  padding:26px 22px 22px;
+  padding:8px 20px;
   border-radius:20px;
-  background:radial-gradient(ellipse 78% 88% at 50% 48%, rgba(13,10,22,.52), rgba(13,10,22,0) 72%);
-  max-width:540px;
+  /* velo piu' deciso: il testo scavalca i pilastri e senza questo si perde */
+  background:radial-gradient(ellipse 86% 92% at 50% 50%, rgba(11,9,18,.72), rgba(11,9,18,.34) 58%, rgba(11,9,18,0) 78%);
+  max-width:434px;
   transform:translateY(9vh);  /* poi corretto da JS */
   pointer-events:none;
 }
@@ -364,6 +387,45 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   font-family:'JetBrains Mono', monospace;
   font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
   color:rgba(243,233,210,.66);
+}
+
+
+/* --- attraversamento: bagliore che nasce dentro il varco --- */
+.varco-luce{
+  position:absolute; z-index:3;
+  /* cerchio centrato nel varco: la luce arriva da oltre il portale */
+  left:50%; top:76%;
+  width:30%; aspect-ratio:1; translate:-50% -50%;
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 50% 50%,
+    #fff 0%, rgba(255,244,214,.96) 22%, rgba(255,214,150,.7) 44%,
+    rgba(240,185,196,.34) 64%, rgba(200,64,42,0) 82%);
+  filter:blur(4px);
+}
+/* durante l'attraversamento nulla deve sporgere dai bordi */
+.hero{ overflow:hidden; }
+
+/* il torii poggia sul bordo inferiore: a parita' di spazio e' il modo
+   che lascia il varco piu' largo e piu' alto per il testo */
+.torii-zona{ align-items:flex-end; }
+
+/* --- misure ridotte: tutto deve stare dentro il varco --- */
+.hero-testo .h-sopra{ display:none; }   /* l'h1 sotto ripete gia' il nome */
+.hero-testo h1{ font-size:clamp(29px, 4.1vw, 42px); }
+.hero-testo .lede{ margin-top:8px; font-size:13px; line-height:1.55; }
+.hero-testo .stat-griglia{ margin-top:16px; }
+.hero-testo .stat-griglia .stat{ padding:6px 10px; }
+.hero-testo .cta-row{ margin-top:14px; }
+.hero-testo .stat-griglia .stat b{ font-size:21px; }
+
+@media (max-width:760px){
+  /* il varco qui sarebbe largo meno di 200px: il testo non puo' starci dentro.
+     Il torii si fa piu' piccolo, sale, e il testo gli si dispone sotto. */
+  .torii-zona{ align-items:flex-start; padding-top:1.5%; }
+  .torii-btn{ height:min(44%, 330px); }
+  .hero-testo{ max-width:min(94vw, 420px); }
 }
 
 /* --- il lampo del portale --- */
@@ -1085,14 +1147,6 @@ footer a{ color:var(--sakura); text-decoration:none; }
       <path class="strato" data-p="10" d="M0 645 L150 590 L280 632 L420 566 L560 626 L700 592 L840 630 L980 574 L1130 626 L1280 588 L1430 634 L1600 596 L1600 900 L0 900 Z"
             fill="#4a3f5c" opacity=".55"/>
 
-      <!-- Monte Fuji -->
-      <g class="strato" data-p="16">
-        <path d="M800 236 L1052 700 L548 700 Z" fill="url(#fuji)"/>
-        <path d="M800 236 L872 368 q-24 16 -46 4 q-22 -12 -42 6 q-20 16 -40 2 L800 236 Z" fill="url(#neve)"/>
-        <path d="M872 368 L906 430 q-30 12 -52 -2 q-26 -16 -50 4 q-26 18 -48 0 q-22 -16 -44 2 L734 368 q22 14 44 -2 q22 -16 42 -4 q22 12 46 -4 z"
-              fill="url(#neve)" opacity=".92"/>
-        <path d="M800 236 L1052 700 L800 700 Z" fill="#000" opacity=".12"/>
-      </g>
 
       <!-- colline intermedie -->
       <path class="strato" data-p="24" d="M0 706 q200 -54 400 -12 q200 42 400 -6 q200 -48 400 -4 q200 44 400 -14 L1600 900 L0 900 Z"
@@ -1118,30 +1172,13 @@ footer a{ color:var(--sakura); text-decoration:none; }
             aria-label="Attraversa il torii ed entra nella sezione Sentieri">
       <span class="t-alone" aria-hidden="true"></span>
       <span class="t-energia" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-      <svg viewBox="0 0 600 560" aria-hidden="true">
-        <!-- kasagi: trave superiore ricurva -->
-        <path class="t-legno" d="M8 92 q292 -48 584 0 l0 32 q-292 -44 -584 0 Z"/>
-        <!-- shimaki -->
-        <rect class="t-ombra" x="36" y="126" width="528" height="18" rx="6"/>
-        <!-- shimenawa in alto, cosi' il varco resta libero per il testo -->
-        <path d="M146 176 q154 -32 308 0" stroke="#f3e9d2" stroke-width="10"
-              fill="none" stroke-linecap="round" opacity=".92"/>
-        <g fill="#fdf6e6" opacity=".9">
-          <path d="M192 180 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
-          <path d="M294 170 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
-          <path d="M396 180 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
-        </g>
-        <!-- gakuzuka -->
-        <rect class="t-legno" x="286" y="142" width="28" height="46" rx="4"/>
-        <!-- nuki: trave inferiore -->
-        <rect class="t-legno" id="t-nuki" x="38" y="188" width="524" height="26" rx="5"/>
-        <!-- pilastri sottili e larghi di passo: il varco deve respirare -->
-        <path class="t-legno" d="M58 144 h44 l8 396 h-60 Z"/>
-        <path class="t-legno" d="M542 144 h-44 l-8 396 h60 Z"/>
-        <!-- basi in pietra -->
-        <rect class="t-ombra" x="36"  y="532" width="86" height="18" rx="6"/>
-        <rect class="t-ombra" x="478" y="532" width="86" height="18" rx="6"/>
-      </svg>
+      <picture>
+        <source srcset="media/torii.webp" type="image/webp">
+        <img class="t-img" src="media/torii.png" alt="" width="968" height="1142"
+             decoding="async" fetchpriority="high">
+      </picture>
+      <span class="t-varco" id="t-varco" aria-hidden="true"></span>
+      <span class="varco-luce" id="varcoLuce" aria-hidden="true"></span>
       <span class="t-invito">Tocca il torii per attraversarlo</span>
     </button>
   </div>
@@ -1633,7 +1670,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
   /* ---- il testo va appoggiato sotto la trave, qualunque sia lo schermo ----
      Tre valori fissi non reggono: cambia con larghezza, altezza e font. */
   var testo  = hero.querySelector('.hero-testo');
-  var nuki   = document.getElementById('t-nuki');
+  var nuki   = document.getElementById('t-varco');
   var torii0 = document.getElementById('torii');
   function posiziona(){
     if(!testo || !nuki) return;
@@ -1641,7 +1678,11 @@ footer a{ color:var(--sakura); text-decoration:none; }
     var t = testo.getBoundingClientRect();
     var n = nuki.getBoundingClientRect();
     var h = hero.getBoundingClientRect();
-    var d = (n.bottom + 10) - t.top;                 /* sotto la trave, con un po' d'aria */
+    /* se il varco e' piu' stretto del testo (schermi piccoli) il testo
+       non ci sta dentro: lo mettiamo sotto tutto il torii. */
+    var stretto = n.width < t.width * 0.94;
+    var rif = stretto ? (torii0.getBoundingClientRect().bottom + 10) : (n.top + 4);
+    var d = rif - t.top;
     var max = (h.bottom - 10) - t.bottom;            /* ma senza uscire dall'hero */
     testo.style.transform = 'translateY(' + Math.max(0, Math.min(d, max)) + 'px)';
   }
@@ -1724,24 +1765,92 @@ footer a{ color:var(--sakura); text-decoration:none; }
       inCorso = false;
       return;
     }
-    /* la luce parte dal punto toccato, non da un punto fisso */
-    var r = origine.getBoundingClientRect();
-    portale.style.setProperty('--px', (r.left + r.width/2) / window.innerWidth * 100 + '%');
-    portale.style.setProperty('--py', (r.top + r.height*0.52) / window.innerHeight * 100 + '%');
 
-    gsap.timeline()
-      .to(torii, { scale:1.14, duration:.5, ease:'power2.in' }, 0)
-      .fromTo(portale, { opacity:0, scale:.15 },
-                       { opacity:1, scale:2.6, duration:.85, ease:'power2.in' }, 0)
-      .add(function(){ meta.scrollIntoView({ behavior:'auto', block:'start' }); })
-      .to(portale, { opacity:0, duration:.9, ease:'power2.out' })
-      .set(portale, { scale:.15 })
-      .set(torii,   { scale:1 })
-      .add(function(){
-        inCorso = false;
-        var primo = meta.querySelector('.path-card');
-        if(primo) primo.focus({ preventScroll:true });
-      });
+    var varco  = document.getElementById('t-varco');
+    var luce   = document.getElementById('varcoLuce');
+    var testoH = hero.querySelector('.hero-testo');
+    var scena  = hero.querySelector('.scena');
+    var filma  = document.getElementById('heroVideo');
+    var cue    = hero.querySelector('.scroll-cue');
+    var schede = meta.querySelectorAll('.path-card');
+
+    /* la luce parte dal varco reale; se non c'e', dal punto toccato */
+    var r = (varco || origine).getBoundingClientRect();
+    portale.style.setProperty('--px', (r.left + r.width/2) / window.innerWidth * 100 + '%');
+    portale.style.setProperty('--py', (r.top + r.height/2) / window.innerHeight * 100 + '%');
+
+    var sfondi = [scena, filma].filter(Boolean);
+    var img = hero.querySelector('.t-img');
+    /* le ombre sfumate costano care quando il torii viene ingrandito di 4 volte:
+       durante l'attraversamento le togliamo, tanto sono coperte dalla luce */
+    if(img){ img.style.filter = 'none'; }
+    torii.style.willChange = 'transform, opacity';
+    gsap.set(torii, { transformOrigin:'50% 76%' });
+
+    /* il salto alla sezione non deve dipendere dai fotogrammi: su una macchina
+       lenta l'animazione rallenta, ma chi ha toccato il torii deve comunque
+       arrivare ai Sentieri. Vince il primo dei due che scatta. */
+    var saltato = false;
+    function salta(){
+      if(saltato) return;
+      saltato = true;
+      meta.scrollIntoView({ behavior:'auto', block:'start' });
+    }
+    var salvagente = setTimeout(salta, 1300);
+
+    function ripristina(){
+      clearTimeout(salvagente);
+      inCorso = false;
+      torii.style.willChange = '';
+      if(img){ img.style.filter = ''; }
+      schede.forEach(function(s){ s.classList.add('in'); });
+      var primo = meta.querySelector('.path-card');
+      if(primo) primo.focus({ preventScroll:true });
+    }
+    /* se l'animazione si inceppa, rimettiamo comunque tutto a posto */
+    var reteDiSicurezza = setTimeout(function(){
+      if(inCorso){ gsap.set([torii],{scale:1,opacity:1}); gsap.set(sfondi,{scale:1});
+        gsap.set(luce,{opacity:0,scale:1}); gsap.set(testoH,{opacity:1,y:0,filter:'none'});
+        gsap.set(portale,{opacity:0,scale:.3}); if(cue) gsap.set(cue,{opacity:1});
+        ripristina(); }
+    }, 4000);
+
+    var tl = gsap.timeline();
+
+    /* 1. il varco si accende: e' li' che stiamo per entrare */
+    tl.fromTo(luce, { opacity:0, scale:.5 },
+                    { opacity:1, scale:1.6, duration:.42, ease:'power2.out' }, 0)
+
+      /* 2. il testo si scosta per primo, cosi' la strada resta libera */
+      .to(testoH, { opacity:0, y:-18, filter:'blur(7px)', duration:.4, ease:'power2.in' }, 0)
+      .to(cue,    { opacity:0, duration:.3 }, 0)
+
+      /* 3. lo sfondo avanza: e' la nostra camminata verso il santuario */
+      .to(sfondi, { scale:1.26, duration:.95, ease:'power2.in' }, .04)
+
+      /* 4. il torii cresce oltre lo schermo: gli passiamo attraverso */
+      .to(torii, { scale:4.2, duration:.8, ease:'power2.in' }, .1)
+      .to(torii, { opacity:0, duration:.3, ease:'power1.in' }, .6)
+      .to(luce,  { scale:7, duration:.72, ease:'power2.in' }, .1)
+
+      /* 5. la luce riempie tutto e copre il salto di pagina */
+      .fromTo(portale, { opacity:0, scale:.3 },
+                       { opacity:1, scale:3.2, duration:.5, ease:'power2.in' }, .42)
+      .add(salta)
+
+      /* 6. si riapre sulla sezione, che entra a scalare */
+      .to(portale, { opacity:0, duration:.85, ease:'power2.out' })
+      .fromTo(schede, { y:24, opacity:0 },
+                      { y:0, opacity:1, duration:.5, stagger:.055, ease:'power2.out' }, '-=.62')
+
+      /* 7. l'hero torna com'era, pronto per chi risale */
+      .set(portale, { scale:.3 })
+      .set(torii,   { scale:1, opacity:1 })
+      .set(sfondi,  { scale:1 })
+      .set(luce,    { opacity:0, scale:1 })
+      .set(testoH,  { opacity:1, y:0, filter:'none' })
+      .set(cue,     { opacity:1 })
+      .add(function(){ clearTimeout(reteDiSicurezza); ripristina(); });
   }
 
   if(torii) torii.addEventListener('click', function(){ attraversa(torii); });
