@@ -120,60 +120,338 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   .nav-links{ justify-content:center; }
 }
 
-/* ============ HERO ============ */
+/* ============ HERO CINEMATOGRAFICO ============ */
 .hero{
-  min-height:100svh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:80px 20px 60px;
   position:relative;
+  /* la nav e' nel flusso: senza sottrarla l'hero sfora sotto lo schermo */
+  /* su schermi piccoli la nav va a capo piu' volte e schiaccerebbe la scena:
+     sotto una certa soglia si preferisce far scorrere la pagina */
+  min-height:max(560px, calc(100svh - var(--nav, 58px)));
+  display:flex; align-items:center; justify-content:center;
   overflow:hidden;
-  background:linear-gradient(180deg,#f6ecd6 0%, #f0e2c2 55%, #e8d5ab 100%);
+  background:#0d1424;
+  isolation:isolate;
 }
 
-#petals{
+
+/* --- ripresa reale --- */
+.hero-video{
   position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  z-index:0;
+  opacity:0;
+  transition:opacity 1.1s var(--ease);
   pointer-events:none;
+}
+.hero-video.pronto{ opacity:1; }
+/* su telefono l'orizzonte cadrebbe esattamente sulle travi del torii:
+   allarghiamo il fotogramma e mostriamo la parte bassa, cosi' il sole
+   resta sopra la struttura e sotto restano bosco e nebbia, piu' scuri */
+@media (max-width:760px){
+  .hero-video{ height:140%; top:-26%; object-position:50% 72%; }
+}
+/* la scena disegnata sfuma solo quando il video sta davvero suonando */
+.hero.con-video .scena{ opacity:0; transition:opacity 1.1s var(--ease); }
+.hero.con-video .nebbia{ opacity:0; }   /* la nebbia vera e' gia' nel filmato */
+
+/* velo: senza, il testo bianco sulla foschia chiara non si legge */
+.hero-velo{
+  position:absolute; inset:0; z-index:2;
+  pointer-events:none;
+  opacity:0; transition:opacity 1.1s var(--ease);
+  background:linear-gradient(180deg,
+    rgba(13,20,36,.42) 0%,
+    rgba(13,20,36,.10) 26%,
+    rgba(18,15,28,.42) 58%,
+    rgba(18,15,28,.86) 100%);
+}
+.hero.con-video .hero-velo{ opacity:1; }
+
+/* --- la scena: SVG che copre sempre tutto lo schermo --- */
+.scena{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+.scena svg{ width:100%; height:100%; display:block; }
+
+/* strati di parallasse mossi dal mouse */
+.strato{ will-change:transform; }
+
+/* --- nebbia --- */
+.nebbia{
+  position:absolute; left:-25%; right:-25%;
+  height:34%;
+  bottom:2%;
   z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 100% at 20% 70%, rgba(243,233,210,.17), transparent 72%),
+    radial-gradient(ellipse 70% 100% at 62% 62%, rgba(240,185,196,.13), transparent 74%),
+    radial-gradient(ellipse 55% 100% at 88% 74%, rgba(243,233,210,.15), transparent 72%);
+  filter:blur(22px);
+  animation:deriva 34s ease-in-out infinite alternate;
+}
+.nebbia.n2{
+  bottom:-8%; height:40%; opacity:.6;
+  animation:deriva 46s ease-in-out infinite alternate-reverse;
+  filter:blur(26px);
+}
+@keyframes deriva{
+  from{ transform:translate3d(-4%,0,0) scaleX(1); }
+  to  { transform:translate3d(5%,-2%,0) scaleX(1.12); }
 }
 
-.hero-inner{
+/* --- petali --- */
+#petali{ position:absolute; inset:0; z-index:3; pointer-events:none; }
+
+/* --- torii interattivo --- */
+.torii-zona{
+  position:absolute; inset:0; z-index:4;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
+.torii-btn{
   position:relative;
-  z-index:2;
-  max-width:640px;
+  width:min(88vw, 860px, 96svh);
+  aspect-ratio:600 / 560;
+  flex:none;              /* dentro un flex si restringerebbe, falsando la scena */
+  background:none; border:none; padding:0; margin:0;
+  cursor:pointer;
+  pointer-events:auto;
+  transform-origin:center 72%;
+  transition:transform .7s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.torii-btn svg{ width:100%; height:100%; display:block; overflow:visible; }
+.torii-btn:focus-visible{ outline:3px solid var(--gold-soft); outline-offset:14px; border-radius:8px; }
+
+/* legno del torii */
+.t-legno{ fill:#c8402a; transition:fill .5s var(--ease); }
+.t-ombra{ fill:#9c2e1d; }
+.torii-btn:hover .t-legno,
+.torii-btn:focus .t-legno,
+.torii-btn:focus-visible .t-legno{ fill:#e04a30; }
+
+/* alone rosso dietro il torii, acceso al passaggio */
+.t-alone{
+  position:absolute; left:50%; top:56%;
+  width:118%; aspect-ratio:1; translate:-50% -50%;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(200,64,42,.55), rgba(200,64,42,0) 62%);
+  opacity:0; transition:opacity .6s var(--ease);
+  pointer-events:none; z-index:-1;
+  filter:blur(24px);
+}
+.torii-btn:hover .t-alone,
+.torii-btn:focus .t-alone,
+.torii-btn:focus-visible .t-alone{ opacity:1; }
+
+/* particelle di energia spirituale, solo al passaggio */
+.t-energia{
+  position:absolute; inset:0; pointer-events:none; z-index:-1;
+  opacity:0; transition:opacity .5s var(--ease);
+}
+.torii-btn:hover .t-energia,
+.torii-btn:focus .t-energia,
+.torii-btn:focus-visible .t-energia{ opacity:1; }
+.t-energia i{
+  position:absolute; bottom:14%;
+  width:4px; height:4px; border-radius:50%;
+  background:var(--gold-soft);
+  box-shadow:0 0 8px 2px rgba(217,189,126,.75);
+  animation:sali 3.4s linear infinite;
+}
+.t-energia i:nth-child(1){ left:20%; animation-delay:0s;   }
+.t-energia i:nth-child(2){ left:33%; animation-delay:.6s;  }
+.t-energia i:nth-child(3){ left:47%; animation-delay:1.2s; }
+.t-energia i:nth-child(4){ left:61%; animation-delay:.3s;  }
+.t-energia i:nth-child(5){ left:74%; animation-delay:1.8s; }
+.t-energia i:nth-child(6){ left:86%; animation-delay:2.4s; }
+@keyframes sali{
+  0%{   transform:translateY(0) scale(.5); opacity:0; }
+  15%{  opacity:1; }
+  85%{  opacity:.85; }
+  100%{ transform:translateY(-190px) scale(1.1); opacity:0; }
 }
 
-.torii-mark{
-  width:150px;
-  margin:0 auto 28px;
-}
-
-.hero h1{
-  font-size:clamp(40px, 10vw, 68px);
-  color:var(--sumi);
-  letter-spacing:.01em;
-}
-.hero h1 span{
-  display:block;
-  font-size:.34em;
+/* suggerimento sotto il torii */
+.t-invito{
+  position:absolute; left:50%; bottom:2%;
+  translate:-50% 0;
   font-family:'JetBrains Mono', monospace;
-  font-weight:500;
-  letter-spacing:.3em;
-  color:var(--torii);
-  margin-bottom:14px;
-  text-transform:uppercase;
+  font-size:10.5px; letter-spacing:.22em; text-transform:uppercase;
+  color:rgba(243,233,210,.72);
+  white-space:nowrap;
+  opacity:0; transition:opacity .45s var(--ease);
+}
+.torii-btn:hover .t-invito,
+.torii-btn:focus .t-invito,
+.torii-btn:focus-visible .t-invito{ opacity:1; }
+
+/* --- testo dentro il varco del torii --- */
+.hero-testo{
+  position:relative; z-index:5;
+  text-align:center;
+  padding:26px 22px 22px;
+  border-radius:20px;
+  background:radial-gradient(ellipse 78% 88% at 50% 48%, rgba(13,10,22,.52), rgba(13,10,22,0) 72%);
+  max-width:540px;
+  transform:translateY(9vh);  /* poi corretto da JS */
+  pointer-events:none;
+}
+/* il testo sta sopra il torii: se catturasse i clic, il centro del portale
+   diventerebbe inattivo. Solo i pulsanti restano cliccabili. */
+.hero-testo *{ pointer-events:none; }
+.hero-testo .cta-row, .hero-testo .cta-row a{ pointer-events:auto; }
+.h-sopra{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px; letter-spacing:.36em; text-transform:uppercase;
+  color:#f0d9a4;
+  text-shadow:0 2px 10px rgba(0,0,0,.85);
+  margin-bottom:18px;
+}
+.hero h1{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:clamp(30px, 5.4vw, 58px);
+  line-height:1.02;
+  letter-spacing:.04em;
+  color:#fdf6e6;
+  text-shadow:0 2px 34px rgba(0,0,0,.55), 0 0 90px rgba(200,64,42,.35);
+}
+.h-sotto{
+  display:block;
+  margin-top:16px;
+  font-family:'Shippori Mincho B1', serif;
+  font-size:clamp(15px, 2.5vw, 22px);
+  color:var(--sakura);
+  letter-spacing:.16em;
+}
+.hero .lede{
+  margin:20px auto 0;
+  max-width:440px;
+  font-size:15px; line-height:1.75;
+  color:rgba(243,233,210,.82);
+  text-shadow:0 1px 16px rgba(0,0,0,.6);
 }
 
-.hero p.lede{
-  margin-top:22px;
-  font-size:17px;
-  line-height:1.7;
-  color:var(--sumi-soft);
-  max-width:480px;
-  margin-left:auto; margin-right:auto;
+/* --- statistiche --- */
+.stat-griglia{
+  display:flex; justify-content:center; gap:8px; flex-wrap:wrap;
+  margin-top:26px;
+}
+.stat{
+  min-width:84px;
+  padding:11px 13px;
+  border:1px solid rgba(217,189,126,.28);
+  border-radius:10px;
+  background:rgba(23,18,37,.34);
+  backdrop-filter:blur(6px);
+}
+.stat b{
+  display:block;
+  font-family:'Shippori Mincho B1', serif;
+  font-size:clamp(19px, 3.2vw, 27px);
+  color:var(--gold-soft);
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.stat span{
+  display:block; margin-top:7px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(243,233,210,.66);
+}
+
+/* --- il lampo del portale --- */
+.portale{
+  position:fixed; inset:0; z-index:120;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at var(--px,50%) var(--py,52%),
+    #fff 0%, #ffeec4 18%, rgba(240,185,196,.85) 38%, rgba(200,64,42,.55) 58%, rgba(13,20,36,0) 76%);
+}
+
+/* --- indicatore di scorrimento --- */
+.scroll-cue{
+  position:absolute; bottom:20px; left:50%;
+  transform:translateX(-50%);
+  z-index:6;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px; letter-spacing:.24em;
+  color:rgba(243,233,210,.6);
+  display:flex; flex-direction:column; align-items:center; gap:9px;
+}
+.scroll-cue .line{
+  width:1px; height:28px;
+  background:linear-gradient(var(--sakura), transparent);
+  animation:scrollline 2.4s var(--ease) infinite;
+}
+@keyframes scrollline{
+  0%{ transform:scaleY(0); transform-origin:top; }
+  48%{ transform:scaleY(1); transform-origin:top; }
+  52%{ transform:scaleY(1); transform-origin:bottom; }
+  100%{ transform:scaleY(0); transform-origin:bottom; }
+}
+
+/* --- mobile --- */
+@media (max-width:760px){
+  .torii-btn{ width:min(124vw, 94svh); aspect-ratio:600 / 560; }
+  .hero-testo{ max-width:300px; }
+  .hero .lede{ font-size:14px; max-width:340px; }
+  .stat{ min-width:0; flex:1 1 0; padding:9px 6px; }
+  .stat b{ font-size:19px; }
+  .stat span{ font-size:8px; letter-spacing:.08em; }
+  .stat-griglia{ gap:6px; flex-wrap:nowrap; margin-top:20px; }
+  .hero .cta-row{ gap:8px; flex-wrap:nowrap; margin-top:22px; }
+  .hero .cta-row .btn{ padding:12px 12px; font-size:11px; flex:1 1 0;
+    justify-content:center; white-space:nowrap; }
+  .t-invito{ font-size:9px; letter-spacing:.16em; }
+}
+@media (max-width:420px){
+  .hero .lede{ font-size:13px; line-height:1.6; }
+  .stat b{ font-size:17px; }
+  .hero .cta-row .btn{ font-size:10px; padding:11px 8px; letter-spacing:0; }
+}
+
+/* --- schermi poco alti: il testo deve stare nel varco --- */
+@media (max-height:880px){
+  .hero h1{ font-size:clamp(27px, 4.2vw, 44px); }
+  .h-sopra{ margin-bottom:12px; font-size:10px; }
+  .h-sotto{ margin-top:11px; font-size:clamp(14px, 2vw, 18px); }
+  .hero .lede{ margin-top:14px; font-size:14px; line-height:1.6; }
+  .stat-griglia{ margin-top:18px; }
+  .stat{ padding:9px 11px; }
+  .stat b{ font-size:21px; }
+  .stat span{ font-size:8.5px; }
+  .hero .cta-row{ margin-top:20px; }
+  .hero .cta-row .btn{ padding:12px 20px; }
+  .hero-testo{ padding-top:14px; padding-bottom:14px; }
+}
+@media (max-height:700px){
+  .hero .lede{ display:none; }          /* sotto i 700px sparisce la riga meno essenziale */
+  .hero h1{ font-size:clamp(24px, 3.8vw, 38px); }
+}
+/* telefoni piccoli: il varco e' stretto, il testo deve stringersi di piu' */
+@media (max-width:760px) and (max-height:840px){
+  .hero .lede{ font-size:12.5px; line-height:1.55; margin-top:11px; }
+  .hero h1{ font-size:27px; }
+  .h-sopra{ margin-bottom:9px; }
+  .h-sotto{ margin-top:8px; }
+  .stat-griglia{ margin-top:14px; }
+  .stat{ padding:7px 5px; }
+  .stat b{ font-size:16px; }
+  .hero .cta-row{ margin-top:15px; }
+  .hero-testo{ padding-top:10px; padding-bottom:10px; }
+}
+
+/* --- chi ha chiesto meno movimento lo ottiene --- */
+@media (prefers-reduced-motion: reduce){
+  .nebbia, .t-energia i, .scroll-cue .line{ animation:none !important; }
+  .hero *{ transition-duration:.01ms !important; }
 }
 
 .cta-row{
@@ -747,28 +1025,151 @@ footer a{ color:var(--sakura); text-decoration:none; }
   </div>
 </nav>
 
-<section class="hero">
-  <canvas id="petals"></canvas>
-  <div class="hero-inner">
-    <svg class="torii-mark" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="30" width="172" height="12" rx="2" fill="var(--torii)"/>
-      <rect x="4" y="48" width="192" height="9" rx="2" fill="var(--torii)"/>
-      <rect x="38" y="57" width="14" height="95" fill="var(--torii)"/>
-      <rect x="148" y="57" width="14" height="95" fill="var(--torii)"/>
-      <rect x="24" y="85" width="152" height="8" fill="var(--torii-deep)"/>
-      <rect x="90" y="20" width="20" height="16" fill="var(--gold)"/>
+<section class="hero" id="hero">
+
+  <!-- ---------- ripresa reale (con ricaduta sulla scena disegnata) ---------- -->
+  <video class="hero-video" id="heroVideo" poster="media/hero-poster.jpg"
+         muted playsinline loop preload="none" tabindex="-1" aria-hidden="true"></video>
+  <div class="hero-velo" aria-hidden="true"></div>
+
+  <!-- ---------- scena: cielo, Fuji, foresta ---------- -->
+  <div class="scena" aria-hidden="true">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#111a2e"/>
+          <stop offset="34%"  stop-color="#3b2b46"/>
+          <stop offset="58%"  stop-color="#8d4a4a"/>
+          <stop offset="76%"  stop-color="#d4844f"/>
+          <stop offset="90%"  stop-color="#f0b478"/>
+          <stop offset="100%" stop-color="#f6d9a8"/>
+        </linearGradient>
+        <radialGradient id="sole" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#fff6da"/>
+          <stop offset="30%"  stop-color="#ffe1a1"/>
+          <stop offset="65%"  stop-color="rgba(255,190,120,.42)"/>
+          <stop offset="100%" stop-color="rgba(255,190,120,0)"/>
+        </radialGradient>
+        <linearGradient id="fuji" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#6d5f79"/>
+          <stop offset="55%"  stop-color="#4e4260"/>
+          <stop offset="100%" stop-color="#3a3050"/>
+        </linearGradient>
+        <linearGradient id="neve" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#fdf3e2"/>
+          <stop offset="100%" stop-color="#e6d3d8"/>
+        </linearGradient>
+        <linearGradient id="colli" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2f2942"/>
+          <stop offset="100%" stop-color="#241f34"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="1600" height="900" fill="url(#cielo)"/>
+
+      <!-- stelle residue dell'alba -->
+      <g fill="#fff8e8" opacity=".55">
+        <circle cx="180" cy="90"  r="1.6"/><circle cx="420" cy="52"  r="1.2"/>
+        <circle cx="700" cy="118" r="1.5"/><circle cx="1010" cy="70" r="1.3"/>
+        <circle cx="1290" cy="132" r="1.6"/><circle cx="1470" cy="64" r="1.2"/>
+        <circle cx="880" cy="40"  r="1.1"/><circle cx="260" cy="176" r="1.1"/>
+      </g>
+
+      <!-- sole che sorge dietro il torii -->
+      <g class="strato" data-p="6">
+        <circle cx="800" cy="560" r="330" fill="url(#sole)" opacity=".9"/>
+        <circle cx="800" cy="560" r="86"  fill="#fff2cf" opacity=".95"/>
+      </g>
+
+      <!-- creste lontane -->
+      <path class="strato" data-p="10" d="M0 645 L150 590 L280 632 L420 566 L560 626 L700 592 L840 630 L980 574 L1130 626 L1280 588 L1430 634 L1600 596 L1600 900 L0 900 Z"
+            fill="#4a3f5c" opacity=".55"/>
+
+      <!-- Monte Fuji -->
+      <g class="strato" data-p="16">
+        <path d="M800 236 L1052 700 L548 700 Z" fill="url(#fuji)"/>
+        <path d="M800 236 L872 368 q-24 16 -46 4 q-22 -12 -42 6 q-20 16 -40 2 L800 236 Z" fill="url(#neve)"/>
+        <path d="M872 368 L906 430 q-30 12 -52 -2 q-26 -16 -50 4 q-26 18 -48 0 q-22 -16 -44 2 L734 368 q22 14 44 -2 q22 -16 42 -4 q22 12 46 -4 z"
+              fill="url(#neve)" opacity=".92"/>
+        <path d="M800 236 L1052 700 L800 700 Z" fill="#000" opacity=".12"/>
+      </g>
+
+      <!-- colline intermedie -->
+      <path class="strato" data-p="24" d="M0 706 q200 -54 400 -12 q200 42 400 -6 q200 -48 400 -4 q200 44 400 -14 L1600 900 L0 900 Z"
+            fill="url(#colli)" opacity=".9"/>
+
+      <!-- foresta sacra in lontananza -->
+      <g class="strato" data-p="34" fill="#1b172a" opacity=".95">
+        <path d="M0 900 L0 806 l38 -60 l30 60 l26 -84 l34 84 l22 -46 l40 46 l30 -72 l36 72 l24 -52 l44 52 l28 -90 l38 90 l20 -44 l42 44 l34 -66 l30 66 l26 -80 l40 80 l22 -50 l38 50 l32 -70 l28 70 l24 -58 l44 58 l30 -86 l36 86 l20 -48 l40 48 l28 -64 l34 64 l26 -76 l38 76 l22 -54 l42 54 l30 -68 l36 68 l24 -60 l40 60 l26 -78 l34 78 l30 -50 l38 50 L1600 900 Z"
+      </g>
+
+      <!-- terreno in primo piano -->
+      <path class="strato" data-p="46" d="M0 900 L0 852 q400 -30 800 -4 q400 26 800 -10 L1600 900 Z" fill="#120f1c"/>
     </svg>
-    <h1><span>Shinto Italia</span>Un portale sui kami,<br>aperto a tutti</h1>
-    <p class="lede">
-      Un sito per esplorare miti, riti e santuari dello Shinto: storia, leggende, kami e templi, con un pizzico di cultura pop giapponese. In italiano, gratuito, open source.
-    </p>
-    <div class="cta-row">
-      <a href="#sentieri" class="btn btn-primary">Inizia il percorso →</a>
-      <a href="https://github.com/ghibli73/shinto-italia" class="btn btn-ghost" target="_blank" rel="noopener">Vedi il repository</a>
+  </div>
+
+  <div class="nebbia" aria-hidden="true"></div>
+  <div class="nebbia n2" aria-hidden="true"></div>
+  <canvas id="petali" aria-hidden="true"></canvas>
+
+  <!-- ---------- il torii ---------- -->
+  <div class="torii-zona">
+    <button class="torii-btn" id="torii" type="button"
+            aria-label="Attraversa il torii ed entra nella sezione Sentieri">
+      <span class="t-alone" aria-hidden="true"></span>
+      <span class="t-energia" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <svg viewBox="0 0 600 560" aria-hidden="true">
+        <!-- kasagi: trave superiore ricurva -->
+        <path class="t-legno" d="M8 92 q292 -48 584 0 l0 32 q-292 -44 -584 0 Z"/>
+        <!-- shimaki -->
+        <rect class="t-ombra" x="36" y="126" width="528" height="18" rx="6"/>
+        <!-- shimenawa in alto, cosi' il varco resta libero per il testo -->
+        <path d="M146 176 q154 -32 308 0" stroke="#f3e9d2" stroke-width="10"
+              fill="none" stroke-linecap="round" opacity=".92"/>
+        <g fill="#fdf6e6" opacity=".9">
+          <path d="M192 180 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
+          <path d="M294 170 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
+          <path d="M396 180 h14 l-9 13 h9 l-14 19 l-3 -13 h6 Z"/>
+        </g>
+        <!-- gakuzuka -->
+        <rect class="t-legno" x="286" y="142" width="28" height="46" rx="4"/>
+        <!-- nuki: trave inferiore -->
+        <rect class="t-legno" id="t-nuki" x="38" y="188" width="524" height="26" rx="5"/>
+        <!-- pilastri sottili e larghi di passo: il varco deve respirare -->
+        <path class="t-legno" d="M58 144 h44 l8 396 h-60 Z"/>
+        <path class="t-legno" d="M542 144 h-44 l-8 396 h60 Z"/>
+        <!-- basi in pietra -->
+        <rect class="t-ombra" x="36"  y="532" width="86" height="18" rx="6"/>
+        <rect class="t-ombra" x="478" y="532" width="86" height="18" rx="6"/>
+      </svg>
+      <span class="t-invito">Tocca il torii per attraversarlo</span>
+    </button>
+  </div>
+
+  <!-- ---------- testo dentro il varco ---------- -->
+  <div class="hero-testo">
+    <span class="h-sopra anim">神道 &middot; Shinto Italia</span>
+    <h1 class="anim">Shinto Italia<span class="h-sotto">Un sentiero verso i kami</span></h1>
+    <p class="lede anim">Scopri miti, santuari, leggende e divinità della più antica tradizione spirituale del Giappone.</p>
+
+    <div class="stat-griglia anim" id="statistiche">
+      <div class="stat"><b data-a="136">0</b><span>Kami</span></div>
+      <div class="stat"><b data-a="84">0</b><span>Santuari</span></div>
+      <div class="stat"><b data-a="300" data-suf="+">0</b><span>Schede</span></div>
+      <div class="stat"><b data-a="100" data-suf="%">0</b><span>Italiano</span></div>
+    </div>
+
+    <div class="cta-row anim">
+      <a href="#sentieri" class="btn btn-primary" id="ctaTorii">⛩ Attraversa il Torii</a>
+      <a href="viaggio.html" class="btn btn-ghost"
+         style="border-color:rgba(243,233,210,.55); color:#f3e9d2;">🗾 Esplora la Mappa</a>
     </div>
   </div>
-  <div class="scroll-cue"><span>SCORRI</span><span class="line"></span></div>
+
+  <div class="scroll-cue" aria-hidden="true"><span>SCORRI</span><span class="line"></span></div>
 </section>
+
+<div class="portale" id="portale" aria-hidden="true"></div>
 
 <!-- ============ SENTIERI ============ -->
 <section class="sentieri" id="sentieri">
@@ -778,49 +1179,49 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <p>Ogni sezione è un passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono. Gli ultimi due sentieri portano fuori dall'arcipelago e poi in viaggio.</p>
   </div>
   <div class="path-grid">
-    <a class="path-card" data-mon="史" href="storia.html">
+    <a class="path-card" tabindex="0" data-mon="史" href="storia.html">
       <span class="path-num">01 · STORIA</span>
       <h3>Storia</h3>
       <p>24 tappe dal Jōmon alla Reiwa, con accanto a ognuna che cosa accadeva alla via dei kami.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card" data-mon="話" href="leggende.html">
+    <a class="path-card" tabindex="0" data-mon="話" href="leggende.html">
       <span class="path-num">02 · LEGGENDE</span>
       <h3>Leggende</h3>
       <p>I cinque miti fondativi raccontati per esteso: la creazione, la caverna, il drago, la lepre, la discesa.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card" data-mon="社" href="templi.html">
+    <a class="path-card" tabindex="0" data-mon="社" href="templi.html">
       <span class="path-num">03 · TEMPLI</span>
       <h3>Templi</h3>
       <p>23 santuari con la divinità custodita, curiosità e collegamento diretto alle mappe.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card" data-mon="神" href="kami.html">
+    <a class="path-card" tabindex="0" data-mon="神" href="kami.html">
       <span class="path-num">04 · KAMI</span>
       <h3>Kami</h3>
       <p>136 kami con ricerca e filtri per macro-area, schede di approfondimento e omikuji del giorno.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card" data-mon="祭" href="rituali.html">
+    <a class="path-card" tabindex="0" data-mon="祭" href="rituali.html">
       <span class="path-num">05 · RITUALI</span>
       <h3>Rituali</h3>
       <p>Misogi, shinsen, norito, matsuri e riti di passaggio, con un calendario di 14 feste.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card" data-mon="漫" href="manga.html">
+    <a class="path-card" tabindex="0" data-mon="漫" href="manga.html">
       <span class="path-num">06 · MANGA</span>
       <h3>Shinto nei manga</h3>
       <p>Gli archetipi shintoisti dietro manga e anime, e i luoghi reali del pellegrinaggio dei fan.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card path-extra" data-mon="海" href="oltremare.html">
+    <a class="path-card path-extra" tabindex="0" data-mon="海" href="oltremare.html">
       <span class="path-num">07 · OLTREMARE</span>
       <h3>Fuori dal Giappone</h3>
       <p>Dove si prega oggi lontano dall'arcipelago — San Marino compreso — e la storia dei santuari coloniali.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
-    <a class="path-card path-extra" data-mon="参" href="viaggio.html">
+    <a class="path-card path-extra" tabindex="0" data-mon="参" href="viaggio.html">
       <span class="path-num">08 · VIAGGIO</span>
       <h3>Andarci davvero</h3>
       <p>Stagioni, tre itinerari e il goshuin: come visitare un santuario da viaggiatore e non da turista.</p>
@@ -1064,7 +1465,9 @@ footer a{ color:var(--sakura); text-decoration:none; }
   Shinto Italia · progetto personale · fatto con cura in Italia — <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
 </footer>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script defer>
 /* ---------- Progress rail ---------- */
 (function(){
   const rail = document.getElementById('rail');
@@ -1077,59 +1480,273 @@ footer a{ color:var(--sakura); text-decoration:none; }
   onScroll();
 })();
 
-/* ---------- Petali di sakura sul hero ---------- */
-(function(){
-  const canvas = document.getElementById('petals');
-  const ctx = canvas.getContext('2d');
-  const hero = canvas.closest('.hero');
-  let w,h,petals=[];
-  const REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function resize(){
-    w = canvas.width = hero.offsetWidth;
-    h = canvas.height = hero.offsetHeight;
+/* ---------- HERO: ripresa reale, con ricaduta sicura ---------- */
+(function(){
+  var v = document.getElementById('heroVideo');
+  var hero = document.getElementById('hero');
+  if(!v || !hero) return;
+
+  /* chi ha chiesto meno movimento non riceve video */
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* niente video su connessioni lente o con risparmio dati attivo */
+  var rete = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+  if(rete.saveData === true) return;
+  if(/(^|-)(2g|slow-2g)$/.test(rete.effectiveType || '')) return;
+
+  var stretto = window.matchMedia('(max-width:760px)').matches;
+  var webm = v.canPlayType && v.canPlayType('video/webm; codecs="vp9"');
+
+  var vp9 = (webm === 'probably' || webm === 'maybe');
+  if(stretto){
+    v.poster = 'media/hero-poster-mobile.jpg';
+    v.src = vp9 ? 'media/hero-mobile.webm' : 'media/hero-mobile.mp4';   /* il verticale originale */
+  } else {
+    v.src = vp9 ? 'media/hero.webm' : 'media/hero.mp4';
   }
-  function makePetal(){
-    return {
-      x: Math.random()*w,
-      y: Math.random()*-h,
-      r: 4 + Math.random()*5,
-      speed: .6 + Math.random()*1.1,
-      drift: Math.random()*1.2 - .6,
-      rot: Math.random()*360,
-      rotSpeed: (Math.random()-.5)*2,
-      opacity: .5 + Math.random()*.4
-    };
+
+  var deciso = false;
+  function acceso(){
+    if(deciso) return;
+    deciso = true;
+    v.classList.add('pronto');
+    hero.classList.add('con-video');
   }
-  function init(){
-    resize();
-    const count = w < 600 ? 16 : 28;
-    petals = Array.from({length:count}, makePetal);
+  function rinuncia(){
+    if(deciso) return;
+    deciso = true;
+    v.remove();                                /* resta la scena disegnata */
   }
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    petals.forEach(p=>{
+
+  v.addEventListener('playing', acceso, { once:true });
+  v.addEventListener('error', rinuncia, { once:true });
+  /* se entro sei secondi non e' partito, non facciamo aspettare nessuno */
+  setTimeout(function(){ if(!v.classList.contains('pronto')) rinuncia(); }, 6000);
+
+  v.preload = 'auto';
+  v.load();
+  var p = v.play();
+  if(p && p.catch) p.catch(rinuncia);          /* autoplay negato dal browser */
+
+  /* fuori dallo schermo il video si ferma: batteria e CPU ringraziano */
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(voci){
+      voci.forEach(function(e){
+        if(!v.isConnected) return;
+        if(e.isIntersecting){ var q = v.play(); if(q && q.catch) q.catch(function(){}); }
+        else v.pause();
+      });
+    }, { threshold:0.01 }).observe(hero);
+  }
+})();
+
+/* ---------- HERO: petali, parallasse, ingresso, portale ---------- */
+(function(){
+  var MENO_MOTO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.getElementById('hero');
+  if(!hero) return;
+
+  /* la barra di navigazione cambia altezza con la larghezza: la misuriamo */
+  var barra = document.querySelector('nav');
+  function altezzaBarra(){
+    if(barra) document.documentElement.style.setProperty('--nav', barra.offsetHeight + 'px');
+  }
+  altezzaBarra();
+  window.addEventListener('resize', altezzaBarra);
+  window.addEventListener('load', altezzaBarra);
+
+  /* ---- petali di sakura su canvas ---- */
+  (function(){
+    var cv = document.getElementById('petali');
+    if(!cv) return;
+    var ctx = cv.getContext('2d');
+    var w, h, petali = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function dimensiona(){
+      w = hero.offsetWidth; h = hero.offsetHeight;
+      cv.width = w * dpr; cv.height = h * dpr;
+      cv.style.width = w + 'px'; cv.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function nuovo(alto){
+      return { x: Math.random()*w, y: alto ? Math.random()*-h : -20,
+               r: 3 + Math.random()*5, v: .5 + Math.random()*1.1,
+               d: Math.random()*1.3 - .65, rot: Math.random()*360,
+               vr: (Math.random()-.5)*2.2, op: .35 + Math.random()*.5 };
+    }
+    function avvia(){
+      dimensiona();
+      petali = Array.from({length: w < 640 ? 14 : 30}, function(){ return nuovo(true); });
+    }
+    function petalo(p){
       ctx.save();
-      ctx.translate(p.x,p.y);
-      ctx.rotate(p.rot*Math.PI/180);
-      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI/180);
+      ctx.globalAlpha = p.op;
       ctx.fillStyle = '#f0b9c4';
       ctx.beginPath();
-      ctx.moveTo(0,-p.r);
-      ctx.quadraticCurveTo(p.r,-p.r*.2,0,p.r);
-      ctx.quadraticCurveTo(-p.r,-p.r*.2,0,-p.r);
+      ctx.moveTo(0, -p.r);
+      ctx.quadraticCurveTo(p.r, -p.r*.2, 0, p.r);
+      ctx.quadraticCurveTo(-p.r, -p.r*.2, 0, -p.r);
       ctx.fill();
       ctx.restore();
-      p.y += p.speed;
-      p.x += p.drift;
-      p.rot += p.rotSpeed;
-      if(p.y > h + 10){ Object.assign(p, makePetal(), {y:-10}); }
+    }
+    function disegna(){
+      ctx.clearRect(0, 0, w, h);
+      for(var i=0;i<petali.length;i++){
+        var p = petali[i];
+        petalo(p);
+        p.y += p.v; p.x += p.d; p.rot += p.vr;
+        if(p.y > h + 20 || p.x < -40 || p.x > w + 40) petali[i] = nuovo(false);
+      }
+      requestAnimationFrame(disegna);
+    }
+    window.addEventListener('resize', avvia);
+    avvia();
+    if(MENO_MOTO){ petali.forEach(petalo); }   /* fermi, senza ciclo infinito */
+    else disegna();
+  })();
+
+  /* ---- parallasse leggera legata al mouse ---- */
+  if(!MENO_MOTO && window.matchMedia('(pointer:fine)').matches){
+    var strati = hero.querySelectorAll('.strato');
+    var tx = 0, ty = 0, cx = 0, cy = 0, attivo = false;
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width  - .5) * 2;
+      ty = ((e.clientY - r.top)  / r.height - .5) * 2;
+      if(!attivo){ attivo = true; requestAnimationFrame(muovi); }
     });
-    requestAnimationFrame(draw);
+    hero.addEventListener('mouseleave', function(){ tx = 0; ty = 0; });
+    function muovi(){
+      cx += (tx - cx) * .06; cy += (ty - cy) * .06;
+      strati.forEach(function(s){
+        var p = parseFloat(s.getAttribute('data-p')) || 0;
+        s.style.transform = 'translate3d(' + (-cx*p) + 'px,' + (-cy*p*.45) + 'px,0)';
+      });
+      if(Math.abs(cx-tx) > .001 || Math.abs(cy-ty) > .001) requestAnimationFrame(muovi);
+      else attivo = false;
+    }
   }
-  window.addEventListener('resize', resize);
-  init();
-  if(!REDUCE) draw(); else draw(); // draw once even w/ reduced motion (static petals ok, no infinite loop needed but harmless)
+
+  /* ---- il testo va appoggiato sotto la trave, qualunque sia lo schermo ----
+     Tre valori fissi non reggono: cambia con larghezza, altezza e font. */
+  var testo  = hero.querySelector('.hero-testo');
+  var nuki   = document.getElementById('t-nuki');
+  var torii0 = document.getElementById('torii');
+  function posiziona(){
+    if(!testo || !nuki) return;
+    testo.style.transform = 'translateY(0px)';
+    var t = testo.getBoundingClientRect();
+    var n = nuki.getBoundingClientRect();
+    var h = hero.getBoundingClientRect();
+    var d = (n.bottom + 10) - t.top;                 /* sotto la trave, con un po' d'aria */
+    var max = (h.bottom - 10) - t.bottom;            /* ma senza uscire dall'hero */
+    testo.style.transform = 'translateY(' + Math.max(0, Math.min(d, max)) + 'px)';
+  }
+  var attesa;
+  function riposiziona(){ clearTimeout(attesa); attesa = setTimeout(posiziona, 120); }
+  window.addEventListener('resize', riposiziona);
+  window.addEventListener('load', riposiziona);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(riposiziona);
+
+  /* i caratteri arrivano dopo, e con loro cambia l'altezza del testo:
+     osserviamo le dimensioni reali invece di sperare in un momento giusto.
+     Le trasformazioni di GSAP non alterano il border-box, quindi non lo attivano. */
+  if('ResizeObserver' in window){
+    var ro = new ResizeObserver(riposiziona);
+    ro.observe(testo);
+    if(torii0) ro.observe(torii0);
+  }
+  posiziona();
+  /* qualche ricalcolo tardivo: l'ultimo assestamento del layout puo' arrivare
+     dopo i caratteri, dopo GSAP e dopo l'altezza definitiva della barra */
+  [400, 1200, 2600].forEach(function(ms){ setTimeout(posiziona, ms); });
+
+  /* ---- contatori delle statistiche ---- */
+  function contatori(){
+    var numeri = document.querySelectorAll('#statistiche b');
+    if(!numeri.length) return;
+    numeri.forEach(function(n){
+      var meta = parseInt(n.getAttribute('data-a'), 10) || 0;
+      var suf = n.getAttribute('data-suf') || '';
+      if(MENO_MOTO){ n.textContent = meta + suf; return; }
+      var t0 = null, durata = 1500;
+      function passo(t){
+        if(!t0) t0 = t;
+        var q = Math.min((t - t0) / durata, 1);
+        var e = 1 - Math.pow(1 - q, 3);           /* rallenta alla fine */
+        n.textContent = Math.round(meta * e) + suf;
+        if(q < 1) requestAnimationFrame(passo);
+      }
+      requestAnimationFrame(passo);
+    });
+  }
+
+  /* ---- ingresso in scena ---- */
+  var torii = document.getElementById('torii');
+  function avviaGSAP(){
+    if(!window.gsap){ mostraSubito(); return; }
+    var tl = gsap.timeline({ defaults:{ ease:'power3.out' } });
+    /* tutto deve essere leggibile entro ~2,5 secondi: l'impatto sta nei primi 3 */
+    tl.from('.scena', { opacity:0, scale:1.06, duration:1.2, ease:'power2.out' })
+      .from(torii,    { opacity:0, y:60, scale:.92, duration:1.25, ease:'power3.out' }, '-=.85')
+      .from('.nebbia',{ opacity:0, duration:1.1 }, '-=1.0')
+      .from('.hero-testo .anim', { opacity:0, y:24, duration:.8, stagger:.1 }, '-=.75')
+      .add(contatori, '-=.55')
+      .from('.scroll-cue', { opacity:0, duration:.6 }, '-=.3')
+      .add(riposiziona);
+  }
+  function mostraSubito(){
+    /* se GSAP non arriva, la pagina resta perfettamente leggibile */
+    document.querySelectorAll('.hero-testo .anim').forEach(function(el){
+      el.style.opacity = 1; el.style.transform = 'none';
+    });
+    contatori();
+    posiziona();
+  }
+  if(MENO_MOTO) mostraSubito();
+  else if(document.readyState === 'complete') avviaGSAP();
+  else window.addEventListener('load', avviaGSAP);
+
+  /* ---- attraversare il portale ---- */
+  var portale = document.getElementById('portale');
+  var meta = document.getElementById('sentieri');
+  var inCorso = false;
+
+  function attraversa(origine){
+    if(inCorso || !portale || !meta) return;
+    inCorso = true;
+
+    if(MENO_MOTO || !window.gsap){
+      meta.scrollIntoView({ behavior: MENO_MOTO ? 'auto' : 'smooth' });
+      inCorso = false;
+      return;
+    }
+    /* la luce parte dal punto toccato, non da un punto fisso */
+    var r = origine.getBoundingClientRect();
+    portale.style.setProperty('--px', (r.left + r.width/2) / window.innerWidth * 100 + '%');
+    portale.style.setProperty('--py', (r.top + r.height*0.52) / window.innerHeight * 100 + '%');
+
+    gsap.timeline()
+      .to(torii, { scale:1.14, duration:.5, ease:'power2.in' }, 0)
+      .fromTo(portale, { opacity:0, scale:.15 },
+                       { opacity:1, scale:2.6, duration:.85, ease:'power2.in' }, 0)
+      .add(function(){ meta.scrollIntoView({ behavior:'auto', block:'start' }); })
+      .to(portale, { opacity:0, duration:.9, ease:'power2.out' })
+      .set(portale, { scale:.15 })
+      .set(torii,   { scale:1 })
+      .add(function(){
+        inCorso = false;
+        var primo = meta.querySelector('.path-card');
+        if(primo) primo.focus({ preventScroll:true });
+      });
+  }
+
+  if(torii) torii.addEventListener('click', function(){ attraversa(torii); });
+  var cta = document.getElementById('ctaTorii');
+  if(cta) cta.addEventListener('click', function(e){ e.preventDefault(); attraversa(cta); });
 })();
 
 /* ---------- Reveal on scroll ---------- */
