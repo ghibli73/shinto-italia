@@ -426,9 +426,9 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 .hero-testo h1{ font-size:clamp(29px, 4.1vw, 42px); }
 .hero-testo .lede{ margin-top:18px; font-size:13px; line-height:1.55; }
 .hero-testo .stat-griglia{ margin-top:16px; }
-.hero-testo .stat-griglia .stat{ padding:6px 10px; }
+.hero-testo .stat-griglia .stat{ padding:6px clamp(4px, 1.6vw, 10px); }
 .hero-testo .cta-row{ margin-top:14px; }
-.hero-testo .stat-griglia .stat b{ font-size:21px; }
+.hero-testo .stat-griglia .stat b{ font-size:clamp(15px, 4.4vw, 21px); }
 
 @media (max-width:760px){
   /* il varco qui sarebbe largo meno di 200px: il testo non puo' starci dentro.
@@ -436,6 +436,27 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   .torii-zona{ align-items:flex-start; padding-top:6%; }
   .torii-btn{ height:min(44%, 330px); }
   .hero-testo{ max-width:min(94vw, 420px); }
+}
+
+
+.hero-testo .stat-griglia{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  width:100%;
+  gap:8px;
+  flex-wrap:nowrap;
+}
+.hero-testo .stat{
+  min-width:0;            /* senza questo la casella non si stringe mai */
+  padding:8px 6px;
+  text-align:center;
+}
+.hero-testo .stat b{ white-space:nowrap; }
+.hero-testo .stat span{ white-space:nowrap; }
+@media (max-width:420px){
+  .hero-testo .stat b{ font-size:19px; }
+  .hero-testo .stat span{ font-size:8.5px; letter-spacing:.06em; }
+  .hero-testo .stat-griglia{ gap:6px; }
 }
 
 /* --- il lampo del portale --- */
@@ -471,12 +492,12 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 
 /* --- mobile --- */
 @media (max-width:760px){
-  .torii-btn{ width:min(124vw, 94svh); aspect-ratio:600 / 560; }
-  .hero-testo{ max-width:300px; }
-  .hero .lede{ font-size:14px; max-width:340px; }
-  .stat{ min-width:0; flex:1 1 0; padding:9px 6px; }
+  /* il torii fotografico ha proporzioni sue: misure definite piu' sopra */
+  .hero-testo{ max-width:min(94vw, 430px); }
+  .hero .lede{ font-size:13.5px; max-width:none; }
+  .stat{ min-width:0; padding:8px 5px; }
   .stat b{ font-size:19px; }
-  .stat span{ font-size:8px; letter-spacing:.08em; }
+  .stat span{ font-size:8.5px; letter-spacing:.05em; }
   .stat-griglia{ gap:6px; flex-wrap:nowrap; margin-top:20px; }
   .hero .cta-row{ gap:8px; flex-wrap:nowrap; margin-top:22px; }
   .hero .cta-row .btn{ padding:12px 12px; font-size:11px; flex:1 1 0;
@@ -486,6 +507,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 @media (max-width:420px){
   .hero .lede{ font-size:13px; line-height:1.6; }
   .stat b{ font-size:17px; }
+  .stat span{ font-size:8px; letter-spacing:.03em; }
   .hero .cta-row .btn{ font-size:10px; padding:11px 8px; letter-spacing:0; }
 }
 
