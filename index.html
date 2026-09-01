@@ -149,7 +149,9 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
    allarghiamo il fotogramma e mostriamo la parte bassa, cosi' il sole
    resta sopra la struttura e sotto restano bosco e nebbia, piu' scuri */
 @media (max-width:760px){
-  .hero-video{ height:140%; top:-26%; object-position:50% 72%; }
+  /* il verticale originale entra quasi intero: cielo in alto, Fuji al centro,
+     bosco in basso. Nessun ritaglio spinto, altrimenti resta solo il buio. */
+  .hero-video{ height:100%; top:0; object-position:50% 45%; }
 }
 /* la scena disegnata sfuma solo quando il video sta davvero suonando */
 .hero.con-video .scena{ opacity:0; transition:opacity 1.1s var(--ease); }
@@ -161,10 +163,20 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   pointer-events:none;
   opacity:0; transition:opacity 1.1s var(--ease);
   background:linear-gradient(180deg,
-    rgba(13,20,36,.42) 0%,
-    rgba(13,20,36,.10) 26%,
-    rgba(18,15,28,.42) 58%,
-    rgba(18,15,28,.86) 100%);
+    rgba(13,20,36,.26) 0%,
+    rgba(13,20,36,.02) 24%,
+    rgba(18,15,28,.20) 52%,
+    rgba(18,15,28,.58) 78%,
+    rgba(18,15,28,.78) 100%);
+}
+@media (max-width:760px){
+  .hero-velo{
+    background:linear-gradient(180deg,
+      rgba(13,20,36,.30) 0%,
+      rgba(13,20,36,.04) 22%,
+      rgba(18,15,28,.26) 52%,
+      rgba(18,15,28,.62) 100%);
+  }
 }
 .hero.con-video .hero-velo{ opacity:1; }
 
@@ -401,7 +413,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   pointer-events:none;
   opacity:0;
   background:radial-gradient(circle at 50% 50%,
-    #fff 0%, rgba(255,244,214,.96) 22%, rgba(255,214,150,.7) 44%,
+    rgba(255,250,236,.96) 0%, rgba(255,238,200,.88) 22%, rgba(255,208,142,.66) 44%,
     rgba(240,185,196,.34) 64%, rgba(200,64,42,0) 82%);
   /* la sfumatura del gradiente basta da sola: un blur ricalcolato a ogni
      fotogramma mentre l'elemento cresce di 7 volte costa carissimo */
@@ -409,6 +421,21 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 /* durante l'attraversamento nulla deve sporgere dai bordi */
 .hero{ overflow:hidden; }
 .portale{ will-change:transform, opacity; }
+/* il bianco puro a tutto schermo acceca, soprattutto al buio e su telefono:
+   copre il salto esattamente come prima, ma con un tono caldo */
+.portale{
+  background:radial-gradient(circle at var(--px,50%) var(--py,52%),
+    #fff6e2 0%, #ffdfa8 22%, rgba(240,185,196,.82) 44%,
+    rgba(200,64,42,.6) 64%, rgba(13,20,36,0) 82%);
+}
+@media (max-width:760px){
+  .portale{
+    background:radial-gradient(circle at var(--px,50%) var(--py,52%),
+      #ffeccb 0%, #ffd79a 26%, rgba(224,140,120,.8) 50%,
+      rgba(160,52,34,.62) 70%, rgba(13,20,36,0) 86%);
+  }
+  .varco-luce{ filter:none; }
+}
 
 
 /* il torii poggia sul bordo inferiore: a parita' di spazio e' il modo
@@ -1553,6 +1580,19 @@ footer a{ color:var(--sakura); text-decoration:none; }
     deciso = true;
     v.classList.add('pronto');
     hero.classList.add('con-video');
+
+    /* La scena disegnata va spenta con uno stile inline, non solo via CSS:
+       la sequenza d'ingresso di GSAP lascia un opacity inline sugli stessi
+       elementi, che batte qualunque regola del foglio di stile. Senza questo
+       il paesaggio vettoriale resta sopra al video e il filmato non si vede. */
+    var sopra = [hero.querySelector('.scena')];
+    hero.querySelectorAll('.nebbia').forEach(function(n){ sopra.push(n); });
+    sopra.forEach(function(el){
+      if(!el) return;
+      el.style.transition = 'opacity .9s ease';
+      el.style.opacity = '0';
+      setTimeout(function(){ if(hero.classList.contains('con-video')) el.style.display = 'none'; }, 950);
+    });
   }
   function rinuncia(){
     if(deciso) return;
