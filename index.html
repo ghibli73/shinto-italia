@@ -393,6 +393,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 /* --- attraversamento: bagliore che nasce dentro il varco --- */
 .varco-luce{
   position:absolute; z-index:3;
+  will-change:transform, opacity;
   /* cerchio centrato nel varco: la luce arriva da oltre il portale */
   left:50%; top:76%;
   width:30%; aspect-ratio:1; translate:-50% -50%;
@@ -402,10 +403,13 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   background:radial-gradient(circle at 50% 50%,
     #fff 0%, rgba(255,244,214,.96) 22%, rgba(255,214,150,.7) 44%,
     rgba(240,185,196,.34) 64%, rgba(200,64,42,0) 82%);
-  filter:blur(4px);
+  /* la sfumatura del gradiente basta da sola: un blur ricalcolato a ogni
+     fotogramma mentre l'elemento cresce di 7 volte costa carissimo */
 }
 /* durante l'attraversamento nulla deve sporgere dai bordi */
 .hero{ overflow:hidden; }
+.portale{ will-change:transform, opacity; }
+
 
 /* il torii poggia sul bordo inferiore: a parita' di spazio e' il modo
    che lascia il varco piu' largo e piu' alto per il testo */
@@ -1174,7 +1178,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
       <span class="t-energia" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
       <picture>
         <source srcset="media/torii.webp" type="image/webp">
-        <img class="t-img" src="media/torii.png" alt="" width="968" height="1142"
+        <img class="t-img" src="media/torii.png" alt="" width="760" height="897"
              decoding="async" fetchpriority="high">
       </picture>
       <span class="t-varco" id="t-varco" aria-hidden="true"></span>
@@ -1637,13 +1641,19 @@ footer a{ color:var(--sakura); text-decoration:none; }
         p.y += p.v; p.x += p.d; p.rot += p.vr;
         if(p.y > h + 20 || p.x < -40 || p.x > w + 40) petali[i] = nuovo(false);
       }
-      requestAnimationFrame(disegna);
+      if(!window.__petaliInPausa) requestAnimationFrame(disegna);
+      else window.__petaliRipresa = disegna;
     }
     window.addEventListener('resize', avvia);
     avvia();
     if(MENO_MOTO){ petali.forEach(petalo); }   /* fermi, senza ciclo infinito */
     else disegna();
   })();
+
+  window.__petaliFermi = function(ferma){
+    window.__petaliInPausa = !!ferma;
+    if(!ferma && window.__petaliRipresa){ var f = window.__petaliRipresa; window.__petaliRipresa = null; requestAnimationFrame(f); }
+  };
 
   /* ---- parallasse leggera legata al mouse ---- */
   if(!MENO_MOTO && window.matchMedia('(pointer:fine)').matches){
@@ -1781,6 +1791,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
 
     var sfondi = [scena, filma].filter(Boolean);
     var img = hero.querySelector('.t-img');
+    if(window.__petaliFermi) window.__petaliFermi(true);   /* meno lavoro per fotogramma */
     /* le ombre sfumate costano care quando il torii viene ingrandito di 4 volte:
        durante l'attraversamento le togliamo, tanto sono coperte dalla luce */
     if(img){ img.style.filter = 'none'; }
@@ -1794,15 +1805,19 @@ footer a{ color:var(--sakura); text-decoration:none; }
     function salta(){
       if(saltato) return;
       saltato = true;
+      /* il cambio di pagina e' un taglio netto: si vede solo se il lampo non
+         e' ancora pieno. Meglio forzarlo che mostrare lo scatto. */
+      gsap.set(portale, { opacity:1 });
       meta.scrollIntoView({ behavior:'auto', block:'start' });
     }
-    var salvagente = setTimeout(salta, 1300);
+    var salvagente = setTimeout(salta, 2000);
 
     function ripristina(){
       clearTimeout(salvagente);
       inCorso = false;
       torii.style.willChange = '';
       if(img){ img.style.filter = ''; }
+      if(window.__petaliFermi) window.__petaliFermi(false);
       schede.forEach(function(s){ s.classList.add('in'); });
       var primo = meta.querySelector('.path-card');
       if(primo) primo.focus({ preventScroll:true });
@@ -1810,49 +1825,59 @@ footer a{ color:var(--sakura); text-decoration:none; }
     /* se l'animazione si inceppa, rimettiamo comunque tutto a posto */
     var reteDiSicurezza = setTimeout(function(){
       if(inCorso){ gsap.set([torii],{scale:1,opacity:1}); gsap.set(sfondi,{scale:1});
-        gsap.set(luce,{opacity:0,scale:1}); gsap.set(testoH,{opacity:1,y:0,filter:'none'});
-        gsap.set(portale,{opacity:0,scale:.3}); if(cue) gsap.set(cue,{opacity:1});
+        gsap.set(luce,{opacity:0,scale:1}); gsap.set(testoH,{opacity:1,y:0});
+        gsap.set(portale,{opacity:0}); if(cue) gsap.set(cue,{opacity:1});
         ripristina(); }
-    }, 4000);
+    }, 5200);
 
     var tl = gsap.timeline();
+    /* ── VELOCITA' DELL'ATTRAVERSAMENTO ────────────────────────────────
+       1 = come impostato. Meno di 1 rallenta (0.8 = un quinto piu' lento),
+       piu' di 1 accelera. E' l'unico numero da toccare per regolarlo. */
+    tl.timeScale(1);
 
     /* 1. il varco si accende: e' li' che stiamo per entrare */
     tl.fromTo(luce, { opacity:0, scale:.5 },
-                    { opacity:1, scale:1.6, duration:.42, ease:'power2.out' }, 0)
+                    { opacity:1, scale:1.6, duration:.65, ease:'power2.out' }, 0)
 
       /* 2. il testo si scosta per primo, cosi' la strada resta libera */
-      .to(testoH, { opacity:0, y:-18, filter:'blur(7px)', duration:.4, ease:'power2.in' }, 0)
-      .to(cue,    { opacity:0, duration:.3 }, 0)
+      .to(testoH, { opacity:0, y:-26, duration:.6, ease:'power2.in' }, 0)
+      .to(cue,    { opacity:0, duration:.45 }, 0)
 
       /* 3. lo sfondo avanza: e' la nostra camminata verso il santuario */
-      .to(sfondi, { scale:1.26, duration:.95, ease:'power2.in' }, .04)
+      .to(sfondi, { scale:1.30, duration:1.6, ease:'power2.in' }, .05)
 
       /* 4. il torii cresce oltre lo schermo: gli passiamo attraverso */
-      .to(torii, { scale:4.2, duration:.8, ease:'power2.in' }, .1)
-      .to(torii, { opacity:0, duration:.3, ease:'power1.in' }, .6)
-      .to(luce,  { scale:7, duration:.72, ease:'power2.in' }, .1)
+      .to(torii, { scale:2.0, duration:1.35, ease:'power2.in' }, .18)
+      .to(torii, { opacity:0, duration:.5, ease:'power1.in' }, 1.03)
+      .to(luce,  { scale:7, duration:1.25, ease:'power2.in' }, .18)
 
       /* 5. la luce riempie tutto e copre il salto di pagina */
-      .fromTo(portale, { opacity:0, scale:.3 },
-                       { opacity:1, scale:3.2, duration:.5, ease:'power2.in' }, .42)
+      .fromTo(portale, { opacity:0 },
+                       { opacity:1, duration:.75, ease:'power2.in' }, .85)
       .add(salta)
 
       /* 6. si riapre sulla sezione, che entra a scalare */
-      .to(portale, { opacity:0, duration:.85, ease:'power2.out' })
+      .to(portale, { opacity:0, duration:1.15, ease:'power2.out' })
       .fromTo(schede, { y:24, opacity:0 },
-                      { y:0, opacity:1, duration:.5, stagger:.055, ease:'power2.out' }, '-=.62')
+                      { y:0, opacity:1, duration:.6, stagger:.07, ease:'power2.out' }, '-=.85')
 
       /* 7. l'hero torna com'era, pronto per chi risale */
-      .set(portale, { scale:.3 })
+      .set(portale, { opacity:0 })
       .set(torii,   { scale:1, opacity:1 })
       .set(sfondi,  { scale:1 })
       .set(luce,    { opacity:0, scale:1 })
-      .set(testoH,  { opacity:1, y:0, filter:'none' })
+      .set(testoH,  { opacity:1, y:0 })
       .set(cue,     { opacity:1 })
       .add(function(){ clearTimeout(reteDiSicurezza); ripristina(); });
   }
 
+  if(torii){
+    ['pointerenter','focus'].forEach(function(ev){
+      torii.addEventListener(ev, function(){ torii.style.willChange = 'transform, opacity'; });
+    });
+    torii.addEventListener('pointerleave', function(){ if(!inCorso) torii.style.willChange = ''; });
+  }
   if(torii) torii.addEventListener('click', function(){ attraversa(torii); });
   var cta = document.getElementById('ctaTorii');
   if(cta) cta.addEventListener('click', function(e){ e.preventDefault(); attraversa(cta); });
