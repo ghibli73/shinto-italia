@@ -150,11 +150,13 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
    sembra ferma. Un'oscillazione molto lenta rende evidente che e' viva,
    senza distrarre. Si ferma durante l'attraversamento, dove comanda GSAP. */
 @keyframes respiro{
-  from{ transform:scale(1)     translateY(0); }
-  to  { transform:scale(1.105) translateY(-1.6%); }
+  from{ transform:scale(1)    translateY(0); }
+  to  { transform:scale(1.05) translateY(-0.8%); }
 }
 .hero-video.pronto{
-  animation:respiro 15s ease-in-out infinite alternate;
+  /* piu' contenuto di prima: ora e' la scena stessa a muoversi, questo
+     serve solo a dare profondita' */
+  animation:respiro 22s ease-in-out infinite alternate;
 }
 .hero.in-transito .hero-video{ animation:none; }
 @media (prefers-reduced-motion: reduce){
@@ -541,7 +543,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   .hero-testo{ padding-top:14px; padding-bottom:14px; }
 }
 @media (max-height:700px){
-  .hero .lede{ display:none; }          /* sotto i 700px sparisce la riga meno essenziale */
+  /* il paragrafo resta: viene nascosto da JS solo se non entra */
   .hero h1{ font-size:clamp(24px, 3.8vw, 38px); }
 }
 /* telefoni piccoli: il varco e' stretto, il testo deve stringersi di piu' */
@@ -1610,9 +1612,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
     righe.splice(1, 0, 'stato: ...');
   }
 
-  /* un filo piu' veloce del normale: a velocita' 1 il movimento della
-     nebbia e' cosi' lento da sembrare un'immagine ferma */
-  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 1.35; });
+  /* appena piu' svelta del normale, quel tanto che ravviva la nebbia */
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 1.15; });
 
   v.addEventListener('playing', acceso);
   v.addEventListener('error', function(){ if(!partito) prova(); });
@@ -1724,6 +1725,19 @@ footer a{ color:var(--sakura); text-decoration:none; }
     var stretto = n.width < t.width * 0.94;
     var rif = stretto ? (torii0.getBoundingClientRect().bottom + 10) : (n.top + 4);
     var d = rif - t.top;
+
+    /* Se il blocco non entra nell'altezza disponibile, la prima cosa che
+       cede e' il paragrafo descrittivo: meglio perdere quello che vedere
+       i pulsanti tagliati fuori dallo schermo. */
+    var lede = testo.querySelector('.lede');
+    if(lede){
+      lede.style.display = '';
+      if(t.height > (h.height - 16)){   /* non entra nemmeno in tutto l'hero */
+        lede.style.display = 'none';
+        t = testo.getBoundingClientRect();
+        d = rif - t.top;
+      }
+    }
     var max = (h.bottom - 10) - t.bottom;            /* ma senza uscire dall'hero */
     testo.style.transform = 'translateY(' + Math.max(0, Math.min(d, max)) + 'px)';
   }
