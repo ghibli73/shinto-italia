@@ -154,8 +154,6 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   .hero-video{ height:100%; top:0; object-position:50% 45%; }
 }
 /* la scena disegnata sfuma solo quando il video sta davvero suonando */
-.hero.con-video .scena{ opacity:0; transition:opacity 1.1s var(--ease); }
-.hero.con-video .nebbia{ opacity:0; }   /* la nebbia vera e' gia' nel filmato */
 
 /* velo: senza, il testo bianco sulla foschia chiara non si legge */
 .hero-velo{
@@ -181,39 +179,20 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 .hero.con-video .hero-velo{ opacity:1; }
 
 /* --- la scena: SVG che copre sempre tutto lo schermo --- */
-.scena{
+.hero-fondo{
   position:absolute; inset:0;
-  width:100%; height:100%;
   z-index:0;
-  pointer-events:none;
+  background-image:url("media/hero-poster.jpg");
+  background-size:cover;
+  /* inquadratura identica a quella del video: e' lo stesso fotogramma,
+     e deve combaciare al pixel perche' il passaggio non si veda */
+  background-position:50% 50%;
 }
-.scena svg{ width:100%; height:100%; display:block; }
-
-/* strati di parallasse mossi dal mouse */
-.strato{ will-change:transform; }
-
-/* --- nebbia --- */
-.nebbia{
-  position:absolute; left:-25%; right:-25%;
-  height:34%;
-  bottom:2%;
-  z-index:1;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 100% at 20% 70%, rgba(243,233,210,.17), transparent 72%),
-    radial-gradient(ellipse 70% 100% at 62% 62%, rgba(240,185,196,.13), transparent 74%),
-    radial-gradient(ellipse 55% 100% at 88% 74%, rgba(243,233,210,.15), transparent 72%);
-  filter:blur(22px);
-  animation:deriva 34s ease-in-out infinite alternate;
-}
-.nebbia.n2{
-  bottom:-8%; height:40%; opacity:.6;
-  animation:deriva 46s ease-in-out infinite alternate-reverse;
-  filter:blur(26px);
-}
-@keyframes deriva{
-  from{ transform:translate3d(-4%,0,0) scaleX(1); }
-  to  { transform:translate3d(5%,-2%,0) scaleX(1.12); }
+@media (max-width:760px){
+  .hero-fondo{
+    background-image:url("media/hero-poster-mobile.jpg");
+    background-position:50% 45%;
+  }
 }
 
 /* --- petali --- */
@@ -543,7 +522,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 
 /* --- chi ha chiesto meno movimento lo ottiene --- */
 @media (prefers-reduced-motion: reduce){
-  .nebbia, .t-energia i, .scroll-cue .line{ animation:none !important; }
+  .t-energia i, .scroll-cue .line{ animation:none !important; }
   .hero *{ transition-duration:.01ms !important; }
 }
 
@@ -1126,75 +1105,10 @@ footer a{ color:var(--sakura); text-decoration:none; }
   <div class="hero-velo" aria-hidden="true"></div>
 
   <!-- ---------- scena: cielo, Fuji, foresta ---------- -->
-  <div class="scena" aria-hidden="true">
-    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#111a2e"/>
-          <stop offset="34%"  stop-color="#3b2b46"/>
-          <stop offset="58%"  stop-color="#8d4a4a"/>
-          <stop offset="76%"  stop-color="#d4844f"/>
-          <stop offset="90%"  stop-color="#f0b478"/>
-          <stop offset="100%" stop-color="#f6d9a8"/>
-        </linearGradient>
-        <radialGradient id="sole" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stop-color="#fff6da"/>
-          <stop offset="30%"  stop-color="#ffe1a1"/>
-          <stop offset="65%"  stop-color="rgba(255,190,120,.42)"/>
-          <stop offset="100%" stop-color="rgba(255,190,120,0)"/>
-        </radialGradient>
-        <linearGradient id="fuji" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#6d5f79"/>
-          <stop offset="55%"  stop-color="#4e4260"/>
-          <stop offset="100%" stop-color="#3a3050"/>
-        </linearGradient>
-        <linearGradient id="neve" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="#fdf3e2"/>
-          <stop offset="100%" stop-color="#e6d3d8"/>
-        </linearGradient>
-        <linearGradient id="colli" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#2f2942"/>
-          <stop offset="100%" stop-color="#241f34"/>
-        </linearGradient>
-      </defs>
-
-      <rect width="1600" height="900" fill="url(#cielo)"/>
-
-      <!-- stelle residue dell'alba -->
-      <g fill="#fff8e8" opacity=".55">
-        <circle cx="180" cy="90"  r="1.6"/><circle cx="420" cy="52"  r="1.2"/>
-        <circle cx="700" cy="118" r="1.5"/><circle cx="1010" cy="70" r="1.3"/>
-        <circle cx="1290" cy="132" r="1.6"/><circle cx="1470" cy="64" r="1.2"/>
-        <circle cx="880" cy="40"  r="1.1"/><circle cx="260" cy="176" r="1.1"/>
-      </g>
-
-      <!-- sole che sorge dietro il torii -->
-      <g class="strato" data-p="6">
-        <circle cx="800" cy="560" r="330" fill="url(#sole)" opacity=".9"/>
-        <circle cx="800" cy="560" r="86"  fill="#fff2cf" opacity=".95"/>
-      </g>
-
-      <!-- creste lontane -->
-      <path class="strato" data-p="10" d="M0 645 L150 590 L280 632 L420 566 L560 626 L700 592 L840 630 L980 574 L1130 626 L1280 588 L1430 634 L1600 596 L1600 900 L0 900 Z"
-            fill="#4a3f5c" opacity=".55"/>
-
-
-      <!-- colline intermedie -->
-      <path class="strato" data-p="24" d="M0 706 q200 -54 400 -12 q200 42 400 -6 q200 -48 400 -4 q200 44 400 -14 L1600 900 L0 900 Z"
-            fill="url(#colli)" opacity=".9"/>
-
-      <!-- foresta sacra in lontananza -->
-      <g class="strato" data-p="34" fill="#1b172a" opacity=".95">
-        <path d="M0 900 L0 806 l38 -60 l30 60 l26 -84 l34 84 l22 -46 l40 46 l30 -72 l36 72 l24 -52 l44 52 l28 -90 l38 90 l20 -44 l42 44 l34 -66 l30 66 l26 -80 l40 80 l22 -50 l38 50 l32 -70 l28 70 l24 -58 l44 58 l30 -86 l36 86 l20 -48 l40 48 l28 -64 l34 64 l26 -76 l38 76 l22 -54 l42 54 l30 -68 l36 68 l24 -60 l40 60 l26 -78 l34 78 l30 -50 l38 50 L1600 900 Z"
-      </g>
-
-      <!-- terreno in primo piano -->
-      <path class="strato" data-p="46" d="M0 900 L0 852 q400 -30 800 -4 q400 26 800 -10 L1600 900 Z" fill="#120f1c"/>
-    </svg>
-  </div>
-
-  <div class="nebbia" aria-hidden="true"></div>
-  <div class="nebbia n2" aria-hidden="true"></div>
+  <!-- fondo: il primo fotogramma del video. Se il filmato parte, gli si
+       dissolve sopra partendo dalla stessa immagine, quindi non si vede
+       alcun salto; se non parte, resta questo. -->
+  <div class="hero-fondo" aria-hidden="true"></div>
   <canvas id="petali" aria-hidden="true"></canvas>
 
   <!-- ---------- il torii ---------- -->
@@ -1581,18 +1495,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
     v.classList.add('pronto');
     hero.classList.add('con-video');
 
-    /* La scena disegnata va spenta con uno stile inline, non solo via CSS:
-       la sequenza d'ingresso di GSAP lascia un opacity inline sugli stessi
-       elementi, che batte qualunque regola del foglio di stile. Senza questo
-       il paesaggio vettoriale resta sopra al video e il filmato non si vede. */
-    var sopra = [hero.querySelector('.scena')];
-    hero.querySelectorAll('.nebbia').forEach(function(n){ sopra.push(n); });
-    sopra.forEach(function(el){
-      if(!el) return;
-      el.style.transition = 'opacity .9s ease';
-      el.style.opacity = '0';
-      setTimeout(function(){ if(hero.classList.contains('con-video')) el.style.display = 'none'; }, 950);
-    });
+    /* Non c'e' piu' niente da nascondere: sotto c'e' lo stesso fotogramma
+       da cui il video parte, quindi basta farlo comparire in dissolvenza. */
   }
   function rinuncia(){
     if(deciso) return;
@@ -1695,27 +1599,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
     if(!ferma && window.__petaliRipresa){ var f = window.__petaliRipresa; window.__petaliRipresa = null; requestAnimationFrame(f); }
   };
 
-  /* ---- parallasse leggera legata al mouse ---- */
-  if(!MENO_MOTO && window.matchMedia('(pointer:fine)').matches){
-    var strati = hero.querySelectorAll('.strato');
-    var tx = 0, ty = 0, cx = 0, cy = 0, attivo = false;
-    hero.addEventListener('mousemove', function(e){
-      var r = hero.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width  - .5) * 2;
-      ty = ((e.clientY - r.top)  / r.height - .5) * 2;
-      if(!attivo){ attivo = true; requestAnimationFrame(muovi); }
-    });
-    hero.addEventListener('mouseleave', function(){ tx = 0; ty = 0; });
-    function muovi(){
-      cx += (tx - cx) * .06; cy += (ty - cy) * .06;
-      strati.forEach(function(s){
-        var p = parseFloat(s.getAttribute('data-p')) || 0;
-        s.style.transform = 'translate3d(' + (-cx*p) + 'px,' + (-cy*p*.45) + 'px,0)';
-      });
-      if(Math.abs(cx-tx) > .001 || Math.abs(cy-ty) > .001) requestAnimationFrame(muovi);
-      else attivo = false;
-    }
-  }
+  /* La parallasse a strati e' stata tolta insieme al paesaggio vettoriale:
+     su una fotografia non avrebbe niente da muovere in modo indipendente. */
 
   /* ---- il testo va appoggiato sotto la trave, qualunque sia lo schermo ----
      Tre valori fissi non reggono: cambia con larghezza, altezza e font. */
@@ -1781,9 +1666,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
     if(!window.gsap){ mostraSubito(); return; }
     var tl = gsap.timeline({ defaults:{ ease:'power3.out' } });
     /* tutto deve essere leggibile entro ~2,5 secondi: l'impatto sta nei primi 3 */
-    tl.from('.scena', { opacity:0, scale:1.06, duration:1.2, ease:'power2.out' })
+    tl.from('.hero-fondo', { opacity:0, scale:1.06, duration:1.2, ease:'power2.out' })
       .from(torii,    { opacity:0, y:60, scale:.92, duration:1.25, ease:'power3.out' }, '-=.85')
-      .from('.nebbia',{ opacity:0, duration:1.1 }, '-=1.0')
       .from('.hero-testo .anim', { opacity:0, y:24, duration:.8, stagger:.1 }, '-=.75')
       .add(contatori, '-=.55')
       .from('.scroll-cue', { opacity:0, duration:.6 }, '-=.3')
@@ -1819,7 +1703,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     var varco  = document.getElementById('t-varco');
     var luce   = document.getElementById('varcoLuce');
     var testoH = hero.querySelector('.hero-testo');
-    var scena  = hero.querySelector('.scena');
+    var fondo  = hero.querySelector('.hero-fondo');
     var filma  = document.getElementById('heroVideo');
     var cue    = hero.querySelector('.scroll-cue');
     var schede = meta.querySelectorAll('.path-card');
@@ -1829,7 +1713,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     portale.style.setProperty('--px', (r.left + r.width/2) / window.innerWidth * 100 + '%');
     portale.style.setProperty('--py', (r.top + r.height/2) / window.innerHeight * 100 + '%');
 
-    var sfondi = [scena, filma].filter(Boolean);
+    var sfondi = [fondo, filma].filter(Boolean);
     var img = hero.querySelector('.t-img');
     if(window.__petaliFermi) window.__petaliFermi(true);   /* meno lavoro per fotogramma */
     /* le ombre sfumate costano care quando il torii viene ingrandito di 4 volte:
