@@ -365,6 +365,88 @@ footer a:hover{ text-decoration:underline; }
   display:block; font-family:'JetBrains Mono',monospace; font-size:10px;
   letter-spacing:.14em; text-transform:uppercase; color:var(--torii-deep); margin-bottom:5px;
 }
+
+/* ================= TIMELINE ================= */
+/* barra che resta in alto e dice dove sei nella cronologia */
+.era-sticky{
+  position:sticky; top:var(--nav,56px); z-index:30;
+  background:rgba(243,233,210,.93); backdrop-filter:blur(8px);
+  border-top:1px solid var(--paper-line); border-bottom:1px solid var(--paper-line);
+  padding:10px 0 0;
+}
+.era-sticky-in{
+  max-width:1080px; margin:0 auto; padding:0 22px 10px;
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+}
+.era-sticky b{ font-family:'Shippori Mincho B1',serif; font-size:15px; }
+.era-sticky span{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sumi-soft); }
+.era-barra{ height:2px; background:var(--paper-line); }
+.era-barra i{ display:block; height:100%; width:0; background:linear-gradient(90deg,var(--torii),var(--gold)); transition:width .15s linear; }
+
+/* la spina centrale, che si colora man mano che si scorre */
+.tl{ position:relative; margin-top:26px; padding-left:0; }
+.tl::before{
+  content:""; position:absolute; left:15px; top:0; bottom:0; width:2px;
+  background:var(--paper-line);
+}
+.tl-fill{
+  position:absolute; left:15px; top:0; width:2px; height:0;
+  background:linear-gradient(180deg,var(--torii),var(--gold));
+  z-index:1;
+}
+
+/* separatore d'era */
+.tl-era-sep{
+  position:relative; margin:44px 0 24px; padding-left:56px;
+  display:flex; align-items:center; gap:16px;
+}
+.tl-era-sep::before{
+  content:""; position:absolute; left:8px; top:50%; transform:translateY(-50%);
+  width:16px; height:16px; border-radius:50%;
+  background:var(--washi); border:2px solid var(--torii); z-index:2;
+}
+.tl-era-kanji{
+  font-family:'Shippori Mincho B1',serif; font-size:44px; line-height:1;
+  color:var(--torii); opacity:.55;
+}
+.tl-era-sep h3{ font-size:21px; }
+.tl-era-arco{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:.06em; }
+.tl-era-sep p{ font-size:13px; color:var(--sumi-soft); margin-top:4px; line-height:1.55; }
+
+.tl-item{ margin-left:56px; margin-bottom:18px; }
+.tl-item::before{ left:-49px; top:24px; z-index:2; box-shadow:0 0 0 4px var(--washi); }
+.tl-item.attiva{ border-color:var(--torii); }
+.tl-item.attiva::before{ background:var(--gold); transform:scale(1.25); transition:transform .3s var(--ease); }
+
+/* il filmato dentro la cronologia */
+.tl-film{
+  margin:26px 0 26px 56px; position:relative;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:10px;
+  overflow:hidden; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+}
+.tl-film::before{
+  content:""; position:absolute; left:-49px; top:26px;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 0 4px var(--washi); z-index:2;
+}
+.tl-film-scena{ position:relative; background:#0e0c14; min-height:190px; }
+.tl-video{ width:100%; height:100%; object-fit:cover; display:block; }
+.tl-film figcaption{ padding:20px 22px; align-self:center; }
+.tl-film figcaption b{ font-family:'Shippori Mincho B1',serif; font-size:17px; display:block; }
+.tl-film figcaption p{ margin-top:8px; font-size:13px; line-height:1.65; color:var(--sumi-soft); }
+@media (max-width:720px){
+  .tl-film{ grid-template-columns:1fr; margin-left:44px; }
+  .tl-film-scena{ aspect-ratio:4/3; min-height:0; }
+  .tl-item{ margin-left:44px; }
+  .tl-item::before{ left:-37px; }
+  .tl-film::before{ left:-37px; }
+  .tl-era-sep{ padding-left:44px; gap:12px; }
+  .tl-era-kanji{ font-size:34px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .tl-fill{ transition:none; }
+}
+
 .empty{ text-align:center; color:var(--sumi-soft); font-family:'JetBrains Mono',monospace; font-size:13px; padding:40px 0; }
 
 </style>
@@ -391,7 +473,7 @@ footer a:hover{ text-decoration:underline; }
     <span class="eyebrow">Sentiero 01 · Storia</span>
     <h1>Dal Jōmon alla Reiwa</h1>
     <p>Quattordicimila anni in una linea sola: la storia del Giappone e, accanto a ogni tappa, che cosa stava succedendo alla via dei kami. Perché lo Shinto non ha un fondatore né una data di nascita — ha una lunghissima sedimentazione.</p>
-      <div class="hero-stats"><span><b>24</b> tappe</span><span><b>5</b> grandi ere</span><span><b>14.000+</b> anni coperti</span></div>
+      <div class="hero-stats"><span><b>32</b> tappe</span><span><b>5</b> grandi ere</span><span><b>14.000+</b> anni coperti</span></div>
   </div>
 </section>
 
@@ -435,7 +517,7 @@ footer a:hover{ text-decoration:underline; }
 <section class="wrap" id="timeline">
   <div class="sec-head">
     <span class="eyebrow">Cronologia</span>
-    <h2>Ventiquattro tappe</h2>
+    <h2>Trentadue tappe, cinque ere</h2>
     <p>Filtra per era o cerca un periodo, un luogo, un evento. Le tappe evidenziate riguardano direttamente la storia dello Shinto.</p>
   </div>
 
@@ -452,7 +534,22 @@ footer a:hover{ text-decoration:underline; }
   </div>
   <div class="count" id="count"></div>
 
+  <div class="era-sticky">
+    <div class="era-sticky-in">
+      <b>Preistoria</b><span>~14.000 – 300 a.C.</span>
+    </div>
+    <div class="era-barra"><i></i></div>
+  </div>
+
   <div class="tl" id="tl">
+    <div class="tl-era-sep reveal" data-era="Preistoria" id="era-0">
+      <span class="tl-era-kanji" aria-hidden="true">原</span>
+      <div>
+        <h3>Preistoria</h3>
+        <span class="tl-era-arco">~14.000 – 300 a.C.</span>
+        <p>Non esiste ancora lo Shinto, ma esistono già i suoi presupposti.</p>
+      </div>
+    </div>
     <article class="tl-item" data-era="Preistoria" data-search="cultura jōmon jōmon tōhoku ceramiche cordate e villaggi semi-stabili. culto delle forze naturali, figurine dogū, sepolture rituali: non esiste ancora lo &#x27;shinto&#x27;, ma esistono già i suoi presupposti — la venerazione di montagne, alberi e rocce.">
       <div class="tl-date">~14.000–300 a.C.</div>
       <h3>Cultura Jōmon</h3>
@@ -460,6 +557,14 @@ footer a:hover{ text-decoration:underline; }
       <p>Ceramiche cordate e villaggi semi-stabili.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Culto delle forze naturali, figurine dogū, sepolture rituali: non esiste ancora lo 'Shinto', ma esistono già i suoi presupposti — la venerazione di montagne, alberi e rocce.</div>
     </article>
+    <div class="tl-era-sep reveal" data-era="Antichità" id="era-1">
+      <span class="tl-era-kanji" aria-hidden="true">古</span>
+      <div>
+        <h3>Antichità</h3>
+        <span class="tl-era-arco">300 a.C. – 794</span>
+        <p>Nasce il nome, si fissano i miti, si codifica il rito.</p>
+      </div>
+    </div>
     <article class="tl-item" data-era="Antichità" data-search="transizione yayoi yayoi kyūshū → honshū riso in sommersione, metallurgia, stratificazione sociale. l&#x27;arrivo della risicoltura cambia tutto: nascono i riti agrari stagionali che ancora oggi scandiscono il calendario dei matsuri. gli specchi di bronzo importati diventano oggetti sacri.">
       <div class="tl-date">300 a.C.–300 d.C.</div>
       <h3>Transizione Yayoi</h3>
@@ -495,6 +600,17 @@ footer a:hover{ text-decoration:underline; }
       <p>Codificazione ritsuryō; Grande Buddha.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Vengono compilati il <b>Kojiki</b> (712) e il <b>Nihon Shoki</b> (720): i miti passano dall'oralità alla scrittura, fissati per legittimare la dinastia imperiale.</div>
     </article>
+    <figure class="tl-film reveal">
+      <div class="tl-film-scena">
+        <video class="tl-video" poster="media/rito.jpg" muted loop playsinline
+               preload="none" data-webm="media/rito.webm" data-mp4="media/rito.mp4"
+               tabindex="-1" aria-hidden="true"></video>
+      </div>
+      <figcaption>
+        <b>Il gesto prima della dottrina</b>
+        <p>Un sacerdote agita l'harae-gushi davanti al torii. Il rito di purificazione è documentato prima di qualsiasi testo: lo Shinto nasce come pratica, e solo dopo trova le parole.</p>
+      </figcaption>
+    </figure>
     <article class="tl-item" data-era="Antichità" data-search="il kojiki nara nara ōno yasumaro mette per iscritto le cronache recitate a memoria da hieda no are: è il più antico libro giapponese conservato. da questo momento i miti hanno una forma fissa. tutto ciò che sappiamo di izanagi, amaterasu e susanoo passa di qui.">
       <div class="tl-date">712</div>
       <h3>Il Kojiki</h3>
@@ -502,6 +618,14 @@ footer a:hover{ text-decoration:underline; }
       <p>Ōno Yasumaro mette per iscritto le cronache recitate a memoria da Hieda no Are: è il più antico libro giapponese conservato.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Da questo momento i miti hanno una forma fissa. Tutto ciò che sappiamo di Izanagi, Amaterasu e Susanoo passa di qui.</div>
     </article>
+    <div class="tl-era-sep reveal" data-era="Medioevo" id="era-7">
+      <span class="tl-era-kanji" aria-hidden="true">中</span>
+      <div>
+        <h3>Medioevo</h3>
+        <span class="tl-era-arco">794 – 1573</span>
+        <p>Milletrecento anni di fusione con il buddhismo.</p>
+      </div>
+    </div>
     <article class="tl-item" data-era="Medioevo" data-search="heian-kyō e cultura di corte heian kyōto letteratura classica, potere fujiwara. fioritura dello &lt;b&gt;shinbutsu-shūgō&lt;/b&gt;, la fusione con il buddhismo: i kami vengono reinterpretati come manifestazioni locali di buddha. l&#x27;&lt;b&gt;engishiki&lt;/b&gt; (927) codifica riti e norito.">
       <div class="tl-date">794–1185</div>
       <h3>Heian-kyō e cultura di corte</h3>
@@ -523,6 +647,17 @@ footer a:hover{ text-decoration:underline; }
       <p>Minamoto; invasioni mongole respinte.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Hachiman diventa il kami dei guerrieri. Le invasioni mongole respinte dai tifoni generano il concetto di <b>kamikaze</b>, il vento divino che protegge il paese.</div>
     </article>
+    <figure class="tl-film reveal">
+      <div class="tl-film-scena">
+        <video class="tl-video" poster="media/samurai.jpg" muted loop playsinline
+               preload="none" data-webm="media/samurai.webm" data-mp4="media/samurai.mp4"
+               tabindex="-1" aria-hidden="true"></video>
+      </div>
+      <figcaption>
+        <b>Quando i kami vestono l'armatura</b>
+        <p>Con il bakufu di Kamakura, Hachiman diventa il kami dei guerrieri. Il santuario entra nella vita militare: ci si vota prima della battaglia e vi si depositano le armi vittoriose.</p>
+      </figcaption>
+    </figure>
     <article class="tl-item" data-era="Medioevo" data-search="ashikaga e guerre ōnin muromachi kyōto cultura higashiyama; avvio sengoku. yoshida kanetomo elabora una teologia che rovescia il rapporto: non più i kami come emanazioni dei buddha, ma i buddha come emanazioni dei kami.">
       <div class="tl-date">1336–1573</div>
       <h3>Ashikaga e guerre Ōnin</h3>
@@ -530,6 +665,14 @@ footer a:hover{ text-decoration:underline; }
       <p>Cultura Higashiyama; avvio Sengoku.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Yoshida Kanetomo elabora una teologia che rovescia il rapporto: non più i kami come emanazioni dei buddha, ma i buddha come emanazioni dei kami.</div>
     </article>
+    <div class="tl-era-sep reveal" data-era="Età moderna" id="era-11">
+      <span class="tl-era-kanji" aria-hidden="true">近</span>
+      <div>
+        <h3>Età moderna</h3>
+        <span class="tl-era-arco">1573 – 1868</span>
+        <p>Il santuario come strumento politico, e la riscoperta dei testi.</p>
+      </div>
+    </div>
     <article class="tl-item" data-era="Età moderna" data-search="unificazione (oda–toyotomi) azuchi–momoyama honshū centrale castelli monumentali, armi da fuoco. nobunaga e hideyoshi si fanno divinizzare da vivi o subito dopo la morte: il santuario diventa strumento politico esplicito.">
       <div class="tl-date">1573–1603</div>
       <h3>Unificazione (Oda–Toyotomi)</h3>
@@ -551,12 +694,41 @@ footer a:hover{ text-decoration:underline; }
       <p>Trentaquattro anni di lavoro per rendere di nuovo leggibile il Kojiki, ormai incomprensibile anche ai giapponesi colti.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Formula la definizione di kami tuttora citata: tutto ciò che ispira meraviglia e timore, nel bene come nel male.</div>
     </article>
+    <div class="tl-era-sep reveal" data-era="Età contemporanea" id="era-15">
+      <span class="tl-era-kanji" aria-hidden="true">現</span>
+      <div>
+        <h3>Età contemporanea</h3>
+        <span class="tl-era-arco">1868 – oggi</span>
+        <p>Separazione forzata, Shinto di Stato, e la ricostruzione dopo il 1945.</p>
+      </div>
+    </div>
     <article class="tl-item" data-era="Età contemporanea" data-search="restaurazione meiji meiji tokyo modernizzazione, abolizione han, costituzione 1889. &lt;b&gt;shinbutsu bunri&lt;/b&gt; (1868): la separazione forzata fra shinto e buddhismo. migliaia di statue e testi buddhisti vengono distrutti. nasce lo &lt;b&gt;shinto di stato&lt;/b&gt;, presentato come &#x27;non religione&#x27; e reso obbligatorio.">
       <div class="tl-date">1868–1912</div>
       <h3>Restaurazione Meiji</h3>
       <div class="tl-era">Meiji · Tokyo</div>
       <p>Modernizzazione, abolizione han, Costituzione 1889.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b><b>Shinbutsu bunri</b> (1868): la separazione forzata fra Shinto e buddhismo. Migliaia di statue e testi buddhisti vengono distrutti. Nasce lo <b>Shinto di Stato</b>, presentato come 'non religione' e reso obbligatorio.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="i santuari diventano enti di stato meiji nazionale un decreto classifica tutti i santuari in una gerarchia ufficiale, dai jingū imperiali ai piccoli santuari di villaggio, e ne fa istituzioni pubbliche. i sacerdoti diventano funzionari nominati dal governo e la carica smette di essere ereditaria: famiglie che officiavano da secoli perdono il santuario.">
+      <div class="tl-date">1871</div>
+      <h3>I santuari diventano enti di Stato</h3>
+      <div class="tl-era">Meiji · Nazionale</div>
+      <p>Un decreto classifica tutti i santuari in una gerarchia ufficiale, dai jingū imperiali ai piccoli santuari di villaggio, e ne fa istituzioni pubbliche.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>I sacerdoti diventano funzionari nominati dal governo e la carica smette di essere ereditaria: famiglie che officiavano da secoli perdono il santuario.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="la separazione delle tredici scuole meiji nazionale lo stato distingue i santuari, dichiarati non religiosi, dalle scuole con dottrina e predicazione, raccolte sotto il nome di kyōha shintō. è l&#x27;artificio che regge tutto il sistema: se il culto dei santuari non è religione, lo si può rendere obbligatorio senza violare la libertà di fede.">
+      <div class="tl-date">1882</div>
+      <h3>La separazione delle tredici scuole</h3>
+      <div class="tl-era">Meiji · Nazionale</div>
+      <p>Lo Stato distingue i santuari, dichiarati non religiosi, dalle scuole con dottrina e predicazione, raccolte sotto il nome di Kyōha Shintō.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>È l'artificio che regge tutto il sistema: se il culto dei santuari non è religione, lo si può rendere obbligatorio senza violare la libertà di fede.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="la costituzione meiji meiji tokyo l&#x27;articolo 28 garantisce la libertà religiosa, ma solo entro i limiti dell&#x27;ordine pubblico e dei doveri verso lo stato. l&#x27;imperatore vi è definito sacro e inviolabile: la discendenza da amaterasu passa dal mito al diritto costituzionale.">
+      <div class="tl-date">11 febbraio 1889</div>
+      <h3>La Costituzione Meiji</h3>
+      <div class="tl-era">Meiji · Tokyo</div>
+      <p>L&#x27;articolo 28 garantisce la libertà religiosa, ma solo entro i limiti dell&#x27;ordine pubblico e dei doveri verso lo Stato.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>L'imperatore vi è definito sacro e inviolabile: la discendenza da Amaterasu passa dal mito al diritto costituzionale.</div>
     </article>
     <article class="tl-item" data-era="Età contemporanea" data-search="guerra sino-giapponese meiji shimonoseki vittoria; influenza in corea. i caduti in guerra vengono divinizzati e consacrati allo yasukuni jinja: una pratica destinata a restare controversa fino a oggi.">
       <div class="tl-date">1894–1895</div>
@@ -572,6 +744,13 @@ footer a:hover{ text-decoration:underline; }
       <p>Affermazione come potenza.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>La vittoria contro una potenza europea rafforza la retorica del paese protetto dai kami e la sacralità della figura imperiale.</div>
     </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="inaugurazione del meiji jingū taishō tokyo un bosco di centomila alberi donati da tutto il paese viene piantato attorno al nuovo santuario dedicato all&#x27;imperatore meiji. progettato per sembrare antico e diventarlo davvero: la foresta è stata disegnata per evolvere da sola per secoli, senza manutenzione.">
+      <div class="tl-date">1920</div>
+      <h3>Inaugurazione del Meiji Jingū</h3>
+      <div class="tl-era">Taishō · Tokyo</div>
+      <p>Un bosco di centomila alberi donati da tutto il paese viene piantato attorno al nuovo santuario dedicato all&#x27;imperatore Meiji.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>Progettato per sembrare antico e diventarlo davvero: la foresta è stata disegnata per evolvere da sola per secoli, senza manutenzione.</div>
+    </article>
     <article class="tl-item" data-era="Età contemporanea" data-search="la direttiva shinto shōwa tokyo l&#x27;occupazione alleata abolisce il sostegno statale allo shinto e ogni sua imposizione nell&#x27;istruzione pubblica. fine dello shinto di stato. i santuari si riorganizzano l&#x27;anno dopo come associazione privata, la jinja honchō.">
       <div class="tl-date">15 dicembre 1945</div>
       <h3>La Direttiva Shinto</h3>
@@ -579,12 +758,40 @@ footer a:hover{ text-decoration:underline; }
       <p>L&#x27;occupazione alleata abolisce il sostegno statale allo Shinto e ogni sua imposizione nell&#x27;istruzione pubblica.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>Fine dello Shinto di Stato. I santuari si riorganizzano l'anno dopo come associazione privata, la Jinja Honchō.</div>
     </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="nasce la jinja honchō shōwa tokyo poche settimane dopo la direttiva, quasi tutti i santuari si riuniscono in un&#x27;associazione privata per sopravvivere senza fondi pubblici. oggi raccoglie circa ottantamila santuari. non è una gerarchia ecclesiastica: nessuno può imporre dottrina a un santuario membro.">
+      <div class="tl-date">3 febbraio 1946</div>
+      <h3>Nasce la Jinja Honchō</h3>
+      <div class="tl-era">Shōwa · Tokyo</div>
+      <p>Poche settimane dopo la Direttiva, quasi tutti i santuari si riuniscono in un&#x27;associazione privata per sopravvivere senza fondi pubblici.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>Oggi raccoglie circa ottantamila santuari. Non è una gerarchia ecclesiastica: nessuno può imporre dottrina a un santuario membro.</div>
+    </article>
     <article class="tl-item" data-era="Età contemporanea" data-search="costituzione del giappone shōwa tokyo art. 9 pacifista; monarchia simbolica. la &lt;b&gt;direttiva shinto&lt;/b&gt; (dicembre 1945) abolisce lo shinto di stato; il 1° gennaio 1946 l&#x27;imperatore rinuncia pubblicamente alla natura divina. la costituzione del 1947 sancisce la separazione fra stato e religione.">
       <div class="tl-date">3 maggio 1947</div>
       <h3>Costituzione del Giappone</h3>
       <div class="tl-era">Shōwa · Tokyo</div>
       <p>Art. 9 pacifista; monarchia simbolica.</p>
       <div class="tl-shinto"><b>Rilievo shintoista</b>La <b>Direttiva Shinto</b> (dicembre 1945) abolisce lo Shinto di Stato; il 1° gennaio 1946 l'imperatore rinuncia pubblicamente alla natura divina. La Costituzione del 1947 sancisce la separazione fra Stato e religione.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="torna la festa della fondazione shōwa nazionale l&#x27;11 febbraio, abolito nel dopoguerra, viene reintrodotto come giorno della fondazione nazionale. la data viene dal nihon shoki: l&#x27;intronizzazione del leggendario imperatore jinmu nel 660 a.c. il dibattito sul suo ripristino è durato quindici anni.">
+      <div class="tl-date">1966</div>
+      <h3>Torna la festa della fondazione</h3>
+      <div class="tl-era">Shōwa · Nazionale</div>
+      <p>L&#x27;11 febbraio, abolito nel dopoguerra, viene reintrodotto come Giorno della fondazione nazionale.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>La data viene dal Nihon Shoki: l'intronizzazione del leggendario imperatore Jinmu nel 660 a.C. Il dibattito sul suo ripristino è durato quindici anni.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="yasukuni e i criminali di guerra shōwa tokyo quattordici condannati come criminali di guerra di classe a vengono consacrati in segreto insieme agli altri caduti. da quel momento l&#x27;imperatore hirohito smette di visitare il santuario, come si è saputo solo nel 2006 da appunti privati. ogni visita ufficiale resta un caso diplomatico.">
+      <div class="tl-date">1978</div>
+      <h3>Yasukuni e i criminali di guerra</h3>
+      <div class="tl-era">Shōwa · Tokyo</div>
+      <p>Quattordici condannati come criminali di guerra di classe A vengono consacrati in segreto insieme agli altri caduti.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>Da quel momento l'imperatore Hirohito smette di visitare il santuario, come si è saputo solo nel 2006 da appunti privati. Ogni visita ufficiale resta un caso diplomatico.</div>
+    </article>
+    <article class="tl-item" data-era="Età contemporanea" data-search="il 62º rifacimento di ise heisei ise, mie il santuario viene ricostruito accanto al precedente e la divinità trasferita di notte, alla luce delle torce. tredici secoli di ciclo ininterrotto. servono circa diecimila cipressi e le tecniche si tramandano solo lavorando: il rito è anche una scuola di carpenteria.">
+      <div class="tl-date">2013</div>
+      <h3>Il 62º rifacimento di Ise</h3>
+      <div class="tl-era">Heisei · Ise, Mie</div>
+      <p>Il santuario viene ricostruito accanto al precedente e la divinità trasferita di notte, alla luce delle torce.</p>
+      <div class="tl-shinto"><b>Rilievo shintoista</b>Tredici secoli di ciclo ininterrotto. Servono circa diecimila cipressi e le tecniche si tramandano solo lavorando: il rito è anche una scuola di carpenteria.</div>
     </article>
     <article class="tl-item" data-era="Età contemporanea" data-search="inizio era reiwa reiwa nazionale ascesa di naruhito; continuità costituzionale. l&#x27;intronizzazione di naruhito include il &lt;b&gt;daijōsai&lt;/b&gt;, il grande rito di ringraziamento del riso: la cerimonia shintoista più antica ancora celebrata.">
       <div class="tl-date">dal 1º maggio 2019</div>
@@ -781,6 +988,81 @@ function hydrateVideos(root){
 }
 hydrateVideos();
 
+
+/* ---------- Timeline: spina, era corrente, filmati ---------- */
+(function(){
+  var tl = document.getElementById('tl');
+  if(!tl) return;
+  var MENO = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* la spina si riempie in proporzione a quanto si e' percorso */
+  var fill = document.createElement('div');
+  fill.className = 'tl-fill';
+  tl.appendChild(fill);
+  var barra = document.querySelector('.era-barra i');
+  var nomeEra = document.querySelector('.era-sticky b');
+  var arcoEra = document.querySelector('.era-sticky span');
+  var sep = [].slice.call(tl.querySelectorAll('.tl-era-sep'));
+
+  function aggiorna(){
+    var r = tl.getBoundingClientRect();
+    var meta = window.innerHeight * 0.55;
+    var perc = (meta - r.top) / r.height;
+    perc = Math.max(0, Math.min(1, perc));
+    fill.style.height = (perc * r.height) + 'px';
+    if(barra) barra.style.width = (perc * 100) + '%';
+
+    /* l'era corrente e' l'ultimo separatore superato */
+    var att = null;
+    sep.forEach(function(s){ if(s.getBoundingClientRect().top < meta) att = s; });
+    if(att && nomeEra){
+      var h3 = att.querySelector('h3'), ar = att.querySelector('.tl-era-arco');
+      if(nomeEra.textContent !== h3.textContent){
+        nomeEra.textContent = h3.textContent;
+        if(arcoEra) arcoEra.textContent = ar ? ar.textContent : '';
+      }
+    }
+  }
+  var pronto = false;
+  function suScroll(){
+    if(pronto) return;
+    pronto = true;
+    requestAnimationFrame(function(){ aggiorna(); pronto = false; });
+  }
+  window.addEventListener('scroll', suScroll, { passive:true });
+  window.addEventListener('resize', suScroll);
+  aggiorna();
+
+  /* la tappa sotto l'occhio si evidenzia */
+  if('IntersectionObserver' in window){
+    var oss = new IntersectionObserver(function(voci){
+      voci.forEach(function(e){ e.target.classList.toggle('attiva', e.isIntersecting); });
+    }, { rootMargin:'-45% 0px -45% 0px' });
+    tl.querySelectorAll('.tl-item').forEach(function(i){ oss.observe(i); });
+  }
+
+  /* i filmati partono solo quando si vedono e si fermano appena escono:
+     cosi' non si scarica nulla finche' non serve */
+  var film = [].slice.call(tl.querySelectorAll('.tl-video'));
+  if(film.length && !MENO && 'IntersectionObserver' in window){
+    var prova = document.createElement('video');
+    var vp9 = prova.canPlayType && /probably|maybe/.test(prova.canPlayType('video/webm; codecs="vp9"'));
+    var ossV = new IntersectionObserver(function(voci){
+      voci.forEach(function(e){
+        var v = e.target;
+        if(e.isIntersecting){
+          if(!v.src){
+            v.src = vp9 ? v.dataset.webm : v.dataset.mp4;
+            v.addEventListener('error', function(){ if(v.src.indexOf('.webm')>-1) v.src = v.dataset.mp4; }, { once:true });
+          }
+          var p = v.play(); if(p && p.catch) p.catch(function(){});
+        } else { v.pause(); }
+      });
+    }, { threshold:0.25 });
+    film.forEach(function(v){ ossV.observe(v); });
+  }
+})();
+
 /* ---------- Filtri timeline ---------- */
 (function(){
   var q=document.getElementById('q'), tl=document.getElementById('tl');
@@ -795,6 +1077,14 @@ hydrateVideos();
       var okQ = !term || c.getAttribute('data-search').indexOf(term)>-1;
       var show=okE&&okQ; c.style.display=show?'':'none';
       if(show){ n++; c.classList.add('in'); }
+    });
+    /* un separatore d'era senza tappe visibili non ha senso */
+    tl.querySelectorAll('.tl-era-sep').forEach(function(s){
+      var vis = era==='all' || s.getAttribute('data-era')===era;
+      s.style.display = (vis && !term) ? '' : 'none';
+    });
+    tl.querySelectorAll('.tl-film').forEach(function(f){
+      f.style.display = (era==='all' && !term) ? '' : 'none';
     });
     count.textContent = n + (n===1?' tappa':' tappe');
     empty.hidden = n>0;
