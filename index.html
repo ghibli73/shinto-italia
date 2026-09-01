@@ -1479,40 +1479,60 @@ footer a{ color:var(--sakura); text-decoration:none; }
 
   var stretto = window.matchMedia('(max-width:760px)').matches;
   var webm = v.canPlayType && v.canPlayType('video/webm; codecs="vp9"');
+  var vp9  = (webm === 'probably' || webm === 'maybe');
+  if(stretto) v.poster = 'media/hero-poster-mobile.jpg';
 
-  var vp9 = (webm === 'probably' || webm === 'maybe');
-  if(stretto){
-    v.poster = 'media/hero-poster-mobile.jpg';
-    v.src = vp9 ? 'media/hero-mobile.webm' : 'media/hero-mobile.mp4';   /* il verticale originale */
-  } else {
-    v.src = vp9 ? 'media/hero.webm' : 'media/hero.mp4';
-  }
+  /* Catena di sorgenti invece di una sola. Prima la versione adatta allo
+     schermo, poi le altre: se un file manca sul server o il codec non e'
+     supportato si passa alla successiva, invece di rinunciare subito. */
+  var sorgenti = stretto
+    ? ['media/hero-mobile.webm', 'media/hero-mobile.mp4', 'media/hero.mp4']
+    : ['media/hero.webm', 'media/hero.mp4', 'media/hero-mobile.mp4'];
+  if(!vp9) sorgenti = sorgenti.filter(function(s){ return s.indexOf('.webm') < 0; });
 
-  var deciso = false;
+  var quale = 0, partito = false, attesa = null;
+
   function acceso(){
-    if(deciso) return;
-    deciso = true;
+    if(partito) return;
+    partito = true;
+    clearTimeout(attesa);
     v.classList.add('pronto');
     hero.classList.add('con-video');
-
-    /* Non c'e' piu' niente da nascondere: sotto c'e' lo stesso fotogramma
-       da cui il video parte, quindi basta farlo comparire in dissolvenza. */
-  }
-  function rinuncia(){
-    if(deciso) return;
-    deciso = true;
-    v.remove();                                /* resta la scena disegnata */
   }
 
-  v.addEventListener('playing', acceso, { once:true });
-  v.addEventListener('error', rinuncia, { once:true });
-  /* se entro sei secondi non e' partito, non facciamo aspettare nessuno */
-  setTimeout(function(){ if(!v.classList.contains('pronto')) rinuncia(); }, 6000);
+  function arrenditi(){
+    clearTimeout(attesa);
+    if(!partito) v.remove();     /* resta il fotogramma fisso, che e' identico */
+  }
 
-  v.preload = 'auto';
-  v.load();
-  var p = v.play();
-  if(p && p.catch) p.catch(rinuncia);          /* autoplay negato dal browser */
+  function prova(){
+    if(quale >= sorgenti.length){ arrenditi(); return; }
+    v.src = sorgenti[quale++];
+    v.preload = 'auto';
+    v.load();
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){ /* autoplay negato: si riprova al tocco */ });
+    clearTimeout(attesa);
+    attesa = setTimeout(function(){ if(!partito) prova(); }, 9000);
+  }
+
+  /* Se l'autoplay e' negato — batteria bassa, risparmio energetico, impostazioni
+     del browser — il video non viene buttato via: riparte al primo tocco,
+     al primo tasto o al primo scorrimento, gesti che il browser accetta. */
+  function alPrimoGesto(){
+    if(partito || !v.isConnected) return;
+    var q = v.play();
+    if(q && q.catch) q.catch(function(){});
+  }
+  ['pointerdown','touchstart','keydown','scroll'].forEach(function(ev){
+    window.addEventListener(ev, alPrimoGesto, { passive:true });
+  });
+
+  v.addEventListener('playing', acceso);
+  v.addEventListener('error', function(){ if(!partito) prova(); });
+
+  prova();
+
 
   /* fuori dallo schermo il video si ferma: batteria e CPU ringraziano */
   if('IntersectionObserver' in window){
