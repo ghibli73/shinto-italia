@@ -145,6 +145,21 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   pointer-events:none;
 }
 .hero-video.pronto{ opacity:1; }
+
+/* Respiro: la clip ha solo nebbia che scorre lentissima e su un telefono
+   sembra ferma. Un'oscillazione molto lenta rende evidente che e' viva,
+   senza distrarre. Si ferma durante l'attraversamento, dove comanda GSAP. */
+@keyframes respiro{
+  from{ transform:scale(1)     translateY(0); }
+  to  { transform:scale(1.105) translateY(-1.6%); }
+}
+.hero-video.pronto{
+  animation:respiro 15s ease-in-out infinite alternate;
+}
+.hero.in-transito .hero-video{ animation:none; }
+@media (prefers-reduced-motion: reduce){
+  .hero-video{ animation:none !important; }
+}
 /* su telefono l'orizzonte cadrebbe esattamente sulle travi del torii:
    allarghiamo il fotogramma e mostriamo la parte bassa, cosi' il sole
    resta sopra la struttura e sotto restano bosco e nebbia, piu' scuri */
@@ -170,10 +185,10 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 @media (max-width:760px){
   .hero-velo{
     background:linear-gradient(180deg,
-      rgba(13,20,36,.30) 0%,
-      rgba(13,20,36,.04) 22%,
-      rgba(18,15,28,.26) 52%,
-      rgba(18,15,28,.62) 100%);
+      rgba(13,20,36,.24) 0%,
+      rgba(13,20,36,.00) 20%,
+      rgba(18,15,28,.14) 46%,
+      rgba(18,15,28,.58) 100%);
   }
 }
 .hero.con-video .hero-velo{ opacity:1; }
@@ -1595,6 +1610,10 @@ footer a{ color:var(--sakura); text-decoration:none; }
     righe.splice(1, 0, 'stato: ...');
   }
 
+  /* un filo piu' veloce del normale: a velocita' 1 il movimento della
+     nebbia e' cosi' lento da sembrare un'immagine ferma */
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 1.35; });
+
   v.addEventListener('playing', acceso);
   v.addEventListener('error', function(){ if(!partito) prova(); });
 
@@ -1807,6 +1826,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
        durante l'attraversamento le togliamo, tanto sono coperte dalla luce */
     if(img){ img.style.filter = 'none'; }
     torii.style.willChange = 'transform, opacity';
+    hero.classList.add('in-transito');   /* spegne il respiro del filmato */
     gsap.set(torii, { transformOrigin:'50% 76%' });
 
     /* il salto alla sezione non deve dipendere dai fotogrammi: su una macchina
@@ -1827,6 +1847,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
       clearTimeout(salvagente);
       inCorso = false;
       torii.style.willChange = '';
+      hero.classList.remove('in-transito');
       if(img){ img.style.filter = ''; }
       if(window.__petaliFermi) window.__petaliFermi(false);
       schede.forEach(function(s){ s.classList.add('in'); });
