@@ -424,7 +424,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 /* --- misure ridotte: tutto deve stare dentro il varco --- */
 .hero-testo .h-sopra{ display:none; }   /* l'h1 sotto ripete gia' il nome */
 .hero-testo h1{ font-size:clamp(29px, 4.1vw, 42px); }
-.hero-testo .lede{ margin-top:8px; font-size:13px; line-height:1.55; }
+.hero-testo .lede{ margin-top:18px; font-size:13px; line-height:1.55; }
 .hero-testo .stat-griglia{ margin-top:16px; }
 .hero-testo .stat-griglia .stat{ padding:6px 10px; }
 .hero-testo .cta-row{ margin-top:14px; }
@@ -433,7 +433,7 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 @media (max-width:760px){
   /* il varco qui sarebbe largo meno di 200px: il testo non puo' starci dentro.
      Il torii si fa piu' piccolo, sale, e il testo gli si dispone sotto. */
-  .torii-zona{ align-items:flex-start; padding-top:1.5%; }
+  .torii-zona{ align-items:flex-start; padding-top:6%; }
   .torii-btn{ height:min(44%, 330px); }
   .hero-testo{ max-width:min(94vw, 420px); }
 }
@@ -1668,7 +1668,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     /* tutto deve essere leggibile entro ~2,5 secondi: l'impatto sta nei primi 3 */
     tl.from('.hero-fondo', { opacity:0, scale:1.06, duration:1.2, ease:'power2.out' })
       .from(torii,    { opacity:0, y:60, scale:.92, duration:1.25, ease:'power3.out' }, '-=.85')
-      .from('.hero-testo .anim', { opacity:0, y:24, duration:.8, stagger:.1 }, '-=.75')
+      .from('.hero-testo .anim', { opacity:0, y:10, duration:.8, stagger:.1 }, '-=.75')
       .add(contatori, '-=.55')
       .from('.scroll-cue', { opacity:0, duration:.6 }, '-=.3')
       .add(riposiziona);
