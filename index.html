@@ -1491,13 +1491,23 @@ footer a{ color:var(--sakura); text-decoration:none; }
   var hero = document.getElementById('hero');
   if(!v || !hero) return;
 
-  /* chi ha chiesto meno movimento non riceve video */
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  /* Il risparmio dati e le connessioni lente non bloccano piu' il video:
+     erano una cautela mia, e impedivano l'avvio senza che si capisse perche'.
+     Resta solo il rispetto di "riduci movimento", che e' una scelta esplicita
+     di chi naviga. Con ?video=forza si puo' scavalcare anche quella, utile
+     per capire se e' quella l'impostazione che tiene fermo lo sfondo. */
+  var forza = /[?&]video=forza/.test(location.search);
+  if(!forza && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  /* niente video su connessioni lente o con risparmio dati attivo */
-  var rete = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
-  if(rete.saveData === true) return;
-  if(/(^|-)(2g|slow-2g)$/.test(rete.effectiveType || '')) return;
+  /* condizioni che i browser pretendono per avviare da soli un video */
+  v.muted = true;
+  v.defaultMuted = true;
+  v.loop = true;
+  v.playsInline = true;
+  v.setAttribute('muted', '');
+  v.setAttribute('autoplay', '');
+  v.setAttribute('playsinline', '');
+  v.setAttribute('webkit-playsinline', '');
 
   var stretto = window.matchMedia('(max-width:760px)').matches;
   var webm = v.canPlayType && v.canPlayType('video/webm; codecs="vp9"');
@@ -1549,6 +1559,41 @@ footer a{ color:var(--sakura); text-decoration:none; }
   ['pointerdown','touchstart','keydown','scroll'].forEach(function(ev){
     window.addEventListener(ev, alPrimoGesto, { passive:true });
   });
+
+  /* ---- pannello diagnostico: solo con ?debug=1 nell'indirizzo ----
+     Serve a capire, da un telefono qualsiasi, perche' il video non parte:
+     dice se i file ci sono davvero sul server, se il codec e' supportato,
+     e se e' il browser a rifiutare l'avvio automatico. */
+  if(/[?&]debug=1/.test(location.search)){
+    var box = document.createElement('div');
+    box.setAttribute('style','position:fixed;left:6px;top:6px;z-index:9999;max-width:94vw;'+
+      'background:rgba(0,0,0,.86);color:#9f9;font:11px/1.5 monospace;padding:8px 10px;'+
+      'border-radius:6px;white-space:pre-wrap;pointer-events:none');
+    document.body.appendChild(box);
+    var righe = [];
+    function scrivi(){ box.textContent = righe.join(String.fromCharCode(10)); }
+    righe.push('DIAGNOSI VIDEO');
+    righe.push('schermo: ' + innerWidth + 'x' + innerHeight + (stretto ? ' (mobile)' : ' (desktop)'));
+    righe.push('webm/vp9 supportato: ' + (vp9 ? 'si' : 'NO'));
+    righe.push('riduci movimento: ' + (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'ATTIVO' : 'no'));
+    var rete = navigator.connection || {};
+    righe.push('risparmio dati: ' + (rete.saveData === true ? 'ATTIVO' : 'no') + ' | rete: ' + (rete.effectiveType || '?'));
+    scrivi();
+    ['media/hero-mobile.webm','media/hero-mobile.mp4','media/hero.webm','media/hero.mp4','media/hero-poster.jpg']
+      .forEach(function(f){
+        fetch(f, { method:'HEAD' })
+          .then(function(r){ righe.push(f + ' -> ' + (r.ok ? 'presente (' + r.status + ')' : 'MANCA (' + r.status + ')')); scrivi(); })
+          .catch(function(){ righe.push(f + ' -> ERRORE DI RETE'); scrivi(); });
+      });
+    setInterval(function(){
+      var stato = !v.isConnected ? 'elemento rimosso'
+        : (v.paused ? 'FERMO' : 'in riproduzione') + ' | t=' + v.currentTime.toFixed(1) +
+          ' | pronto=' + v.readyState + (v.error ? ' | errore=' + v.error.code : '');
+      righe[1] = 'stato: ' + stato + '  sorgente: ' + (v.currentSrc ? v.currentSrc.split('/').pop() : 'nessuna');
+      scrivi();
+    }, 500);
+    righe.splice(1, 0, 'stato: ...');
+  }
 
   v.addEventListener('playing', acceso);
   v.addEventListener('error', function(){ if(!partito) prova(); });
