@@ -405,7 +405,6 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 }
 /* durante l'attraversamento nulla deve sporgere dai bordi */
 .hero{ overflow:hidden; }
-.portale{ will-change:transform, opacity; }
 /* il bianco puro a tutto schermo acceca, soprattutto al buio e su telefono:
    copre il salto esattamente come prima, ma con un tono caldo */
 .portale{
@@ -463,6 +462,12 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
   .hero-testo .stat b{ font-size:19px; }
   .hero-testo .stat span{ font-size:8.5px; letter-spacing:.06em; }
   .hero-testo .stat-griglia{ gap:6px; }
+}
+
+
+@media (max-width:760px){
+  nav{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(243,233,210,.97); }
+  .hero-testo .stat{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(23,18,37,.55); }
 }
 
 /* --- il lampo del portale --- */
@@ -1905,6 +1910,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
        durante l'attraversamento le togliamo, tanto sono coperte dalla luce */
     if(img){ img.style.filter = 'none'; }
     torii.style.willChange = 'transform, opacity';
+    portale.style.willChange = 'opacity';
     hero.classList.add('in-transito');
     gsap.set(torii, { transformOrigin:'50% 76%' });
 
@@ -1926,6 +1932,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
       clearTimeout(salvagente);
       inCorso = false;
       torii.style.willChange = '';
+      portale.style.willChange = '';
       hero.classList.remove('in-transito');
       if(img){ img.style.filter = ''; }
       if(window.__petaliFermi) window.__petaliFermi(false);
