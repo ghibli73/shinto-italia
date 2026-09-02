@@ -1648,11 +1648,29 @@ footer a{ color:var(--sakura); text-decoration:none; }
       } catch(e){ righe[rigaMovimento()] = 'movimento: non misurabile'; scrivi(); }
     }, 2000);
 
+    /* contatore di giri: se il tempo torna indietro, il ciclo e' ripartito.
+       Se resta fermo alla fine, il loop non funziona e l'immagine si congela. */
+    var giri = 0, ultimo = 0, fermoDa = 0;
+    setInterval(function(){
+      if(!v.isConnected) return;
+      var t = v.currentTime;
+      if(t < ultimo - 0.3) giri++;
+      fermoDa = (Math.abs(t - ultimo) < 0.05) ? fermoDa + 1 : 0;
+      ultimo = t;
+    }, 500);
+
     setInterval(function(){
       var stato = !v.isConnected ? 'elemento rimosso'
         : (v.paused ? 'FERMO' : 'in riproduzione') + ' | t=' + v.currentTime.toFixed(1) +
           ' | pronto=' + v.readyState + (v.error ? ' | errore=' + v.error.code : '');
       righe[1] = 'stato: ' + stato + '  sorgente: ' + (v.currentSrc ? v.currentSrc.split('/').pop() : 'nessuna');
+      if(v.isConnected){
+        righe[1] += String.fromCharCode(10) + 'giri completati: ' + giri +
+          ' | durata ' + (v.duration ? v.duration.toFixed(1) : '?') + 's' +
+          ' | loop ' + (v.loop ? 'attivo' : 'SPENTO') +
+          ' | velocita ' + v.playbackRate +
+          (fermoDa > 6 ? '  >>> TEMPO FERMO: il ciclo non riparte' : '');
+      }
       scrivi();
     }, 500);
     righe.splice(1, 0, 'stato: ...');
