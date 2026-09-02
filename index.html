@@ -1203,7 +1203,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <a class="path-card" tabindex="0" data-mon="史" href="storia.html">
       <span class="path-num">01 · STORIA</span>
       <h3>Storia</h3>
-      <p>24 tappe dal Jōmon alla Reiwa, con accanto a ognuna che cosa accadeva alla via dei kami.</p>
+      <p>32 tappe dal Jōmon alla Reiwa, con i due filmati e, accanto a ogni tappa, che cosa accadeva alla via dei kami.</p>
       <span class="path-arrow">Scopri di più →</span>
     </a>
     <a class="path-card" tabindex="0" data-mon="話" href="leggende.html">
@@ -1596,12 +1596,26 @@ footer a{ color:var(--sakura); text-decoration:none; }
     var rete = navigator.connection || {};
     righe.push('risparmio dati: ' + (rete.saveData === true ? 'ATTIVO' : 'no') + ' | rete: ' + (rete.effectiveType || '?'));
     scrivi();
-    ['media/hero-mobile.webm','media/hero-mobile.mp4','media/hero.webm','media/hero.mp4','media/hero-poster.jpg']
-      .forEach(function(f){
-        fetch(f, { method:'HEAD' })
-          .then(function(r){ righe.push(f + ' -> ' + (r.ok ? 'presente (' + r.status + ')' : 'MANCA (' + r.status + ')')); scrivi(); })
-          .catch(function(){ righe.push(f + ' -> ERRORE DI RETE'); scrivi(); });
-      });
+    var ATTESI = {
+      'media/hero.mp4': 917480, 'media/hero.webm': 457739,
+      'media/hero-mobile.mp4': 410617, 'media/hero-mobile.webm': 238790
+    };
+    Object.keys(ATTESI).concat(['media/hero-poster.jpg']).forEach(function(f){
+      fetch(f, { method:'HEAD' })
+        .then(function(r){
+          if(!r.ok){ righe.push(f + ' -> MANCA (' + r.status + ')'); scrivi(); return; }
+          var len = parseInt(r.headers.get('content-length') || '0', 10);
+          var att = ATTESI[f];
+          var nota = '';
+          if(att){
+            var scarto = Math.abs(len - att) / att;
+            nota = scarto < 0.02 ? '  AGGIORNATO' : '  VECCHIO (attesi ' + Math.round(att/1024) + ' KB)';
+          }
+          righe.push(f + ' -> ' + Math.round(len/1024) + ' KB' + nota);
+          scrivi();
+        })
+        .catch(function(){ righe.push(f + ' -> ERRORE DI RETE'); scrivi(); });
+    });
     /* misuratore di movimento: confronta due fotogrammi a due secondi di
        distanza e restituisce lo stesso numero che uso in fase di lavorazione.
        Sotto 10 la scena sembra ferma, 18-25 e' l'obiettivo. */
