@@ -150,13 +150,16 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
    sembra ferma. Un'oscillazione molto lenta rende evidente che e' viva,
    senza distrarre. Si ferma durante l'attraversamento, dove comanda GSAP. */
 @keyframes respiro{
-  from{ transform:scale(1)    translateY(0); }
-  to  { transform:scale(1.05) translateY(-0.8%); }
+  from{ transform:scale(1)    translateY(0)      translateX(0); }
+  to  { transform:scale(1.09) translateY(-1.4%)  translateX(1.2%); }
 }
 .hero-video.pronto{
   /* piu' contenuto di prima: ora e' la scena stessa a muoversi, questo
      serve solo a dare profondita' */
-  animation:respiro 22s ease-in-out infinite alternate;
+  /* andatura costante, non 'ease': con l'accelerazione dolce la camera si
+     ferma del tutto agli estremi del ciclo, ed e' li' che la scena tornava
+     a sembrare immobile. */
+  animation:respiro 13s linear infinite alternate;
 }
 .hero.in-transito .hero-video{ animation:none; }
 @media (prefers-reduced-motion: reduce){
@@ -187,10 +190,10 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 @media (max-width:760px){
   .hero-velo{
     background:linear-gradient(180deg,
-      rgba(13,20,36,.24) 0%,
-      rgba(13,20,36,.00) 20%,
-      rgba(18,15,28,.14) 46%,
-      rgba(18,15,28,.58) 100%);
+      rgba(13,20,36,.20) 0%,
+      rgba(13,20,36,.00) 18%,
+      rgba(18,15,28,.06) 44%,
+      rgba(18,15,28,.54) 100%);
   }
 }
 .hero.con-video .hero-velo{ opacity:1; }
@@ -1676,8 +1679,10 @@ footer a{ color:var(--sakura); text-decoration:none; }
     righe.splice(1, 0, 'stato: ...');
   }
 
-  /* appena piu' svelta del normale, quel tanto che ravviva la nebbia */
-  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 1.15; });
+  /* La clip e' girata con un movimento molto lento: sul telefono misura 9.7
+     su 255, sotto la soglia di percezione. Quasi raddoppiando l'andatura la
+     nebbia scorre in modo leggibile e resta comunque un movimento calmo. */
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 1.8; });
 
   v.addEventListener('playing', acceso);
   v.addEventListener('error', function(){ if(!partito) prova(); });
