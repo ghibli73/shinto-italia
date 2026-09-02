@@ -1602,6 +1602,38 @@ footer a{ color:var(--sakura); text-decoration:none; }
           .then(function(r){ righe.push(f + ' -> ' + (r.ok ? 'presente (' + r.status + ')' : 'MANCA (' + r.status + ')')); scrivi(); })
           .catch(function(){ righe.push(f + ' -> ERRORE DI RETE'); scrivi(); });
       });
+    /* misuratore di movimento: confronta due fotogrammi a due secondi di
+       distanza e restituisce lo stesso numero che uso in fase di lavorazione.
+       Sotto 10 la scena sembra ferma, 18-25 e' l'obiettivo. */
+    var tela = document.createElement('canvas');
+    tela.width = 160; tela.height = 90;
+    var ctx = tela.getContext('2d', { willReadFrequently:true });
+    var precedente = null;
+    righe.push('movimento: in misura...');
+    function rigaMovimento(){
+      for(var i=0;i<righe.length;i++) if(righe[i].indexOf('movimento:')===0) return i;
+      righe.push('movimento: ?'); return righe.length-1;
+    }
+    setInterval(function(){
+      if(!v.isConnected || v.readyState < 2) return;
+      try{
+        ctx.drawImage(v, 0, 0, tela.width, tela.height);
+        var ora = ctx.getImageData(0, 0, tela.width, tela.height).data;
+        if(precedente){
+          var somma = 0, n = 0;
+          for(var i = 0; i < ora.length; i += 4){
+            somma += Math.abs(ora[i]-precedente[i]) + Math.abs(ora[i+1]-precedente[i+1]) + Math.abs(ora[i+2]-precedente[i+2]);
+            n += 3;
+          }
+          var val = somma / n;
+          righe[rigaMovimento()] = 'movimento: ' + val.toFixed(1) + '/255  ' +
+            (val < 4 ? '(FERMO)' : val < 10 ? '(poco)' : val < 18 ? '(discreto)' : '(buono)');
+          scrivi();
+        }
+        precedente = ora;
+      } catch(e){ righe[rigaMovimento()] = 'movimento: non misurabile'; scrivi(); }
+    }, 2000);
+
     setInterval(function(){
       var stato = !v.isConnected ? 'elemento rimosso'
         : (v.paused ? 'FERMO' : 'in riproduzione') + ' | t=' + v.currentTime.toFixed(1) +
