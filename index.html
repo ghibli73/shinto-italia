@@ -146,25 +146,11 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 }
 .hero-video.pronto{ opacity:1; }
 
-/* Respiro: la clip ha solo nebbia che scorre lentissima e su un telefono
-   sembra ferma. Un'oscillazione molto lenta rende evidente che e' viva,
-   senza distrarre. Si ferma durante l'attraversamento, dove comanda GSAP. */
-@keyframes respiro{
-  from{ transform:scale(1)    translateY(0)      translateX(0); }
-  to  { transform:scale(1.09) translateY(-1.4%)  translateX(1.2%); }
-}
-.hero-video.pronto{
-  /* piu' contenuto di prima: ora e' la scena stessa a muoversi, questo
-     serve solo a dare profondita' */
-  /* andatura costante, non 'ease': con l'accelerazione dolce la camera si
-     ferma del tutto agli estremi del ciclo, ed e' li' che la scena tornava
-     a sembrare immobile. */
-  animation:respiro 13s linear infinite alternate;
-}
-.hero.in-transito .hero-video{ animation:none; }
-@media (prefers-reduced-motion: reduce){
-  .hero-video{ animation:none !important; }
-}
+/* NESSUNA animazione CSS sull'elemento <video>.
+   Su parecchi dispositivi mobili una transform animata applicata a un video
+   lo congela sullo schermo: continua a decodificare (ed e' per questo che il
+   misuratore rilevava movimento) ma il compositore non ridisegna piu' il
+   livello. Il movimento deve venire dalla clip, non da una camera finta. */
 /* su telefono l'orizzonte cadrebbe esattamente sulle travi del torii:
    allarghiamo il fotogramma e mostriamo la parte bassa, cosi' il sole
    resta sopra la struttura e sotto restano bosco e nebbia, piu' scuri */
@@ -1651,6 +1637,15 @@ footer a{ color:var(--sakura); text-decoration:none; }
       } catch(e){ righe[rigaMovimento()] = 'movimento: non misurabile'; scrivi(); }
     }, 2000);
 
+    /* fotogrammi effettivamente presentati a schermo. Il misuratore legge i
+       fotogrammi decodificati; questo conta quelli che il compositore disegna
+       davvero. Se decodifica ma non disegna, l'immagine appare congelata. */
+    var resi = 0;
+    if(v.requestVideoFrameCallback){
+      var conta = function(){ resi++; v.requestVideoFrameCallback(conta); };
+      v.requestVideoFrameCallback(conta);
+    } else { resi = -1; }
+
     /* contatore di giri: se il tempo torna indietro, il ciclo e' ripartito.
        Se resta fermo alla fine, il loop non funziona e l'immagine si congela. */
     var giri = 0, ultimo = 0, fermoDa = 0;
@@ -1672,6 +1667,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
           ' | durata ' + (v.duration ? v.duration.toFixed(1) : '?') + 's' +
           ' | loop ' + (v.loop ? 'attivo' : 'SPENTO') +
           ' | velocita ' + v.playbackRate +
+          (resi >= 0 ? ' | fotogrammi a schermo: ' + resi : '') +
           (fermoDa > 6 ? '  >>> TEMPO FERMO: il ciclo non riparte' : '');
       }
       scrivi();
@@ -1909,7 +1905,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
        durante l'attraversamento le togliamo, tanto sono coperte dalla luce */
     if(img){ img.style.filter = 'none'; }
     torii.style.willChange = 'transform, opacity';
-    hero.classList.add('in-transito');   /* spegne il respiro del filmato */
+    hero.classList.add('in-transito');
     gsap.set(torii, { transformOrigin:'50% 76%' });
 
     /* il salto alla sezione non deve dipendere dai fotogrammi: su una macchina
