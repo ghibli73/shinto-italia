@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shinto Italia — Un sentiero verso i kami</title>
+<title>Shinto in Italia — Un sentiero verso i kami</title>
 <meta name="description" content="Un portale in italiano su miti, riti e santuari dello Shinto: storia, leggende, kami e templi del Giappone, gratuito e open source.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛩️%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1121,13 +1121,26 @@ footer a{ color:var(--sakura); text-decoration:none; }
 
 .reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:translateY(0); }
+
+/* --- marchio: la "in" e' molto piu' piccola del resto --- */
+.nin{
+  font-size:.52em;
+  font-style:normal;
+  font-weight:400;
+  letter-spacing:.04em;
+  opacity:.72;
+  margin:0 .12em;
+  vertical-align:.12em;
+}
+h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
+.brand .nin{ font-size:.58em; vertical-align:.08em; }
 </style>
 </head>
 <body>
 
 <div class="rail" id="rail"></div>
 <nav>
-  <a class="brand" href="index.html">⛩ Shinto Italia</a>
+  <a class="brand" href="index.html">⛩ Shinto <span class="nin">in</span> Italia</a>
   <div class="nav-links">
     <a href="storia.html">Storia</a>
     <a href="leggende.html">Leggende</a>
@@ -1174,8 +1187,8 @@ footer a{ color:var(--sakura); text-decoration:none; }
 
   <!-- ---------- testo dentro il varco ---------- -->
   <div class="hero-testo">
-    <span class="h-sopra anim">神道 &middot; Shinto Italia</span>
-    <h1 class="anim">Shinto Italia<span class="h-sotto">Un sentiero verso i kami</span></h1>
+    <span class="h-sopra anim">神道 &middot; Shinto in Italia</span>
+    <h1 class="anim">Shinto <span class="nin">in</span> Italia<span class="h-sotto">Un sentiero verso i kami</span></h1>
     <p class="lede anim">Scopri miti, santuari, leggende e divinità della più antica tradizione spirituale del Giappone.</p>
 
     <div class="stat-griglia anim" id="statistiche">
@@ -1201,7 +1214,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
 <section class="sentieri" id="sentieri">
   <div class="sec-head">
     <span class="eyebrow">Nove sentieri, un solo sandō</span>
-    <h2>Come si esplora Shinto Italia</h2>
+    <h2>Come si esplora Shinto in Italia</h2>
     <p>Ogni sezione è un passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono. Gli ultimi sentieri portano fuori dall'arcipelago, poi in viaggio, e infine alle pillole per chi ha solo mezzo minuto.</p>
   </div>
   <div class="path-grid">
@@ -1480,7 +1493,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
   <div class="tech-inner">
     <span class="eyebrow">Open source</span>
     <h2>Il codice del santuario</h2>
-    <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene il codice sorgente di ogni pagina del sito.</p>
+    <p class="desc">Shinto in Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene il codice sorgente di ogni pagina del sito.</p>
     <div class="stack-row">
       <span class="stack-chip">HTML · CSS · JS</span>
       <span class="stack-chip">9 sentieri · 230+ schede</span>
@@ -1494,7 +1507,10 @@ footer a{ color:var(--sakura); text-decoration:none; }
 </section>
 
 <footer>
-  Shinto Italia · progetto personale · fatto con cura in Italia — <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+  Shinto in Italia · progetto personale · fatto con cura in Italia<br>
+  Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
+  Torii e sfondo del titolo: elaborazioni proprie<br>
+  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
