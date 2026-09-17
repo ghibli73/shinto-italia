@@ -186,20 +186,19 @@ nav .nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.08);
 
 /* --- la scena: SVG che copre sempre tutto lo schermo --- */
 .hero-fondo{
-  position:absolute;
-  inset:0;
+  position:absolute; inset:0;
   z-index:0;
   background-image:url("media/hero-poster.jpg");
   background-size:cover;
+  /* inquadratura identica a quella del video: e' lo stesso fotogramma,
+     e deve combaciare al pixel perche' il passaggio non si veda */
   background-position:50% 50%;
-
-  opacity:1;
-  transition:opacity 1.2s ease;
 }
-
-.hero.con-video .hero-fondo{
- opacity:0 
- visibility:hidden;
+@media (max-width:760px){
+  .hero-fondo{
+    background-image:url("media/hero-poster-mobile.jpg");
+    background-position:50% 45%;
+  }
 }
 
 /* --- petali --- */
@@ -1110,6 +1109,16 @@ footer a{ color:var(--sakura); text-decoration:none; }
 .path-card.path-extra .path-num{ color:var(--gold); }
 .path-card.path-extra .path-arrow{ color:var(--gold); }
 
+.path-card.path-pillole{
+  background:linear-gradient(135deg, rgba(200,64,42,.09), rgba(187,145,56,.08));
+}
+.path-card.path-pillole:hover{
+  background:linear-gradient(135deg, rgba(200,64,42,.15), rgba(187,145,56,.13));
+}
+.path-card.path-pillole .path-num,
+.path-card.path-pillole .path-arrow{ color:var(--torii); }
+
+
 .reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:translateY(0); }
 </style>
@@ -1128,6 +1137,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <a href="manga.html">Manga</a>
     <a href="oltremare.html">Oltremare</a>
     <a href="viaggio.html">Viaggio</a>
+    <a href="pillole.html">Pillole</a>
   </div>
 </nav>
 
@@ -1190,9 +1200,9 @@ footer a{ color:var(--sakura); text-decoration:none; }
 <!-- ============ SENTIERI ============ -->
 <section class="sentieri" id="sentieri">
   <div class="sec-head">
-    <span class="eyebrow">Otto sentieri, un solo sandō</span>
+    <span class="eyebrow">Nove sentieri, un solo sandō</span>
     <h2>Come si esplora Shinto Italia</h2>
-    <p>Ogni sezione è un passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono. Gli ultimi due sentieri portano fuori dall'arcipelago e poi in viaggio.</p>
+    <p>Ogni sezione è un passo del percorso verso il santuario: si parte dalla storia e si arriva ai kami, passando per i luoghi e le storie che li custodiscono. Gli ultimi sentieri portano fuori dall'arcipelago, poi in viaggio, e infine alle pillole per chi ha solo mezzo minuto.</p>
   </div>
   <div class="path-grid">
     <a class="path-card" tabindex="0" data-mon="史" href="storia.html">
@@ -1242,6 +1252,12 @@ footer a{ color:var(--sakura); text-decoration:none; }
       <h3>Andarci davvero</h3>
       <p>Stagioni, tre itinerari e il goshuin: come visitare un santuario da viaggiatore e non da turista.</p>
       <span class="path-arrow">Scopri di più →</span>
+    </a>
+    <a class="path-card path-pillole" tabindex="0" data-mon="豆" href="pillole.html">
+      <span class="path-num">09 · PILLOLE</span>
+      <h3>Pillole di Shinto</h3>
+      <p>Trentanove schede brevi che pescano da tutti i sentieri: una cosa sola, spiegata in trenta secondi. C'è anche il pulsante per estrarne una a caso.</p>
+      <span class="path-arrow">Pescane una →</span>
     </a>
   </div>
 </section>
@@ -1467,7 +1483,7 @@ footer a{ color:var(--sakura); text-decoration:none; }
     <p class="desc">Shinto Italia è un progetto personale, nato per rendere accessibile in italiano un tema poco raccontato. Il repository contiene il codice sorgente di ogni pagina del sito.</p>
     <div class="stack-row">
       <span class="stack-chip">HTML · CSS · JS</span>
-      <span class="stack-chip">8 sentieri · 190+ schede</span>
+      <span class="stack-chip">9 sentieri · 230+ schede</span>
       <span class="stack-chip">100% gratuito</span>
     </div>
     <div class="cta-row">
@@ -1537,18 +1553,11 @@ footer a{ color:var(--sakura); text-decoration:none; }
   var quale = 0, partito = false, attesa = null;
 
   function acceso(){
-      if(partito) return;
-      partito = true;
-      clearTimeout(attesa);
-
-      v.classList.add('pronto');
-      hero.classList.add('con-video');
-
-      const fondo = document.querySelector('.hero-fondo');
-      if(fondo){
-          fondo.style.opacity = '0';
-          fondo.style.pointerEvents = 'none';
-      }
+    if(partito) return;
+    partito = true;
+    clearTimeout(attesa);
+    v.classList.add('pronto');
+    hero.classList.add('con-video');
   }
 
   function arrenditi(){
