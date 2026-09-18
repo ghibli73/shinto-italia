@@ -479,6 +479,125 @@ footer a:hover{ text-decoration:underline; }
 }
 h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 .brand .nin{ font-size:.58em; vertical-align:.08em; }
+
+.sez-tasto{
+  display:flex; align-items:center; gap:12px; width:100%;
+  background:none; border:0; cursor:pointer; text-align:left;
+  padding:16px 0; color:inherit; font:inherit;
+  border-top:1px solid var(--paper-line);
+}
+.sez-tasto:hover .sez-titolo{ color:var(--torii-deep); }
+.sez-num{ font-family:'Shippori Mincho B1',serif; font-size:19px; color:var(--gold); flex:none; }
+.sez-titolo{
+  font-family:'Shippori Mincho B1',serif; font-size:clamp(17px,3.2vw,22px);
+  flex:1; transition:color .25s var(--ease);
+}
+.sez-conta{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--sumi-soft); flex:none; opacity:.75; }
+.sez-freccia{
+  flex:none; width:26px; height:26px; border-radius:50%;
+  border:1px solid var(--paper-line); display:grid; place-items:center;
+  transition:transform .35s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+}
+.sez-tasto:hover .sez-freccia{ border-color:var(--torii); background:rgba(200,64,42,.07); }
+.sez-freccia svg{ width:11px; height:11px; }
+.sez-tasto[aria-expanded="true"] .sez-freccia{ transform:rotate(180deg); }
+.sez-corpo{
+  display:grid; grid-template-rows:0fr; opacity:0;
+  transition:grid-template-rows .45s var(--ease), opacity .3s var(--ease);
+}
+.sez-corpo > div{ overflow:hidden; min-height:0; }
+.sez-tasto[aria-expanded="true"] + .sez-corpo{ grid-template-rows:1fr; opacity:1; }
+.sez-descr{ margin-bottom:18px; color:var(--sumi-soft); line-height:1.7; font-size:14px; }
+@media (prefers-reduced-motion: reduce){
+  .sez-corpo, .sez-freccia{ transition:none; }
+}
+
+/* ================= DUE COLONNE ================= */
+.due-colonne{
+  max-width:1220px; margin:0 auto; padding:34px 22px 0;
+  display:grid; grid-template-columns:330px minmax(0,1fr); gap:34px;
+  align-items:start;
+}
+.colonna-letture{
+  position:sticky; top:calc(var(--nav,56px) + 14px);
+  max-height:calc(100svh - var(--nav,56px) - 28px);
+  overflow-y:auto; overscroll-behavior:contain;
+  padding-right:6px;
+}
+/* barra di scorrimento discreta, altrimenti taglia la colonna in due */
+.colonna-letture::-webkit-scrollbar{ width:6px; }
+.colonna-letture::-webkit-scrollbar-thumb{ background:var(--paper-line); border-radius:3px; }
+.col-testa h2{ font-size:22px; margin-top:10px; }
+.col-testa p{ margin-top:8px; font-size:13px; line-height:1.6; color:var(--sumi-soft); }
+.col-lista{ margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+.colonna-pillole .wrap{ padding-left:0; padding-right:0; max-width:none; }
+
+.libro{
+  display:block;
+  background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:10px; padding:15px 16px;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.libro:hover{ border-color:var(--gold); box-shadow:0 10px 22px rgba(32,20,10,.09); }
+.lib-testa{ display:grid; grid-template-columns:54px minmax(0,1fr); gap:13px; align-items:start; }
+.cop{
+  width:100%; height:auto; display:block; border-radius:3px;
+  box-shadow:0 5px 12px rgba(32,20,10,.2);
+  transition:transform .35s var(--ease);
+}
+.libro:hover .cop{ transform:translateY(-2px) rotate(-1.5deg); }
+.lib-liv{
+  font-family:'JetBrains Mono',monospace; font-size:8.5px; letter-spacing:.11em;
+  text-transform:uppercase; padding:2px 8px; border-radius:9px;
+  background:rgba(187,145,56,.16); color:var(--gold);
+}
+.libro h3{ font-size:15.5px; margin-top:6px; line-height:1.25; }
+.lib-sot{ display:block; font-family:'Shippori Mincho B1',serif; font-size:12.5px; color:var(--sumi-soft); opacity:.85; }
+.lib-aut{ display:block; margin-top:3px; font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--torii-deep); }
+.lib-ed{ display:block; margin-top:3px; font-size:11px; color:var(--sumi-soft); opacity:.8; }
+.libro p{ margin-top:10px; font-size:12.6px; line-height:1.6; color:var(--sumi-soft); }
+.lib-nota{ font-size:11.8px !important; opacity:.8; font-style:italic; }
+.lib-link{ margin-top:11px; display:flex; flex-wrap:wrap; gap:6px; }
+.lib-link a{
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  padding:5px 10px; border-radius:20px; text-decoration:none;
+  border:1px solid var(--paper-line); color:var(--sumi-soft);
+  transition:border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+}
+.lib-link a:hover{ border-color:var(--torii); color:var(--torii-deep); background:rgba(200,64,42,.06); }
+.lib-link a:first-child{ border-color:var(--gold); color:var(--gold); }
+.lib-isbn{
+  display:block; margin-top:9px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; color:var(--sumi-soft); opacity:.6;
+}
+.lib-avviso{
+  margin-top:16px; padding:12px 14px; border-radius:8px;
+  background:rgba(187,145,56,.08); border-left:2px solid var(--gold);
+  font-size:11.5px; line-height:1.6; color:var(--sumi-soft);
+}
+
+/* sotto i 1000px la colonna torna in cima, in orizzontale e scorrevole */
+@media (max-width:1000px){
+  /* La colonna torna in cima e diventa una fila scorrevole. Senza min-width:0
+     la griglia lascia che i figli dettino la larghezza, e a scorrere
+     lateralmente finisce l'intera pagina invece della sola lista. */
+  .due-colonne{ grid-template-columns:minmax(0,1fr); gap:26px; padding-top:26px; }
+  .due-colonne > *{ min-width:0; }
+  .colonna-letture{ position:static; max-height:none; overflow:visible; padding-right:0; min-width:0; }
+  .col-lista{
+    flex-direction:row; overflow-x:auto; padding-bottom:10px;
+    scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
+    max-width:100%;
+  }
+  .col-lista .libro{ flex:0 0 290px; scroll-snap-align:start; }
+}
+@media (max-width:640px){
+  .col-lista .libro{ flex:0 0 82vw; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cop{ transition:none; }
+  .col-lista{ scroll-snap-type:none; }
+}
 </style>
 </head>
 <body>
@@ -673,6 +792,235 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   </div>
 </section>
 
+<div class="due-colonne">
+      <aside class="colonna-letture" id="letture" aria-labelledby="letture-tit">
+        <div class="col-testa">
+          <span class="eyebrow">Per approfondire · 読書</span>
+          <h2 id="letture-tit">7 libri in italiano</h2>
+          <p>Un sito arriva fin dove arriva. Questi reggono davvero.</p>
+        </div>
+        <div class="col-lista">
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Shintoismo">
+        <rect width="120" height="170" rx="4" fill="#7a5c9e"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#7a5c9e"><rect x="26" y="44" width="68" height="64" rx="3" fill="#fff" opacity=".85"/>
+  <path d="M60 44v64" stroke="currentColor" stroke-width="3" opacity=".5"/>
+  <path d="M34 58h18M34 68h18M68 58h18M68 68h18" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".38"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">RM</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Per iniziare</span>
+              <h3>Shintoismo</h3>
+              
+              <span class="lib-aut">Rossella Marangoni</span>
+              <span class="lib-ed">Editrice Bibliografica, 2018 · 160 pp. · 9,90 €</span>
+            </div>
+          </div>
+          <p>Centosessanta pagine tascabili che smontano l'idea dello Shinto come religione autoctona immutabile e «unica». L'antidoto migliore alle semplificazioni, e costa meno di un pranzo.</p>
+          <p class="lib-nota">Esiste anche in audiolibro, circa quattro ore e mezza.</p>
+          <div class="lib-link">
+            <a href="https://www.editricebibliografica.it/scheda-libro/rossella-marangoni/shintoismo-9788870759891-529761.html" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788870759891" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788870759891" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788870759891" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788870759891</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Lo shintoismo">
+        <rect width="120" height="170" rx="4" fill="#2f7f6f"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#2f7f6f"><path d="M28 62l32-20 32 20z" fill="#fff" opacity=".88"/>
+  <rect x="34" y="62" width="52" height="6" fill="#fff" opacity=".7"/>
+  <rect x="40" y="70" width="7" height="38" fill="#fff" opacity=".8"/>
+  <rect x="73" y="70" width="7" height="38" fill="#fff" opacity=".8"/>
+  <rect x="54" y="78" width="12" height="30" fill="#fff" opacity=".55"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">SV</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Per iniziare</span>
+              <h3>Lo shintoismo</h3>
+              
+              <span class="lib-aut">Stefano Vecchia</span>
+              <span class="lib-ed">Xenia, 2006 · 126 pp. · 7,50 €</span>
+            </div>
+          </div>
+          <p>Tascabile in tre parti: i kami nella natura, la mitologia e il culto degli antenati, il ruolo politico dello Shinto nel Giappone di oggi. L'autore è laureato in lingua e letteratura giapponese.</p>
+          <p class="lib-nota">Il più economico dell'elenco. Corto, ma non superficiale.</p>
+          <div class="lib-link">
+            <a href="https://www.xenia.it/prodotto/lo-shintoismo-t-252/" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788872735848" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788872735848" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788872735848" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788872735848</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Lo shinto">
+        <rect width="120" height="170" rx="4" fill="#9c2e1d"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#9c2e1d"><rect x="22" y="52" width="76" height="7" rx="2" fill="#fff" opacity=".9"/>
+  <rect x="28" y="63" width="64" height="5" rx="1.5" fill="#fff" opacity=".65"/>
+  <rect x="36" y="67" width="8" height="42" fill="#fff" opacity=".82"/>
+  <rect x="76" y="67" width="8" height="42" fill="#fff" opacity=".82"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">JB</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Impegnativo</span>
+              <h3>Lo shinto</h3>
+              <span class="lib-sot">Una nuova storia</span>
+              <span class="lib-aut">John Breen, Mark Teeuwen</span>
+              <span class="lib-ed">Astrolabio Ubaldini, 2014 · 277 pp. · 27,00 €</span>
+            </div>
+          </div>
+          <p>Il più serio disponibile in italiano. Breen insegna a Kyoto, Teeuwen a Oslo: partono da un singolo santuario, un singolo mito, un singolo rito, e da lì ricostruiscono il quadro generale.</p>
+          <p class="lib-nota">Traduzione di Enrico Giulia da «A New History of Shinto». Se ne compri uno solo, questo.</p>
+          <div class="lib-link">
+            <a href="https://astrolabio-ubaldini.com/libro/1347" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788834016671" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788834016671" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788834016671" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788834016671</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Itinerari nel sacro">
+        <rect width="120" height="170" rx="4" fill="#5c6e4a"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#5c6e4a"><path d="M16 104l30-46a8 8 0 0 1 14 0l14 22 10-14a7 7 0 0 1 12 0l12 38z" fill="#fff" opacity=".82"/>
+  <circle cx="86" cy="42" r="9" fill="#fff" opacity=".55"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">MR</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Impegnativo</span>
+              <h3>Itinerari nel sacro</h3>
+              <span class="lib-sot">L'esperienza religiosa giapponese</span>
+              <span class="lib-aut">Massimo Raveri</span>
+              <span class="lib-ed">Cafoscarina, 2006 · 372 pp. · 24,00 €</span>
+            </div>
+          </div>
+          <p>Antropologia, non storia. Raveri guarda come il sacro viene vissuto: lo spazio, il tempo, la morte, il potere. Nato da ricerca sul campo nei villaggi e fra gli asceti di montagna.</p>
+          <p class="lib-nota">Seconda edizione riveduta; la prima è del 1984. Spesso esaurito, si trova usato.</p>
+          <div class="lib-link">
+            <a href="https://cafoscarina.it/libri/itinerari-nel-sacro-lesperienza-religiosa-giapponese/" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788875431099" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788875431099" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788875431099" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788875431099</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Kojiki">
+        <rect width="120" height="170" rx="4" fill="#bb9138"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#bb9138"><path d="M18 92c14-22 28-22 42 0s28 22 42 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+  <path d="M18 74c14-22 28-22 42 0s28 22 42 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+  <circle cx="60" cy="48" r="11" fill="#fff" opacity=".8"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">PV</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">La fonte</span>
+              <h3>Kojiki</h3>
+              <span class="lib-sot">Un racconto di antichi eventi</span>
+              <span class="lib-aut">a cura di Paolo Villani</span>
+              <span class="lib-ed">Marsilio, 2006 · 172 pp. · 13,00 €</span>
+            </div>
+          </div>
+          <p>Il testo del 712 da cui viene tutto: Izanagi e Izanami, la caverna della dea del sole, il drago a otto teste. Tradotto dal giapponese da un ricercatore dell'Università di Catania.</p>
+          <p class="lib-nota">Collana Mille gru. Non è una lettura facile: è una fonte, con genealogie lunghissime.</p>
+          <div class="lib-link">
+            <a href="https://www.marsilioeditori.it" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788831789820" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788831789820" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788831789820" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788831789820</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Iniziazione allo shintoismo">
+        <rect width="120" height="170" rx="4" fill="#c8402a"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#c8402a"><rect x="38" y="40" width="44" height="58" rx="18" fill="#fff" opacity=".86"/>
+  <path d="M38 56h44M38 70h44M38 84h44" stroke="currentColor" stroke-width="2.5" opacity=".45"/>
+  <rect x="52" y="34" width="16" height="6" rx="2" fill="#fff" opacity=".7"/>
+  <rect x="52" y="98" width="16" height="6" rx="2" fill="#fff" opacity=".7"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">SO</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Dall’interno</span>
+              <h3>Iniziazione allo shintoismo</h3>
+              
+              <span class="lib-aut">Sokyo Ono</span>
+              <span class="lib-ed">Edizioni Mediterranee, 2004 · 118 pp. · —</span>
+            </div>
+          </div>
+          <p>Scritto da un docente della Kokugakuin, l'università che forma i sacerdoti shintoisti. Descrive i santuari da dentro: architettura, strumenti rituali, sacerdoti, feste.</p>
+          <p class="lib-nota">Il titolo italiano inganna: l'originale è «Shinto: The Kami Way» e non inizia nessuno.</p>
+          <div class="lib-link">
+            <a href="https://www.edizionimediterranee.net" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788827217153" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788827217153" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788827217153" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788827217153</code>
+        </article>
+        <article class="libro">
+          <div class="lib-testa">
+            <div class="lib-cop"><svg class="cop" viewBox="0 0 120 170" role="img" aria-label="Copertina illustrata di Storia del Giappone">
+        <rect width="120" height="170" rx="4" fill="#3f6d8c"/>
+        <rect x="6" y="6" width="108" height="158" rx="2" fill="none" stroke="#fff" stroke-width="1" opacity=".35"/>
+        <g style="color:#3f6d8c"><rect x="26" y="44" width="68" height="64" rx="3" fill="#fff" opacity=".85"/>
+  <path d="M60 44v64" stroke="currentColor" stroke-width="3" opacity=".5"/>
+  <path d="M34 58h18M34 68h18M68 58h18M68 68h18" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".38"/></g>
+        <rect x="18" y="126" width="58" height="3" rx="1.5" fill="#fff" opacity=".8"/>
+        <rect x="18" y="135" width="40" height="3" rx="1.5" fill="#fff" opacity=".55"/>
+        <text x="102" y="152" text-anchor="end" fill="#fff" opacity=".6" font-family="monospace" font-size="9">RC</text>
+      </svg></div>
+            <div>
+              <span class="lib-liv">Contesto</span>
+              <h3>Storia del Giappone</h3>
+              <span class="lib-sot">Edizione ampliata</span>
+              <span class="lib-aut">Rosa Caroli, Francesco Gatti</span>
+              <span class="lib-ed">Laterza, 2017 · 402 pp. · 24,00 €</span>
+            </div>
+          </div>
+          <p>Non parla di Shinto, ma è il contesto senza il quale la timeline di questo sito resta una lista di date. Dalle origini a Fukushima, con attenzione a economia e società.</p>
+          <p class="lib-nota">Manuale universitario, ma leggibile. Collana Biblioteca Storica Laterza.</p>
+          <div class="lib-link">
+            <a href="https://www.laterza.it/scheda-libro/?isbn=9788858125342" target="_blank" rel="noopener">Editore</a>
+            <a href="https://www.ibs.it/search/?ts=as&query=9788858125342" target="_blank" rel="noopener">IBS</a>
+            <a href="https://www.lafeltrinelli.it/ricerca?query=9788858125342" target="_blank" rel="noopener">Feltrinelli</a>
+            <a href="https://www.libreriauniversitaria.it/ricerca/query/9788858125342" target="_blank" rel="noopener">Lib. Univ.</a>
+          </div>
+          <code class="lib-isbn">ISBN 9788858125342</code>
+        </article>
+        </div>
+        <p class="lib-avviso">
+          Nessun link è affiliato: non guadagno nulla se compri. Le copertine sono
+          illustrazioni originali, non quelle vere, protette da diritto d'autore.
+          L'ISBN resta valido anche quando prezzi e disponibilità cambiano.
+        </p>
+      </aside>
+    <div class="colonna-pillole">
 <section class="wrap estrazione">
   <div class="pesca-box">
     <button class="pesca" id="pesca" type="button">
@@ -1096,6 +1444,13 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   </div>
   <p class="pil-vuoto" id="vuoto" hidden>Nessuna pillola in quest'area.</p>
 </section>
+
+
+
+
+    </div>
+  </div>
+
 <footer>
   Shinto in Italia · progetto personale · fatto con cura in Italia<br>
   Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
@@ -1260,6 +1615,8 @@ hydrateVideos();
     });
   });
 })();
+
+
 </script>
 </body>
 </html>
