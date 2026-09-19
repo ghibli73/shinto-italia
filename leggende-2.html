@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leggende — Shinto in Italia</title>
+<meta name="description" content="I dieci miti fondativi dello Shinto raccontati per esteso in italiano: creazione, caverna del sole, drago a otto teste, cessione del paese, eroi e discendenza imperiale.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%A9%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --washi:#f3e9d2;
+  --washi-2:#ece0c3;
+  --paper:#fff8ea;
+  --sumi:#201a14;
+  --sumi-soft:#4a3f31;
+  --torii:#c8402a;
+  --torii-deep:#9c2e1d;
+  --gold:#bb9138;
+  --gold-soft:#d9bd7e;
+  --matcha:#5c6e4a;
+  --night:#171225;
+  --night-2:#241b34;
+  --sakura:#f0b9c4;
+  --paper-line: rgba(32,26,20,.14);
+  --shadow: 0 18px 40px rgba(32,20,10,.14);
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--washi);
+  color:var(--sumi);
+  font-family:'Zen Maru Gothic', sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block;}
+h1,h2,h3,h4{ font-family:'Shippori Mincho B1', serif; line-height:1.18; font-weight:700; }
+
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--torii-deep);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.eyebrow::before{ content:""; width:14px; height:1px; background:var(--torii-deep); display:inline-block; }
+
+/* ---------- Progress rail ---------- */
+.rail{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--torii),var(--gold));
+  z-index:100; transition:width .1s linear;
+}
+
+/* ---------- Nav ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(243,233,210,.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--paper-line);
+  padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; flex-wrap:wrap;
+}
+nav .brand{
+  font-family:'Shippori Mincho B1', serif;
+  font-size:16px; color:var(--torii-deep); text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+}
+.nav-links{ display:flex; align-items:center; gap:2px; flex-wrap:wrap; justify-content:flex-end; }
+.nav-links a{
+  color:var(--sumi-soft); text-decoration:none;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px; letter-spacing:.03em;
+  padding:7px 11px; border-radius:20px;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.nav-links a:hover{ color:var(--torii-deep); background:rgba(200,64,42,.09); }
+.nav-links a.active{ color:var(--torii-deep); background:rgba(200,64,42,.12); }
+@media (max-width:680px){
+  nav{ padding:10px 14px; justify-content:center; }
+  .nav-links{ justify-content:center; }
+  .nav-links a{ font-size:11px; padding:6px 9px; }
+}
+
+/* ---------- Page hero ---------- */
+.phero{
+  padding:76px 22px 58px; text-align:center; position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#f6ecd6 0%, #efe0bd 100%);
+  border-bottom:1px solid var(--paper-line);
+}
+.phero::before{
+  content:attr(data-mon);
+  position:absolute; top:-46px; left:50%; transform:translateX(-50%);
+  font-family:'Shippori Mincho B1', serif; font-size:330px;
+  color:var(--sumi); opacity:.045; line-height:1; pointer-events:none;
+}
+.phero-inner{ position:relative; z-index:1; max-width:660px; margin:0 auto; }
+.phero h1{ font-size:clamp(34px,8vw,56px); margin-top:14px; }
+.phero p{ margin-top:16px; color:var(--sumi-soft); line-height:1.75; font-size:15.5px; }
+.hero-stats{ margin-top:26px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-stats span{
+  font-family:'JetBrains Mono', monospace; font-size:12px;
+  border:1px solid var(--paper-line); background:var(--paper);
+  padding:8px 15px; border-radius:20px; color:var(--sumi-soft);
+}
+.hero-stats b{ color:var(--torii-deep); }
+
+/* ---------- Layout ---------- */
+.wrap{ max-width:1060px; margin:0 auto; padding:64px 22px; }
+.wrap-narrow{ max-width:820px; margin:0 auto; padding:64px 22px; }
+.sec-head{ max-width:600px; margin:0 auto 42px; text-align:center; }
+.sec-head h2{ font-size:clamp(25px,5.5vw,36px); margin-top:12px; }
+.sec-head p{ margin-top:13px; color:var(--sumi-soft); line-height:1.7; font-size:14.5px; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:.03em;
+  padding:13px 24px; border-radius:3px; border:1px solid transparent;
+  cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:9px;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s var(--ease);
+}
+.btn-primary{ background:var(--torii); color:#fff8ee; box-shadow:0 10px 24px rgba(156,46,29,.3); }
+.btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px rgba(156,46,29,.38); }
+.btn-ghost{ border-color:var(--sumi); color:var(--sumi); }
+.btn-ghost:hover{ transform:translateY(-3px); background:rgba(32,26,20,.05); }
+.cta-row{ display:flex; gap:13px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+
+/* ---------- Media: figure & video ---------- */
+.figure{
+  border-radius:8px; overflow:hidden; border:1px solid var(--paper-line);
+  background:linear-gradient(140deg,#efe0bd,#e3d0a6);
+  position:relative;
+}
+.figure .ph{
+  width:100%; aspect-ratio:16/10;
+  background-size:cover; background-position:center;
+  background-color:#e6d5ae;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .8s var(--ease);
+}
+.figure:hover .ph{ transform:scale(1.03); }
+.figure .ph::after{
+  content:attr(data-fallback);
+  font-family:'Shippori Mincho B1', serif; font-size:70px;
+  color:var(--torii); opacity:.22;
+}
+.figure .ph.has-img::after{ content:""; }
+.figure figcaption{
+  padding:11px 14px; font-size:12px; color:var(--sumi-soft);
+  background:var(--paper); border-top:1px solid var(--paper-line);
+  font-family:'JetBrains Mono', monospace; line-height:1.5;
+}
+
+/* video card (click-to-load, no autoplay) */
+.vid{
+  border:1px solid var(--paper-line); border-radius:8px; overflow:hidden;
+  background:var(--paper); box-shadow:var(--shadow);
+}
+.vid .frame{
+  position:relative; width:100%; aspect-ratio:16/9;
+  background:#1c1a17 center/cover no-repeat; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.vid .frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.vid .play{
+  width:64px; height:64px; border-radius:50%;
+  background:rgba(200,64,42,.92); position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 26px rgba(0,0,0,.45);
+  transition:transform .3s var(--ease), background .3s var(--ease);
+}
+.vid .frame:hover .play{ transform:scale(1.1); background:var(--torii-deep); }
+.vid .play::after{
+  content:""; border-style:solid; border-width:11px 0 11px 18px;
+  border-color:transparent transparent transparent #fff8ee; margin-left:4px;
+}
+.vid .vmeta{ padding:13px 15px; border-top:1px solid var(--paper-line); }
+.vid .vmeta b{ font-family:'Shippori Mincho B1', serif; font-size:14.5px; display:block; }
+.vid .vmeta span{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--sumi-soft); display:block; margin-top:5px; line-height:1.5;
+}
+.vid-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+
+/* ---------- Cards ---------- */
+.card{
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  overflow:hidden; transition:transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s var(--ease);
+  opacity:0; transform:translateY(16px);
+}
+.card.in{ opacity:1; transform:translateY(0); }
+.card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(200,64,42,.4); }
+.card .body{ padding:18px 20px 20px; }
+.card h3{ font-size:17.5px; }
+.card .sub{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  color:var(--torii-deep); margin-top:6px; letter-spacing:.03em;
+}
+.card p{ margin-top:10px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+.grid-3{ display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:20px; }
+.grid-2{ display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:22px; }
+
+/* ---------- Chips / tags ---------- */
+.chip{
+  font-family:'JetBrains Mono', monospace; font-size:11px;
+  border:1px solid var(--paper-line); background:var(--washi-2);
+  padding:5px 11px; border-radius:20px; color:var(--sumi-soft);
+  display:inline-block; margin:4px 4px 0 0;
+}
+.chip.hot{ border-color:rgba(200,64,42,.35); color:var(--torii-deep); background:rgba(200,64,42,.07); }
+
+/* ---------- Controls (search / filter) ---------- */
+.controls{
+  display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center;
+  margin-bottom:26px;
+}
+.controls input, .controls select{
+  font-family:'JetBrains Mono', monospace; font-size:13px;
+  padding:11px 15px; border-radius:24px;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi);
+  min-width:290px; max-width:100%; outline:none;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.controls input:focus, .controls select:focus{
+  border-color:var(--torii); box-shadow:0 0 0 3px rgba(200,64,42,.12);
+}
+.filter-row{ display:flex; gap:7px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
+.fbtn{
+  font-family:'JetBrains Mono', monospace; font-size:11.5px;
+  padding:7px 14px; border-radius:20px; cursor:pointer;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi-soft);
+  transition:all .28s var(--ease);
+}
+.fbtn:hover{ border-color:var(--torii); color:var(--torii-deep); }
+.fbtn.on{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
+.count{
+  text-align:center; font-family:'JetBrains Mono', monospace;
+  font-size:11.5px; color:var(--sumi-soft); margin-bottom:22px; letter-spacing:.05em;
+}
+
+/* ---------- Prose ---------- */
+.prose p{ font-size:15px; line-height:1.85; color:var(--sumi-soft); margin-top:15px; }
+.prose h3{ font-size:21px; margin-top:38px; color:var(--sumi); }
+.prose ul{ margin-top:15px; padding-left:20px; }
+.prose li{ font-size:14.5px; line-height:1.8; color:var(--sumi-soft); margin-top:8px; }
+.prose strong, .prose b{ color:var(--sumi); }
+.jp{ font-family:'Shippori Mincho B1', serif; color:var(--torii-deep); }
+.quote{
+  margin-top:26px; padding:20px 24px; border-left:3px solid var(--torii);
+  background:var(--paper); border-radius:0 6px 6px 0;
+  font-family:'Shippori Mincho B1', serif; font-size:16px; line-height:1.7; color:var(--sumi);
+}
+.quote span{
+  display:block; margin-top:9px; font-family:'JetBrains Mono', monospace;
+  font-size:11px; color:var(--torii-deep); letter-spacing:.05em;
+}
+
+/* ---------- Accordion ---------- */
+details.acc{
+  background:var(--paper); border:1px solid var(--paper-line);
+  border-radius:8px; margin-top:13px; overflow:hidden;
+}
+details.acc summary{
+  cursor:pointer; padding:16px 20px; list-style:none;
+  font-family:'Shippori Mincho B1', serif; font-size:16.5px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  transition:background .3s var(--ease);
+}
+details.acc summary:hover{ background:rgba(200,64,42,.05); }
+details.acc summary::-webkit-details-marker{ display:none; }
+details.acc summary::after{
+  content:"+"; font-family:'JetBrains Mono', monospace; font-size:18px;
+  color:var(--torii); transition:transform .3s var(--ease); flex:none;
+}
+details.acc[open] summary::after{ transform:rotate(45deg); }
+details.acc .acc-body{ padding:0 20px 20px; border-top:1px solid var(--paper-line); }
+
+/* ---------- Timeline ---------- */
+.tl{ position:relative; margin-top:20px; padding-left:28px; }
+.tl::before{
+  content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px;
+  background:linear-gradient(var(--torii),var(--gold),transparent);
+}
+.tl-item{
+  position:relative; padding:16px 20px; margin-bottom:16px;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  opacity:0; transform:translateX(-10px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease), box-shadow .3s var(--ease);
+}
+.tl-item.in{ opacity:1; transform:translateX(0); }
+.tl-item:hover{ box-shadow:var(--shadow); }
+.tl-item::before{
+  content:""; position:absolute; left:-28px; top:22px;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--torii); border:2px solid var(--washi);
+}
+.tl-date{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--torii-deep); letter-spacing:.05em; }
+.tl-item h3{ font-size:18px; margin-top:6px; }
+.tl-era{ font-size:12px; color:var(--matcha); margin-top:4px; font-family:'JetBrains Mono', monospace; }
+.tl-item p{ margin-top:9px; font-size:13.5px; line-height:1.65; color:var(--sumi-soft); }
+
+/* ---------- Dark section ---------- */
+.dark{
+  background:linear-gradient(180deg,var(--night),var(--night-2));
+  color:var(--washi); padding:82px 22px; position:relative; overflow:hidden;
+}
+.dark::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(circle at 50% 0%, rgba(217,189,126,.10), transparent 55%);
+}
+.dark-inner{ max-width:820px; margin:0 auto; position:relative; z-index:1; }
+.dark h2{ color:var(--washi); margin-top:12px; font-size:clamp(25px,5.5vw,34px); }
+.dark .eyebrow{ color:var(--gold-soft); }
+.dark .eyebrow::before{ background:var(--gold-soft); }
+.dark p{ color:#cfc4ac; line-height:1.8; font-size:14.5px; margin-top:14px; }
+.dark .btn-ghost{ border-color:var(--gold-soft); color:var(--washi); }
+.dark .btn-ghost:hover{ background:rgba(255,255,255,.07); }
+
+/* ---------- Footer ---------- */
+footer{
+  padding:32px 20px; text-align:center; background:var(--night); color:#8b8299;
+  font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; line-height:1.9;
+}
+footer a{ color:var(--sakura); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+
+/* ---------- Prev/next ---------- */
+.pager{
+  display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap;
+  max-width:1060px; margin:0 auto; padding:0 22px 64px;
+}
+.pager a{
+  flex:1 1 240px; text-decoration:none; color:var(--sumi);
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  padding:16px 20px; transition:all .35s var(--ease);
+}
+.pager a:hover{ border-color:var(--torii); transform:translateY(-3px); box-shadow:var(--shadow); }
+.pager small{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--torii-deep); letter-spacing:.1em; }
+.pager b{ display:block; font-family:'Shippori Mincho B1', serif; font-size:16px; margin-top:5px; }
+.pager .nx{ text-align:right; }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition-duration:.01ms !important; }
+}
+
+.mito-nav{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:34px; }
+.mito-nav a{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; text-decoration:none;
+  padding:8px 14px; border-radius:20px; border:1px solid var(--paper-line);
+  background:var(--paper); color:var(--sumi-soft); transition:all .3s var(--ease);
+}
+.mito-nav a:hover{ background:var(--torii); color:#fff8ee; border-color:var(--torii); }
+.mito{ padding:52px 0; border-top:1px solid var(--paper-line); scroll-margin-top:70px; }
+.mito:first-child{ border-top:none; padding-top:12px; }
+.mito-head{ display:flex; align-items:flex-start; gap:16px; position:relative; }
+.mito-n{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--torii-deep);
+  letter-spacing:.1em; padding-top:8px; flex:none; }
+.mito-head h2{ font-size:clamp(24px,5vw,34px); }
+.mito-sub{ margin-top:8px; font-size:14px; color:var(--matcha); font-style:italic; }
+.mito-mon{ margin-left:auto; font-family:'Shippori Mincho B1',serif; font-size:70px;
+  color:var(--sumi); opacity:.08; line-height:.9; flex:none; }
+.mito-grid{ display:grid; grid-template-columns:1fr 340px; gap:38px; margin-top:30px; align-items:start; }
+@media (max-width:880px){ .mito-grid{ grid-template-columns:1fr; gap:28px; } .mito-mon{ font-size:52px; } }
+.mito-main p:first-child{ margin-top:0; }
+.mito-main p:first-child::first-letter{
+  font-family:'Shippori Mincho B1',serif; font-size:52px; float:left;
+  line-height:.85; margin:4px 10px 0 0; color:var(--torii);
+}
+.side-box{
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:8px;
+  padding:16px 18px; margin-top:16px;
+}
+.side-box b{
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--torii-deep); display:block; margin-bottom:9px;
+}
+.side-box ul{ list-style:none; }
+.side-box li{ font-size:13px; line-height:1.65; color:var(--sumi-soft); margin-top:7px;
+  padding-left:13px; position:relative; }
+.side-box li::before{ content:""; position:absolute; left:0; top:9px; width:5px; height:5px;
+  border-radius:50%; background:var(--gold); }
+.side-box p{ font-size:13px; line-height:1.7; color:var(--sumi-soft); }
+.side-box.pop{ background:rgba(240,185,196,.16); border-color:rgba(200,64,42,.2); }
+
+
+/* --- marchio: la "in" e' molto piu' piccola del resto --- */
+.nin{
+  font-size:.52em;
+  font-style:normal;
+  font-weight:400;
+  letter-spacing:.04em;
+  opacity:.72;
+  margin:0 .12em;
+  vertical-align:.12em;
+}
+h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
+.brand .nin{ font-size:.58em; vertical-align:.08em; }
+
+/* ================= GALLERIE E INTERAZIONE ================= */
+.galleria{
+  margin-top:22px; display:grid; gap:10px;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+}
+.gal-cella{
+  position:relative; padding:0; border:1px solid var(--paper-line);
+  border-radius:8px; overflow:hidden; cursor:zoom-in; background:var(--washi-2);
+  aspect-ratio:4/3;
+  transition:border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.gal-cella:hover{ border-color:var(--torii); transform:translateY(-2px); box-shadow:0 10px 22px rgba(32,20,10,.14); }
+.gal-cella:focus-visible{ outline:2px solid var(--torii); outline-offset:2px; }
+.gal-ph{
+  display:block; width:100%; height:100%;
+  background-size:cover; background-position:center;
+  transition:transform .5s var(--ease);
+}
+.gal-cella:hover .gal-ph{ transform:scale(1.05); }
+.gal-ph:not(.caricata)::after{
+  content:"⛩"; position:absolute; inset:0;
+  display:grid; place-items:center; font-size:26px; opacity:.2;
+}
+.gal-cella.vuota{ display:none; }
+
+/* visore */
+.visore[hidden]{ display:none; }          /* senza questo il pannello invisibile blocca i clic */
+.visore{
+  position:fixed; inset:0; z-index:200; display:flex;
+  align-items:center; justify-content:center;
+  background:rgba(13,10,20,.94); padding:32px 18px;
+}
+.visore img{ max-width:min(94vw,1100px); max-height:78vh; border-radius:4px; display:block; }
+.vis-cap{
+  position:absolute; left:0; right:0; bottom:22px; text-align:center;
+  color:#e8dfd0; font-size:13.5px; padding:0 60px; line-height:1.5;
+}
+.vis-cap a{ color:var(--sakura); }
+.vis-chiudi, .vis-prec, .vis-succ{
+  position:absolute; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25);
+  color:#fff; width:44px; height:44px; border-radius:50%; cursor:pointer;
+  font-size:19px; display:grid; place-items:center;
+  transition:background .25s var(--ease);
+}
+.vis-chiudi:hover, .vis-prec:hover, .vis-succ:hover{ background:rgba(255,255,255,.22); }
+.vis-chiudi{ top:18px; right:18px; }
+.vis-prec{ left:18px; top:50%; transform:translateY(-50%); }
+.vis-succ{ right:18px; top:50%; transform:translateY(-50%); }
+
+/* navigazione che segue lo scorrimento */
+.mito-nav a.attivo{
+  background:var(--torii); border-color:var(--torii); color:#fff8ee;
+}
+.mito-filtri{ display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:14px; }
+.mbtn{
+  font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.04em;
+  padding:7px 14px; border-radius:20px; border:1px solid var(--paper-line);
+  background:var(--paper); color:var(--sumi-soft); cursor:pointer;
+  transition:background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+}
+.mbtn:hover{ border-color:var(--torii); color:var(--torii-deep); }
+.mbtn.on{ background:var(--torii); border-color:var(--torii); color:#fff8ee; }
+.mito[hidden]{ display:none; }
+
+@media (max-width:700px){
+  .galleria{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  .galleria .gal-cella:nth-child(3){ grid-column:span 2; aspect-ratio:16/9; }
+  .vis-cap{ padding:0 18px; bottom:14px; font-size:12.5px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .gal-ph, .gal-cella{ transition:none; }
+}
+
+/* ================= MITI RICHIUDIBILI ================= */
+.mito{ border:1px solid var(--paper-line); border-radius:12px; background:var(--paper);
+       margin-bottom:12px; overflow:hidden; transition:border-color .3s var(--ease); }
+.mito:hover{ border-color:var(--gold); }
+.mito.aperto{ border-color:var(--torii); }
+.mito-head{
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto auto;
+  align-items:center; gap:16px; width:100%;
+  background:none; border:0; cursor:pointer; text-align:left;
+  padding:18px 20px; color:inherit; font:inherit;
+}
+.mito-head:hover .mito-h2{ color:var(--torii-deep); }
+.mito-head:focus-visible{ outline:2px solid var(--torii); outline-offset:-3px; }
+.mito-n{
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em;
+  color:var(--gold); flex:none;
+}
+.mito-tit{ display:block; min-width:0; }
+.mito-h2{
+  display:block; font-family:'Shippori Mincho B1',serif;
+  font-size:clamp(17px,2.6vw,22px); line-height:1.25;
+  transition:color .25s var(--ease);
+}
+.mito-sub{ display:block; margin-top:3px; font-size:12.5px; color:var(--sumi-soft); opacity:.85; }
+.mito-mon{
+  font-family:'Shippori Mincho B1',serif; font-size:30px; color:var(--torii);
+  opacity:.28; line-height:1; flex:none;
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+}
+.mito.aperto .mito-mon{ opacity:.6; transform:scale(1.1); }
+.mito-freccia{
+  flex:none; width:28px; height:28px; border-radius:50%;
+  border:1px solid var(--paper-line); display:grid; place-items:center;
+  transition:transform .35s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+}
+.mito-head:hover .mito-freccia{ border-color:var(--torii); background:rgba(200,64,42,.07); }
+.mito-freccia svg{ width:12px; height:12px; }
+.mito-head[aria-expanded="true"] .mito-freccia{ transform:rotate(180deg); }
+
+/* apertura senza altezze fisse */
+.mito-corpo{
+  display:grid; grid-template-rows:0fr; opacity:0;
+  transition:grid-template-rows .45s var(--ease), opacity .3s var(--ease);
+}
+.mito-corpo > div{ overflow:hidden; min-height:0; }
+.mito-head[aria-expanded="true"] + .mito-corpo{ grid-template-rows:1fr; opacity:1; }
+.mito-grid{ padding:0 20px 22px; }
+
+.mito-comandi{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.mito-comandi button{
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  padding:6px 13px; border-radius:20px; border:1px solid var(--paper-line);
+  background:var(--paper); color:var(--sumi-soft); cursor:pointer;
+  transition:border-color .25s var(--ease), color .25s var(--ease);
+}
+.mito-comandi button:hover{ border-color:var(--torii); color:var(--torii-deep); }
+
+@media (max-width:640px){
+  .mito-head{ gap:10px; padding:15px 14px; grid-template-columns:auto minmax(0,1fr) auto; }
+  .mito-mon{ display:none; }
+  .mito-grid{ padding:0 14px 18px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .mito-corpo, .mito-freccia, .mito-mon{ transition:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="rail" id="rail"></div>
+<nav>
+  <a class="brand" href="index.html">⛩ Shinto <span class="nin">in</span> Italia</a>
+  <div class="nav-links">
+    <a href="storia.html">Storia</a>
+    <a href="leggende.html" class="active">Leggende</a>
+    <a href="templi.html">Templi</a>
+    <a href="kami.html">Kami</a>
+    <a href="rituali.html">Rituali</a>
+    <a href="manga.html">Manga</a>
+    <a href="oltremare.html">Oltremare</a>
+    <a href="viaggio.html">Viaggio</a>
+    <a href="pillole.html">Pillole</a>
+  </div>
+</nav>
+
+<section class="phero" data-mon="話">
+  <div class="phero-inner">
+    <span class="eyebrow">Sentiero 02 · Leggende</span>
+    <h1>Dieci miti fondativi</h1>
+    <p>Il Kojiki (712) e il Nihon Shoki (720) raccolgono i racconti con cui il Giappone si è spiegato la propria origine. Tocca una scheda per aprirla: dentro trovi il racconto per esteso, i personaggi, i simboli, i luoghi e le tracce nella cultura pop.</p>
+      <div class="hero-stats"><span><b>10</b> miti raccontati</span><span><b>712</b> anno del Kojiki</span><span><b>3</b> insegne imperiali</span></div>
+  </div>
+</section>
+
+<section class="wrap-narrow" style="padding-bottom:10px;">
+  <div class="prose">
+    <p>I miti shintoisti non sono un corpus dottrinale: sono <b>cronache di corte</b>. Il <i>Kojiki</i> fu compilato nel 712 su ordine imperiale per fissare per iscritto genealogie che legittimassero la dinastia Yamato; il <i>Nihon Shoki</i>, otto anni dopo, rifece lo stesso lavoro in cinese classico e con più varianti a confronto.</p>
+    <p>Per questo le storie che seguono sono insieme religione, letteratura e politica. Contengono episodi crudeli, comici e osceni che nessuna redazione ha ripulito — e questa è, paradossalmente, la prova migliore della loro antichità.</p>
+  </div>
+  <div class="mito-nav" id="mitoNav">
+    <a href="#izanagi" data-id="izanagi">01 Izanagi e Izanami</a>
+    <a href="#amaterasu" data-id="amaterasu">02 La caverna</a>
+    <a href="#susanoo" data-id="susanoo">03 Yamata no Orochi</a>
+    <a href="#okuninushi" data-id="okuninushi">04 La lepre di Inaba</a>
+    <a href="#ninigi" data-id="ninigi">05 La discesa</a>
+    <a href="#kuniyuzuri" data-id="kuniyuzuri">06 La cessione del paese</a>
+    <a href="#umisachi" data-id="umisachi">07 L'amo perduto</a>
+    <a href="#jinmu" data-id="jinmu">08 La marcia di Jinmu</a>
+    <a href="#yamatotakeru" data-id="yamatotakeru">09 Yamato Takeru</a>
+    <a href="#sakuya" data-id="sakuya">10 Le due sorelle</a>
+  </div>
+  <div class="mito-filtri" role="group" aria-label="Filtra per tema">
+    <button class="mbtn on" data-tema="all">Tutti</button>
+    <button class="mbtn" data-tema="origini">Origini</button>
+    <button class="mbtn" data-tema="potere">Potere</button>
+    <button class="mbtn" data-tema="eroi">Eroi</button>
+    <button class="mbtn" data-tema="mare">Mare</button>
+    <button class="mbtn" data-tema="natura">Natura</button>
+  </div>
+</section>
+
+<section class="wrap">
+<article class="mito reveal" id="izanagi" data-tema="origini">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">01</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Izanagi e Izanami</span>
+      <span class="mito-sub">La creazione delle isole e la nascita della morte</span>
+    </span>
+    <span class="mito-mon">創</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>In principio il mondo è una massa oleosa che galleggia come una medusa. Gli dèi celesti affidano a Izanagi e Izanami una lancia ingioiellata, Ame-no-Nuboko, e li mandano sul ponte fluttuante del cielo. I due immergono la punta nella melma, mescolano, sollevano: le gocce che ricadono si rapprendono e formano la prima isola, Onogoro.</p><p>Scendono, piantano una colonna, e girandole attorno in direzioni opposte si incontrano. Izanami parla per prima. Il primo figlio nasce deforme — Hiruko, il "figlio sanguisuga" — e viene abbandonato in una barca di canne. Gli dèi spiegano l'errore: <b>doveva parlare per primo l'uomo</b>. Ripetono il rito nell'ordine corretto e generano le otto grandi isole del Giappone e centinaia di kami.</p><p>Poi nasce Kagutsuchi, il fuoco, e le ustioni uccidono Izanami. Izanagi, impazzito di dolore, decapita il figlio neonato e scende a Yomi, il paese delle tenebre, per riprendersi la moglie. La trova nel buio: lei accetta di tornare ma lo prega di non guardarla finché non avrà ottenuto il permesso degli dèi inferi.</p><p>Lui aspetta, si stanca, accende un dente del pettine come torcia. Il corpo di Izanami è in putrefazione, coperto di vermi e di otto tuoni. Izanagi fugge. Lei gli scaglia dietro le streghe di Yomi; lui getta all'indietro il suo copricapo, che diventa uva, e il pettine, che diventa germogli di bambù, per farle fermare a mangiare.</p><p>Chiude il passaggio con un masso che mille uomini non solleverebbero. Da una parte e dall'altra i due si dicono addio. Izanami giura: <i>ogni giorno strangulerò mille dei tuoi</i>. Izanagi risponde: <i>allora ogni giorno ne farò nascere millecinquecento</i>. È il momento in cui entrano nel mondo la morte e la crescita.</p>
+      
+          <div class="galleria" data-mito="izanagi">
+        <button class="gal-cella" type="button" data-q="Izanami Izanagi Kobayashi Eitaku" data-cap="Izanagi e Izanami mescolano l'oceano con la lancia celeste (Kobayashi Eitaku)"
+                aria-label="Ingrandisci: Izanagi e Izanami mescolano l'oceano con la lancia celeste (Kobayashi Eitaku)"><span class="gal-ph" data-commons="Izanami Izanagi Kobayashi Eitaku"></span></button>
+        <button class="gal-cella" type="button" data-q="Nushima island Hyogo" data-cap="Nushima, l'isola identificata con Onogoro, la prima terra emersa"
+                aria-label="Ingrandisci: Onogoro, la prima isola formata dalle gocce"><span class="gal-ph" data-commons="Onokoro island"></span></button>
+        <button class="gal-cella" type="button" data-q="Izanagi Shrine Awaji" data-cap="Izanagi Jingū ad Awaji, il santuario più antico citato nei testi"
+                aria-label="Ingrandisci: Izanagi Jingū ad Awaji, il santuario più antico citato nei testi"><span class="gal-ph" data-commons="Izanagi Shrine Awaji"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Izanagi</b> — "colui che invita", il padre primordiale</li><li><b>Izanami</b> — "colei che invita", la madre primordiale</li><li><b>Kagutsuchi</b> — il fuoco, figlio che uccide la madre nascendo</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>La lancia e la colonna</b> — il rito della circumambulazione: creare è anzitutto girare attorno a un asse.</li><li><b>Il pettine acceso</b> — vedere ciò che non va visto è la trasgressione fondativa, come per Orfeo e per Psiche.</li><li><b>Il masso di Yomi</b> — la soglia irreversibile: da qui nasce la distinzione fra puro e impuro (<i>kegare</i>).</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>Dal misogi che Izanagi compie tornando da Yomi discende tutta la pratica shintoista della purificazione con l'acqua. Il santuario di riferimento è <b>Izanagi Jingū</b>, ad Awaji, considerato il più antico del Giappone.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>L'apertura di <i>Naruto</i> chiama Izanagi e Izanami due tecniche oculari che manipolano realtà e destino. Il tema della discesa agli inferi e dello sguardo proibito ritorna in innumerevoli anime.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+<article class="mito reveal" id="amaterasu" data-tema="origini">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">02</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Amaterasu e la caverna</span>
+      <span class="mito-sub">Quando il sole si nascose e il mondo restò al buio</span>
+    </span>
+    <span class="mito-mon">日</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Susanoo, prima di essere esiliato, sale in cielo a salutare la sorella. Amaterasu sospetta un attacco e lo affronta armata. Per provare la propria buona fede i due celebrano un <i>ukehi</i>, un giuramento oracolare: masticano e sputano rispettivamente la spada e i gioielli dell'altro, generando figli. Susanoo dichiara di aver vinto.</p><p>Ubriaco della vittoria, devasta le risaie della sorella, riempie di escrementi la sala dei banchetti, e infine scaglia dentro il laboratorio di tessitura un cavallo scuoiato al contrario. Una delle tessitrici muore per lo spavento.</p><p>Amaterasu, offesa e atterrita, si chiude nella grotta <b>Ama-no-Iwato</b> e rotola davanti all'ingresso un masso. Il sole sparisce. Il mondo cade in una notte permanente, i raccolti muoiono, gli spiriti malvagi si moltiplicano rumoreggiando come mosche estive.</p><p>Gli ottocento miriadi di kami si radunano sul greto del fiume celeste e organizzano una messinscena. Forgiano uno specchio e una collana di magatama, li appendono a un albero <i>sakaki</i>, fanno cantare i galli. Poi Ame-no-Uzume rovescia un tino, ci sale sopra e comincia a <b>danzare</b>: entra in trance, si scioglie la veste, si denuda. Gli dèi scoppiano in una risata che scuote il cielo.</p><p>Amaterasu, incuriosita dal fatto che si rida senza di lei, socchiude la pietra. Le mostrano lo specchio: vedendo la propria luce riflessa, che non riconosce, si sporge. Tajikarao la afferra per il braccio e la tira fuori; un altro kami tende una fune sacra dietro di lei perché non possa rientrare. <b>La luce torna nel mondo.</b></p>
+      
+          <div class="galleria" data-mito="amaterasu">
+        <button class="gal-cella" type="button" data-q="Amaterasu cave Ama-no-Iwato" data-cap="Amaterasu esce dalla caverna e la luce torna nel mondo"
+                aria-label="Ingrandisci: Amaterasu esce dalla caverna e la luce torna nel mondo"><span class="gal-ph" data-commons="Amaterasu cave Ama-no-Iwato"></span></button>
+        <button class="gal-cella" type="button" data-q="Amano Iwato Shrine" data-cap="Il santuario di Ama-no-Iwato, a Takachiho, davanti alla grotta"
+                aria-label="Ingrandisci: Il santuario di Ama-no-Iwato, a Takachiho, davanti alla grotta"><span class="gal-ph" data-commons="Amano Iwato Shrine"></span></button>
+        <button class="gal-cella" type="button" data-q="Ame-no-Uzume dance" data-cap="La danza di Ame-no-Uzume, che provoca la risata degli dei"
+                aria-label="Ingrandisci: La danza di Ame-no-Uzume, che provoca la risata degli dei"><span class="gal-ph" data-commons="Ame-no-Uzume dance"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Amaterasu-Ōmikami</b> — la dea del sole, sorella maggiore</li><li><b>Susanoo</b> — il fratello tempestoso</li><li><b>Ame-no-Uzume</b> — la dea della danza e dell'allegria</li><li><b>Ame-no-Tajikarao</b> — il kami dalla forza smisurata</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Lo specchio</b> — Yata-no-Kagami, una delle tre insegne imperiali, custodito a Ise: la divinità riconosce sé stessa guardandosi.</li><li><b>La danza di Uzume</b> — il primo <i>kagura</i>: il riso e il corpo, non la preghiera solenne, riportano il sole.</li><li><b>Lo shimenawa</b> — la fune di paglia tesa alla grotta: da allora delimita ogni spazio sacro in Giappone.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>La grotta è identificata con <b>Amano Iwato Jinja</b> a Takachiho, Miyazaki, dove ogni notte d'inverno si danza il kagura per rievocare il mito. Il santuario principale di Amaterasu resta <b>Ise Jingū</b>.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>L'eclissi come lutto cosmico, il ritorno della luce grazie a una festa collettiva: è lo schema narrativo di innumerevoli finali di anime. Amaterasu dà il nome all'amaterasu di <i>Ōkami</i>, il videogioco in cui si gioca come dea-lupo che riporta il colore nel mondo.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+<article class="mito reveal" id="susanoo" data-tema="eroi">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">03</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Susanoo e Yamata no Orochi</span>
+      <span class="mito-sub">Inganno rituale, coraggio e la spada che divenne tesoro imperiale</span>
+    </span>
+    <span class="mito-mon">嵐</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Esiliato dal cielo, Susanoo scende nella provincia di Izumo, lungo il fiume Hi. Vede passare sull'acqua un paio di bacchette: segno che a monte vive qualcuno. Risalendo trova due anziani in lacrime che stringono una ragazza.</p><p>Raccontano: avevano otto figlie. Ogni anno il drago Yamata no Orochi — otto teste, otto code, occhi come lanterne, il corpo coperto di muschio e cipressi, lungo otto valli e otto colline — ne divora una. È rimasta solo <b>Kushinada-hime</b>, e il mostro sta per tornare.</p><p>Susanoo promette di ucciderlo in cambio della mano della ragazza. Poi la trasforma in un <b>pettine</b> e se lo infila fra i capelli, per tenerla al sicuro addosso a sé. Ordina ai vecchi di distillare <i>sake yashiori</i>, sakè fatto a otto pieghe, cioè filtrato otto volte, e di preparare un recinto con otto porte, e dietro ogni porta un tino colmo.</p><p>Il drago arriva. Ogni testa infila la propria porta, trova il proprio tino, beve. Si addormenta.</p><p>Susanoo sguaina la spada Totsuka e comincia a tagliare: le otto teste, poi le otto code. Alla coda centrale la lama <b>si scheggia</b>. Apre la carne con la punta e trova dentro una spada. È <b>Kusanagi-no-Tsurugi</b>, la Falciatrice d'Erba. Susanoo la manda in dono ad Amaterasu, come atto di riconciliazione con la sorella che aveva offeso.</p><p>Poi sposa Kushinada-hime e costruisce un palazzo a Suga. Guardando le nubi che si alzano compone quella che la tradizione considera la <b>prima poesia giapponese</b>, il primo waka.</p>
+      <div style="margin-top:26px;"><div class="vid reveal">
+  <div class="frame" data-yt="KRB1rco5aA8"><div class="play"></div></div>
+  <div class="vmeta"><b>Yamata no Orochi — kagura al santuario Yakumo Hikawa</b><span>La danza sacra che mette in scena il mito: il drago è un costume manovrato da più danzatori.</span></div>
+</div></div>
+          <div class="galleria" data-mito="susanoo">
+        <button class="gal-cella" type="button" data-q="Susanoo Yamata no Orochi" data-cap="Susanoo affronta il serpente a otto teste"
+                aria-label="Ingrandisci: Susanoo affronta il serpente a otto teste"><span class="gal-ph" data-commons="Susanoo Yamata no Orochi"></span></button>
+        <button class="gal-cella" type="button" data-q="Yaegaki Shrine Matsue" data-cap="Yaegaki Jinja, legato a Kushinada-hime e al mito del drago"
+                aria-label="Ingrandisci: La spada trovata nella coda del drago"><span class="gal-ph" data-commons="Kusanagi sword"></span></button>
+        <button class="gal-cella" type="button" data-q="Susanoo Utagawa Kuniyoshi" data-cap="Il combattimento in una stampa di Utagawa Kuniyoshi"
+                aria-label="Ingrandisci: Il combattimento in una stampa di Utagawa Kuniyoshi"><span class="gal-ph" data-commons="Susanoo Utagawa Kuniyoshi"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Susanoo-no-Mikoto</b> — dio della tempesta, esiliato dal cielo</li><li><b>Kushinada-hime</b> — la fanciulla destinata al sacrificio</li><li><b>Ashinazuchi</b> e <b>Tenazuchi</b> — i genitori disperati</li><li><b>Yamata no Orochi</b> — il serpente a otto teste e otto code</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Il serpente polimorfo</b> — le piene del fiume Hi, che ogni anno divoravano un raccolto: il drago è l'alluvione, il sakè è l'ingegneria idraulica.</li><li><b>Il pettine</b> — oggetto apotropaico: proteggere significa trasformare e portare addosso.</li><li><b>Kusanagi</b> — dal caos vinto nasce la legittimità politica: la spada diventa una delle tre insegne imperiali.</li><li><b>Otto</b> — teste, code, porte, tini, pieghe: il numero della moltitudine indefinita.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p><b>Susa Jinja</b> e <b>Yaegaki Jinja</b> in Shimane celebrano Susanoo e Kushinada; <b>Yasaka Jinja</b> a Kyoto è il centro del Gion Matsuri. Kusanagi è custodita tradizionalmente ad <b>Atsuta Jingū</b>, a Nagoya.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>L'archetipo del boss multi-testa a fasi — da <i>Final Fantasy</i> a <i>Nioh</i> — discende direttamente da qui. Kusanagi è il nome di innumerevoli armi leggendarie e del protagonista di <i>Ghost in the Shell</i>. Susanoo è la tecnica difensiva più nota di <i>Naruto</i>.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+<article class="mito reveal" id="okuninushi" data-tema="potere">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">04</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Ōkuninushi e la lepre di Inaba</span>
+      <span class="mito-sub">La compassione premiata e la cessione del paese</span>
+    </span>
+    <span class="mito-mon">縁</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Ottanta fratelli partono per Inaba a chiedere in sposa la principessa Yagami. Il più giovane, Ōnamuchi — che diventerà Ōkuninushi — li segue portando i bagagli di tutti, come un servo.</p><p>Lungo la strada incontrano una lepre completamente scuoiata, che si contorce sulla sabbia. Aveva ingannato un branco di coccodrilli marini per attraversare il mare, contandoli come fossero un ponte; scoperta all'ultimo salto, l'avevano spellata viva. I fratelli, per crudeltà, le consigliano di lavarsi in acqua di mare e asciugarsi al vento: il sale nelle carni vive la fa urlare di dolore.</p><p>Ōnamuchi arriva per ultimo. Le dice di lavarsi nell'acqua dolce della foce e di rotolarsi nel <b>polline delle tife</b>. La lepre guarisce. E profetizza: <i>non saranno i tuoi fratelli a sposare la principessa. Sarai tu.</i></p><p>Così avviene. I fratelli, per invidia, lo uccidono due volte — con una pietra rovente e con un tronco spaccato — e due volte sua madre lo riporta in vita. Fugge nel regno sotterraneo di Susanoo, supera prove atroci (una stanza di serpenti, una di vespe, un campo in fiamme) grazie all'aiuto della figlia del dio, Suseri-bime, che sposa.</p><p>Diventa signore di Izumo, costruisce il paese, insegna medicina e agricoltura. Poi Amaterasu manda messaggeri a chiedergli la terra. Dopo lunghe trattative <b>Ōkuninushi cede il paese</b> — il <i>kuni-yuzuri</i> — a una sola condizione: che gli venga costruito un santuario con pilastri profondi e travi altissime. È Izumo Taisha.</p>
+      
+          <div class="galleria" data-mito="okuninushi">
+        <button class="gal-cella" type="button" data-q="Hare of Inaba" data-cap="La lepre bianca di Inaba, scuoiata dagli squali"
+                aria-label="Ingrandisci: La lepre bianca di Inaba, scuoiata dagli squali"><span class="gal-ph" data-commons="Hare of Inaba"></span></button>
+        <button class="gal-cella" type="button" data-q="Izumo-taisha" data-cap="Izumo Taisha, il santuario di Ōkuninushi"
+                aria-label="Ingrandisci: Izumo Taisha, il santuario di Ōkuninushi"><span class="gal-ph" data-commons="Izumo-taisha"></span></button>
+        <button class="gal-cella" type="button" data-q="Okuninushi" data-cap="Ōkuninushi, signore del paese e dei legami"
+                aria-label="Ingrandisci: Ōkuninushi, signore del paese e dei legami"><span class="gal-ph" data-commons="Okuninushi"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Ōkuninushi</b> — il più giovane e disprezzato di ottanta fratelli</li><li><b>La lepre bianca di Inaba</b> — scuoiata e sofferente</li><li><b>Yagami-hime</b> — la principessa contesa</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>La lepre curata</b> — la gentilezza verso il più debole come vera prova di regalità: non la forza, la cura.</li><li><b>Le morti e resurrezioni</b> — struttura iniziatica: il sovrano deve morire e rinascere per governare.</li><li><b>Il kuni-yuzuri</b> — racconto mitico di un compromesso politico reale fra Izumo e la casa Yamato.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p><b>Izumo Taisha</b> è il santuario dell'<i>en-musubi</i>, i legami: ci si batte le mani quattro volte, due per sé e due per la persona che si ama. Nel decimo mese lunare tutti i kami del Giappone si radunerebbero qui.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>La lepre di Inaba è tra i primi racconti che i bambini giapponesi imparano, e la sua immagine è ovunque nei souvenir di Tottori. Il tema del fratello minore disprezzato che diventa re è il motore di metà dello shōnen.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+<article class="mito reveal" id="ninigi" data-tema="origini">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">05</span>
+    <span class="mito-tit">
+      <span class="mito-h2">La discesa di Ninigi</span>
+      <span class="mito-sub">Come i kami scesero a governare e perché gli uomini muoiono</span>
+    </span>
+    <span class="mito-mon">降</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Ceduto il paese, Amaterasu manda sulla terra il nipote Ninigi. Gli consegna tre oggetti: lo <b>specchio</b> Yata-no-Kagami, la <b>spada</b> Kusanagi, i <b>gioielli</b> Yasakani-no-Magatama. Sono i <i>sanshu no jingi</i>, le tre insegne imperiali, ancora oggi al centro dell'intronizzazione.</p><p>Il corteo scende su una vetta di Takachiho, in Kyūshū. Al bivio celeste li attende Sarutahiko, gigantesco e luminoso: sarà lui a guidarli, ed è per questo il kami dei crocevia e dei viaggiatori.</p><p>Ninigi incontra Konohanasakuya-hime e la chiede in sposa. Il padre, felice, gliela concede — e ci aggiunge la sorella maggiore, <b>Iwanaga-hime</b>, "la duratura come la roccia". Ma Iwanaga è brutta, e Ninigi la rimanda indietro tenendo solo la bella.</p><p>Il padre gli manda a dire la verità: con Iwanaga la stirpe imperiale sarebbe stata <b>eterna come la pietra</b>; con la sola Konohanasakuya sarà <b>splendida e breve come i fiori di ciliegio</b>. Da questo rifiuto discende la mortalità degli imperatori — e degli uomini.</p><p>Konohanasakuya rimane incinta dopo una sola notte. Ninigi dubita che il figlio sia suo. Lei, offesa, si chiude in una capanna senza porte e le dà fuoco: <i>se i figli sono davvero tuoi, il fuoco non ci farà nulla</i>. Partorisce tre maschi tra le fiamme, illesa. Da uno di loro discenderà Jinmu, il primo imperatore.</p>
+      
+          <div class="galleria" data-mito="ninigi">
+        <button class="gal-cella" type="button" data-q="Kirishima Shrine Kagoshima" data-cap="Il Kirishima Jingū, dedicato a Ninigi, ai piedi del vulcano"
+                aria-label="Ingrandisci: Ninigi scende dal cielo con le tre insegne"><span class="gal-ph" data-commons="Ninigi"></span></button>
+        <button class="gal-cella" type="button" data-q="Takachiho Gorge" data-cap="La gola di Takachiho, dove sarebbe avvenuta la discesa"
+                aria-label="Ingrandisci: La gola di Takachiho, dove sarebbe avvenuta la discesa"><span class="gal-ph" data-commons="Takachiho Gorge"></span></button>
+        <button class="gal-cella" type="button" data-q="Imperial Regalia of Japan" data-cap="Specchio, spada e gioiello: le tre insegne imperiali"
+                aria-label="Ingrandisci: Specchio, spada e gioiello: le tre insegne imperiali"><span class="gal-ph" data-commons="Three Sacred Treasures Japan"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Ninigi-no-Mikoto</b> — nipote di Amaterasu</li><li><b>Konohanasakuya-hime</b> — la principessa dei ciliegi</li><li><b>Iwanaga-hime</b> — la sorella "lunga come la roccia"</li><li><b>Sarutahiko</b> — il kami dal naso lunghissimo che indica la via</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Le tre insegne</b> — specchio (saggezza), spada (coraggio), gioielli (benevolenza): le virtù del sovrano.</li><li><b>Il fiore e la roccia</b> — la scelta della bellezza effimera sulla durata: fondamento estetico del <i>mono no aware</i>.</li><li><b>Il parto nel fuoco</b> — l'ordalia come prova di verità, tema ricorrente nel Kojiki.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p><b>Takachiho Jinja</b> e <b>Amano Iwato Jinja</b> in Miyazaki custodiscono i luoghi della discesa. Konohanasakuya è venerata al <b>Fujisan Hongū Sengen Taisha</b>, ai piedi del Fuji, di cui è la dea.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>L'idea che la bellezza valga proprio perché finisce percorre tutta l'estetica giapponese, dalla contemplazione dei ciliegi ai finali agrodolci di Studio Ghibli. Le tre insegne compaiono come set di artefatti in decine di videogiochi.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+
+<article class="mito reveal" id="kuniyuzuri" data-tema="potere">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">06</span>
+    <span class="mito-tit">
+      <span class="mito-h2">La cessione del paese</span>
+      <span class="mito-sub">Come Izumo consegnò il Giappone ai figli del cielo</span>
+    </span>
+    <span class="mito-mon">譲</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Amaterasu decide che la Pianura Centrale delle Canne — il Giappone — deve passare ai suoi discendenti. Il problema è che il paese l'ha costruito Ōkuninushi, con pazienza, dal basso, insieme al nano Sukuna-Bikona.</p><p>I primi due messaggeri celesti falliscono: uno passa dalla parte di Ōkuninushi, l'altro si innamora di sua figlia e per otto anni non manda notizie. Al terzo tentativo scende <b>Takemikazuchi</b>, il kami della spada, che si pianta la lama capovolta sulla cresta di un'onda e ci si siede sopra a gambe incrociate.</p><p>Ōkuninushi rimanda la decisione ai figli. Il primo accetta subito. Il secondo, Takeminakata, sfida Takemikazuchi a una prova di forza: gli afferra il braccio, che diventa ghiaccio e poi lama. Fugge fino al lago Suwa e lì si arrende, promettendo di non uscirne più.</p><p>Ōkuninushi cede a una condizione: che gli venga costruito un palazzo con pilastri profondi nella roccia e travi alte fino al cielo. È <b>Izumo Taisha</b>. Si ritira nell'invisibile e da lì governa le cose nascoste — i legami fra le persone — mentre il visibile passa alla stirpe del sole.</p>
+      <div class="galleria" data-mito="kuniyuzuri">
+        <button class="gal-cella" type="button" data-q="Takemikazuchi" data-cap="Takemikazuchi, il kami della spada inviato a trattare"
+                aria-label="Ingrandisci: Takemikazuchi, il kami della spada inviato a trattare"><span class="gal-ph" data-commons="Takemikazuchi"></span></button>
+        <button class="gal-cella" type="button" data-q="Izumo-taisha honden" data-cap="Izumo Taisha, il santuario ottenuto in cambio"
+                aria-label="Ingrandisci: Izumo Taisha, il santuario ottenuto in cambio"><span class="gal-ph" data-commons="Izumo-taisha honden"></span></button>
+        <button class="gal-cella" type="button" data-q="Inasa beach Izumo" data-cap="La spiaggia di Inasa, dove secondo il mito avvenne l'incontro"
+                aria-label="Ingrandisci: La spiaggia di Inasa, dove secondo il mito avvenne l'incontro"><span class="gal-ph" data-commons="Inasa beach Izumo"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Ōkuninushi</b> — costruttore del paese, che accetta di cederlo</li><li><b>Takemikazuchi</b> — kami della spada e del tuono, l'ambasciatore armato</li><li><b>Takeminakata</b> — il figlio che resiste, poi kami di Suwa</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>La spada capovolta</b> — sedersi sulla lama è una dimostrazione di potere che non ha bisogno di colpire.</li><li><b>Il palazzo come prezzo</b> — la sconfitta politica si compensa con la supremazia rituale: Izumo perde il potere e guadagna il culto.</li><li><b>Il visibile e il nascosto</b> — la divisione fra ciò che si governa e ciò che si subisce attraversa tutto lo Shinto.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>Il decimo mese lunare si chiama <i>kannazuki</i>, «senza dei», perché tutti i kami lasciano i loro santuari e si riuniscono a Izumo. Solo lì lo chiamano <i>kamiarizuki</i>, il mese con gli dei.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>Il duello fra Takemikazuchi e Takeminakata è considerato il mito di fondazione del sumo. La stessa scena — l'ambasciatore che si siede sulla spada — ricorre in manga e videogiochi come immagine di potenza trattenuta.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+
+<article class="mito reveal" id="umisachi" data-tema="mare">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">07</span>
+    <span class="mito-tit">
+      <span class="mito-h2">L'amo perduto</span>
+      <span class="mito-sub">Il fratello del mare, il fratello del monte e il palazzo sott'acqua</span>
+    </span>
+    <span class="mito-mon">釣</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Hoori caccia in montagna, suo fratello Hoderi pesca. Si scambiano gli strumenti per un giorno: Hoori va a pescare e perde l'amo. Il fratello rifiuta qualsiasi risarcimento — anche cinquecento ami nuovi fusi dalla sua spada — e pretende <i>quello</i>.</p><p>Un vecchio del mare lo aiuta a costruire una barca di bambù fitto. Hoori scende al <b>Ryūgū</b>, il palazzo del dio del mare, dove tutto è di squame di pesce. Sposa Toyotama-hime, la figlia, e resta tre anni dimenticando perché è venuto.</p><p>L'amo viene ritrovato nella gola di un pesce rosso. Il dio del mare glielo restituisce con due gioielli che comandano le maree, e con una formula da recitare consegnandolo: parole che lo renderanno povero e disperato.</p><p>Tornato a riva, Hoori umilia il fratello alzando e abbassando le acque. Poi Toyotama-hime arriva a partorire e chiede di non essere guardata. Lui guarda: è un enorme squalo — o un drago. Per la vergogna torna in mare e chiude il passaggio, lasciando il figlio. Quel bambino sarà il nonno del primo imperatore.</p>
+      <div class="galleria" data-mito="umisachi">
+        <button class="gal-cella" type="button" data-q="Urashima Taro dragon palace ukiyo-e" data-cap="Il palazzo sottomarino del dio del mare in una stampa"
+                aria-label="Ingrandisci: Il palazzo del dio del mare, dove finisce la ricerca"><span class="gal-ph" data-commons="Ryugu-jo palace"></span></button>
+        <button class="gal-cella" type="button" data-q="Ryujin dragon god Japan" data-cap="Ryūjin, il drago signore delle acque"
+                aria-label="Ingrandisci: Watatsumi, il signore delle acque"><span class="gal-ph" data-commons="Watatsumi"></span></button>
+        <button class="gal-cella" type="button" data-q="Udo Shrine Miyazaki" data-cap="Il santuario di Udo, in una grotta sul mare, legato a questo mito"
+                aria-label="Ingrandisci: Il santuario di Udo, in una grotta sul mare, legato a questo mito"><span class="gal-ph" data-commons="Udo Shrine Miyazaki"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Hoori</b> (Yama-sachi) — il fortunato del monte, cacciatore</li><li><b>Hoderi</b> (Umi-sachi) — il fortunato del mare, pescatore</li><li><b>Toyotama-hime</b> — figlia del dio del mare, che in travaglio riprende forma animale</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Lo sguardo proibito, di nuovo</b> — la stessa trasgressione di Izanagi a Yomi: guardare ciò che non va guardato separa per sempre due mondi.</li><li><b>I gioielli delle maree</b> — il potere sul mare come metafora del controllo politico sulle popolazioni costiere.</li><li><b>Il mare come oltretomba alternativo</b> — accanto a Yomi sotterraneo esiste un aldilà marino, il Tokoyo.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>Il santuario di <b>Udo</b>, a Miyazaki, sorge dentro una grotta affacciata sull'oceano: qui sarebbe nato il bambino. I visitatori lanciano ciottoli di argilla verso un incavo nella roccia per esprimere un desiderio.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>Il palazzo sottomarino di Ryūgū è il modello di innumerevoli ambientazioni, dalla fiaba di Urashima Tarō ai fondali di <i>Ponyo</i>. Lo sposo che scopre la natura animale della moglie è un archetipo che ritorna in tutto il folklore giapponese.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+
+<article class="mito reveal" id="jinmu" data-tema="potere">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">08</span>
+    <span class="mito-tit">
+      <span class="mito-h2">La marcia di Jinmu</span>
+      <span class="mito-sub">Dal mito alla storia: il primo imperatore</span>
+    </span>
+    <span class="mito-mon">神</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Il pronipote di Ninigi lascia Kyūshū con i fratelli e risale verso est, dove dice esserci una terra migliore da cui governare. È una marcia militare lunga anni, raccontata con dettagli geografici precisi: è il punto in cui il mito prova a diventare cronaca.</p><p>Il primo assalto alla piana di Yamato fallisce, e un fratello muore. Jinmu capisce l'errore: attaccavano verso oriente, contro il sole, quindi contro Amaterasu da cui discendono. Riparte girando attorno alla penisola per colpire da ovest, con il sole alle spalle.</p><p>Nella foresta l'esercito si perde. Il cielo manda <b>Yatagarasu</b>, un corvo a tre zampe, che li guida fuori. Una spada calata dall'alto stende i nemici senza combattere.</p><p>Jinmu sale al trono a Kashihara. La data tradizionale è il 660 a.C., calcolata a ritroso nell'ottavo secolo per far coincidere la fondazione con un anno propizio del calendario cinese. Nessuno storico la considera reale: conta come atto fondativo, non come data.</p>
+      <div class="galleria" data-mito="jinmu">
+        <button class="gal-cella" type="button" data-q="Emperor Jimmu" data-cap="Jinmu guidato dal corvo a tre zampe (stampa di Tsukioka Yoshitoshi)"
+                aria-label="Ingrandisci: Jinmu guidato dal corvo a tre zampe (stampa di Tsukioka Yoshitoshi)"><span class="gal-ph" data-commons="Emperor Jimmu"></span></button>
+        <button class="gal-cella" type="button" data-q="Yatagarasu" data-cap="Yatagarasu, il corvo a tre zampe inviato dal cielo"
+                aria-label="Ingrandisci: Yatagarasu, il corvo a tre zampe inviato dal cielo"><span class="gal-ph" data-commons="Yatagarasu"></span></button>
+        <button class="gal-cella" type="button" data-q="Kashihara Jingu" data-cap="Il Kashihara Jingū, costruito nel 1890 dove sarebbe salito al trono"
+                aria-label="Ingrandisci: Il Kashihara Jingū, costruito nel 1890 dove sarebbe salito al trono"><span class="gal-ph" data-commons="Kashihara Jingu"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Jinmu</b> — primo imperatore secondo la tradizione, pronipote di Ninigi</li><li><b>Yatagarasu</b> — il corvo a tre zampe, guida inviata da Amaterasu</li><li><b>Nagasunehiko</b> — il signore locale che difende Yamato</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Non combattere contro il sole</b> — la tattica militare diventa teologia: la legittimità discende dall'orientamento rituale.</li><li><b>Il corvo a tre zampe</b> — simbolo solare condiviso con Cina e Corea, oggi stemma della nazionale di calcio giapponese.</li><li><b>La marcia verso est</b> — la direzione del racconto coincide con quella reale dell'espansione Yamato.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>L'11 febbraio, giorno tradizionale dell'intronizzazione, è festa nazionale dal 1873, abolita nel dopoguerra e reintrodotta nel 1966 con il nome di Giorno della fondazione. Il <b>Kashihara Jingū</b> è del 1890: il luogo è antico, il santuario no.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>Yatagarasu compare ovunque: nello stemma della federcalcio, in <i>Yu-Gi-Oh!</i>, in decine di anime come messaggero divino. Il 660 a.C. viene ancora citato per sostenere che la monarchia giapponese sia la più antica del mondo.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+
+<article class="mito reveal" id="yamatotakeru" data-tema="eroi">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">09</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Yamato Takeru</span>
+      <span class="mito-sub">L'eroe travestito, la spada che falcia l'erba, il cigno bianco</span>
+    </span>
+    <span class="mito-mon">武</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Ōsu è così violento che il padre imperatore lo teme e lo manda lontano, a sottomettere i ribelli Kumaso. Lui si traveste da fanciulla, entra al banchetto, e pugnala il capo. Morendo, l'uomo gli dà il nome con cui sarà ricordato: <b>Yamato Takeru</b>, il coraggioso di Yamato.</p><p>Il padre non lo richiama: lo rimanda subito a est. La zia, sacerdotessa a Ise, gli consegna la spada trovata nella coda del drago e una borsa da aprire nel momento peggiore.</p><p>In una piana i nemici gli danno fuoco all'erba. Lui falcia l'erba attorno con la spada e, dalla borsa, tira fuori l'acciarino per appiccare un controfuoco. Da allora l'arma si chiama <b>Kusanagi</b>, «falciatrice d'erba».</p><p>Attraversando una baia in tempesta, la moglie Ototachibana si getta in mare per placare il kami delle acque. Lui prosegue, ma lascia la spada dalla nuova sposa e sfida a mani nude il kami del monte Ibuki. Perde. Muore di ritorno, e la sua anima vola via come un <b>cigno bianco</b>.</p>
+      <div class="galleria" data-mito="yamatotakeru">
+        <button class="gal-cella" type="button" data-q="Yamato Takeru" data-cap="Yamato Takeru travestito da donna al banchetto dei Kumaso"
+                aria-label="Ingrandisci: Yamato Takeru travestito da donna al banchetto dei Kumaso"><span class="gal-ph" data-commons="Yamato Takeru"></span></button>
+        <button class="gal-cella" type="button" data-q="Ototachibana-hime" data-cap="Ototachibana si getta in mare per placare il kami delle acque"
+                aria-label="Ingrandisci: La spada Kusanagi, che dà nome al mito dell'erba falciata"><span class="gal-ph" data-commons="Kusanagi sword"></span></button>
+        <button class="gal-cella" type="button" data-q="Atsuta Shrine" data-cap="Atsuta Jingū, dove la spada è custodita"
+                aria-label="Ingrandisci: Atsuta Jingū, dove la spada è custodita"><span class="gal-ph" data-commons="Atsuta Shrine"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Yamato Takeru</b> — l'eroe mandato a morire dal padre</li><li><b>Ototachibana</b> — la moglie che si sacrifica al mare</li><li><b>Yamatohime</b> — la zia sacerdotessa di Ise, che lo arma</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Il travestimento</b> — l'astuzia vale quanto la forza: lo stesso schema del sakè dato al drago.</li><li><b>Lasciare la spada</b> — la <i>hybris</i> giapponese: sfidare un kami senza il suo strumento è ciò che lo uccide.</li><li><b>Il cigno</b> — l'anima che prende forma di uccello ricorre in tutto il mito nipponico.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>La spada Kusanagi è custodita ad <b>Atsuta Jingū</b>, a Nagoya, ed è una delle tre insegne imperiali. Non è mai stata mostrata: nemmeno gli imperatori la vedono.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>È l'archetipo dell'eroe tragico giapponese: valoroso, usato, condannato. Ritorna in <i>Fate</i>, in decine di manga storici, e il nome Kusanagi è ovunque, da <i>Ghost in the Shell</i> a <i>The King of Fighters</i>.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+
+<article class="mito reveal" id="sakuya" data-tema="natura">
+  <button class="mito-head" type="button" aria-expanded="false">
+    <span class="mito-n">10</span>
+    <span class="mito-tit">
+      <span class="mito-h2">Le due sorelle</span>
+      <span class="mito-sub">Perché gli imperatori muoiono: bellezza contro durata</span>
+    </span>
+    <span class="mito-mon">桜</span>
+    <span class="mito-freccia"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 4l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </button>
+  <div class="mito-corpo"><div>
+  <div class="mito-grid">
+    <div class="mito-main prose">
+      <p>Ninigi, sceso dal cielo, incontra una fanciulla bellissima: <b>Konohanasakuya-hime</b>, «colei che fa fiorire gli alberi». Chiede la mano al padre, il kami delle montagne.</p><p>Il padre acconsente con gioia e manda anche la sorella maggiore, <b>Iwanaga-hime</b>, «la longeva come la roccia». Ma è brutta, e Ninigi la rimanda indietro tenendo solo la bella.</p><p>Il padre si addolora e spiega: le aveva mandate insieme perché la discendenza fosse <i>duratura come la roccia</i> e <i>fiorente come i fiori</i>. Rifiutando la roccia, Ninigi ha scelto una vita breve e splendida. Per questo, dice il Kojiki, gli imperatori non vivono in eterno.</p><p>Poi lei resta incinta dopo una sola notte, e lui dubita che il figlio sia suo. Per provarlo, Konohanasakuya-hime si chiude in una capanna senza porte e le dà fuoco: se il bambino è davvero di un kami, le fiamme non lo toccheranno. Partorisce tre figli nel fuoco.</p>
+      <div class="galleria" data-mito="sakuya">
+        <button class="gal-cella" type="button" data-q="Konohanasakuya-hime" data-cap="Konohanasakuya-hime, spirito dei ciliegi in fiore"
+                aria-label="Ingrandisci: Konohanasakuya-hime, spirito dei ciliegi in fiore"><span class="gal-ph" data-commons="Konohanasakuya-hime"></span></button>
+        <button class="gal-cella" type="button" data-q="Fujisan Hongu Sengen Taisha" data-cap="Il Sengen Taisha, ai piedi del Fuji, dedicato a lei"
+                aria-label="Ingrandisci: Il Sengen Taisha, ai piedi del Fuji, dedicato a lei"><span class="gal-ph" data-commons="Fujisan Hongu Sengen Taisha"></span></button>
+        <button class="gal-cella" type="button" data-q="Mount Fuji cherry blossom" data-cap="Il Fuji con i ciliegi: l'accostamento che il mito spiega"
+                aria-label="Ingrandisci: Il Fuji con i ciliegi: l'accostamento che il mito spiega"><span class="gal-ph" data-commons="Mount Fuji cherry blossom"></span></button>
+      </div>
+    </div>
+    <aside class="mito-side">
+      <div class="side-box">
+        <b>Personaggi</b>
+        <ul><li><b>Konohanasakuya-hime</b> — spirito dei ciliegi, bellezza che dura poco</li><li><b>Iwanaga-hime</b> — la sorella-roccia, la durata rifiutata</li><li><b>Ōyamatsumi</b> — il padre, kami delle montagne</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Simboli</b>
+        <ul><li><b>Il fiore e la roccia</b> — la scelta fondativa dell'estetica giapponese: preferire ciò che passa a ciò che resta.</li><li><b>La prova del fuoco</b> — l'ordalia come dimostrazione di purezza, schema comune a molte mitologie.</li><li><b>La morte come prezzo della bellezza</b> — il mito spiega perché la stirpe divina sia mortale.</li></ul>
+      </div>
+      <div class="side-box">
+        <b>Riti e luoghi</b>
+        <p>È la divinità del <b>Monte Fuji</b>: il Fujisan Hongū Sengen Taisha, ai suoi piedi, è capo di circa mille e trecento santuari Sengen. Le si chiede protezione per il parto e contro gli incendi.</p>
+      </div>
+      <div class="side-box pop">
+        <b>Nella cultura pop</b>
+        <p>L'idea che la bellezza valga <i>perché</i> finisce percorre tutta l'estetica giapponese, dal <i>mono no aware</i> alla contemplazione dei ciliegi. È il motivo per cui l'hanami è malinconico e non solo festoso.</p>
+      </div>
+    </aside>
+  </div>
+  </div></div>
+</article>
+</section>
+
+<section class="dark">
+  <div class="dark-inner" style="text-align:center;">
+    <span class="eyebrow">Video</span>
+    <h2>I miti danzati</h2>
+    <p style="max-width:560px;margin-left:auto;margin-right:auto;">Il <i>kagura</i> è il modo in cui questi racconti sono sopravvissuti nei villaggi prima ancora che nei libri: teatro sacro, maschere, tamburi, notti intere di rappresentazione.</p>
+    <div class="vid-grid" style="margin-top:38px;text-align:left;">
+<div class="vid reveal">
+  <div class="frame" data-yt="9rUvkyeJk2w"><div class="play"></div></div>
+  <div class="vmeta"><b>Kagura — Yamata no Orochi (versione integrale)</b><span>Compagnia Yokota, Hiroshima. Il drago è mosso da danzatori dentro lunghi costumi articolati.</span></div>
+</div>
+<div class="vid reveal">
+  <div class="frame" data-yt="ZSaPQFx_vPY"><div class="play"></div></div>
+  <div class="vmeta"><b>Susanoo contro il drago — kagura a Yushima Tenjin</b><span>Ripresa ravvicinata di una rappresentazione notturna in un santuario di Tokyo.</span></div>
+</div>
+<div class="vid reveal">
+  <div class="frame" data-yt="bWNMn4KjkhY"><div class="play"></div></div>
+  <div class="vmeta"><b>Breve introduzione allo shintoismo</b><span>Inquadramento in italiano dei testi fondativi: Kojiki e Nihon Shoki.</span></div>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap-narrow">
+  <div class="sec-head">
+    <span class="eyebrow">Fonti</span>
+    <h2>Dove leggerli davvero</h2>
+  </div>
+  <div class="prose">
+    <ul>
+      <li><b>Kojiki</b> (712) — esiste in traduzione italiana; è il testo più narrativo e più antico.</li>
+      <li><b>Nihon Shoki</b> (720) — più storiografico, riporta versioni alternative dello stesso mito una dopo l'altra.</li>
+      <li><b>Fudoki</b> (VIII sec.) — relazioni provinciali che conservano leggende locali assenti dai due testi maggiori.</li>
+      <li><b>Encyclopedia of Shinto</b> — Kokugakuin University, consultabile gratuitamente online in inglese.</li>
+    </ul>
+  </div>
+</section>
+
+
+<div class="pager">
+  <a href="storia.html"><small>← SENTIERO PRECEDENTE</small><b>史 Storia</b></a>
+  <a class="nx" href="templi.html"><small>SENTIERO SUCCESSIVO →</small><b>Templi 社</b></a>
+</div>
+
+<footer>
+  Shinto in Italia · progetto personale · fatto con cura in Italia<br>
+  Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
+  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+</footer>
+
+<script>
+/* ---------- Progress rail ---------- */
+(function(){
+  var rail=document.getElementById('rail');
+  if(!rail) return;
+  function on(){
+    var h=document.documentElement;
+    var s=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    rail.style.width=(isFinite(s)?s:0)+'%';
+  }
+  document.addEventListener('scroll',on,{passive:true}); on();
+})();
+
+/* ---------- Reveal on scroll ---------- */
+function observeReveal(sel){
+  var els=document.querySelectorAll(sel||'.card, .tl-item, .reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(e){e.classList.add('in');}); return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e);});
+}
+observeReveal();
+
+/* ---------- Immagini da Wikipedia (con fallback grafico) ----------
+   Nessuna chiave API: usa l'endpoint pubblico REST che consente CORS.
+   Se l'immagine non esiste, resta il placeholder con il kanji.        */
+function setBg(el, src){
+  var pre=new Image();
+  pre.onload=function(){ el.style.backgroundImage='url("'+src+'")'; el.classList.add('has-img'); };
+  pre.src=src;
+}
+
+/* Usa l'API di ricerca invece del titolo esatto: se il titolo non combacia
+   perfettamente, Wikipedia trova comunque la voce piu' pertinente.        */
+function loadWikiImage(el, title, lang){
+  if(!el || !title) return;
+  lang = lang || 'it';
+  var api='https://'+lang+'.wikipedia.org/w/api.php?action=query&generator=search'+
+          '&gsrsearch='+encodeURIComponent(title)+'&gsrlimit=1'+
+          '&prop=pageimages&piprop=thumbnail&pithumbsize=900'+
+          '&format=json&origin=*';
+  fetch(api).then(function(r){ if(!r.ok) throw new Error('nf'); return r.json(); })
+  .then(function(d){
+    var pages=d && d.query && d.query.pages;
+    if(!pages) throw new Error('nopage');
+    var k=Object.keys(pages)[0];
+    var th=pages[k] && pages[k].thumbnail && pages[k].thumbnail.source;
+    if(!th) throw new Error('noimg');
+    setBg(el, th);
+  })
+  .catch(function(){
+    if(lang!=='en'){ loadWikiImage(el,title,'en'); }
+  });
+}
+
+function hydrateWikiImages(root){
+  (root||document).querySelectorAll('[data-wiki]').forEach(function(el){
+    loadWikiImage(el, el.getAttribute('data-wiki'), el.getAttribute('data-lang')||'it');
+  });
+}
+hydrateWikiImages();
+
+/* ---------- Video: caricamento su click (niente autoplay, niente cookie finché non serve) ---------- */
+function hydrateVideos(root){
+  (root||document).querySelectorAll('.vid .frame[data-yt]').forEach(function(f){
+    var id=f.getAttribute('data-yt');
+    f.style.backgroundImage='url("https://i.ytimg.com/vi/'+id+'/hqdefault.jpg")';
+    f.addEventListener('click',function(){
+      if(f.querySelector('iframe')) return;
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.allow='accelerometer; autoplay; encrypted-media; picture-in-picture';
+      ifr.allowFullscreen=true;
+      ifr.loading='lazy';
+      f.appendChild(ifr);
+      var p=f.querySelector('.play'); if(p) p.style.display='none';
+    });
+  });
+}
+hydrateVideos();
+
+
+/* ---------- Gallerie dei miti ---------- */
+(function(){
+  var celle = [].slice.call(document.querySelectorAll('.gal-cella'));
+  if(!celle.length) return;
+
+  /* Scarto i file che non sono illustrazioni: mappe, stemmi, diagrammi.
+     La ricerca per parole chiave li restituisce spesso, e in una galleria
+     di miti una mappa stona piu' di un'immagine mancante. */
+  var SCARTA = /(map|karte|logo|icon|diagram|plan|chart|location|seal|coat|flag|stamp|banner|graph|svg|schema)/i;
+
+  function cercaCommons(q){
+    var api = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search' +
+              '&gsrnamespace=6&gsrsearch=' + encodeURIComponent(q) + '&gsrlimit=14' +
+              '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1200&format=json&origin=*';
+    return fetch(api).then(function(r){ return r.json(); }).then(function(d){
+      var pag = d && d.query && d.query.pages;
+      if(!pag) return null;
+      var buoni = Object.keys(pag).map(function(k){ return pag[k]; }).filter(function(p){
+        var t = p.title || '';
+        if(SCARTA.test(t)) return false;
+        if(!/\.(jpg|jpeg|png)$/i.test(t)) return false;
+        return p.imageinfo && p.imageinfo[0];
+      });
+      if(!buoni.length) return null;
+      var info = buoni[0].imageinfo[0];
+      return { url: info.thumburl || info.url, pagina: info.descriptionurl };
+    }).catch(function(){ return null; });
+  }
+
+  function carica(cella){
+    if(cella.dataset.avviata) return;
+    cella.dataset.avviata = '1';
+    var ph = cella.querySelector('.gal-ph');
+      /* Rete di sicurezza indipendente dall'esito della chiamata: se dopo
+         dieci secondi non e' arrivata un'immagine, la cella sparisce invece
+         di restare come riquadro vuoto. */
+      var resa = setTimeout(function(){
+        if(!cella.dataset.url) cella.classList.add('vuota');
+      }, 10000);
+      cercaCommons(cella.dataset.q).then(function(r){
+        clearTimeout(resa);
+        if(!r){ cella.classList.add('vuota'); return; }
+        ph.style.backgroundImage = 'url("' + r.url + '")';
+        ph.classList.add('caricata');
+        cella.dataset.url = r.url;
+        cella.dataset.pagina = r.pagina || '';
+      });
+  }
+
+  /* Una scheda chiusa ha altezza zero: l'osservatore non scatterebbe mai.
+     Le immagini si caricano quindi all'apertura, non allo scorrimento. */
+  window.__apriGalleria = function(radice){
+    radice.querySelectorAll('.gal-cella').forEach(carica);
+  };
+
+  var vis = document.createElement('div');
+  vis.className = 'visore';
+  vis.hidden = true;
+  vis.innerHTML =
+    '<button class="vis-chiudi" type="button" aria-label="Chiudi">\u2715</button>' +
+    '<button class="vis-prec" type="button" aria-label="Precedente">\u2039</button>' +
+    '<img alt="">' +
+    '<button class="vis-succ" type="button" aria-label="Successiva">\u203A</button>' +
+    '<div class="vis-cap"></div>';
+  document.body.appendChild(vis);
+  var img = vis.querySelector('img'), cap = vis.querySelector('.vis-cap');
+  var gruppo = [], indice = 0, tornaA = null;
+
+  function mostra(i){
+    if(!gruppo.length) return;
+    indice = (i + gruppo.length) % gruppo.length;     /* navigazione ciclica */
+    var c = gruppo[indice];
+    img.src = c.dataset.url || '';
+    img.alt = c.dataset.cap || '';
+    var link = c.dataset.pagina
+      ? ' \u2014 <a href="' + c.dataset.pagina + '" target="_blank" rel="noopener">Wikimedia Commons</a>'
+      : '';
+    cap.innerHTML = (c.dataset.cap || '') + link;
+  }
+  function apri(cella){
+    var g = cella.closest('.galleria');
+    gruppo = [].slice.call(g.querySelectorAll('.gal-cella')).filter(function(x){ return x.dataset.url; });
+    if(!gruppo.length) return;
+    tornaA = cella;
+    vis.hidden = false;
+    document.body.style.overflow = 'hidden';
+    mostra(gruppo.indexOf(cella));
+    vis.querySelector('.vis-chiudi').focus();
+  }
+  function chiudi(){
+    vis.hidden = true;
+    document.body.style.overflow = '';
+    if(tornaA) tornaA.focus();
+  }
+  celle.forEach(function(c){
+    c.addEventListener('click', function(){ if(c.dataset.url) apri(c); });
+  });
+  vis.querySelector('.vis-chiudi').addEventListener('click', chiudi);
+  vis.querySelector('.vis-prec').addEventListener('click', function(){ mostra(indice-1); });
+  vis.querySelector('.vis-succ').addEventListener('click', function(){ mostra(indice+1); });
+  vis.addEventListener('click', function(e){ if(e.target === vis) chiudi(); });
+  document.addEventListener('keydown', function(e){
+    if(vis.hidden) return;
+    if(e.key === 'Escape') chiudi();
+    if(e.key === 'ArrowLeft') mostra(indice-1);
+    if(e.key === 'ArrowRight') mostra(indice+1);
+  });
+})();
+
+/* ---------- Navigazione attiva e filtri ---------- */
+(function(){
+  var nav = document.getElementById('mitoNav');
+  if(!nav) return;
+  var voci = [].slice.call(nav.querySelectorAll('a'));
+  var miti = [].slice.call(document.querySelectorAll('.mito'));
+
+  if('IntersectionObserver' in window){
+    var oss = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        voci.forEach(function(a){ a.classList.toggle('attivo', a.dataset.id === e.target.id); });
+      });
+    }, { rootMargin:'-45% 0px -50% 0px' });
+    miti.forEach(function(m){ oss.observe(m); });
+  }
+
+  document.querySelectorAll('.mbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.mbtn').forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      var t = b.dataset.tema;
+      miti.forEach(function(m){ m.hidden = !(t === 'all' || m.dataset.tema === t); });
+      /* le voci di indice seguono il filtro, altrimenti puntano nel vuoto */
+      voci.forEach(function(a){
+        var m = document.getElementById(a.dataset.id);
+        a.style.display = (m && !m.hidden) ? '' : 'none';
+      });
+    });
+  });
+})();
+
+/* ---------- Apertura e chiusura dei miti ---------- */
+(function(){
+  var miti = [].slice.call(document.querySelectorAll('.mito'));
+  if(!miti.length) return;
+
+  function apri(mito, stato){
+    var t = mito.querySelector('.mito-head');
+    t.setAttribute('aria-expanded', stato ? 'true' : 'false');
+    mito.classList.toggle('aperto', stato);
+    if(stato && window.__apriGalleria) window.__apriGalleria(mito);
+  }
+
+  miti.forEach(function(m){
+    var t = m.querySelector('.mito-head');
+    t.addEventListener('click', function(){
+      var era = t.getAttribute('aria-expanded') === 'true';
+      apri(m, !era);
+      /* chiudendo dall'alto si resterebbe sospesi a meta' pagina */
+      if(era && m.getBoundingClientRect().top < 0){
+        m.scrollIntoView({ block:'start', behavior:'smooth' });
+      }
+    });
+  });
+
+  /* comandi generali sotto l'indice */
+  var filtri = document.querySelector('.mito-filtri');
+  if(filtri){
+    var barra = document.createElement('div');
+    barra.className = 'mito-comandi';
+    barra.innerHTML = '<button type="button" data-a="apri">Apri tutte</button>' +
+                      '<button type="button" data-a="chiudi">Chiudi tutte</button>';
+    filtri.insertAdjacentElement('afterend', barra);
+    barra.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      miti.forEach(function(m){ if(!m.hidden) apri(m, b.dataset.a === 'apri'); });
+    });
+  }
+
+  /* un collegamento a un mito lo apre e ci porta sopra */
+  function vaiA(id){
+    var m = document.getElementById(id);
+    if(!m || !m.classList.contains('mito')) return;
+    apri(m, true);
+    setTimeout(function(){ m.scrollIntoView({ block:'start', behavior:'smooth' }); }, 60);
+  }
+  document.querySelectorAll('#mitoNav a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      vaiA(a.dataset.id);
+      history.replaceState(null, '', '#' + a.dataset.id);
+    });
+  });
+  if(location.hash) vaiA(location.hash.slice(1));
+})();
+</script>
+
+</body>
+</html>
