@@ -1134,6 +1134,27 @@ footer a{ color:var(--sakura); text-decoration:none; }
 }
 h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 .brand .nin{ font-size:.58em; vertical-align:.08em; }
+
+/* --- contatto --- */
+.contatto{
+  max-width:440px; margin:26px auto 0; padding:18px 20px;
+  border:1px solid rgba(240,185,196,.28); border-radius:12px;
+  background:rgba(255,255,255,.04);
+}
+.contatto-eti{
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--sakura);
+}
+.contatto-mail{
+  display:block; margin-top:7px; font-family:'Shippori Mincho B1',serif;
+  font-size:clamp(16px,3.2vw,20px); color:#fff8ea; text-decoration:none;
+  word-break:break-all; transition:color .25s var(--ease);
+}
+.contatto-mail:hover{ color:var(--sakura); text-decoration:underline; }
+.contatto p{
+  margin-top:10px !important; font-size:12.5px !important;
+  line-height:1.6; color:#c9c2d6; max-width:none !important;
+}
 </style>
 </head>
 <body>
@@ -1499,6 +1520,12 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <span class="stack-chip">9 sentieri · 230+ schede</span>
       <span class="stack-chip">100% gratuito</span>
     </div>
+    <div class="contatto">
+      <span class="contatto-eti">Scrivimi</span>
+      <a class="contatto-mail" href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a>
+      <p>Correzioni, segnalazioni di errori, proposte di argomenti da aggiungere: sono tutte benvenute. Se trovi un dato sbagliato, indicami la fonte e lo correggo.</p>
+    </div>
+
     <div class="cta-row">
       <a href="https://github.com/ghibli73/shinto-italia" class="btn btn-primary" target="_blank" rel="noopener">Apri su GitHub →</a>
       <a href="https://github.com/ghibli73/shinto-italia/issues" class="btn btn-ghost" target="_blank" rel="noopener">Segnala un problema</a>
@@ -1510,7 +1537,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   Shinto in Italia · progetto personale · fatto con cura in Italia<br>
   Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
   Torii e sfondo del titolo: elaborazioni proprie<br>
-  <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+  <a href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a> · <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
