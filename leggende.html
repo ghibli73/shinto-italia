@@ -613,6 +613,19 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   .fum-tav{ animation:none; }
   .fumetto *{ animation:none !important; }
 }
+
+.vid-cerca{ display:block; margin-top:7px; font-family:'JetBrains Mono',monospace;
+  font-size:10.5px; color:var(--torii-deep); text-decoration:none; opacity:.75; }
+.vid-cerca:hover{ opacity:1; text-decoration:underline; }
+
+.t-cerchi ellipse{ animation:pulsa 3s ease-in-out infinite; }
+.t-cerchi ellipse:nth-child(2){ animation-delay:-1.5s; }
+.t-scintille circle{ animation:cade 2.2s ease-in infinite; }
+.t-scintille circle:nth-child(2){ animation-delay:.7s; }
+.t-scintille circle:nth-child(3){ animation-delay:1.4s; }
+.t-occhi circle{ animation:pulsa 3.4s ease-in-out infinite; }
+.t-occhi circle:nth-child(3){ animation-delay:1.6s; }
+.t-acqua path{ animation:fluttuaT 2.4s ease-in-out infinite alternate; }
 </style>
 </head>
 <body>
@@ -700,183 +713,371 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
         <p>Disegnate per questo sito. Usa le frecce, il tocco o i tasti &larr; &rarr;.</p>
       </div>
       <figure class="fum-tav" data-n="0">
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 1: Il ponte fluttuante"><defs><linearGradient id="g0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3ead6"/><stop offset="1" stop-color="#dcc79a"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g0)"/><path d="M0 250q100 14 200 0t200 0v50H0z" fill="#8fb4cf" opacity=".5"/>
-  <path d="M60 150q140-26 280 0v16q-140-26-280 0z" fill="#fff8ea" opacity=".9"/>
-  <g opacity=".5" fill="#fff8ea"><ellipse cx="90" cy="120" rx="46" ry="16"/><ellipse cx="320" cy="104" rx="52" ry="18"/></g>
-  <g transform="translate(160 96) scale(0.78 0.78)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g><g transform="translate(240 96) scale(-0.78 0.78)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 1: Il ponte fluttuante"><defs><linearGradient id="g0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5eeda"/><stop offset="1" stop-color="#d8c398"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g0)"/><path d="M0 236q100 16 200 0t200 0v64H0z" fill="#8fb4cf" opacity=".55"/>
+  <g opacity=".45"><path d="M-10 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g><g opacity=".3"><path d="M-10 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 276q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g>
+  <g opacity=".75" fill="#fff8ea"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g>
+  <path d="M40 168q160-34 320 0v10q-160-34-320 0z" fill="#fff8ea" opacity=".95"/>
+  <path d="M40 178q160-34 320 0v9q-160-34-320 0z" fill="#e0c98a" opacity=".7"/>
+  <g fill="#bb9138" opacity=".5"><circle cx="110" cy="166" r="3"/><circle cx="200" cy="158" r="3"/><circle cx="290" cy="166" r="3"/></g>
+  <g transform="translate(158 110) scale(0.74 0.74)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#c8402a" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g><g transform="translate(246 110) scale(-0.74 0.74)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
     </g>
-  <g class="t-lancia"><rect x="256" y="80" width="5" height="96" rx="2" fill="#bb9138"/>
-  <path d="M258 176l-9 22h18z" fill="#e0c98a"/></g></svg></div>
+  <g class="t-lancia"><rect x="262" y="92" width="6" height="104" rx="3" fill="#bb9138"/>
+  <path d="M265 196l-10 24h20z" fill="#e0c98a"/>
+  <circle cx="265" cy="88" r="7" fill="#f0b9c4" stroke="#bb9138" stroke-width="2"/></g>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 1 di 8</span>
           <b>Il ponte fluttuante</b>
-          <p>Gli dei più antichi affidano a Izanagi e Izanami un compito: dare forma al mondo. Sotto di loro c'è solo un oceano senza contorni.</p>
+          <p>Gli dei più antichi affidano a Izanagi e Izanami un compito: dare forma al mondo. Sotto di loro c'è solo un oceano senza contorni, e un ponte sospeso da cui guardare.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="1" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 2: Le gocce che diventano terra"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe2c4"/><stop offset="1" stop-color="#c9ae7c"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g1)"/><path d="M0 214q100 18 200 0t200 0v86H0z" fill="#3f6d8c" opacity=".55"/>
-  <g class="t-lancia"><rect x="196" y="40" width="6" height="150" rx="3" fill="#bb9138"/>
-  <path d="M199 190l-10 24h20z" fill="#e0c98a"/></g>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 2: Le gocce che diventano terra"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0e4c8"/><stop offset="1" stop-color="#b99f6e"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g1)"/><g opacity=".4" fill="#fff8ea"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g>
+  <path d="M0 200q100 20 200 0t200 0v100H0z" fill="#3f6d8c" opacity=".6"/>
+  <g opacity=".4"><path d="M-10 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 216q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g><g opacity=".28"><path d="M-10 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 246q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g>
+  <g class="t-lancia"><rect x="194" y="30" width="7" height="162" rx="3" fill="#bb9138"/>
+  <path d="M197 192l-11 26h22z" fill="#e0c98a"/>
+  <circle cx="197" cy="26" r="8" fill="#f0b9c4" stroke="#bb9138" stroke-width="2"/></g>
   <g class="t-gocce" fill="#8fb4cf">
-    <circle cx="176" cy="216" r="6"/><circle cx="216" cy="226" r="5"/><circle cx="196" cy="240" r="7"/>
+    <circle cx="172" cy="214" r="6"/><circle cx="214" cy="224" r="5"/><circle cx="194" cy="238" r="7"/>
   </g>
-  <path d="M150 262c12-30 32-42 50-42s38 12 50 42z" fill="#5a4f3d"/>
-  <path d="M170 252c8-16 18-22 30-22s22 6 30 22z" fill="#5c6e4a"/></svg></div>
+  <g class="t-cerchi" fill="none" stroke="#fff8ea" stroke-width="2" opacity=".5">
+    <ellipse cx="197" cy="250" rx="34" ry="9"/><ellipse cx="197" cy="250" rx="58" ry="15"/>
+  </g>
+  <path d="M142 268c14-34 34-48 55-48s41 14 55 48z" fill="#5a4f3d"/>
+  <path d="M164 258c9-19 21-27 33-27s24 8 33 27z" fill="#5c6e4a"/>
+  <path d="M182 252q15-10 30 0" fill="none" stroke="#e0c98a" stroke-width="2.5" opacity=".7"/>
+  <g transform="translate(74 150) scale(0.52 0.52)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g><g transform="translate(320 150) scale(-0.52 0.52)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#c8402a" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 2 di 8</span>
           <b>Le gocce che diventano terra</b>
-          <p>Immergono la lancia ingioiellata e mescolano l'acqua. Quando la sollevano, le gocce che ricadono si rapprendono: nasce Onogoro, la prima isola.</p>
+          <p>Immergono la lancia ingioiellata nel mare senza forma e lo mescolano. Quando la sollevano, le gocce che ricadono si rapprendono: nasce Onogoro, la prima isola.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="2" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 3: Il giro attorno al pilastro"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4e8cf"/><stop offset="1" stop-color="#d9bf90"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g2)"/><path d="M0 244h400v56H0z" fill="#5a4f3d" opacity=".4"/>
-  <ellipse cx="200" cy="246" rx="150" ry="26" fill="#5c6e4a" opacity=".45"/>
-  <rect x="192" y="76" width="16" height="170" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
-  <rect x="184" y="68" width="32" height="12" rx="3" fill="#bb9138"/>
-  <g transform="translate(120 150) scale(0.68 0.68)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g><g transform="translate(280 150) scale(-0.68 0.68)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 3: Il giro attorno al pilastro"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4e9d0"/><stop offset="1" stop-color="#cfae7c"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g2)"/><g opacity=".35" fill="#fff8ea"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g><g fill="#5a4f3d" opacity=".35"><path d="M-20 196l70-64 62 64z"/><path d="M120 196l86-78 84 78z"/><path d="M280 196l64-56 76 56z"/></g>
+  <path d="M0 250h400v50H0z" fill="#5a4f3d" opacity=".4"/>
+  <ellipse cx="200" cy="252" rx="164" ry="30" fill="#5c6e4a" opacity=".45"/>
+  <ellipse cx="200" cy="252" rx="110" ry="19" fill="#e0c98a" opacity=".35"/>
+  <rect x="190" y="62" width="20" height="190" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
+  <rect x="180" y="52" width="40" height="14" rx="3" fill="#bb9138"/>
+  <rect x="184" y="120" width="32" height="7" rx="2" fill="#2a231a" opacity=".25"/>
+  <rect x="184" y="180" width="32" height="7" rx="2" fill="#2a231a" opacity=".25"/>
+  <path d="M186 66h-8v186h8z" fill="#2a231a" opacity=".10"/>
+  <g transform="translate(112 148) scale(0.66 0.66)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#f0b9c4" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g><g transform="translate(288 148) scale(-0.66 0.66)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
     </g>
-  <g class="t-frecce" fill="none" stroke="#c8402a" stroke-width="3" opacity=".7">
-    <path d="M132 234q68 22 136 0" stroke-dasharray="7 6"/>
-  </g></svg></div>
+  <g class="t-frecce" fill="none" stroke="#c8402a" stroke-width="3.2" opacity=".75">
+    <path d="M126 246q74 26 148 0" stroke-dasharray="8 7"/>
+    <path d="M126 258q74-26 148 0" stroke-dasharray="8 7" opacity=".5"/>
+  </g>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 3 di 8</span>
           <b>Il giro attorno al pilastro</b>
-          <p>Sull'isola piantano un pilastro e vi girano attorno in senso opposto, per incontrarsi dall'altra parte e unirsi.</p>
+          <p>Sull'isola piantano un pilastro di pietra e vi girano attorno in senso opposto, per incontrarsi dall'altra parte e celebrare l'unione.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="3" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 4: La parola sbagliata"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8dcc4"/><stop offset="1" stop-color="#b9a684"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g3)"/><path d="M0 200q100 20 200 0t200 0v100H0z" fill="#3f6d8c" opacity=".5"/>
-  <path d="M120 236h80l-14 24h-52z" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
-  <path d="M140 236q20-16 40 0" fill="#8d8069"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 4: La parola sbagliata"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6dbc2"/><stop offset="1" stop-color="#a99b7e"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g3)"/><g opacity=".3" fill="#8d8069"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g>
+  <path d="M0 186q100 22 200 0t200 0v114H0z" fill="#3f6d8c" opacity=".55"/>
+  <g opacity=".4"><path d="M-10 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 202q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g><g opacity=".28"><path d="M-10 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 238q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g><g opacity=".2"><path d="M-10 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 274q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g>
+  <path d="M94 226h84l-15 26h-54z" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
+  <path d="M110 226q26-18 52 0" fill="#8d8069" opacity=".6"/>
   <g class="t-barca">
-    <path d="M250 244h70l-12 22h-46z" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
-    <ellipse cx="285" cy="242" rx="16" ry="7" fill="#f0b9c4"/>
+    <path d="M244 240h76l-13 24h-50z" fill="#e0c98a" stroke="#2a231a" stroke-width="2.5"/>
+    <path d="M252 240h60" stroke="#2a231a" stroke-width="2" opacity=".4"/>
+    <ellipse cx="282" cy="236" rx="17" ry="8" fill="#f0b9c4"/>
+    <path d="M268 232q14-8 28 0" fill="none" stroke="#fff8ea" stroke-width="2"/>
   </g>
-  <g transform="translate(118 132) scale(0.6 0.6)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g><g transform="translate(172 132) scale(-0.6 0.6)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
+  <g transform="translate(108 120) scale(0.58 0.58)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#f0b9c4" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g><g transform="translate(164 120) scale(-0.58 0.58)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
     </g>
-  <g fill="none" stroke="#fff8ea" stroke-width="3" opacity=".45">
-    <path d="M20 274q22-8 44 0M330 282q22-8 44 0"/></g></svg></div>
+  <path d="M136 150q0 18 0 26" stroke="#2a231a" stroke-width="2" opacity=".2"/>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 4 di 8</span>
           <b>La parola sbagliata</b>
-          <p>Ma è lei a parlare per prima. Il figlio che nasce è informe: lo affidano a una barca di canne e lo lasciano andare sul mare.</p>
+          <p>Ma è lei a parlare per prima, e l'ordine del rito conta più del sentimento. Il figlio che nasce è informe: lo affidano a una barca di canne e lo lasciano andare sul mare.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="4" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 5: Il rito rifatto"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6ecd6"/><stop offset="1" stop-color="#e2c893"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g4)"/><path d="M0 210q100 16 200 0t200 0v90H0z" fill="#8fb4cf" opacity=".5"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 5: Il rito rifatto"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7efdb"/><stop offset="1" stop-color="#dfc38e"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g4)"/><g opacity=".6" fill="#fff8ea"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g>
+  <circle cx="200" cy="56" r="26" fill="#bb9138" opacity=".55"/>
+  <circle cx="200" cy="56" r="42" fill="#bb9138" opacity=".18"/>
+  <path d="M0 198q100 18 200 0t200 0v102H0z" fill="#8fb4cf" opacity=".5"/>
+  <g opacity=".4"><path d="M-10 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 214q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g><g opacity=".26"><path d="M-10 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 250q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g>
   <g class="t-isole">
-    <path d="M40 240c8-22 20-30 32-30s24 8 32 30z" fill="#5c6e4a"/>
-    <path d="M130 250c10-28 24-38 40-38s30 10 40 38z" fill="#5a4f3d"/>
-    <path d="M232 244c8-24 20-32 32-32s24 8 32 32z" fill="#5c6e4a"/>
-    <path d="M318 252c7-20 17-26 27-26s20 6 27 26z" fill="#5a4f3d" opacity=".8"/>
+    <path d="M26 244c9-26 22-36 36-36s27 10 36 36z" fill="#5c6e4a"/>
+    <path d="M112 256c11-32 27-44 45-44s34 12 45 44z" fill="#5a4f3d"/>
+    <path d="M216 248c9-27 22-37 36-37s27 10 36 37z" fill="#5c6e4a"/>
+    <path d="M302 258c8-23 19-31 31-31s23 8 31 31z" fill="#5a4f3d" opacity=".85"/>
   </g>
-  <g transform="translate(170 116) scale(0.62 0.62)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g><g transform="translate(228 116) scale(-0.62 0.62)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
+  <g fill="#e0c98a" opacity=".6"><circle cx="62" cy="228" r="3"/><circle cx="157" cy="234" r="3"/><circle cx="252" cy="230" r="3"/></g>
+  <g transform="translate(166 122) scale(0.6 0.6)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g><g transform="translate(234 122) scale(-0.6 0.6)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#f0b9c4" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
     </g>
-  <g fill="#bb9138" opacity=".55"><circle cx="200" cy="60" r="16"/></g></svg></div>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 5 di 8</span>
           <b>Il rito rifatto</b>
-          <p>Tornano dagli dei e ricevono la correzione: deve parlare prima lui. Rifatto il rito, dall'unione nascono le isole del Giappone, una dopo l'altra.</p>
+          <p>Tornano dagli dei e ricevono la correzione: deve parlare prima lui. Ripetuto il rito nell'ordine giusto, dall'unione nascono una dopo l'altra le isole del Giappone.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="5" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 6: Il fuoco che uccide"><defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0d9c2"/><stop offset="1" stop-color="#b5643c"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g5)"/><path d="M0 250h400v50H0z" fill="#2a231a" opacity=".5"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 6: Il fuoco che uccide"><defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2dcc4"/><stop offset="1" stop-color="#a8512f"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g5)"/><path d="M0 252h400v48H0z" fill="#2a231a" opacity=".55"/>
+  <g opacity=".25" fill="#c8402a"><circle cx="200" cy="196" r="128"/></g>
   <g class="t-fiamme">
-    <path d="M200 240c-26 0-42-20-42-44 0-28 26-40 26-70 0 18 12 26 12 42 6-10 8-22 8-34 16 22 38 38 38 62 0 24-16 44-42 44z" fill="#c8402a"/>
-    <path d="M200 226c-13 0-21-11-21-24 0-15 13-22 13-38 0 10 6 14 6 23 3-6 4-12 4-19 8 12 19 21 19 34 0 13-8 24-21 24z" fill="#e0c98a"/>
+    <path d="M200 244c-30 0-48-23-48-50 0-32 30-46 30-80 0 21 14 30 14 48 7-11 9-25 9-39 18 25 43 43 43 71 0 27-18 50-48 50z" fill="#c8402a"/>
+    <path d="M200 228c-15 0-24-13-24-27 0-17 15-25 15-43 0 11 7 16 7 26 3-7 5-14 5-22 9 14 22 24 22 39 0 15-10 27-25 27z" fill="#e0c98a"/>
+    <path d="M200 214c-7 0-12-6-12-13 0-8 8-12 8-21 0 5 3 8 3 13 2-3 2-7 2-11 5 7 11 12 11 19 0 7-5 13-12 13z" fill="#fff8ea" opacity=".85"/>
   </g>
-  <g transform="translate(92 150) scale(0.66 0.66)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
+  <g class="t-scintille" fill="#e0c98a" opacity=".8">
+    <circle cx="150" cy="150" r="3"/><circle cx="256" cy="134" r="2.5"/><circle cx="238" cy="182" r="2"/>
+  </g>
+  <g transform="translate(78 152) scale(0.64 0.64)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#f0b9c4" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
     </g>
-  <g class="t-spada"><rect x="300" y="120" width="5" height="70" fill="#8d8069"/>
-  <rect x="292" y="188" width="21" height="6" rx="2" fill="#2a231a"/></g>
-  <g transform="translate(306 150) scale(-0.66 0.66)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g></svg></div>
+  <path d="M96 196q-14 24-6 46" fill="none" stroke="#2a231a" stroke-width="2" opacity=".25"/>
+  <g class="t-spada"><rect x="306" y="104" width="6" height="84" fill="#8d8069"/>
+  <rect x="296" y="186" width="26" height="7" rx="2" fill="#2a231a"/>
+  <rect x="306" y="193" width="6" height="18" fill="#2a231a"/></g>
+  <g transform="translate(318 152) scale(-0.64 0.64)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 6 di 8</span>
           <b>Il fuoco che uccide</b>
-          <p>L'ultimo figlio è Kagutsuchi, il fuoco. Nascendo brucia la madre, che muore. Izanagi, accecato dal dolore, lo uccide con la spada.</p>
+          <p>L'ultimo figlio è Kagutsuchi, il fuoco. Nascendo brucia la madre, che muore. Izanagi, accecato dal dolore, lo uccide con la spada: dal sangue nasceranno altri kami.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="6" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 7: La discesa a Yomi"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1524"/><stop offset="1" stop-color="#0d0a14"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g6)"/><rect width="400" height="300" fill="#1a1524"/>
-  <path d="M0 0h400v300H0z" fill="url(#buio)" opacity=".9"/>
-  <path d="M150 300V120c0-28 22-48 50-48s50 20 50 48v180z" fill="#0f0c16"/>
-  <g class="t-fiammella"><circle cx="150" cy="180" r="13" fill="#e0c98a" opacity=".85"/>
-  <circle cx="150" cy="180" r="26" fill="#bb9138" opacity=".18"/></g>
-  <g transform="translate(150 176) scale(0.62 0.62)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#2b2438" stroke="#8d8069" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#2b2438" stroke="#8d8069" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#0f0c16"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 7: La discesa a Yomi"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171222"/><stop offset="1" stop-color="#0a0810"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g6)"/><rect width="400" height="300" fill="#1a1524"/>
+  <rect width="400" height="300" fill="url(#buio)" opacity=".92"/>
+  <path d="M132 300V116c0-34 30-58 68-58s68 24 68 58v184z" fill="#0d0a14"/>
+  <path d="M148 300V122c0-26 24-44 52-44s52 18 52 44v178z" fill="#151020"/>
+  <g fill="#0a0810" opacity=".8">
+    <path d="M0 300V180l40 12v108zM400 300V168l-44 16v116z"/>
+  </g>
+  <g class="t-fiammella">
+    <circle cx="146" cy="172" r="30" fill="#bb9138" opacity=".16"/>
+    <circle cx="146" cy="172" r="15" fill="#bb9138" opacity=".3"/>
+    <path d="M146 160c-5 6-8 10-8 15a8 8 0 0 0 16 0c0-5-3-9-8-15z" fill="#e0c98a"/>
+  </g>
+  <g transform="translate(146 182) scale(0.6 0.6)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#8d8069" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#2e2740" stroke="#8d8069" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#2e2740" stroke="#8d8069" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#2e2740" stroke="#8d8069" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#bb9138" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#8d8069" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#2e2740" stroke="#8d8069" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#0a0810"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#0a0810" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#0a0810" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#8d8069"/><circle cx="4.5" cy="-14" r="1.5" fill="#8d8069"/>
     </g>
-  <g opacity=".75"><g transform="translate(252 170) scale(0.66 0.66)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#3a3048" stroke="#6b5f7c" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#3a3048" stroke="#6b5f7c" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#0f0c16"/>
+  <g opacity=".8"><g transform="translate(256 172) scale(0.64 0.64)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#7a6d90" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#3b3050" stroke="#7a6d90" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#3b3050" stroke="#7a6d90" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#3b3050" stroke="#7a6d90" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#5a4a70" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#7a6d90" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#3b3050" stroke="#7a6d90" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#0a0810"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#0a0810" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#0a0810" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#7a6d90"/><circle cx="4.5" cy="-14" r="1.5" fill="#7a6d90"/>
     </g></g>
-  <g class="t-vermi" fill="#5c6e4a" opacity=".5">
-    <circle cx="240" cy="200" r="4"/><circle cx="264" cy="214" r="3"/><circle cx="252" cy="228" r="4"/>
+  <g class="t-vermi" fill='#5c6e4a' opacity=".45">
+    <circle cx="242" cy="200" r="4"/><circle cx="268" cy="214" r="3"/><circle cx="254" cy="232" r="4"/>
+    <circle cx="276" cy="188" r="3"/>
+  </g>
+  <g class="t-occhi" fill="#c8402a" opacity=".45">
+    <circle cx="60" cy="120" r="3"/><circle cx="72" cy="122" r="3"/>
+    <circle cx="336" cy="104" r="3"/><circle cx="348" cy="106" r="3"/>
   </g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 7 di 8</span>
           <b>La discesa a Yomi</b>
-          <p>Izanagi scende nel mondo dei morti per riportarla indietro. Lei parla dall'ombra: «Non guardarmi». Lui accende un dente del pettine e guarda.</p>
+          <p>Izanagi scende nel mondo dei morti per riportarla indietro. Lei parla dall'ombra: «Non guardarmi, ho già mangiato il cibo di questo luogo». Lui accende un dente del pettine e guarda.</p>
         </figcaption>
       </figure>
       <figure class="fum-tav" data-n="7" hidden>
-        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 8: Il masso e il patto"><defs><linearGradient id="g7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9dcc0"/><stop offset="1" stop-color="#9fb2c4"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g7)"/><path d="M0 250q100 16 200 0t200 0v50H0z" fill="#8fb4cf" opacity=".45"/>
-  <path d="M0 0h150v300H0z" fill="#171222"/>
-  <g class="t-masso"><ellipse cx="160" cy="180" rx="52" ry="62" fill="#5a4f3d" stroke="#2a231a" stroke-width="3"/>
-  <path d="M132 150q26-14 52 4" fill="none" stroke="#8d8069" stroke-width="3"/></g>
-  <g transform="translate(262 138) scale(0.68 0.68)">
-      <path d="M0 0c-14 0-22 12-24 34l-6 46h60l-6-46C22 12 14 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <circle cx="0" cy="-14" r="13" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
-      <path d="M-13 -16c0-10 6-16 13-16s13 6 13 16c0 6-2 10-4 12-2-8-6-12-9-12s-7 4-9 12c-2-2-4-6-4-12z" fill="#2a231a"/>
-    </g>
-  <g class="t-nascite">
-    <circle cx="300" cy="70" r="22" fill="#bb9138" opacity=".9"/>
-    <circle cx="350" cy="110" r="14" fill="#8fb4cf" opacity=".85"/>
-    <path d="M226 78q18-16 36 0-18 16-36 0z" fill="#c8402a" opacity=".8"/>
+        <div class="fum-quadro"><svg viewBox="0 0 400 300" class="fum-svg" role="img" aria-label="Tavola 8: Il masso e il patto"><defs><linearGradient id="g7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ecdfc4"/><stop offset="1" stop-color="#93a8bd"/></linearGradient><radialGradient id="buio" cx="40%" cy="60%"><stop offset="0" stop-color="#2a2338"/><stop offset="1" stop-color="#0b0812"/></radialGradient></defs><rect width="400" height="300" fill="url(#g7)"/><path d="M0 0h140v300H0z" fill="#171222"/>
+  <path d="M140 0h16v300h-16z" fill="#0d0a14" opacity=".8"/>
+  <g opacity=".45" fill="#fff8ea"><ellipse cx="62" cy="52" rx="54" ry="15"/><ellipse cx="108" cy="44" rx="34" ry="11"/><ellipse cx="322" cy="40" rx="58" ry="16"/><ellipse cx="272" cy="34" rx="30" ry="10"/><ellipse cx="200" cy="26" rx="42" ry="10" opacity=".6"/></g>
+  <path d="M156 236q120 16 244 0v64H156z" fill="#8fb4cf" opacity=".5"/>
+  <g opacity=".4"><path d="M-10 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M56 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M122 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M188 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M254 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M320 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/><path d="M386 252q11-9 22 0t22 0" fill="none" stroke="#fff8ea" stroke-width="2.6" stroke-linecap="round"/></g>
+  <g class="t-masso">
+    <ellipse cx="156" cy="180" rx="56" ry="66" fill="#5a4f3d" stroke="#2a231a" stroke-width="3"/>
+    <path d="M124 146q30-16 60 4" fill="none" stroke="#8d8069" stroke-width="3"/>
+    <path d="M120 196q34 12 66-6" fill="none" stroke="#8d8069" stroke-width="2.5" opacity=".7"/>
   </g>
-  <g fill="none" stroke="#fff8ea" stroke-width="3" opacity=".4">
-    <path d="M230 272q22-8 44 0M320 280q22-8 44 0"/></g></svg></div>
+  <g transform="translate(268 146) scale(0.66 0.66)">
+      <path d="M-30 78q4-30 10-44l50 0q6 14 10 44z" fill="#2a231a" opacity=".18"/>
+      <path d="M0 0c-15 0-24 13-26 36l-7 44h66l-7-44C24 13 15 0 0 0z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-26 34q-14 6-18 26l14 6q4-18 10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <path d="M26 34q14 6 18 26l-14 6q-4-18-10-24z" fill="#fff8ea" stroke="#2a231a" stroke-width="2.2"/>
+      <rect x="-22" y="44" width="44" height="8" rx="2" fill="#3f6d8c" opacity=".85"/>
+      <path d="M-20 56h40l-2 10h-36z" fill="#2a231a" opacity=".12"/>
+      <circle cx="0" cy="-15" r="13.5" fill="#fff8ea" stroke="#2a231a" stroke-width="2.5"/>
+      <path d="M-13.5 -17c0-11 6-17 13.5-17s13.5 6 13.5 17c0 7-2 11-4 13-2-9-6-13-9.5-13s-7.5 4-9.5 13c-2-2-4-6-4-13z" fill="#2a231a"/>
+      <path d="M-11 -30q-7 26-4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M11 -30q7 26 4 50" fill="none" stroke="#2a231a" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="-4.5" cy="-14" r="1.5" fill="#2a231a"/><circle cx="4.5" cy="-14" r="1.5" fill="#2a231a"/>
+    </g>
+  <g class="t-acqua" fill="none" stroke="#fff8ea" stroke-width="2.5" opacity=".6">
+    <path d="M244 220q24 12 48 0"/><path d="M238 234q30 14 60 0"/>
+  </g>
+  <g class="t-nascite">
+    <g><circle cx="322" cy="60" r="24" fill="#bb9138" opacity=".9"/>
+       <circle cx="322" cy="60" r="38" fill="#bb9138" opacity=".16"/></g>
+    <path d="M364 106a15 15 0 1 1-14-19 12 12 0 0 0 14 19z" fill="#8fb4cf" opacity=".9"/>
+    <g stroke="#c8402a" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".85">
+      <path d="M206 70q22-10 42 0"/><path d="M212 82q18-8 34 0"/><path d="M218 94q12-6 22 0"/></g>
+  </g>
+  <g fill="none" stroke="#2a231a" stroke-width="2" opacity=".16"><rect x="7" y="7" width="386" height="286" rx="6"/></g></svg></div>
         <figcaption>
           <span class="fum-num">Tavola 8 di 8</span>
           <b>Il masso e il patto</b>
-          <p>Fugge inseguito dalle furie di Yomi e chiude il passaggio con un masso. Lei promette mille morti al giorno, lui millecinquecento nascite. Poi si purifica nell'acqua: dal suo occhio sinistro nasce Amaterasu, dal destro Tsukuyomi, dal naso Susanoo.</p>
+          <p>Fugge inseguito dalle furie di Yomi e chiude il passaggio con un masso che mille uomini non solleverebbero. Lei giura mille morti al giorno, lui millecinquecento nascite. Poi si purifica nell'acqua: dall'occhio sinistro nasce Amaterasu, dal destro Tsukuyomi, dal naso Susanoo.</p>
         </figcaption>
       </figure>
       <div class="fum-comandi">
@@ -884,6 +1085,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
         <div class="fum-punti"><button class="fum-punto on" data-va="0" type="button" aria-label="Vai alla tavola 1"></button><button class="fum-punto" data-va="1" type="button" aria-label="Vai alla tavola 2"></button><button class="fum-punto" data-va="2" type="button" aria-label="Vai alla tavola 3"></button><button class="fum-punto" data-va="3" type="button" aria-label="Vai alla tavola 4"></button><button class="fum-punto" data-va="4" type="button" aria-label="Vai alla tavola 5"></button><button class="fum-punto" data-va="5" type="button" aria-label="Vai alla tavola 6"></button><button class="fum-punto" data-va="6" type="button" aria-label="Vai alla tavola 7"></button><button class="fum-punto" data-va="7" type="button" aria-label="Vai alla tavola 8"></button></div>
         <button class="fum-nav" id="fumSucc" type="button" aria-label="Tavola successiva">&rsaquo;</button>
       </div>
+    </div>
     </div>
     </div>
     <aside class="mito-side">
@@ -970,7 +1172,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <p>Esiliato dal cielo, Susanoo scende nella provincia di Izumo, lungo il fiume Hi. Vede passare sull'acqua un paio di bacchette: segno che a monte vive qualcuno. Risalendo trova due anziani in lacrime che stringono una ragazza.</p><p>Raccontano: avevano otto figlie. Ogni anno il drago Yamata no Orochi — otto teste, otto code, occhi come lanterne, il corpo coperto di muschio e cipressi, lungo otto valli e otto colline — ne divora una. È rimasta solo <b>Kushinada-hime</b>, e il mostro sta per tornare.</p><p>Susanoo promette di ucciderlo in cambio della mano della ragazza. Poi la trasforma in un <b>pettine</b> e se lo infila fra i capelli, per tenerla al sicuro addosso a sé. Ordina ai vecchi di distillare <i>sake yashiori</i>, sakè fatto a otto pieghe, cioè filtrato otto volte, e di preparare un recinto con otto porte, e dietro ogni porta un tino colmo.</p><p>Il drago arriva. Ogni testa infila la propria porta, trova il proprio tino, beve. Si addormenta.</p><p>Susanoo sguaina la spada Totsuka e comincia a tagliare: le otto teste, poi le otto code. Alla coda centrale la lama <b>si scheggia</b>. Apre la carne con la punta e trova dentro una spada. È <b>Kusanagi-no-Tsurugi</b>, la Falciatrice d'Erba. Susanoo la manda in dono ad Amaterasu, come atto di riconciliazione con la sorella che aveva offeso.</p><p>Poi sposa Kushinada-hime e costruisce un palazzo a Suga. Guardando le nubi che si alzano compone quella che la tradizione considera la <b>prima poesia giapponese</b>, il primo waka.</p>
       <div style="margin-top:26px;"><div class="vid reveal">
   <div class="frame" data-yt="KRB1rco5aA8"><div class="play"></div></div>
-  <div class="vmeta"><b>Yamata no Orochi — kagura al santuario Yakumo Hikawa</b><span>La danza sacra che mette in scena il mito: il drago è un costume manovrato da più danzatori.</span></div>
+  <div class="vmeta"><b>Yamata no Orochi — kagura al santuario Yakumo Hikawa</b><span>La danza sacra che mette in scena il mito: il drago è un costume manovrato da più danzatori.</span><a class="vid-cerca" href="https://www.youtube.com/results?search_query=Yamata%20no%20Orochi%20kagura%20Giappone" target="_blank" rel="noopener">Non si apre? Cerca altri video &rarr;</a></div>
 </div></div>
           <div class="galleria" data-mito="susanoo">
         <button class="gal-cella" type="button" data-q="Susanoo Yamata no Orochi" data-cap="Susanoo affronta il serpente a otto teste"
@@ -1330,15 +1532,15 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     <div class="vid-grid" style="margin-top:38px;text-align:left;">
 <div class="vid reveal">
   <div class="frame" data-yt="9rUvkyeJk2w"><div class="play"></div></div>
-  <div class="vmeta"><b>Kagura — Yamata no Orochi (versione integrale)</b><span>Compagnia Yokota, Hiroshima. Il drago è mosso da danzatori dentro lunghi costumi articolati.</span></div>
+  <div class="vmeta"><b>Kagura — Yamata no Orochi (versione integrale)</b><span>Compagnia Yokota, Hiroshima. Il drago è mosso da danzatori dentro lunghi costumi articolati.</span><a class="vid-cerca" href="https://www.youtube.com/results?search_query=Kagura%20kagura%20Giappone" target="_blank" rel="noopener">Non si apre? Cerca altri video &rarr;</a></div>
 </div>
 <div class="vid reveal">
   <div class="frame" data-yt="ZSaPQFx_vPY"><div class="play"></div></div>
-  <div class="vmeta"><b>Susanoo contro il drago — kagura a Yushima Tenjin</b><span>Ripresa ravvicinata di una rappresentazione notturna in un santuario di Tokyo.</span></div>
+  <div class="vmeta"><b>Susanoo contro il drago — kagura a Yushima Tenjin</b><span>Ripresa ravvicinata di una rappresentazione notturna in un santuario di Tokyo.</span><a class="vid-cerca" href="https://www.youtube.com/results?search_query=Susanoo%20contro%20il%20drago%20kagura%20Giappone" target="_blank" rel="noopener">Non si apre? Cerca altri video &rarr;</a></div>
 </div>
 <div class="vid reveal">
   <div class="frame" data-yt="bWNMn4KjkhY"><div class="play"></div></div>
-  <div class="vmeta"><b>Breve introduzione allo shintoismo</b><span>Inquadramento in italiano dei testi fondativi: Kojiki e Nihon Shoki.</span></div>
+  <div class="vmeta"><b>Breve introduzione allo shintoismo</b><span>Inquadramento in italiano dei testi fondativi: Kojiki e Nihon Shoki.</span><a class="vid-cerca" href="https://www.youtube.com/results?search_query=Breve%20introduzione%20allo%20shintoismo%20kagura%20Giappone" target="_blank" rel="noopener">Non si apre? Cerca altri video &rarr;</a></div>
 </div>
     </div>
   </div>
