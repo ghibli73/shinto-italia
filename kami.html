@@ -427,6 +427,89 @@ footer a:hover{ text-decoration:underline; }
 }
 h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 .brand .nin{ font-size:.58em; vertical-align:.08em; }
+
+/* ================= BANDA DEI CINQUE ================= */
+.banda-sec{ max-width:1180px; margin:0 auto; padding:52px 22px 10px; }
+.banda-testa{ display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:22px; }
+.banda-testa h2{ font-size:clamp(23px,4vw,32px); margin-top:10px; }
+.banda-testa p{ margin-top:9px; font-size:14px; color:var(--sumi-soft); max-width:520px; line-height:1.65; }
+.rimescola{
+  display:inline-flex; align-items:center; gap:9px; flex:none;
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  padding:10px 18px; border-radius:24px; cursor:pointer;
+  border:1px solid var(--paper-line); background:var(--paper); color:var(--sumi-soft);
+  transition:border-color .25s var(--ease), color .25s var(--ease), background .25s var(--ease);
+}
+.rimescola:hover{ border-color:var(--torii); color:var(--torii-deep); background:rgba(200,64,42,.06); }
+.rim-ico{ display:inline-block; font-size:15px; transition:transform .5s var(--ease); }
+.rimescola:hover .rim-ico{ transform:rotate(180deg); }
+.rimescola.gira .rim-ico{ animation:giro .6s var(--ease); }
+@keyframes giro{ from{ transform:rotate(0) } to{ transform:rotate(360deg) } }
+
+.banda{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; }
+.carta{
+  position:relative; overflow:hidden; text-align:left;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:14px;
+  padding:18px 16px 16px; cursor:pointer; font:inherit; color:inherit;
+  opacity:0; transform:translateY(14px);
+  animation:entraCarta .55s var(--ease) forwards;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+@keyframes entraCarta{ to{ opacity:1; transform:none } }
+.carta:hover{ border-color:var(--cc,#bb9138); box-shadow:0 14px 28px rgba(32,20,10,.12); transform:translateY(-3px); }
+.carta:focus-visible{ outline:2px solid var(--cc,#bb9138); outline-offset:2px; }
+.carta::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:3px; background:var(--cc,#bb9138);
+}
+.c-glifo{
+  position:absolute; right:-6px; bottom:-18px;
+  font-family:'Shippori Mincho B1',serif; font-size:76px; line-height:1;
+  color:var(--cc,#bb9138); opacity:.14; pointer-events:none;
+  transition:transform .5s var(--ease), opacity .3s var(--ease);
+}
+.carta:hover .c-glifo{ transform:scale(1.12) rotate(-6deg); opacity:.22; }
+.c-cat{
+  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--cc,#bb9138);
+}
+.carta h3{ font-size:15.5px; margin-top:8px; line-height:1.3; position:relative; }
+.carta p{ margin-top:7px; font-size:12.2px; line-height:1.55; color:var(--sumi-soft); position:relative; }
+.c-tempio{
+  margin-top:10px; font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--sumi-soft); opacity:.75; position:relative;
+}
+@media (max-width:1000px){ .banda{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:660px){
+  .banda{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .carta{ padding:14px 12px; } .c-glifo{ font-size:58px; }
+}
+
+/* ================= PIASTRELLE A KANJI ================= */
+.kanji-tile{
+  position:relative; display:grid; place-items:center; overflow:hidden;
+  /* fascia bassa: le piastrelle non devono allungare la scheda come le foto */
+  aspect-ratio:auto !important; height:78px; border-radius:10px 10px 0 0;
+  background:linear-gradient(145deg, color-mix(in srgb, var(--kc) 16%, var(--paper)), var(--paper));
+}
+.kt-glifo{
+  font-family:'Shippori Mincho B1',serif; font-size:34px; line-height:1;
+  color:var(--kc); opacity:.85; position:relative; z-index:2;
+  transition:transform .55s var(--ease);
+}
+.kcard:hover .kt-glifo{ transform:scale(1.14) rotate(-5deg); }
+.kt-onda{
+  position:absolute; width:150%; aspect-ratio:1; border-radius:45%;
+  background:var(--kc); opacity:.10; bottom:-92%;
+  animation:ondeggia 9s linear infinite;
+}
+@keyframes ondeggia{ from{ transform:rotate(0) } to{ transform:rotate(360deg) } }
+.kcard:nth-child(3n) .kt-onda{ animation-duration:12s; animation-delay:-3s; }
+.kcard:nth-child(3n+1) .kt-onda{ animation-duration:10.5s; animation-delay:-6s; }
+
+@media (prefers-reduced-motion: reduce){
+  .carta{ opacity:1; transform:none; animation:none; }
+  .kt-onda, .rim-ico, .kt-glifo, .c-glifo{ animation:none !important; transition:none; }
+}
 </style>
 </head>
 <body>
@@ -461,6 +544,21 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     <p>La parola <span class="jp">神</span> <b>kami</b> non si traduce con "dio". Il filologo Motoori Norinaga, nel Settecento, propose la definizione ancora oggi più usata: kami è tutto ciò che suscita <b>meraviglia e timore reverenziale</b> — una montagna, un imperatore, una volpe, un albero colpito dal fulmine, perfino qualcosa di temibile o malvagio.</p>
     <p>Da qui l'espressione <i>yaoyorozu no kami</i>, gli "otto milioni di kami": non un censimento, ma un modo di dire l'innumerevole. Un kami non è necessariamente buono, non è onnipotente, e può essere <b>ospitato</b> in più luoghi contemporaneamente attraverso il <i>bunrei</i>, la divisione dello spirito: è così che Inari abita trentamila santuari senza dividersi.</p>
   </div>
+</section>
+
+
+<section class="banda-sec">
+  <div class="banda-testa">
+    <div>
+      <span class="eyebrow">Cinque a caso · 五柱</span>
+      <h2>Chi incontri oggi</h2>
+      <p>Su centotrentasei kami, questi cinque cambiano a ogni visita. Tocca una carta per cercarla nell'elenco.</p>
+    </div>
+    <button class="rimescola" id="rimescola" type="button">
+      <span class="rim-ico" aria-hidden="true">⟳</span> Rimescola
+    </button>
+  </div>
+  <div class="banda" id="banda" aria-live="polite"></div>
 </section>
 
 <section class="omikuji-sec">
@@ -526,7 +624,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 
   <div class="kgrid" id="grid">
   <article class="kcard featured" data-cat="Natura / Astri" data-search="amaterasu (dea del sole) natura / astri divinità solare centrale; simbolo di luce, ordine e continuità dell’istituzione imperiale. ise grand shrine (naikū) · takachiho shrine · atsuta shrine">
-    <div class="kph" data-wiki="Amaterasu" data-fallback="日"></div>
+    <div class="kph" style="--kc:#d98f2e" data-wiki="Amaterasu" data-fallback="日"></div>
     <div class="kbody">
       <h3>Amaterasu (Dea del Sole)</h3>
       <div class="kcat">Natura / Astri</div>
@@ -537,7 +635,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Natura / Astri" data-search="tsukuyomi (luna) natura / astri divinità lunare legata ai cicli e alle maree; culto sobrio e meno diffuso rispetto al sole. tsukiyomi‑gū (ise) · tsukiyomi jinja (matsunoo taisha)">
-    <div class="kph" data-wiki="Tsukuyomi" data-fallback="月"></div>
+    <div class="kph" style="--kc:#d98f2e" data-wiki="Tsukuyomi" data-fallback="月"></div>
     <div class="kbody">
       <h3>Tsukuyomi (Luna)</h3>
       <div class="kcat">Natura / Astri</div>
@@ -548,7 +646,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Creazione / Origini" data-search="izanagi (padre primordiale) creazione / origini con izanami genera le isole e molti kami; al ritorno da yomi compie il misogi da cui nascono amaterasu, tsukuyomi e susanoo. izanagi jingū">
-    <div class="kph" data-wiki="Izanagi" data-fallback="創"></div>
+    <div class="kph" style="--kc:#8c5fa8" data-wiki="Izanagi" data-fallback="創"></div>
     <div class="kbody">
       <h3>Izanagi (Padre primordiale)</h3>
       <div class="kcat">Creazione / Origini</div>
@@ -559,7 +657,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Creazione / Origini" data-search="izanami (madre primordiale) creazione / origini compagna di izanagi; muore dando alla luce kagutsuchi; associata al regno di yomi. santuari vari">
-    <div class="kph" data-wiki="Izanami" data-fallback="陰"></div>
+    <div class="kph" style="--kc:#8c5fa8" data-wiki="Izanami" data-fallback="陰"></div>
     <div class="kbody">
       <h3>Izanami (Madre primordiale)</h3>
       <div class="kcat">Creazione / Origini</div>
@@ -569,7 +667,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Muore partorendo Kagutsuchi, il fuoco. Nel regno di Yomi il marito la vede putrefatta e fugge: lei lo insegue e, sbarrata la strada da un masso, giura di uccidere mille persone al giorno. Lui risponde che ne farà nascere millecinquecento. È la spiegazione mitica della mortalità e della crescita demografica.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="ame‑no‑minakanushi (centro celeste) creazione / origini kami primordiale, principio ordinatore nei miti più arcaici. santuari vari">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="ame‑no‑minakanushi (centro celeste) creazione / origini kami primordiale, principio ordinatore nei miti più arcaici. santuari vari"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Minakanushi (Centro Celeste)</h3>
@@ -580,7 +678,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="takamimusubi (legame alto) creazione / origini kami creatore e del destino; talvolta patrono della corte. santuari vari">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="takamimusubi (legame alto) creazione / origini kami creatore e del destino; talvolta patrono della corte. santuari vari"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Takamimusubi (Legame Alto)</h3>
@@ -591,7 +689,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="kamimusubi (legame divino) creazione / origini forza generativa e di connessione; presenza nei riti di fecondità. santuari vari">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="kamimusubi (legame divino) creazione / origini forza generativa e di connessione; presenza nei riti di fecondità. santuari vari"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kamimusubi (Legame Divino)</h3>
@@ -603,7 +701,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Tempeste / Mare" data-search="susanoo (tempeste e mare) tempeste / mare kami impetuoso e protettivo; eroe del mito di yamata‑no‑orochi; spesso invocato contro epidemie. susa jinja (susa ōmiya) · yaegaki jinja (con kushinada‑hime) · yasaka jinja">
-    <div class="kph" data-wiki="Susanoo" data-fallback="嵐"></div>
+    <div class="kph" style="--kc:#2f6f9c" data-wiki="Susanoo" data-fallback="嵐"></div>
     <div class="kbody">
       <h3>Susanoo (Tempeste e Mare)</h3>
       <div class="kcat">Tempeste / Mare</div>
@@ -613,7 +711,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Esiliato dal cielo per le sue devastazioni, si riscatta uccidendo Yamata no Orochi in Izumo. Impetuoso e generoso insieme, è il kami che i giapponesi invocano contro epidemie e calamità: il Gion Matsuri di Kyoto nasce proprio come rito di protezione dalla pestilenza.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kagutsuchi (fuoco) fuoco / focolare kami del fuoco, la cui nascita causa la morte di izanami; venerato e temuto in egual misura. santuari vari">
+  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kagutsuchi (fuoco) fuoco / focolare kami del fuoco, la cui nascita causa la morte di izanami; venerato e temuto in egual misura. santuari vari"><div class="kph kanji-tile" style="--kc:#c05a24"><span class="kt-glifo">火</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kagutsuchi (Fuoco)</h3>
@@ -625,7 +723,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Tempeste / Mare" data-search="raijin (tuono) tempeste / mare divinità del tuono e dei fulmini; spesso in coppia con fujin. santuari vari">
-    <div class="kph" data-wiki="Raijin" data-fallback="雷"></div>
+    <div class="kph" style="--kc:#2f6f9c" data-wiki="Raijin" data-fallback="雷"></div>
     <div class="kbody">
       <h3>Raijin (Tuono)</h3>
       <div class="kcat">Tempeste / Mare</div>
@@ -635,7 +733,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Il dio del tuono, raffigurato con una corona di tamburi che percuote per far tuonare. Spesso in coppia con Fūjin, il vento: insieme presidiano la porta Kaminarimon del Sensō-ji, la più fotografata di Tokyo.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="fūjin (vento) tempeste / mare kami dei venti; associato a tempeste e cambi di stagione. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="fūjin (vento) tempeste / mare kami dei venti; associato a tempeste e cambi di stagione. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Fūjin (Vento)</h3>
@@ -646,7 +744,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="shinatsuhiko (vento pacificante) tempeste / mare deità che placa i venti e favorisce navigazione e raccolti. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="shinatsuhiko (vento pacificante) tempeste / mare deità che placa i venti e favorisce navigazione e raccolti. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Shinatsuhiko (Vento pacificante)</h3>
@@ -657,7 +755,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="ōyamatsumi (montagne e mare) natura / montagne kami delle montagne e del mare; santuario noto per armi e armature votive. ōyamazumi jinja">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="ōyamatsumi (montagne e mare) natura / montagne kami delle montagne e del mare; santuario noto per armi e armature votive. ōyamazumi jinja"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōyamatsumi (Montagne e Mare)</h3>
@@ -669,7 +767,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Natura / Montagne" data-search="konohanasakuya‑hime (monte fuji, fiori di ciliegio) natura / montagne dea associata al fuji, alla bellezza effimera e al parto. fujisan hongū sengen taisha · asama/sengen jinja">
-    <div class="kph" data-wiki="Konohanasakuya-hime" data-fallback="桜"></div>
+    <div class="kph" style="--kc:#5f7d5a" data-wiki="Konohanasakuya-hime" data-fallback="桜"></div>
     <div class="kbody">
       <h3>Konohanasakuya‑hime (Monte Fuji, fiori di ciliegio)</h3>
       <div class="kcat">Natura / Montagne</div>
@@ -680,7 +778,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Fertilità / Prosperità" data-search="inari (fertilità, riso, prosperità) fertilità / prosperità culto popolarissimo; kitsune come messaggeri; patrono di agricoltori, mercanti e artigiani. fushimi inari taisha (santuario capo) · rete di inari jinja (~30.000)">
-    <div class="kph" data-wiki="Inari (divinità)" data-fallback="稲"></div>
+    <div class="kph" style="--kc:#c9a227" data-wiki="Inari (divinità)" data-fallback="稲"></div>
     <div class="kbody">
       <h3>Inari (Fertilità, Riso, Prosperità)</h3>
       <div class="kcat">Fertilità / Prosperità</div>
@@ -690,7 +788,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Il culto più diffuso del Giappone: circa un santuario su tre gli è dedicato. Nato come divinità del riso, si è trasformato in patrono di commercianti, artigiani e oggi anche di startup. Le volpi (<i>kitsune</i>) non sono Inari ma i suoi messaggeri: tengono in bocca una chiave del granaio o una gemma.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="toyouke ōmikami (cibo e provvisioni) fertilità / prosperità procura il cibo per amaterasu; culto all’ise esterno. ise jingū (gekū – santuario esterno)">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="toyouke ōmikami (cibo e provvisioni) fertilità / prosperità procura il cibo per amaterasu; culto all’ise esterno. ise jingū (gekū – santuario esterno)"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Toyouke Ōmikami (Cibo e Provvisioni)</h3>
@@ -701,7 +799,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ukanomitama (spirito del raccolto) fertilità / prosperità aspetto alimentare spesso identificato con inari; riso e granaglie. santuari vari">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ukanomitama (spirito del raccolto) fertilità / prosperità aspetto alimentare spesso identificato con inari; riso e granaglie. santuari vari"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ukanomitama (Spirito del raccolto)</h3>
@@ -712,7 +810,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ogetsu‑hime / uke‑mochi (cibo) fertilità / prosperità dea del nutrimento; da lei hanno origine i cereali secondo il mito. santuari vari">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ogetsu‑hime / uke‑mochi (cibo) fertilità / prosperità dea del nutrimento; da lei hanno origine i cereali secondo il mito. santuari vari"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ogetsu‑hime / Uke‑Mochi (Cibo)</h3>
@@ -723,7 +821,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Foreste" data-search="kayanohime (erbe e foreste) natura / foreste divinità della vegetazione minuta, canneti e steppe. santuari vari">
+  <article class="kcard" data-cat="Natura / Foreste" data-search="kayanohime (erbe e foreste) natura / foreste divinità della vegetazione minuta, canneti e steppe. santuari vari"><div class="kph kanji-tile" style="--kc:#4a7a45"><span class="kt-glifo">森</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kayanohime (Erbe e foreste)</h3>
@@ -734,7 +832,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Foreste" data-search="kukunochi (alberi) natura / foreste spirito degli alberi; tutela boschi e carpentieri. santuari vari">
+  <article class="kcard" data-cat="Natura / Foreste" data-search="kukunochi (alberi) natura / foreste spirito degli alberi; tutela boschi e carpentieri. santuari vari"><div class="kph kanji-tile" style="--kc:#4a7a45"><span class="kt-glifo">森</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kukunochi (Alberi)</h3>
@@ -745,7 +843,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="kanayago‑hime (metallurgia) mestieri / arti protettrice dei fabbri e delle fornaci. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="kanayago‑hime (metallurgia) mestieri / arti protettrice dei fabbri e delle fornaci. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kanayago‑hime (Metallurgia)</h3>
@@ -756,7 +854,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="ame‑no‑mahitotsu (forgia) mestieri / arti kami del metallo lavorato e del colpo di martello. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="ame‑no‑mahitotsu (forgia) mestieri / arti kami del metallo lavorato e del colpo di martello. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Mahitotsu (Forgia)</h3>
@@ -767,7 +865,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="haniyasu‑hime (argilla e ceramica) mestieri / arti dea dell’argilla, della ceramica e del suolo fertile. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="haniyasu‑hime (argilla e ceramica) mestieri / arti dea dell’argilla, della ceramica e del suolo fertile. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Haniyasu‑hime (Argilla e ceramica)</h3>
@@ -778,7 +876,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="haniyasu‑hiko (suolo e argilla) mestieri / arti contropare maschile di haniyasu‑hime. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="haniyasu‑hiko (suolo e argilla) mestieri / arti contropare maschile di haniyasu‑hime. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Haniyasu‑hiko (Suolo e argilla)</h3>
@@ -789,7 +887,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="ishikori‑dome (specchi) mestieri / arti kami degli specchi e della lavorazione del metallo lucido. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="ishikori‑dome (specchi) mestieri / arti kami degli specchi e della lavorazione del metallo lucido. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ishikori‑dome (Specchi)</h3>
@@ -801,7 +899,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Guerra / Protezione" data-search="hachiman (guerra, protettore dei samurai) guerra / protezione divinità diffusissima; guardiano di comunità e guerrieri. usa jingū · iwashimizu hachiman‑gū · tsurugaoka hachimangū">
-    <div class="kph" data-wiki="Hachiman" data-fallback="弓"></div>
+    <div class="kph" style="--kc:#9c2e1d" data-wiki="Hachiman" data-fallback="弓"></div>
     <div class="kbody">
       <h3>Hachiman (Guerra, Protettore dei Samurai)</h3>
       <div class="kcat">Guerra / Protezione</div>
@@ -811,7 +909,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Divinizzazione dell'imperatore Ōjin, adottato come protettore dai Minamoto e poi da tutta la classe guerriera. Oltre 40.000 santuari, secondo per diffusione solo a Inari. Fu anche il primo kami a ricevere il titolo buddhista di <i>bosatsu</i>, snodo cruciale dello shinbutsu-shūgō.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="takemikazuchi (fulmine, spada) guerra / protezione kami guerriero, arti marziali e sumō delle origini. kashima jingū">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="takemikazuchi (fulmine, spada) guerra / protezione kami guerriero, arti marziali e sumō delle origini. kashima jingū"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Takemikazuchi (Fulmine, Spada)</h3>
@@ -822,7 +920,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="futsunushi (spada, strategia) guerra / protezione kami della spada; tutela e disciplina militare. katori jingū (santuario capo)">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="futsunushi (spada, strategia) guerra / protezione kami della spada; tutela e disciplina militare. katori jingū (santuario capo)"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Futsunushi (Spada, Strategia)</h3>
@@ -833,7 +931,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="sumiyoshi sanjin (mare / navigazione) tempeste / mare triade del mare venerata da marinai e viaggiatori. sumiyoshi taisha (santuario capo)">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="sumiyoshi sanjin (mare / navigazione) tempeste / mare triade del mare venerata da marinai e viaggiatori. sumiyoshi taisha (santuario capo)"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Sumiyoshi Sanjin (Mare / Navigazione)</h3>
@@ -844,7 +942,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="ōyamatsumi (armi votive) guerra / protezione aspetto protettivo per armi ed equipaggiamento. ōyamazumi jinja">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="ōyamatsumi (armi votive) guerra / protezione aspetto protettivo per armi ed equipaggiamento. ōyamazumi jinja"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōyamatsumi (Armi votive)</h3>
@@ -855,7 +953,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="takemikazuchi &amp; futsunushi (doppio culto) guerra / protezione asse kashima‑katori, tutela dello stato e dei guerrieri. kashima jingū · katori jingū">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="takemikazuchi &amp; futsunushi (doppio culto) guerra / protezione asse kashima‑katori, tutela dello stato e dei guerrieri. kashima jingū · katori jingū"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Takemikazuchi &amp; Futsunushi (Doppio culto)</h3>
@@ -867,7 +965,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Relazioni / Nazione" data-search="ōkuninushi (en‑musubi, nazione) relazioni / nazione kami dei legami (en‑musubi) e della costruzione del paese. izumo taisha (izumo ōyashiro)">
-    <div class="kph" data-wiki="Ōkuninushi" data-fallback="縁"></div>
+    <div class="kph" style="--kc:#c2557a" data-wiki="Ōkuninushi" data-fallback="縁"></div>
     <div class="kbody">
       <h3>Ōkuninushi (En‑musubi, Nazione)</h3>
       <div class="kcat">Relazioni / Nazione</div>
@@ -877,7 +975,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Signore di Izumo, guaritore e costruttore della terra. Cede il paese ad Amaterasu in cambio di un grande santuario: da qui la sua fama di kami dell'<i>en-musubi</i>, i legami. A Izumo Taisha si battono le mani quattro volte invece di due, due per sé e due per la persona amata.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Relazioni / Nazione" data-search="ōmononushi (monte miwa) relazioni / nazione aspetto di ōkuninushi legato al monte miwa; culto arcaico senza honden. ōmiwa jinja (miwa)">
+  <article class="kcard" data-cat="Relazioni / Nazione" data-search="ōmononushi (monte miwa) relazioni / nazione aspetto di ōkuninushi legato al monte miwa; culto arcaico senza honden. ōmiwa jinja (miwa)"><div class="kph kanji-tile" style="--kc:#c2557a"><span class="kt-glifo">縁</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōmononushi (Monte Miwa)</h3>
@@ -888,7 +986,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Relazioni / Nazione" data-search="kotoshironushi (oracoli e mare calmo) relazioni / nazione figlio di ōkuninushi; pacifica l’ordine celeste con il consenso di izumo. santuari vari">
+  <article class="kcard" data-cat="Relazioni / Nazione" data-search="kotoshironushi (oracoli e mare calmo) relazioni / nazione figlio di ōkuninushi; pacifica l’ordine celeste con il consenso di izumo. santuari vari"><div class="kph kanji-tile" style="--kc:#c2557a"><span class="kt-glifo">縁</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kotoshironushi (Oracoli e mare calmo)</h3>
@@ -899,7 +997,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guarigione / Medicina" data-search="sukunabikona (medicina, produzione) guarigione / medicina piccolo kami civilizzatore; medicina, sake e artigianato. santuari vari">
+  <article class="kcard" data-cat="Guarigione / Medicina" data-search="sukunabikona (medicina, produzione) guarigione / medicina piccolo kami civilizzatore; medicina, sake e artigianato. santuari vari"><div class="kph kanji-tile" style="--kc:#4f8f6a"><span class="kt-glifo">薬</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Sukunabikona (Medicina, produzione)</h3>
@@ -910,7 +1008,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="munakata sanjojin (dee del mare) tempeste / mare triade (ichikishima‑hime, tagorihime, tagitsuhime) protettrici di naviganti e traffici. munakata taisha (hetsu‑gū / nakatsu‑gū / okitsu‑gū) · itsukushima jinja">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="munakata sanjojin (dee del mare) tempeste / mare triade (ichikishima‑hime, tagorihime, tagitsuhime) protettrici di naviganti e traffici. munakata taisha (hetsu‑gū / nakatsu‑gū / okitsu‑gū) · itsukushima jinja"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Munakata Sanjojin (Dee del mare)</h3>
@@ -921,7 +1019,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Arte / Gioia" data-search="ichikishima‑hime (arte, acqua) arte / gioia una delle munakata; spesso identificata con benzaiten. itsukushima jinja · santuari vari">
+  <article class="kcard" data-cat="Arte / Gioia" data-search="ichikishima‑hime (arte, acqua) arte / gioia una delle munakata; spesso identificata con benzaiten. itsukushima jinja · santuari vari"><div class="kph kanji-tile" style="--kc:#c46a9b"><span class="kt-glifo">楽</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ichikishima‑hime (Arte, acqua)</h3>
@@ -932,7 +1030,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="tagorihime (mare interno) tempeste / mare dea del mare interno di chikuzen. munakata taisha">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="tagorihime (mare interno) tempeste / mare dea del mare interno di chikuzen. munakata taisha"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tagorihime (Mare interno)</h3>
@@ -943,7 +1041,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="tagitsuhime (onde e correnti) tempeste / mare dea delle correnti e dei flussi marini. munakata taisha">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="tagitsuhime (onde e correnti) tempeste / mare dea delle correnti e dei flussi marini. munakata taisha"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tagitsuhime (Onde e correnti)</h3>
@@ -955,7 +1053,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Sapienza / Studi" data-search="tenjin (sugawara no michizane) – sapienza e studi sapienza / studi kami della conoscenza e della calligrafia; meta di studenti ed esami. dazaifu tenmangū (santuario principale) · kitano tenmangū">
-    <div class="kph" data-wiki="Sugawara no Michizane" data-fallback="学"></div>
+    <div class="kph" style="--kc:#3f6d8c" data-wiki="Sugawara no Michizane" data-fallback="学"></div>
     <div class="kbody">
       <h3>Tenjin (Sugawara no Michizane) – Sapienza e Studi</h3>
       <div class="kcat">Sapienza / Studi</div>
@@ -965,7 +1063,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>Sugawara no Michizane, letterato e ministro esiliato per calunnia, morto in disgrazia nel 903. Dopo fulmini sul palazzo imperiale e morti sospette, la corte lo divinizzò per placarlo. Oggi è il kami degli studenti: le sue tavolette votive si riempiono di richieste per gli esami.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Sapienza / Studi" data-search="omoikane (consiglio e intelligenza) sapienza / studi kami del pensiero ponderato; stratega nei miti. santuari vari">
+  <article class="kcard" data-cat="Sapienza / Studi" data-search="omoikane (consiglio e intelligenza) sapienza / studi kami del pensiero ponderato; stratega nei miti. santuari vari"><div class="kph kanji-tile" style="--kc:#3f6d8c"><span class="kt-glifo">学</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Omoikane (Consiglio e intelligenza)</h3>
@@ -976,7 +1074,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Arte / Gioia" data-search="ame‑no‑uzume (arti performative, gioia) arte / gioia dea della danza e della serenità; connessa ai riti kagura. tsubaki ōkami yashiro">
+  <article class="kcard" data-cat="Arte / Gioia" data-search="ame‑no‑uzume (arti performative, gioia) arte / gioia dea della danza e della serenità; connessa ai riti kagura. tsubaki ōkami yashiro"><div class="kph kanji-tile" style="--kc:#c46a9b"><span class="kt-glifo">楽</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Uzume (Arti performative, Gioia)</h3>
@@ -987,7 +1085,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="sarutahiko ōkami (crocevia, guida) viaggio / strade kami guida dei crocevia; associato a misogi e arti marziali. tsubaki ōkami yashiro (tsubaki grand shrine)">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="sarutahiko ōkami (crocevia, guida) viaggio / strade kami guida dei crocevia; associato a misogi e arti marziali. tsubaki ōkami yashiro (tsubaki grand shrine)"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Sarutahiko Ōkami (Crocevia, Guida)</h3>
@@ -998,7 +1096,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="ninigi‑no‑mikoto (discesa celeste) creazione / origini nipote di amaterasu; discesa a takachiho, inizio della linea imperiale. kirishima jingū · takachiho shrine">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="ninigi‑no‑mikoto (discesa celeste) creazione / origini nipote di amaterasu; discesa a takachiho, inizio della linea imperiale. kirishima jingū · takachiho shrine"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ninigi‑no‑Mikoto (Discesa celeste)</h3>
@@ -1009,7 +1107,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Mare" data-search="hoori (yamasachihiko) natura / mare eroe della caccia; sposo di toyotama‑hime. udo jingū">
+  <article class="kcard" data-cat="Natura / Mare" data-search="hoori (yamasachihiko) natura / mare eroe della caccia; sposo di toyotama‑hime. udo jingū"><div class="kph kanji-tile" style="--kc:#2f88ad"><span class="kt-glifo">波</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hoori (Yamasachihiko)</h3>
@@ -1020,7 +1118,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Mare" data-search="hoderi (umisachihiko) natura / mare fratello di hoori, legato alla pesca e al mare. santuari vari">
+  <article class="kcard" data-cat="Natura / Mare" data-search="hoderi (umisachihiko) natura / mare fratello di hoori, legato alla pesca e al mare. santuari vari"><div class="kph kanji-tile" style="--kc:#2f88ad"><span class="kt-glifo">波</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hoderi (Umisachihiko)</h3>
@@ -1031,7 +1129,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="ugayafukiaezu (principe) creazione / origini figlio di hoori e toyotama‑hime; genealogia mitica verso jimmu. udo jingū">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="ugayafukiaezu (principe) creazione / origini figlio di hoori e toyotama‑hime; genealogia mitica verso jimmu. udo jingū"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ugayafukiaezu (Principe)</h3>
@@ -1042,7 +1140,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Mare" data-search="toyotama‑hime (mare e maternità) natura / mare principessa del mare, figlia di watatsumi. santuari vari">
+  <article class="kcard" data-cat="Natura / Mare" data-search="toyotama‑hime (mare e maternità) natura / mare principessa del mare, figlia di watatsumi. santuari vari"><div class="kph kanji-tile" style="--kc:#2f88ad"><span class="kt-glifo">波</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Toyotama‑hime (Mare e maternità)</h3>
@@ -1054,7 +1152,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     </div>
   </article>
   <article class="kcard featured" data-cat="Fertilità / Prosperità" data-search="ebisu (commercio, fortuna, pesca) fertilità / prosperità kami della buona sorte negli affari e della pesca. nishinomiya shrine (santuario capo) · kanda myōjin">
-    <div class="kph" data-wiki="Ebisu" data-fallback="鯛"></div>
+    <div class="kph" style="--kc:#c9a227" data-wiki="Ebisu" data-fallback="鯛"></div>
     <div class="kbody">
       <h3>Ebisu (Commercio, Fortuna, Pesca)</h3>
       <div class="kcat">Fertilità / Prosperità</div>
@@ -1064,7 +1162,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       <details class="acc kdeep"><summary>Approfondisci</summary><div class="acc-body"><p>L'unico dei Sette Dèi della Fortuna di origine autoctona. Identificato con Hiruko, il figlio deforme abbandonato in mare da Izanagi e Izanami, tornato come kami dei pescatori e dei mercanti. È sordo: al suo santuario si bussa sul retro per farsi sentire.</p></div></details>
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="daikokuten (fortuna, cucina, mercati) sincretici / shichifukujin divinità di origine sincretica; prosperità domestica e commerciale. kanda myōjin · santuari vari">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="daikokuten (fortuna, cucina, mercati) sincretici / shichifukujin divinità di origine sincretica; prosperità domestica e commerciale. kanda myōjin · santuari vari"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Daikokuten (Fortuna, Cucina, Mercati)</h3>
@@ -1075,7 +1173,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="benzaiten (arte, musica, acque) sincretici / shichifukujin forma sincretica legata a ichikishima‑hime; musica e acque. enoshima shrine · chikubushima tsukubusuma shrine">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="benzaiten (arte, musica, acque) sincretici / shichifukujin forma sincretica legata a ichikishima‑hime; musica e acque. enoshima shrine · chikubushima tsukubusuma shrine"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Benzaiten (Arte, Musica, Acque)</h3>
@@ -1086,7 +1184,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="bishamonten (protezione, guerra) sincretici / shichifukujin protettore guerriero; culto cittadino e di clan. santuari vari">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="bishamonten (protezione, guerra) sincretici / shichifukujin protettore guerriero; culto cittadino e di clan. santuari vari"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Bishamonten (Protezione, Guerra)</h3>
@@ -1097,7 +1195,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="fukurokuju (lunga vita e prosperità) sincretici / shichifukujin porta benessere, longevità e fama. santuari vari">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="fukurokuju (lunga vita e prosperità) sincretici / shichifukujin porta benessere, longevità e fama. santuari vari"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Fukurokuju (Lunga vita e prosperità)</h3>
@@ -1108,7 +1206,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="jurōjin (longevità) sincretici / shichifukujin anziano saggio, emblema di lunga vita. santuari vari">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="jurōjin (longevità) sincretici / shichifukujin anziano saggio, emblema di lunga vita. santuari vari"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Jurōjin (Longevità)</h3>
@@ -1119,7 +1217,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="hotei (contenutezza e allegria) sincretici / shichifukujin figura bonaria, abbondanza e buon auspicio. santuari vari">
+  <article class="kcard" data-cat="Sincretici / Shichifukujin" data-search="hotei (contenutezza e allegria) sincretici / shichifukujin figura bonaria, abbondanza e buon auspicio. santuari vari"><div class="kph kanji-tile" style="--kc:#c8402a"><span class="kt-glifo">福</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hotei (Contenutezza e allegria)</h3>
@@ -1130,7 +1228,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Gongen" data-search="tōshō daigongen (tokugawa ieyasu) sincretici / gongen ieyasu deificato come tutore dello stato; culto gongen. nikkō tōshōgū">
+  <article class="kcard" data-cat="Sincretici / Gongen" data-search="tōshō daigongen (tokugawa ieyasu) sincretici / gongen ieyasu deificato come tutore dello stato; culto gongen. nikkō tōshōgū"><div class="kph kanji-tile" style="--kc:#7d6a4f"><span class="kt-glifo">権</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tōshō Daigongen (Tokugawa Ieyasu)</h3>
@@ -1141,7 +1239,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Goryō" data-search="gozu tennō (epidemie, protezione) sincretici / goryō divinità/spirito sincretico contro pestilenze; storicamente legato a yasaka. santuari vari">
+  <article class="kcard" data-cat="Sincretici / Goryō" data-search="gozu tennō (epidemie, protezione) sincretici / goryō divinità/spirito sincretico contro pestilenze; storicamente legato a yasaka. santuari vari"><div class="kph kanji-tile" style="--kc:#6e5a8c"><span class="kt-glifo">霊</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Gozu Tennō (Epidemie, protezione)</h3>
@@ -1152,7 +1250,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sincretici / Goryō" data-search="taira no masakado (goryō) sincretici / goryō spirito apotropaico di un signore ribelle; placato in epoca heian. kanda myōjin">
+  <article class="kcard" data-cat="Sincretici / Goryō" data-search="taira no masakado (goryō) sincretici / goryō spirito apotropaico di un signore ribelle; placato in epoca heian. kanda myōjin"><div class="kph kanji-tile" style="--kc:#6e5a8c"><span class="kt-glifo">霊</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Taira no Masakado (Goryō)</h3>
@@ -1163,7 +1261,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="dōsojin (strade e viaggi) viaggio / strade guardiani di strade e villaggi, spesso come pietre di confine. santuari vari">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="dōsojin (strade e viaggi) viaggio / strade guardiani di strade e villaggi, spesso come pietre di confine. santuari vari"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Dōsojin (Strade e viaggi)</h3>
@@ -1174,7 +1272,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="sae‑no‑kami / sai‑no‑kami (cippi di confine) viaggio / strade divinità dei crocevia e dei confini; protezione dai mali erranti. santuari vari">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="sae‑no‑kami / sai‑no‑kami (cippi di confine) viaggio / strade divinità dei crocevia e dei confini; protezione dai mali erranti. santuari vari"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Sae‑no‑kami / Sai‑no‑kami (Cippi di confine)</h3>
@@ -1185,7 +1283,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="chimata‑no‑kami (incroci) viaggio / strade spirito degli incroci; purificazione ai passaggi liminali. santuari vari">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="chimata‑no‑kami (incroci) viaggio / strade spirito degli incroci; purificazione ai passaggi liminali. santuari vari"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Chimata‑no‑kami (Incroci)</h3>
@@ -1196,7 +1294,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="ōwatatsumi / ryūjin (mare profondo) tempeste / mare signore dei mari profondi; palazzi sottomarini e draghi. ryūgū shrine · santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="ōwatatsumi / ryūjin (mare profondo) tempeste / mare signore dei mari profondi; palazzi sottomarini e draghi. ryūgū shrine · santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōwatatsumi / Ryūjin (Mare profondo)</h3>
@@ -1207,7 +1305,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Acque" data-search="suijin (acque dolci) natura / acque kami delle acque di fiumi, laghi e pozzi. santuari vari">
+  <article class="kcard" data-cat="Natura / Acque" data-search="suijin (acque dolci) natura / acque kami delle acque di fiumi, laghi e pozzi. santuari vari"><div class="kph kanji-tile" style="--kc:#3f9bb5"><span class="kt-glifo">水</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Suijin (Acque dolci)</h3>
@@ -1218,7 +1316,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Acque" data-search="kuraokami (pioggia e nebbie) natura / acque drago della pioggia che porta fertilità. santuari vari">
+  <article class="kcard" data-cat="Natura / Acque" data-search="kuraokami (pioggia e nebbie) natura / acque drago della pioggia che porta fertilità. santuari vari"><div class="kph kanji-tile" style="--kc:#3f9bb5"><span class="kt-glifo">水</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kuraokami (Pioggia e nebbie)</h3>
@@ -1229,7 +1327,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Acque" data-search="taki‑tsu‑hime (cascate) natura / acque dea delle cascate e della corrente pura. kumano nachi taisha (acque sacre)">
+  <article class="kcard" data-cat="Natura / Acque" data-search="taki‑tsu‑hime (cascate) natura / acque dea delle cascate e della corrente pura. kumano nachi taisha (acque sacre)"><div class="kph kanji-tile" style="--kc:#3f9bb5"><span class="kt-glifo">水</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Taki‑tsu‑hime (Cascate)</h3>
@@ -1240,7 +1338,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kasuga (quartetto) corte / antichi santuari pantheon di kasuga: takemikazuchi, futsunushi, ame‑no‑koyane, himegami. kasuga taisha">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kasuga (quartetto) corte / antichi santuari pantheon di kasuga: takemikazuchi, futsunushi, ame‑no‑koyane, himegami. kasuga taisha"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kasuga (Quartetto)</h3>
@@ -1251,7 +1349,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="ame‑no‑koyane (riti e preghiere) corte / antichi santuari antenato dei fujiwara; maestro di riti e offerte. kasuga taisha">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="ame‑no‑koyane (riti e preghiere) corte / antichi santuari antenato dei fujiwara; maestro di riti e offerte. kasuga taisha"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Koyane (Riti e preghiere)</h3>
@@ -1262,7 +1360,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kamo‑wake‑ikazuchi (fulmine di kamo) corte / antichi santuari deità di kamigamo; tutela della capitale antica. kamigamo jinja">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kamo‑wake‑ikazuchi (fulmine di kamo) corte / antichi santuari deità di kamigamo; tutela della capitale antica. kamigamo jinja"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kamo‑wake‑ikazuchi (Fulmine di Kamo)</h3>
@@ -1273,7 +1371,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kamo‑taketsunomi corte / antichi santuari deità di shimogamo insieme a tamayori‑hime. shimogamo jinja">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="kamo‑taketsunomi corte / antichi santuari deità di shimogamo insieme a tamayori‑hime. shimogamo jinja"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kamo‑Taketsunomi</h3>
@@ -1284,7 +1382,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="tamayori‑hime (madre e oracoli) corte / antichi santuari dea madre/oracolare; culto a shimogamo e oltre. shimogamo jinja">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="tamayori‑hime (madre e oracoli) corte / antichi santuari dea madre/oracolare; culto a shimogamo e oltre. shimogamo jinja"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tamayori‑hime (Madre e oracoli)</h3>
@@ -1295,7 +1393,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Famiglia / Nascita" data-search="koyasu (parto sicuro) famiglia / nascita protettrice del parto e della crescita dei bambini. santuari vari">
+  <article class="kcard" data-cat="Famiglia / Nascita" data-search="koyasu (parto sicuro) famiglia / nascita protettrice del parto e della crescita dei bambini. santuari vari"><div class="kph kanji-tile" style="--kc:#c78ba0"><span class="kt-glifo">産</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Koyasu (Parto sicuro)</h3>
@@ -1306,7 +1404,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guarigione / Medicina" data-search="awashima‑hime (salute delle donne) guarigione / medicina guarigione e fertilità femminile; tavolette di bambole votive. awashima jinja">
+  <article class="kcard" data-cat="Guarigione / Medicina" data-search="awashima‑hime (salute delle donne) guarigione / medicina guarigione e fertilità femminile; tavolette di bambole votive. awashima jinja"><div class="kph kanji-tile" style="--kc:#4f8f6a"><span class="kt-glifo">薬</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Awashima‑hime (Salute delle donne)</h3>
@@ -1317,7 +1415,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Sapienza / Studi" data-search="kuebiko (spaventapasseri sapiente) sapienza / studi scarecrow divino che conosce il mondo pur non muovendosi. santuari vari">
+  <article class="kcard" data-cat="Sapienza / Studi" data-search="kuebiko (spaventapasseri sapiente) sapienza / studi scarecrow divino che conosce il mondo pur non muovendosi. santuari vari"><div class="kph kanji-tile" style="--kc:#3f6d8c"><span class="kt-glifo">学</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kuebiko (Spaventapasseri sapiente)</h3>
@@ -1328,7 +1426,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="yakuyoke no kami (sventura‑repellenti) guerra / protezione titolo generico per kami invocati contro anni infausti. santuari vari">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="yakuyoke no kami (sventura‑repellenti) guerra / protezione titolo generico per kami invocati contro anni infausti. santuari vari"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Yakuyoke no kami (Sventura‑repellenti)</h3>
@@ -1339,7 +1437,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="ōyamakui (monte hiei) natura / montagne kami del monte hiei; culto connesso a hiyoshi‑sannō. hiyoshi taisha">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="ōyamakui (monte hiei) natura / montagne kami del monte hiei; culto connesso a hiyoshi‑sannō. hiyoshi taisha"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōyamakui (Monte Hiei)</h3>
@@ -1350,7 +1448,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="yatagarasu (guida a tre zampe) viaggio / strade messaggero divino che guida sul giusto cammino. kumano hongū taisha">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="yatagarasu (guida a tre zampe) viaggio / strade messaggero divino che guida sul giusto cammino. kumano hongū taisha"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Yatagarasu (Guida a tre zampe)</h3>
@@ -1361,7 +1459,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="kumano (sanzan) natura / montagne triade di kumano: hongū, hayatama, nachi – sincretismo e pellegrinaggi. kumano hongū / hayatama / nachi taisha">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="kumano (sanzan) natura / montagne triade di kumano: hongū, hayatama, nachi – sincretismo e pellegrinaggi. kumano hongū / hayatama / nachi taisha"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kumano (Sanzan)</h3>
@@ -1372,7 +1470,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="ame‑no‑tajikarao (forza fisica) guerra / protezione apre la roccia della caverna riportando la luce nel mondo. togakushi jinja (okusha)">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="ame‑no‑tajikarao (forza fisica) guerra / protezione apre la roccia della caverna riportando la luce nel mondo. togakushi jinja (okusha)"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Tajikarao (Forza fisica)</h3>
@@ -1383,7 +1481,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Relazioni / Nazione" data-search="kushinada‑hime (riso e matrimonio) relazioni / nazione sposa di susanoo; protettrice dei raccolti e dei matrimoni. yaegaki jinja">
+  <article class="kcard" data-cat="Relazioni / Nazione" data-search="kushinada‑hime (riso e matrimonio) relazioni / nazione sposa di susanoo; protettrice dei raccolti e dei matrimoni. yaegaki jinja"><div class="kph kanji-tile" style="--kc:#c2557a"><span class="kt-glifo">縁</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kushinada‑hime (Riso e matrimonio)</h3>
@@ -1394,7 +1492,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Relazioni / Nazione" data-search="suseri‑hime (consorte di ōkuninushi) relazioni / nazione dea consorte e alleata di ōkuninushi. santuari vari">
+  <article class="kcard" data-cat="Relazioni / Nazione" data-search="suseri‑hime (consorte di ōkuninushi) relazioni / nazione dea consorte e alleata di ōkuninushi. santuari vari"><div class="kph kanji-tile" style="--kc:#c2557a"><span class="kt-glifo">縁</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Suseri‑hime (Consorte di Ōkuninushi)</h3>
@@ -1405,7 +1503,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="funadama (spirito della nave) tempeste / mare spirito protettore delle imbarcazioni; culto a bordo e nei porti. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="funadama (spirito della nave) tempeste / mare spirito protettore delle imbarcazioni; culto a bordo e nei porti. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Funadama (Spirito della nave)</h3>
@@ -1416,7 +1514,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="yama‑no‑kami (montagna) natura / montagne titolo generico del dio della montagna nelle comunità rurali. santuari vari">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="yama‑no‑kami (montagna) natura / montagne titolo generico del dio della montagna nelle comunità rurali. santuari vari"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Yama‑no‑kami (Montagna)</h3>
@@ -1427,7 +1525,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ta‑no‑kami (campi di riso) fertilità / prosperità divinità locale delle risaie; stagionale e comunitaria. santuari vari">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="ta‑no‑kami (campi di riso) fertilità / prosperità divinità locale delle risaie; stagionale e comunitaria. santuari vari"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ta‑no‑kami (Campi di riso)</h3>
@@ -1438,7 +1536,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="umi‑no‑kami (mare) tempeste / mare appellativo generico per le divinità marine locali. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="umi‑no‑kami (mare) tempeste / mare appellativo generico per le divinità marine locali. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Umi‑no‑kami (Mare)</h3>
@@ -1449,7 +1547,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fuoco / Focolare" data-search="homusubi (fuoco domestico) fuoco / focolare aspetto benevolo del fuoco in casa e nel forno. santuari vari">
+  <article class="kcard" data-cat="Fuoco / Focolare" data-search="homusubi (fuoco domestico) fuoco / focolare aspetto benevolo del fuoco in casa e nel forno. santuari vari"><div class="kph kanji-tile" style="--kc:#c05a24"><span class="kt-glifo">火</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Homusubi (Fuoco domestico)</h3>
@@ -1460,7 +1558,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kōjin (cucine e focolari) fuoco / focolare divinità della cucina e del fuoco controllato. santuari vari">
+  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kōjin (cucine e focolari) fuoco / focolare divinità della cucina e del fuoco controllato. santuari vari"><div class="kph kanji-tile" style="--kc:#c05a24"><span class="kt-glifo">火</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kōjin (Cucine e focolari)</h3>
@@ -1471,7 +1569,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kamado‑gami (forni) fuoco / focolare protettore del forno domestico e delle fornaci. santuari vari">
+  <article class="kcard" data-cat="Fuoco / Focolare" data-search="kamado‑gami (forni) fuoco / focolare protettore del forno domestico e delle fornaci. santuari vari"><div class="kph kanji-tile" style="--kc:#c05a24"><span class="kt-glifo">火</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kamado‑gami (Forni)</h3>
@@ -1482,7 +1580,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="ujigami (divinità di clan) città / comunità tutelare del clan/famiglia; santuario locale di riferimento. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="ujigami (divinità di clan) città / comunità tutelare del clan/famiglia; santuario locale di riferimento. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ujigami (Divinità di clan)</h3>
@@ -1493,7 +1591,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="ubusunagami (divinità natìa) città / comunità protettore del luogo di nascita; identità personale. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="ubusunagami (divinità natìa) città / comunità protettore del luogo di nascita; identità personale. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ubusunagami (Divinità natìa)</h3>
@@ -1504,7 +1602,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="kitsune (messaggeri di inari) fertilità / prosperità spiriti volpe, emissari di inari; portano offerte e oracoli. fushimi inari taisha">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="kitsune (messaggeri di inari) fertilità / prosperità spiriti volpe, emissari di inari; portano offerte e oracoli. fushimi inari taisha"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kitsune (messaggeri di Inari)</h3>
@@ -1515,7 +1613,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="toshitokujin (capodanno) città / comunità deità di inizio anno e buon auspicio. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="toshitokujin (capodanno) città / comunità deità di inizio anno e buon auspicio. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Toshitokujin (Capodanno)</h3>
@@ -1526,7 +1624,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Creazione / Origini" data-search="ame‑no‑hohi (inviato a izumo) creazione / origini figlio di amaterasu mandato a trattare con ōkuninushi. santuari vari">
+  <article class="kcard" data-cat="Creazione / Origini" data-search="ame‑no‑hohi (inviato a izumo) creazione / origini figlio di amaterasu mandato a trattare con ōkuninushi. santuari vari"><div class="kph kanji-tile" style="--kc:#8c5fa8"><span class="kt-glifo">創</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Hohi (Inviato a Izumo)</h3>
@@ -1537,7 +1635,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="ōkunitama (spirito del territorio) città / comunità kami del territorio/metropoli. ōkunitama jinja">
+  <article class="kcard" data-cat="Città / Comunità" data-search="ōkunitama (spirito del territorio) città / comunità kami del territorio/metropoli. ōkunitama jinja"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōkunitama (Spirito del territorio)</h3>
@@ -1548,7 +1646,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="ise jingū – naikū (amaterasu) santuari principali santuario interno di amaterasu; cuore dello shinto. ise jingū (naikū)">
+  <article class="kcard" data-cat="Santuari principali" data-search="ise jingū – naikū (amaterasu) santuari principali santuario interno di amaterasu; cuore dello shinto. ise jingū (naikū)"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ise Jingū – Naikū (Amaterasu)</h3>
@@ -1559,7 +1657,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="ise jingū – gekū (toyouke) santuari principali santuario esterno dedicato a toyouke ōmikami. ise jingū (gekū)">
+  <article class="kcard" data-cat="Santuari principali" data-search="ise jingū – gekū (toyouke) santuari principali santuario esterno dedicato a toyouke ōmikami. ise jingū (gekū)"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ise Jingū – Gekū (Toyouke)</h3>
@@ -1570,7 +1668,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="izumo taisha (ōkuninushi) santuari principali grande santuario dei legami (en‑musubi). izumo taisha">
+  <article class="kcard" data-cat="Santuari principali" data-search="izumo taisha (ōkuninushi) santuari principali grande santuario dei legami (en‑musubi). izumo taisha"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Izumo Taisha (Ōkuninushi)</h3>
@@ -1581,7 +1679,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="fushimi inari taisha (inari) santuari principali santuario capo del culto di inari; migliaia di torii. fushimi inari taisha">
+  <article class="kcard" data-cat="Santuari principali" data-search="fushimi inari taisha (inari) santuari principali santuario capo del culto di inari; migliaia di torii. fushimi inari taisha"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Fushimi Inari Taisha (Inari)</h3>
@@ -1592,7 +1690,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="kashima jingū (takemikazuchi) santuari principali santuario della spada e del fulmine. kashima jingū">
+  <article class="kcard" data-cat="Santuari principali" data-search="kashima jingū (takemikazuchi) santuari principali santuario della spada e del fulmine. kashima jingū"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kashima Jingū (Takemikazuchi)</h3>
@@ -1603,7 +1701,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="katori jingū (futsunushi) santuari principali santuario di strategia e disciplina. katori jingū">
+  <article class="kcard" data-cat="Santuari principali" data-search="katori jingū (futsunushi) santuari principali santuario di strategia e disciplina. katori jingū"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Katori Jingū (Futsunushi)</h3>
@@ -1614,7 +1712,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="sumiyoshi taisha (sumiyoshi sanjin) santuari principali triplice culto marinaro di osaka. sumiyoshi taisha">
+  <article class="kcard" data-cat="Santuari principali" data-search="sumiyoshi taisha (sumiyoshi sanjin) santuari principali triplice culto marinaro di osaka. sumiyoshi taisha"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Sumiyoshi Taisha (Sumiyoshi Sanjin)</h3>
@@ -1625,7 +1723,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="nishinomiya shrine (ebisu) santuari principali santuario capo di ebisu. nishinomiya shrine">
+  <article class="kcard" data-cat="Santuari principali" data-search="nishinomiya shrine (ebisu) santuari principali santuario capo di ebisu. nishinomiya shrine"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Nishinomiya Shrine (Ebisu)</h3>
@@ -1636,7 +1734,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="ōyamazumi jinja (ōyamatsumi) santuari principali tesori di armatura e armi votive. ōyamazumi jinja">
+  <article class="kcard" data-cat="Santuari principali" data-search="ōyamazumi jinja (ōyamatsumi) santuari principali tesori di armatura e armi votive. ōyamazumi jinja"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōyamazumi Jinja (Ōyamatsumi)</h3>
@@ -1647,7 +1745,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="munakata taisha (munakata) santuari principali triade marina e rotte commerciali antiche. munakata taisha">
+  <article class="kcard" data-cat="Santuari principali" data-search="munakata taisha (munakata) santuari principali triade marina e rotte commerciali antiche. munakata taisha"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Munakata Taisha (Munakata)</h3>
@@ -1658,7 +1756,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="itsukushima jinja (isola santuario) santuari principali torii sull’acqua; culto delle munakata. itsukushima jinja">
+  <article class="kcard" data-cat="Santuari principali" data-search="itsukushima jinja (isola santuario) santuari principali torii sull’acqua; culto delle munakata. itsukushima jinja"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Itsukushima Jinja (Isola santuario)</h3>
@@ -1669,7 +1767,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="suwa taisha (takeminakata) santuari principali grande complesso (kamisha/shimosha) e festival onbashira. suwa taisha">
+  <article class="kcard" data-cat="Santuari principali" data-search="suwa taisha (takeminakata) santuari principali grande complesso (kamisha/shimosha) e festival onbashira. suwa taisha"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Suwa Taisha (Takeminakata)</h3>
@@ -1680,7 +1778,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="kirishima jingū (ninigi) santuari principali miti di discesa celeste a kyushu. kirishima jingū">
+  <article class="kcard" data-cat="Santuari principali" data-search="kirishima jingū (ninigi) santuari principali miti di discesa celeste a kyushu. kirishima jingū"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kirishima Jingū (Ninigi)</h3>
@@ -1691,7 +1789,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="dazaifu tenmangū (tenjin) santuari principali meta di studenti e studiosi. dazaifu tenmangū">
+  <article class="kcard" data-cat="Santuari principali" data-search="dazaifu tenmangū (tenjin) santuari principali meta di studenti e studiosi. dazaifu tenmangū"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Dazaifu Tenmangū (Tenjin)</h3>
@@ -1702,7 +1800,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="ōmiwa jinja (monte miwa) santuari principali culto arcaico senza honden; il monte come shintai. ōmiwa jinja">
+  <article class="kcard" data-cat="Santuari principali" data-search="ōmiwa jinja (monte miwa) santuari principali culto arcaico senza honden; il monte come shintai. ōmiwa jinja"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ōmiwa Jinja (Monte Miwa)</h3>
@@ -1713,7 +1811,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Santuari principali" data-search="atsuta jingū (tesoro sacro) santuari principali santuario della spada kusanagi. atsuta jingū">
+  <article class="kcard" data-cat="Santuari principali" data-search="atsuta jingū (tesoro sacro) santuari principali santuario della spada kusanagi. atsuta jingū"><div class="kph kanji-tile" style="--kc:#bb9138"><span class="kt-glifo">社</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Atsuta Jingū (Tesoro sacro)</h3>
@@ -1724,7 +1822,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="omono‑nushi‑wake (titoli locali) città / comunità titoli locali onorifici per kami tutelari. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="omono‑nushi‑wake (titoli locali) città / comunità titoli locali onorifici per kami tutelari. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Omono‑nushi‑wake (Titoli locali)</h3>
@@ -1735,7 +1833,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="aramitama (animo ardente) guerra / protezione aspetto vigoroso e combattivo di un kami. santuari vari">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="aramitama (animo ardente) guerra / protezione aspetto vigoroso e combattivo di un kami. santuari vari"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Aramitama (Animo ardente)</h3>
@@ -1746,7 +1844,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Relazioni / Nazione" data-search="nigimitama (animo pacificante) relazioni / nazione aspetto benevolo e armonizzante di un kami. santuari vari">
+  <article class="kcard" data-cat="Relazioni / Nazione" data-search="nigimitama (animo pacificante) relazioni / nazione aspetto benevolo e armonizzante di un kami. santuari vari"><div class="kph kanji-tile" style="--kc:#c2557a"><span class="kt-glifo">縁</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Nigimitama (Animo pacificante)</h3>
@@ -1757,7 +1855,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guarigione / Medicina" data-search="tatarigami (forze avverse) guarigione / medicina personificazioni di calamità/epidemie da placare. santuari vari">
+  <article class="kcard" data-cat="Guarigione / Medicina" data-search="tatarigami (forze avverse) guarigione / medicina personificazioni di calamità/epidemie da placare. santuari vari"><div class="kph kanji-tile" style="--kc:#4f8f6a"><span class="kt-glifo">薬</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tatarigami (Forze avverse)</h3>
@@ -1768,7 +1866,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Viaggio / Strade" data-search="yachimata‑hiko/hime (crocevia mitici) viaggio / strade coppia di kami legati agli incroci e passaggi rituali. santuari vari">
+  <article class="kcard" data-cat="Viaggio / Strade" data-search="yachimata‑hiko/hime (crocevia mitici) viaggio / strade coppia di kami legati agli incroci e passaggi rituali. santuari vari"><div class="kph kanji-tile" style="--kc:#6b7f8c"><span class="kt-glifo">道</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Yachimata‑hiko/hime (Crocevia mitici)</h3>
@@ -1779,7 +1877,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="shirayama‑hime (hakusan) natura / montagne dea di hakusan (monte bianco), acque di sorgente. shirayama‑hime jinja">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="shirayama‑hime (hakusan) natura / montagne dea di hakusan (monte bianco), acque di sorgente. shirayama‑hime jinja"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Shirayama‑Hime (Hakusan)</h3>
@@ -1790,7 +1888,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="ame‑no‑torifune (navigazione) tempeste / mare divinità del viaggio per mare, “barca celeste”. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="ame‑no‑torifune (navigazione) tempeste / mare divinità del viaggio per mare, “barca celeste”. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ame‑no‑Torifune (Navigazione)</h3>
@@ -1801,7 +1899,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="hayatama‑no‑ōkami (kumano) natura / montagne divinità di kumano hayatama; rigenerazione. kumano hayatama taisha">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="hayatama‑no‑ōkami (kumano) natura / montagne divinità di kumano hayatama; rigenerazione. kumano hayatama taisha"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hayatama‑no‑Ōkami (Kumano)</h3>
@@ -1812,7 +1910,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="ketsumiko‑no‑ōkami (kumano hongū) natura / montagne principio centrale del pantheon di kumano. kumano hongū taisha">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="ketsumiko‑no‑ōkami (kumano hongū) natura / montagne principio centrale del pantheon di kumano. kumano hongū taisha"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Ketsumiko‑no‑Ōkami (Kumano Hongū)</h3>
@@ -1823,7 +1921,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="musubi‑no‑kami (kumano nachi) natura / montagne aspetto di legame e rinascita presso nachi. kumano nachi taisha">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="musubi‑no‑kami (kumano nachi) natura / montagne aspetto di legame e rinascita presso nachi. kumano nachi taisha"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Musubi‑no‑Kami (Kumano Nachi)</h3>
@@ -1834,7 +1932,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Purificazione / Harae" data-search="seoritsu‑hime (purificazione) purificazione / harae deità della grande purificazione (ōharae). santuari vari">
+  <article class="kcard" data-cat="Purificazione / Harae" data-search="seoritsu‑hime (purificazione) purificazione / harae deità della grande purificazione (ōharae). santuari vari"><div class="kph kanji-tile" style="--kc:#5aa0a8"><span class="kt-glifo">祓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Seoritsu‑hime (Purificazione)</h3>
@@ -1845,7 +1943,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Purificazione / Harae" data-search="haya‑akitsu‑hime (purificazione) purificazione / harae una delle divinità della purificazione rapida. santuari vari">
+  <article class="kcard" data-cat="Purificazione / Harae" data-search="haya‑akitsu‑hime (purificazione) purificazione / harae una delle divinità della purificazione rapida. santuari vari"><div class="kph kanji-tile" style="--kc:#5aa0a8"><span class="kt-glifo">祓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Haya‑akitsu‑hime (Purificazione)</h3>
@@ -1856,7 +1954,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Purificazione / Harae" data-search="haya‑akitsu‑hiko (purificazione) purificazione / harae contropare maschile in alcuni cicli rituali. santuari vari">
+  <article class="kcard" data-cat="Purificazione / Harae" data-search="haya‑akitsu‑hiko (purificazione) purificazione / harae contropare maschile in alcuni cicli rituali. santuari vari"><div class="kph kanji-tile" style="--kc:#5aa0a8"><span class="kt-glifo">祓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Haya‑akitsu‑hiko (Purificazione)</h3>
@@ -1867,7 +1965,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="takami‑musubi (fortuna agricola) fertilità / prosperità aspetto agricolo locale del principio musubi. santuari vari">
+  <article class="kcard" data-cat="Fertilità / Prosperità" data-search="takami‑musubi (fortuna agricola) fertilità / prosperità aspetto agricolo locale del principio musubi. santuari vari"><div class="kph kanji-tile" style="--kc:#c9a227"><span class="kt-glifo">稲</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Takami‑Musubi (Fortuna agricola)</h3>
@@ -1878,7 +1976,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="yashima‑no‑miko (patroni locali) città / comunità titolo per kami protettori di villaggi insulari. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="yashima‑no‑miko (patroni locali) città / comunità titolo per kami protettori di villaggi insulari. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Yashima‑no‑Miko (Patroni locali)</h3>
@@ -1889,7 +1987,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="isora (scogli e coste) tempeste / mare spirito delle scogliere e delle maree. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="isora (scogli e coste) tempeste / mare spirito delle scogliere e delle maree. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Isora (Scogli e coste)</h3>
@@ -1900,7 +1998,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Acque" data-search="mizu‑ha‑no‑me (sorgenti) natura / acque dea delle sorgenti e dei pozzi. santuari vari">
+  <article class="kcard" data-cat="Natura / Acque" data-search="mizu‑ha‑no‑me (sorgenti) natura / acque dea delle sorgenti e dei pozzi. santuari vari"><div class="kph kanji-tile" style="--kc:#3f9bb5"><span class="kt-glifo">水</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Mizu‑ha‑no‑me (Sorgenti)</h3>
@@ -1911,7 +2009,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="hashi‑hime (ponti) città / comunità deità dei ponti, passaggi liminari sulle acque. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="hashi‑hime (ponti) città / comunità deità dei ponti, passaggi liminari sulle acque. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hashi‑hime (Ponti)</h3>
@@ -1922,7 +2020,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Astri" data-search="tatsuta‑hime/hiko (foglie e venti d’autunno) natura / astri divinità poetiche del vento autunnale. tatsuta taisha">
+  <article class="kcard" data-cat="Natura / Astri" data-search="tatsuta‑hime/hiko (foglie e venti d’autunno) natura / astri divinità poetiche del vento autunnale. tatsuta taisha"><div class="kph kanji-tile" style="--kc:#d98f2e"><span class="kt-glifo">日</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tatsuta‑hime/hiko (Foglie e venti d’autunno)</h3>
@@ -1933,7 +2031,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Tempeste / Mare" data-search="michishio‑no‑kami (flussi e riflussi) tempeste / mare forze delle maree e dei canali. santuari vari">
+  <article class="kcard" data-cat="Tempeste / Mare" data-search="michishio‑no‑kami (flussi e riflussi) tempeste / mare forze delle maree e dei canali. santuari vari"><div class="kph kanji-tile" style="--kc:#2f6f9c"><span class="kt-glifo">嵐</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Michishio‑no‑kami (Flussi e riflussi)</h3>
@@ -1944,7 +2042,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Famiglia / Nascita" data-search="tamayori (maternità locale) famiglia / nascita aspetti locali di protezione materna. santuari vari">
+  <article class="kcard" data-cat="Famiglia / Nascita" data-search="tamayori (maternità locale) famiglia / nascita aspetti locali di protezione materna. santuari vari"><div class="kph kanji-tile" style="--kc:#c78ba0"><span class="kt-glifo">産</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Tamayori (Maternità locale)</h3>
@@ -1955,7 +2053,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Mestieri / Arti" data-search="uzumasa (sete artigiane) mestieri / arti culti di corporazioni artigiane storiche. santuari vari">
+  <article class="kcard" data-cat="Mestieri / Arti" data-search="uzumasa (sete artigiane) mestieri / arti culti di corporazioni artigiane storiche. santuari vari"><div class="kph kanji-tile" style="--kc:#8a6a3f"><span class="kt-glifo">匠</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Uzumasa (Sete artigiane)</h3>
@@ -1966,7 +2064,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Guerra / Protezione" data-search="moriya (suwa – ausiliari) guerra / protezione kami ausiliari del complesso di suwa. suwa taisha">
+  <article class="kcard" data-cat="Guerra / Protezione" data-search="moriya (suwa – ausiliari) guerra / protezione kami ausiliari del complesso di suwa. suwa taisha"><div class="kph kanji-tile" style="--kc:#9c2e1d"><span class="kt-glifo">弓</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Moriya (Suwa – ausiliari)</h3>
@@ -1977,7 +2075,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Città / Comunità" data-search="kadori‑no‑kami (santuari d’ingresso) città / comunità spiriti degli accessi ai villaggi. santuari vari">
+  <article class="kcard" data-cat="Città / Comunità" data-search="kadori‑no‑kami (santuari d’ingresso) città / comunità spiriti degli accessi ai villaggi. santuari vari"><div class="kph kanji-tile" style="--kc:#a8683c"><span class="kt-glifo">町</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Kadori‑no‑kami (Santuari d’ingresso)</h3>
@@ -1988,7 +2086,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Oracoli / Divinazione" data-search="hitokotonushi (una‑parola oracolare) oracoli / divinazione kami che esaudisce una singola preghiera ben mirata. santuari vari">
+  <article class="kcard" data-cat="Oracoli / Divinazione" data-search="hitokotonushi (una‑parola oracolare) oracoli / divinazione kami che esaudisce una singola preghiera ben mirata. santuari vari"><div class="kph kanji-tile" style="--kc:#8a7f5c"><span class="kt-glifo">卜</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Hitokotonushi (Una‑parola oracolare)</h3>
@@ -1999,7 +2097,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Natura / Montagne" data-search="iwa‑totsu‑no‑o (rocce e confini) natura / montagne spirito delle rocce, guardiano di confini sacri. santuari vari">
+  <article class="kcard" data-cat="Natura / Montagne" data-search="iwa‑totsu‑no‑o (rocce e confini) natura / montagne spirito delle rocce, guardiano di confini sacri. santuari vari"><div class="kph kanji-tile" style="--kc:#5f7d5a"><span class="kt-glifo">山</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Iwa‑totsu‑no‑o (Rocce e confini)</h3>
@@ -2010,7 +2108,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
       
     </div>
   </article>
-  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="asuka niimasu (antiche capitali) corte / antichi santuari culti della prima corte nella piana di asuka. asuka‑niimasu jinja">
+  <article class="kcard" data-cat="Corte / Antichi santuari" data-search="asuka niimasu (antiche capitali) corte / antichi santuari culti della prima corte nella piana di asuka. asuka‑niimasu jinja"><div class="kph kanji-tile" style="--kc:#7a5c9e"><span class="kt-glifo">宮</span><span class="kt-onda" aria-hidden="true"></span></div>
     
     <div class="kbody">
       <h3>Asuka Niimasu (Antiche capitali)</h3>
@@ -2169,6 +2267,7 @@ hydrateVideos();
 
 /* ---------- Omikuji ---------- */
 (function(){
+  window.CARTE = [{"n": "Amaterasu (Dea del Sole)", "c": "Natura / Astri", "d": "Divinità solare centrale; simbolo di luce, ordine e continuità dell’istituzione imperiale.", "t": "Ise Grand Shrine (Naikū) · Ise, Pref. Mie", "k": "日", "col": "#d98f2e"}, {"n": "Tsukuyomi (Luna)", "c": "Natura / Astri", "d": "Divinità lunare legata ai cicli e alle maree; culto sobrio e meno diffuso rispetto al Sole.", "t": "Tsukiyomi‑gū (Ise) · Ise, Pref. Mie", "k": "日", "col": "#d98f2e"}, {"n": "Izanagi (Padre primordiale)", "c": "Creazione / Origini", "d": "Con Izanami genera le isole e molti kami; al ritorno da Yomi compie il misogi da cui nascono Amaterasu, Tsukuyomi e Susanoo.", "t": "Izanagi Jingū · Awaji, Pref. Hyōgo", "k": "創", "col": "#8c5fa8"}, {"n": "Izanami (Madre primordiale)", "c": "Creazione / Origini", "d": "Compagna di Izanagi; muore dando alla luce Kagutsuchi; associata al regno di Yomi.", "t": "Santuari vari · Giappone", "k": "創", "col": "#8c5fa8"}, {"n": "Ame‑no‑Minakanushi (Centro Celeste)", "c": "Creazione / Origini", "d": "Kami primordiale, principio ordinatore nei miti più arcaici.", "t": "Santuari vari · Giappone", "k": "創", "col": "#8c5fa8"}, {"n": "Takamimusubi (Legame Alto)", "c": "Creazione / Origini", "d": "Kami creatore e del destino; talvolta patrono della corte.", "t": "Santuari vari · Giappone", "k": "創", "col": "#8c5fa8"}, {"n": "Kamimusubi (Legame Divino)", "c": "Creazione / Origini", "d": "Forza generativa e di connessione; presenza nei riti di fecondità.", "t": "Santuari vari · Giappone", "k": "創", "col": "#8c5fa8"}, {"n": "Susanoo (Tempeste e Mare)", "c": "Tempeste / Mare", "d": "Kami impetuoso e protettivo; eroe del mito di Yamata‑no‑Orochi; spesso invocato contro epidemie.", "t": "Susa Jinja (Susa Ōmiya) · Izumo, Pref. Shimane", "k": "嵐", "col": "#2f6f9c"}, {"n": "Kagutsuchi (Fuoco)", "c": "Fuoco / Focolare", "d": "Kami del fuoco, la cui nascita causa la morte di Izanami; venerato e temuto in egual misura.", "t": "Santuari vari · Giappone", "k": "火", "col": "#c05a24"}, {"n": "Raijin (Tuono)", "c": "Tempeste / Mare", "d": "Divinità del tuono e dei fulmini; spesso in coppia con Fujin.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Fūjin (Vento)", "c": "Tempeste / Mare", "d": "Kami dei venti; associato a tempeste e cambi di stagione.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Shinatsuhiko (Vento pacificante)", "c": "Tempeste / Mare", "d": "Deità che placa i venti e favorisce navigazione e raccolti.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Ōyamatsumi (Montagne e Mare)", "c": "Natura / Montagne", "d": "Kami delle montagne e del mare; santuario noto per armi e armature votive.", "t": "Ōyamazumi Jinja · Ōmishima, Pref. Ehime", "k": "山", "col": "#5f7d5a"}, {"n": "Konohanasakuya‑hime (Monte Fuji, fiori di ciliegio)", "c": "Natura / Montagne", "d": "Dea associata al Fuji, alla bellezza effimera e al parto.", "t": "Fujisan Hongū Sengen Taisha · Fujinomiya, Pref. Shizuoka", "k": "山", "col": "#5f7d5a"}, {"n": "Inari (Fertilità, Riso, Prosperità)", "c": "Fertilità / Prosperità", "d": "Culto popolarissimo; kitsune come messaggeri; patrono di agricoltori, mercanti e artigiani.", "t": "Fushimi Inari Taisha (santuario capo) · Kyoto", "k": "稲", "col": "#c9a227"}, {"n": "Toyouke Ōmikami (Cibo e Provvisioni)", "c": "Fertilità / Prosperità", "d": "Procura il cibo per Amaterasu; culto all’Ise esterno.", "t": "Ise Jingū (Gekū – Santuario Esterno) · Ise, Pref. Mie", "k": "稲", "col": "#c9a227"}, {"n": "Ukanomitama (Spirito del raccolto)", "c": "Fertilità / Prosperità", "d": "Aspetto alimentare spesso identificato con Inari; riso e granaglie.", "t": "Santuari vari · Giappone", "k": "稲", "col": "#c9a227"}, {"n": "Ogetsu‑hime / Uke‑Mochi (Cibo)", "c": "Fertilità / Prosperità", "d": "Dea del nutrimento; da lei hanno origine i cereali secondo il mito.", "t": "Santuari vari · Giappone", "k": "稲", "col": "#c9a227"}, {"n": "Kayanohime (Erbe e foreste)", "c": "Natura / Foreste", "d": "Divinità della vegetazione minuta, canneti e steppe.", "t": "Santuari vari · Giappone", "k": "森", "col": "#4a7a45"}, {"n": "Kukunochi (Alberi)", "c": "Natura / Foreste", "d": "Spirito degli alberi; tutela boschi e carpentieri.", "t": "Santuari vari · Giappone", "k": "森", "col": "#4a7a45"}, {"n": "Kanayago‑hime (Metallurgia)", "c": "Mestieri / Arti", "d": "Protettrice dei fabbri e delle fornaci.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Ame‑no‑Mahitotsu (Forgia)", "c": "Mestieri / Arti", "d": "Kami del metallo lavorato e del colpo di martello.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Haniyasu‑hime (Argilla e ceramica)", "c": "Mestieri / Arti", "d": "Dea dell’argilla, della ceramica e del suolo fertile.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Haniyasu‑hiko (Suolo e argilla)", "c": "Mestieri / Arti", "d": "Contropare maschile di Haniyasu‑hime.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Ishikori‑dome (Specchi)", "c": "Mestieri / Arti", "d": "Kami degli specchi e della lavorazione del metallo lucido.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Hachiman (Guerra, Protettore dei Samurai)", "c": "Guerra / Protezione", "d": "Divinità diffusissima; guardiano di comunità e guerrieri.", "t": "Usa Jingū · Usa, Pref. Ōita", "k": "弓", "col": "#9c2e1d"}, {"n": "Takemikazuchi (Fulmine, Spada)", "c": "Guerra / Protezione", "d": "Kami guerriero, arti marziali e sumō delle origini.", "t": "Kashima Jingū · Kashima, Pref. Ibaraki", "k": "弓", "col": "#9c2e1d"}, {"n": "Futsunushi (Spada, Strategia)", "c": "Guerra / Protezione", "d": "Kami della spada; tutela e disciplina militare.", "t": "Katori Jingū (santuario capo) · Katori, Pref. Chiba", "k": "弓", "col": "#9c2e1d"}, {"n": "Sumiyoshi Sanjin (Mare / Navigazione)", "c": "Tempeste / Mare", "d": "Triade del mare venerata da marinai e viaggiatori.", "t": "Sumiyoshi Taisha (santuario capo) · Osaka", "k": "嵐", "col": "#2f6f9c"}, {"n": "Ōyamatsumi (Armi votive)", "c": "Guerra / Protezione", "d": "Aspetto protettivo per armi ed equipaggiamento.", "t": "Ōyamazumi Jinja · Ōmishima, Pref. Ehime", "k": "弓", "col": "#9c2e1d"}, {"n": "Takemikazuchi & Futsunushi (Doppio culto)", "c": "Guerra / Protezione", "d": "Asse Kashima‑Katori, tutela dello Stato e dei guerrieri.", "t": "Kashima Jingū · Ibaraki", "k": "弓", "col": "#9c2e1d"}, {"n": "Ōkuninushi (En‑musubi, Nazione)", "c": "Relazioni / Nazione", "d": "Kami dei legami (en‑musubi) e della costruzione del paese.", "t": "Izumo Taisha (Izumo Ōyashiro) · Izumo, Pref. Shimane", "k": "縁", "col": "#c2557a"}, {"n": "Ōmononushi (Monte Miwa)", "c": "Relazioni / Nazione", "d": "Aspetto di Ōkuninushi legato al Monte Miwa; culto arcaico senza honden.", "t": "Ōmiwa Jinja (Miwa) · Sakurai, Pref. Nara", "k": "縁", "col": "#c2557a"}, {"n": "Kotoshironushi (Oracoli e mare calmo)", "c": "Relazioni / Nazione", "d": "Figlio di Ōkuninushi; pacifica l’ordine celeste con il consenso di Izumo.", "t": "Santuari vari · Giappone", "k": "縁", "col": "#c2557a"}, {"n": "Sukunabikona (Medicina, produzione)", "c": "Guarigione / Medicina", "d": "Piccolo kami civilizzatore; medicina, sake e artigianato.", "t": "Santuari vari · Giappone", "k": "薬", "col": "#4f8f6a"}, {"n": "Munakata Sanjojin (Dee del mare)", "c": "Tempeste / Mare", "d": "Triade (Ichikishima‑hime, Tagorihime, Tagitsuhime) protettrici di naviganti e traffici.", "t": "Munakata Taisha (Hetsu‑gū / Nakatsu‑gū / Okitsu‑gū) · Pref. Fukuoka", "k": "嵐", "col": "#2f6f9c"}, {"n": "Ichikishima‑hime (Arte, acqua)", "c": "Arte / Gioia", "d": "Una delle Munakata; spesso identificata con Benzaiten.", "t": "Itsukushima Jinja · Miyajima, Hiroshima", "k": "楽", "col": "#c46a9b"}, {"n": "Tagorihime (Mare interno)", "c": "Tempeste / Mare", "d": "Dea del mare interno di Chikuzen.", "t": "Munakata Taisha · Fukuoka", "k": "嵐", "col": "#2f6f9c"}, {"n": "Tagitsuhime (Onde e correnti)", "c": "Tempeste / Mare", "d": "Dea delle correnti e dei flussi marini.", "t": "Munakata Taisha · Fukuoka", "k": "嵐", "col": "#2f6f9c"}, {"n": "Tenjin (Sugawara no Michizane) – Sapienza e Studi", "c": "Sapienza / Studi", "d": "Kami della conoscenza e della calligrafia; meta di studenti ed esami.", "t": "Dazaifu Tenmangū (santuario principale) · Dazaifu, Pref. Fukuoka", "k": "学", "col": "#3f6d8c"}, {"n": "Omoikane (Consiglio e intelligenza)", "c": "Sapienza / Studi", "d": "Kami del pensiero ponderato; stratega nei miti.", "t": "Santuari vari · Giappone", "k": "学", "col": "#3f6d8c"}, {"n": "Ame‑no‑Uzume (Arti performative, Gioia)", "c": "Arte / Gioia", "d": "Dea della danza e della serenità; connessa ai riti kagura.", "t": "Tsubaki Ōkami Yashiro · Suzuka, Pref. Mie", "k": "楽", "col": "#c46a9b"}, {"n": "Sarutahiko Ōkami (Crocevia, Guida)", "c": "Viaggio / Strade", "d": "Kami guida dei crocevia; associato a misogi e arti marziali.", "t": "Tsubaki Ōkami Yashiro (Tsubaki Grand Shrine) · Suzuka, Pref. Mie", "k": "道", "col": "#6b7f8c"}, {"n": "Ninigi‑no‑Mikoto (Discesa celeste)", "c": "Creazione / Origini", "d": "Nipote di Amaterasu; discesa a Takachiho, inizio della linea imperiale.", "t": "Kirishima Jingū · Kirishima, Pref. Kagoshima", "k": "創", "col": "#8c5fa8"}, {"n": "Hoori (Yamasachihiko)", "c": "Natura / Mare", "d": "Eroe della caccia; sposo di Toyotama‑hime.", "t": "Udo Jingū · Nichinan, Pref. Miyazaki", "k": "波", "col": "#2f88ad"}, {"n": "Hoderi (Umisachihiko)", "c": "Natura / Mare", "d": "Fratello di Hoori, legato alla pesca e al mare.", "t": "Santuari vari · Giappone", "k": "波", "col": "#2f88ad"}, {"n": "Ugayafukiaezu (Principe)", "c": "Creazione / Origini", "d": "Figlio di Hoori e Toyotama‑hime; genealogia mitica verso Jimmu.", "t": "Udo Jingū · Nichinan, Miyazaki", "k": "創", "col": "#8c5fa8"}, {"n": "Toyotama‑hime (Mare e maternità)", "c": "Natura / Mare", "d": "Principessa del mare, figlia di Watatsumi.", "t": "Santuari vari · Giappone", "k": "波", "col": "#2f88ad"}, {"n": "Ebisu (Commercio, Fortuna, Pesca)", "c": "Fertilità / Prosperità", "d": "Kami della buona sorte negli affari e della pesca.", "t": "Nishinomiya Shrine (santuario capo) · Nishinomiya, Pref. Hyōgo", "k": "稲", "col": "#c9a227"}, {"n": "Daikokuten (Fortuna, Cucina, Mercati)", "c": "Sincretici / Shichifukujin", "d": "Divinità di origine sincretica; prosperità domestica e commerciale.", "t": "Kanda Myōjin · Tokyo", "k": "福", "col": "#c8402a"}, {"n": "Benzaiten (Arte, Musica, Acque)", "c": "Sincretici / Shichifukujin", "d": "Forma sincretica legata a Ichikishima‑hime; musica e acque.", "t": "Enoshima Shrine · Fujisawa, Kanagawa", "k": "福", "col": "#c8402a"}, {"n": "Bishamonten (Protezione, Guerra)", "c": "Sincretici / Shichifukujin", "d": "Protettore guerriero; culto cittadino e di clan.", "t": "Santuari vari · Giappone", "k": "福", "col": "#c8402a"}, {"n": "Fukurokuju (Lunga vita e prosperità)", "c": "Sincretici / Shichifukujin", "d": "Porta benessere, longevità e fama.", "t": "Santuari vari · Giappone", "k": "福", "col": "#c8402a"}, {"n": "Jurōjin (Longevità)", "c": "Sincretici / Shichifukujin", "d": "Anziano saggio, emblema di lunga vita.", "t": "Santuari vari · Giappone", "k": "福", "col": "#c8402a"}, {"n": "Hotei (Contenutezza e allegria)", "c": "Sincretici / Shichifukujin", "d": "Figura bonaria, abbondanza e buon auspicio.", "t": "Santuari vari · Giappone", "k": "福", "col": "#c8402a"}, {"n": "Tōshō Daigongen (Tokugawa Ieyasu)", "c": "Sincretici / Gongen", "d": "Ieyasu deificato come tutore dello Stato; culto gongen.", "t": "Nikkō Tōshōgū · Nikkō, Pref. Tochigi", "k": "権", "col": "#7d6a4f"}, {"n": "Gozu Tennō (Epidemie, protezione)", "c": "Sincretici / Goryō", "d": "Divinità/spirito sincretico contro pestilenze; storicamente legato a Yasaka.", "t": "Santuari vari · Giappone", "k": "霊", "col": "#6e5a8c"}, {"n": "Taira no Masakado (Goryō)", "c": "Sincretici / Goryō", "d": "Spirito apotropaico di un signore ribelle; placato in epoca Heian.", "t": "Kanda Myōjin · Tokyo", "k": "霊", "col": "#6e5a8c"}, {"n": "Dōsojin (Strade e viaggi)", "c": "Viaggio / Strade", "d": "Guardiani di strade e villaggi, spesso come pietre di confine.", "t": "Santuari vari · Giappone", "k": "道", "col": "#6b7f8c"}, {"n": "Sae‑no‑kami / Sai‑no‑kami (Cippi di confine)", "c": "Viaggio / Strade", "d": "Divinità dei crocevia e dei confini; protezione dai mali erranti.", "t": "Santuari vari · Giappone", "k": "道", "col": "#6b7f8c"}, {"n": "Chimata‑no‑kami (Incroci)", "c": "Viaggio / Strade", "d": "Spirito degli incroci; purificazione ai passaggi liminali.", "t": "Santuari vari · Giappone", "k": "道", "col": "#6b7f8c"}, {"n": "Ōwatatsumi / Ryūjin (Mare profondo)", "c": "Tempeste / Mare", "d": "Signore dei mari profondi; palazzi sottomarini e draghi.", "t": "Ryūgū Shrine · Kagoshima (tradiz.)", "k": "嵐", "col": "#2f6f9c"}, {"n": "Suijin (Acque dolci)", "c": "Natura / Acque", "d": "Kami delle acque di fiumi, laghi e pozzi.", "t": "Santuari vari · Giappone", "k": "水", "col": "#3f9bb5"}, {"n": "Kuraokami (Pioggia e nebbie)", "c": "Natura / Acque", "d": "Drago della pioggia che porta fertilità.", "t": "Santuari vari · Giappone", "k": "水", "col": "#3f9bb5"}, {"n": "Taki‑tsu‑hime (Cascate)", "c": "Natura / Acque", "d": "Dea delle cascate e della corrente pura.", "t": "Kumano Nachi Taisha (acque sacre) · Nachikatsuura, Wakayama", "k": "水", "col": "#3f9bb5"}, {"n": "Kasuga (Quartetto)", "c": "Corte / Antichi santuari", "d": "Pantheon di Kasuga: Takemikazuchi, Futsunushi, Ame‑no‑Koyane, Himegami.", "t": "Kasuga Taisha · Nara", "k": "宮", "col": "#7a5c9e"}, {"n": "Ame‑no‑Koyane (Riti e preghiere)", "c": "Corte / Antichi santuari", "d": "Antenato dei Fujiwara; maestro di riti e offerte.", "t": "Kasuga Taisha · Nara", "k": "宮", "col": "#7a5c9e"}, {"n": "Kamo‑wake‑ikazuchi (Fulmine di Kamo)", "c": "Corte / Antichi santuari", "d": "Deità di Kamigamo; tutela della capitale antica.", "t": "Kamigamo Jinja · Kyoto", "k": "宮", "col": "#7a5c9e"}, {"n": "Kamo‑Taketsunomi", "c": "Corte / Antichi santuari", "d": "Deità di Shimogamo insieme a Tamayori‑hime.", "t": "Shimogamo Jinja · Kyoto", "k": "宮", "col": "#7a5c9e"}, {"n": "Tamayori‑hime (Madre e oracoli)", "c": "Corte / Antichi santuari", "d": "Dea madre/oracolare; culto a Shimogamo e oltre.", "t": "Shimogamo Jinja · Kyoto", "k": "宮", "col": "#7a5c9e"}, {"n": "Koyasu (Parto sicuro)", "c": "Famiglia / Nascita", "d": "Protettrice del parto e della crescita dei bambini.", "t": "Santuari vari · Giappone", "k": "産", "col": "#c78ba0"}, {"n": "Awashima‑hime (Salute delle donne)", "c": "Guarigione / Medicina", "d": "Guarigione e fertilità femminile; tavolette di bambole votive.", "t": "Awashima Jinja · Wakayama", "k": "薬", "col": "#4f8f6a"}, {"n": "Kuebiko (Spaventapasseri sapiente)", "c": "Sapienza / Studi", "d": "Scarecrow divino che conosce il mondo pur non muovendosi.", "t": "Santuari vari · Giappone", "k": "学", "col": "#3f6d8c"}, {"n": "Yakuyoke no kami (Sventura‑repellenti)", "c": "Guerra / Protezione", "d": "Titolo generico per kami invocati contro anni infausti.", "t": "Santuari vari · Giappone", "k": "弓", "col": "#9c2e1d"}, {"n": "Ōyamakui (Monte Hiei)", "c": "Natura / Montagne", "d": "Kami del Monte Hiei; culto connesso a Hiyoshi‑Sannō.", "t": "Hiyoshi Taisha · Ōtsu, Shiga", "k": "山", "col": "#5f7d5a"}, {"n": "Yatagarasu (Guida a tre zampe)", "c": "Viaggio / Strade", "d": "Messaggero divino che guida sul giusto cammino.", "t": "Kumano Hongū Taisha · Tanabe, Wakayama", "k": "道", "col": "#6b7f8c"}, {"n": "Kumano (Sanzan)", "c": "Natura / Montagne", "d": "Triade di Kumano: Hongū, Hayatama, Nachi – sincretismo e pellegrinaggi.", "t": "Kumano Hongū / Hayatama / Nachi Taisha · Wakayama", "k": "山", "col": "#5f7d5a"}, {"n": "Ame‑no‑Tajikarao (Forza fisica)", "c": "Guerra / Protezione", "d": "Apre la roccia della caverna riportando la luce nel mondo.", "t": "Togakushi Jinja (Okusha) · Nagano", "k": "弓", "col": "#9c2e1d"}, {"n": "Kushinada‑hime (Riso e matrimonio)", "c": "Relazioni / Nazione", "d": "Sposa di Susanoo; protettrice dei raccolti e dei matrimoni.", "t": "Yaegaki Jinja · Matsue, Shimane", "k": "縁", "col": "#c2557a"}, {"n": "Suseri‑hime (Consorte di Ōkuninushi)", "c": "Relazioni / Nazione", "d": "Dea consorte e alleata di Ōkuninushi.", "t": "Santuari vari · Giappone", "k": "縁", "col": "#c2557a"}, {"n": "Funadama (Spirito della nave)", "c": "Tempeste / Mare", "d": "Spirito protettore delle imbarcazioni; culto a bordo e nei porti.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Yama‑no‑kami (Montagna)", "c": "Natura / Montagne", "d": "Titolo generico del dio della montagna nelle comunità rurali.", "t": "Santuari vari · Giappone", "k": "山", "col": "#5f7d5a"}, {"n": "Ta‑no‑kami (Campi di riso)", "c": "Fertilità / Prosperità", "d": "Divinità locale delle risaie; stagionale e comunitaria.", "t": "Santuari vari · Giappone", "k": "稲", "col": "#c9a227"}, {"n": "Umi‑no‑kami (Mare)", "c": "Tempeste / Mare", "d": "Appellativo generico per le divinità marine locali.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Homusubi (Fuoco domestico)", "c": "Fuoco / Focolare", "d": "Aspetto benevolo del fuoco in casa e nel forno.", "t": "Santuari vari · Giappone", "k": "火", "col": "#c05a24"}, {"n": "Kōjin (Cucine e focolari)", "c": "Fuoco / Focolare", "d": "Divinità della cucina e del fuoco controllato.", "t": "Santuari vari · Giappone", "k": "火", "col": "#c05a24"}, {"n": "Kamado‑gami (Forni)", "c": "Fuoco / Focolare", "d": "Protettore del forno domestico e delle fornaci.", "t": "Santuari vari · Giappone", "k": "火", "col": "#c05a24"}, {"n": "Ujigami (Divinità di clan)", "c": "Città / Comunità", "d": "Tutelare del clan/famiglia; santuario locale di riferimento.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Ubusunagami (Divinità natìa)", "c": "Città / Comunità", "d": "Protettore del luogo di nascita; identità personale.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Kitsune (messaggeri di Inari)", "c": "Fertilità / Prosperità", "d": "Spiriti volpe, emissari di Inari; portano offerte e oracoli.", "t": "Fushimi Inari Taisha · Kyoto", "k": "稲", "col": "#c9a227"}, {"n": "Toshitokujin (Capodanno)", "c": "Città / Comunità", "d": "Deità di inizio anno e buon auspicio.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Ame‑no‑Hohi (Inviato a Izumo)", "c": "Creazione / Origini", "d": "Figlio di Amaterasu mandato a trattare con Ōkuninushi.", "t": "Santuari vari · Giappone", "k": "創", "col": "#8c5fa8"}, {"n": "Ōkunitama (Spirito del territorio)", "c": "Città / Comunità", "d": "Kami del territorio/metropoli.", "t": "Ōkunitama Jinja · Fuchū, Tokyo", "k": "町", "col": "#a8683c"}, {"n": "Ise Jingū – Naikū (Amaterasu)", "c": "Santuari principali", "d": "Santuario interno di Amaterasu; cuore dello Shinto.", "t": "Ise Jingū (Naikū) · Ise, Mie", "k": "社", "col": "#bb9138"}, {"n": "Ise Jingū – Gekū (Toyouke)", "c": "Santuari principali", "d": "Santuario esterno dedicato a Toyouke Ōmikami.", "t": "Ise Jingū (Gekū) · Ise, Mie", "k": "社", "col": "#bb9138"}, {"n": "Izumo Taisha (Ōkuninushi)", "c": "Santuari principali", "d": "Grande santuario dei legami (en‑musubi).", "t": "Izumo Taisha · Shimane", "k": "社", "col": "#bb9138"}, {"n": "Fushimi Inari Taisha (Inari)", "c": "Santuari principali", "d": "Santuario capo del culto di Inari; migliaia di torii.", "t": "Fushimi Inari Taisha · Kyoto", "k": "社", "col": "#bb9138"}, {"n": "Kashima Jingū (Takemikazuchi)", "c": "Santuari principali", "d": "Santuario della spada e del fulmine.", "t": "Kashima Jingū · Ibaraki", "k": "社", "col": "#bb9138"}, {"n": "Katori Jingū (Futsunushi)", "c": "Santuari principali", "d": "Santuario di strategia e disciplina.", "t": "Katori Jingū · Chiba", "k": "社", "col": "#bb9138"}, {"n": "Sumiyoshi Taisha (Sumiyoshi Sanjin)", "c": "Santuari principali", "d": "Triplice culto marinaro di Osaka.", "t": "Sumiyoshi Taisha · Osaka", "k": "社", "col": "#bb9138"}, {"n": "Nishinomiya Shrine (Ebisu)", "c": "Santuari principali", "d": "Santuario capo di Ebisu.", "t": "Nishinomiya Shrine · Hyōgo", "k": "社", "col": "#bb9138"}, {"n": "Ōyamazumi Jinja (Ōyamatsumi)", "c": "Santuari principali", "d": "Tesori di armatura e armi votive.", "t": "Ōyamazumi Jinja · Ehime", "k": "社", "col": "#bb9138"}, {"n": "Munakata Taisha (Munakata)", "c": "Santuari principali", "d": "Triade marina e rotte commerciali antiche.", "t": "Munakata Taisha · Fukuoka", "k": "社", "col": "#bb9138"}, {"n": "Itsukushima Jinja (Isola santuario)", "c": "Santuari principali", "d": "Torii sull’acqua; culto delle Munakata.", "t": "Itsukushima Jinja · Hiroshima", "k": "社", "col": "#bb9138"}, {"n": "Suwa Taisha (Takeminakata)", "c": "Santuari principali", "d": "Grande complesso (Kamisha/Shimosha) e festival Onbashira.", "t": "Suwa Taisha · Nagano", "k": "社", "col": "#bb9138"}, {"n": "Kirishima Jingū (Ninigi)", "c": "Santuari principali", "d": "Miti di discesa celeste a Kyushu.", "t": "Kirishima Jingū · Kagoshima", "k": "社", "col": "#bb9138"}, {"n": "Dazaifu Tenmangū (Tenjin)", "c": "Santuari principali", "d": "Meta di studenti e studiosi.", "t": "Dazaifu Tenmangū · Fukuoka", "k": "社", "col": "#bb9138"}, {"n": "Ōmiwa Jinja (Monte Miwa)", "c": "Santuari principali", "d": "Culto arcaico senza honden; il monte come shintai.", "t": "Ōmiwa Jinja · Nara", "k": "社", "col": "#bb9138"}, {"n": "Atsuta Jingū (Tesoro sacro)", "c": "Santuari principali", "d": "Santuario della spada Kusanagi.", "t": "Atsuta Jingū · Nagoya", "k": "社", "col": "#bb9138"}, {"n": "Omono‑nushi‑wake (Titoli locali)", "c": "Città / Comunità", "d": "Titoli locali onorifici per kami tutelari.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Aramitama (Animo ardente)", "c": "Guerra / Protezione", "d": "Aspetto vigoroso e combattivo di un kami.", "t": "Santuari vari · Giappone", "k": "弓", "col": "#9c2e1d"}, {"n": "Nigimitama (Animo pacificante)", "c": "Relazioni / Nazione", "d": "Aspetto benevolo e armonizzante di un kami.", "t": "Santuari vari · Giappone", "k": "縁", "col": "#c2557a"}, {"n": "Tatarigami (Forze avverse)", "c": "Guarigione / Medicina", "d": "Personificazioni di calamità/epidemie da placare.", "t": "Santuari vari · Giappone", "k": "薬", "col": "#4f8f6a"}, {"n": "Yachimata‑hiko/hime (Crocevia mitici)", "c": "Viaggio / Strade", "d": "Coppia di kami legati agli incroci e passaggi rituali.", "t": "Santuari vari · Giappone", "k": "道", "col": "#6b7f8c"}, {"n": "Shirayama‑Hime (Hakusan)", "c": "Natura / Montagne", "d": "Dea di Hakusan (Monte Bianco), acque di sorgente.", "t": "Shirayama‑Hime Jinja · Ishikawa", "k": "山", "col": "#5f7d5a"}, {"n": "Ame‑no‑Torifune (Navigazione)", "c": "Tempeste / Mare", "d": "Divinità del viaggio per mare, “barca celeste”.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Hayatama‑no‑Ōkami (Kumano)", "c": "Natura / Montagne", "d": "Divinità di Kumano Hayatama; rigenerazione.", "t": "Kumano Hayatama Taisha · Shingu, Wakayama", "k": "山", "col": "#5f7d5a"}, {"n": "Ketsumiko‑no‑Ōkami (Kumano Hongū)", "c": "Natura / Montagne", "d": "Principio centrale del pantheon di Kumano.", "t": "Kumano Hongū Taisha · Tanabe, Wakayama", "k": "山", "col": "#5f7d5a"}, {"n": "Musubi‑no‑Kami (Kumano Nachi)", "c": "Natura / Montagne", "d": "Aspetto di legame e rinascita presso Nachi.", "t": "Kumano Nachi Taisha · Wakayama", "k": "山", "col": "#5f7d5a"}, {"n": "Seoritsu‑hime (Purificazione)", "c": "Purificazione / Harae", "d": "Deità della grande purificazione (Ōharae).", "t": "Santuari vari · Giappone", "k": "祓", "col": "#5aa0a8"}, {"n": "Haya‑akitsu‑hime (Purificazione)", "c": "Purificazione / Harae", "d": "Una delle divinità della purificazione rapida.", "t": "Santuari vari · Giappone", "k": "祓", "col": "#5aa0a8"}, {"n": "Haya‑akitsu‑hiko (Purificazione)", "c": "Purificazione / Harae", "d": "Contropare maschile in alcuni cicli rituali.", "t": "Santuari vari · Giappone", "k": "祓", "col": "#5aa0a8"}, {"n": "Takami‑Musubi (Fortuna agricola)", "c": "Fertilità / Prosperità", "d": "Aspetto agricolo locale del principio Musubi.", "t": "Santuari vari · Giappone", "k": "稲", "col": "#c9a227"}, {"n": "Yashima‑no‑Miko (Patroni locali)", "c": "Città / Comunità", "d": "Titolo per kami protettori di villaggi insulari.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Isora (Scogli e coste)", "c": "Tempeste / Mare", "d": "Spirito delle scogliere e delle maree.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Mizu‑ha‑no‑me (Sorgenti)", "c": "Natura / Acque", "d": "Dea delle sorgenti e dei pozzi.", "t": "Santuari vari · Giappone", "k": "水", "col": "#3f9bb5"}, {"n": "Hashi‑hime (Ponti)", "c": "Città / Comunità", "d": "Deità dei ponti, passaggi liminari sulle acque.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Tatsuta‑hime/hiko (Foglie e venti d’autunno)", "c": "Natura / Astri", "d": "Divinità poetiche del vento autunnale.", "t": "Tatsuta Taisha · Nara", "k": "日", "col": "#d98f2e"}, {"n": "Michishio‑no‑kami (Flussi e riflussi)", "c": "Tempeste / Mare", "d": "Forze delle maree e dei canali.", "t": "Santuari vari · Giappone", "k": "嵐", "col": "#2f6f9c"}, {"n": "Tamayori (Maternità locale)", "c": "Famiglia / Nascita", "d": "Aspetti locali di protezione materna.", "t": "Santuari vari · Giappone", "k": "産", "col": "#c78ba0"}, {"n": "Uzumasa (Sete artigiane)", "c": "Mestieri / Arti", "d": "Culti di corporazioni artigiane storiche.", "t": "Santuari vari · Giappone", "k": "匠", "col": "#8a6a3f"}, {"n": "Moriya (Suwa – ausiliari)", "c": "Guerra / Protezione", "d": "Kami ausiliari del complesso di Suwa.", "t": "Suwa Taisha · Nagano", "k": "弓", "col": "#9c2e1d"}, {"n": "Kadori‑no‑kami (Santuari d’ingresso)", "c": "Città / Comunità", "d": "Spiriti degli accessi ai villaggi.", "t": "Santuari vari · Giappone", "k": "町", "col": "#a8683c"}, {"n": "Hitokotonushi (Una‑parola oracolare)", "c": "Oracoli / Divinazione", "d": "Kami che esaudisce una singola preghiera ben mirata.", "t": "Santuari vari · Giappone", "k": "卜", "col": "#8a7f5c"}, {"n": "Iwa‑totsu‑no‑o (Rocce e confini)", "c": "Natura / Montagne", "d": "Spirito delle rocce, guardiano di confini sacri.", "t": "Santuari vari · Giappone", "k": "山", "col": "#5f7d5a"}, {"n": "Asuka Niimasu (Antiche capitali)", "c": "Corte / Antichi santuari", "d": "Culti della prima corte nella piana di Asuka.", "t": "Asuka‑niimasu Jinja · Nara", "k": "宮", "col": "#7a5c9e"}];
   var LIST = [{"n": "Amaterasu (Dea del Sole)", "c": "Natura / Astri", "d": "Divinità solare centrale; simbolo di luce, ordine e continuità dell’istituzione imperiale.", "t": "Ise Grand Shrine (Naikū) · Ise, Pref. Mie"}, {"n": "Tsukuyomi (Luna)", "c": "Natura / Astri", "d": "Divinità lunare legata ai cicli e alle maree; culto sobrio e meno diffuso rispetto al Sole.", "t": "Tsukiyomi‑gū (Ise) · Ise, Pref. Mie"}, {"n": "Izanagi (Padre primordiale)", "c": "Creazione / Origini", "d": "Con Izanami genera le isole e molti kami; al ritorno da Yomi compie il misogi da cui nascono Amaterasu, Tsukuyomi e Susanoo.", "t": "Izanagi Jingū · Awaji, Pref. Hyōgo"}, {"n": "Izanami (Madre primordiale)", "c": "Creazione / Origini", "d": "Compagna di Izanagi; muore dando alla luce Kagutsuchi; associata al regno di Yomi.", "t": "Santuari vari · Giappone"}, {"n": "Ame‑no‑Minakanushi (Centro Celeste)", "c": "Creazione / Origini", "d": "Kami primordiale, principio ordinatore nei miti più arcaici.", "t": "Santuari vari · Giappone"}, {"n": "Takamimusubi (Legame Alto)", "c": "Creazione / Origini", "d": "Kami creatore e del destino; talvolta patrono della corte.", "t": "Santuari vari · Giappone"}, {"n": "Kamimusubi (Legame Divino)", "c": "Creazione / Origini", "d": "Forza generativa e di connessione; presenza nei riti di fecondità.", "t": "Santuari vari · Giappone"}, {"n": "Susanoo (Tempeste e Mare)", "c": "Tempeste / Mare", "d": "Kami impetuoso e protettivo; eroe del mito di Yamata‑no‑Orochi; spesso invocato contro epidemie.", "t": "Susa Jinja (Susa Ōmiya) · Izumo, Pref. Shimane"}, {"n": "Kagutsuchi (Fuoco)", "c": "Fuoco / Focolare", "d": "Kami del fuoco, la cui nascita causa la morte di Izanami; venerato e temuto in egual misura.", "t": "Santuari vari · Giappone"}, {"n": "Raijin (Tuono)", "c": "Tempeste / Mare", "d": "Divinità del tuono e dei fulmini; spesso in coppia con Fujin.", "t": "Santuari vari · Giappone"}, {"n": "Fūjin (Vento)", "c": "Tempeste / Mare", "d": "Kami dei venti; associato a tempeste e cambi di stagione.", "t": "Santuari vari · Giappone"}, {"n": "Shinatsuhiko (Vento pacificante)", "c": "Tempeste / Mare", "d": "Deità che placa i venti e favorisce navigazione e raccolti.", "t": "Santuari vari · Giappone"}, {"n": "Ōyamatsumi (Montagne e Mare)", "c": "Natura / Montagne", "d": "Kami delle montagne e del mare; santuario noto per armi e armature votive.", "t": "Ōyamazumi Jinja · Ōmishima, Pref. Ehime"}, {"n": "Konohanasakuya‑hime (Monte Fuji, fiori di ciliegio)", "c": "Natura / Montagne", "d": "Dea associata al Fuji, alla bellezza effimera e al parto.", "t": "Fujisan Hongū Sengen Taisha · Fujinomiya, Pref. Shizuoka"}, {"n": "Inari (Fertilità, Riso, Prosperità)", "c": "Fertilità / Prosperità", "d": "Culto popolarissimo; kitsune come messaggeri; patrono di agricoltori, mercanti e artigiani.", "t": "Fushimi Inari Taisha (santuario capo) · Kyoto"}, {"n": "Toyouke Ōmikami (Cibo e Provvisioni)", "c": "Fertilità / Prosperità", "d": "Procura il cibo per Amaterasu; culto all’Ise esterno.", "t": "Ise Jingū (Gekū – Santuario Esterno) · Ise, Pref. Mie"}, {"n": "Ukanomitama (Spirito del raccolto)", "c": "Fertilità / Prosperità", "d": "Aspetto alimentare spesso identificato con Inari; riso e granaglie.", "t": "Santuari vari · Giappone"}, {"n": "Ogetsu‑hime / Uke‑Mochi (Cibo)", "c": "Fertilità / Prosperità", "d": "Dea del nutrimento; da lei hanno origine i cereali secondo il mito.", "t": "Santuari vari · Giappone"}, {"n": "Kayanohime (Erbe e foreste)", "c": "Natura / Foreste", "d": "Divinità della vegetazione minuta, canneti e steppe.", "t": "Santuari vari · Giappone"}, {"n": "Kukunochi (Alberi)", "c": "Natura / Foreste", "d": "Spirito degli alberi; tutela boschi e carpentieri.", "t": "Santuari vari · Giappone"}, {"n": "Kanayago‑hime (Metallurgia)", "c": "Mestieri / Arti", "d": "Protettrice dei fabbri e delle fornaci.", "t": "Santuari vari · Giappone"}, {"n": "Ame‑no‑Mahitotsu (Forgia)", "c": "Mestieri / Arti", "d": "Kami del metallo lavorato e del colpo di martello.", "t": "Santuari vari · Giappone"}, {"n": "Haniyasu‑hime (Argilla e ceramica)", "c": "Mestieri / Arti", "d": "Dea dell’argilla, della ceramica e del suolo fertile.", "t": "Santuari vari · Giappone"}, {"n": "Haniyasu‑hiko (Suolo e argilla)", "c": "Mestieri / Arti", "d": "Contropare maschile di Haniyasu‑hime.", "t": "Santuari vari · Giappone"}, {"n": "Ishikori‑dome (Specchi)", "c": "Mestieri / Arti", "d": "Kami degli specchi e della lavorazione del metallo lucido.", "t": "Santuari vari · Giappone"}, {"n": "Hachiman (Guerra, Protettore dei Samurai)", "c": "Guerra / Protezione", "d": "Divinità diffusissima; guardiano di comunità e guerrieri.", "t": "Usa Jingū · Usa, Pref. Ōita"}, {"n": "Takemikazuchi (Fulmine, Spada)", "c": "Guerra / Protezione", "d": "Kami guerriero, arti marziali e sumō delle origini.", "t": "Kashima Jingū · Kashima, Pref. Ibaraki"}, {"n": "Futsunushi (Spada, Strategia)", "c": "Guerra / Protezione", "d": "Kami della spada; tutela e disciplina militare.", "t": "Katori Jingū (santuario capo) · Katori, Pref. Chiba"}, {"n": "Sumiyoshi Sanjin (Mare / Navigazione)", "c": "Tempeste / Mare", "d": "Triade del mare venerata da marinai e viaggiatori.", "t": "Sumiyoshi Taisha (santuario capo) · Osaka"}, {"n": "Ōyamatsumi (Armi votive)", "c": "Guerra / Protezione", "d": "Aspetto protettivo per armi ed equipaggiamento.", "t": "Ōyamazumi Jinja · Ōmishima, Pref. Ehime"}, {"n": "Takemikazuchi & Futsunushi (Doppio culto)", "c": "Guerra / Protezione", "d": "Asse Kashima‑Katori, tutela dello Stato e dei guerrieri.", "t": "Kashima Jingū · Ibaraki"}, {"n": "Ōkuninushi (En‑musubi, Nazione)", "c": "Relazioni / Nazione", "d": "Kami dei legami (en‑musubi) e della costruzione del paese.", "t": "Izumo Taisha (Izumo Ōyashiro) · Izumo, Pref. Shimane"}, {"n": "Ōmononushi (Monte Miwa)", "c": "Relazioni / Nazione", "d": "Aspetto di Ōkuninushi legato al Monte Miwa; culto arcaico senza honden.", "t": "Ōmiwa Jinja (Miwa) · Sakurai, Pref. Nara"}, {"n": "Kotoshironushi (Oracoli e mare calmo)", "c": "Relazioni / Nazione", "d": "Figlio di Ōkuninushi; pacifica l’ordine celeste con il consenso di Izumo.", "t": "Santuari vari · Giappone"}, {"n": "Sukunabikona (Medicina, produzione)", "c": "Guarigione / Medicina", "d": "Piccolo kami civilizzatore; medicina, sake e artigianato.", "t": "Santuari vari · Giappone"}, {"n": "Munakata Sanjojin (Dee del mare)", "c": "Tempeste / Mare", "d": "Triade (Ichikishima‑hime, Tagorihime, Tagitsuhime) protettrici di naviganti e traffici.", "t": "Munakata Taisha (Hetsu‑gū / Nakatsu‑gū / Okitsu‑gū) · Pref. Fukuoka"}, {"n": "Ichikishima‑hime (Arte, acqua)", "c": "Arte / Gioia", "d": "Una delle Munakata; spesso identificata con Benzaiten.", "t": "Itsukushima Jinja · Miyajima, Hiroshima"}, {"n": "Tagorihime (Mare interno)", "c": "Tempeste / Mare", "d": "Dea del mare interno di Chikuzen.", "t": "Munakata Taisha · Fukuoka"}, {"n": "Tagitsuhime (Onde e correnti)", "c": "Tempeste / Mare", "d": "Dea delle correnti e dei flussi marini.", "t": "Munakata Taisha · Fukuoka"}, {"n": "Tenjin (Sugawara no Michizane) – Sapienza e Studi", "c": "Sapienza / Studi", "d": "Kami della conoscenza e della calligrafia; meta di studenti ed esami.", "t": "Dazaifu Tenmangū (santuario principale) · Dazaifu, Pref. Fukuoka"}, {"n": "Omoikane (Consiglio e intelligenza)", "c": "Sapienza / Studi", "d": "Kami del pensiero ponderato; stratega nei miti.", "t": "Santuari vari · Giappone"}, {"n": "Ame‑no‑Uzume (Arti performative, Gioia)", "c": "Arte / Gioia", "d": "Dea della danza e della serenità; connessa ai riti kagura.", "t": "Tsubaki Ōkami Yashiro · Suzuka, Pref. Mie"}, {"n": "Sarutahiko Ōkami (Crocevia, Guida)", "c": "Viaggio / Strade", "d": "Kami guida dei crocevia; associato a misogi e arti marziali.", "t": "Tsubaki Ōkami Yashiro (Tsubaki Grand Shrine) · Suzuka, Pref. Mie"}, {"n": "Ninigi‑no‑Mikoto (Discesa celeste)", "c": "Creazione / Origini", "d": "Nipote di Amaterasu; discesa a Takachiho, inizio della linea imperiale.", "t": "Kirishima Jingū · Kirishima, Pref. Kagoshima"}, {"n": "Hoori (Yamasachihiko)", "c": "Natura / Mare", "d": "Eroe della caccia; sposo di Toyotama‑hime.", "t": "Udo Jingū · Nichinan, Pref. Miyazaki"}, {"n": "Hoderi (Umisachihiko)", "c": "Natura / Mare", "d": "Fratello di Hoori, legato alla pesca e al mare.", "t": "Santuari vari · Giappone"}, {"n": "Ugayafukiaezu (Principe)", "c": "Creazione / Origini", "d": "Figlio di Hoori e Toyotama‑hime; genealogia mitica verso Jimmu.", "t": "Udo Jingū · Nichinan, Miyazaki"}, {"n": "Toyotama‑hime (Mare e maternità)", "c": "Natura / Mare", "d": "Principessa del mare, figlia di Watatsumi.", "t": "Santuari vari · Giappone"}, {"n": "Ebisu (Commercio, Fortuna, Pesca)", "c": "Fertilità / Prosperità", "d": "Kami della buona sorte negli affari e della pesca.", "t": "Nishinomiya Shrine (santuario capo) · Nishinomiya, Pref. Hyōgo"}, {"n": "Daikokuten (Fortuna, Cucina, Mercati)", "c": "Sincretici / Shichifukujin", "d": "Divinità di origine sincretica; prosperità domestica e commerciale.", "t": "Kanda Myōjin · Tokyo"}, {"n": "Benzaiten (Arte, Musica, Acque)", "c": "Sincretici / Shichifukujin", "d": "Forma sincretica legata a Ichikishima‑hime; musica e acque.", "t": "Enoshima Shrine · Fujisawa, Kanagawa"}, {"n": "Bishamonten (Protezione, Guerra)", "c": "Sincretici / Shichifukujin", "d": "Protettore guerriero; culto cittadino e di clan.", "t": "Santuari vari · Giappone"}, {"n": "Fukurokuju (Lunga vita e prosperità)", "c": "Sincretici / Shichifukujin", "d": "Porta benessere, longevità e fama.", "t": "Santuari vari · Giappone"}, {"n": "Jurōjin (Longevità)", "c": "Sincretici / Shichifukujin", "d": "Anziano saggio, emblema di lunga vita.", "t": "Santuari vari · Giappone"}, {"n": "Hotei (Contenutezza e allegria)", "c": "Sincretici / Shichifukujin", "d": "Figura bonaria, abbondanza e buon auspicio.", "t": "Santuari vari · Giappone"}, {"n": "Tōshō Daigongen (Tokugawa Ieyasu)", "c": "Sincretici / Gongen", "d": "Ieyasu deificato come tutore dello Stato; culto gongen.", "t": "Nikkō Tōshōgū · Nikkō, Pref. Tochigi"}, {"n": "Gozu Tennō (Epidemie, protezione)", "c": "Sincretici / Goryō", "d": "Divinità/spirito sincretico contro pestilenze; storicamente legato a Yasaka.", "t": "Santuari vari · Giappone"}, {"n": "Taira no Masakado (Goryō)", "c": "Sincretici / Goryō", "d": "Spirito apotropaico di un signore ribelle; placato in epoca Heian.", "t": "Kanda Myōjin · Tokyo"}, {"n": "Dōsojin (Strade e viaggi)", "c": "Viaggio / Strade", "d": "Guardiani di strade e villaggi, spesso come pietre di confine.", "t": "Santuari vari · Giappone"}, {"n": "Sae‑no‑kami / Sai‑no‑kami (Cippi di confine)", "c": "Viaggio / Strade", "d": "Divinità dei crocevia e dei confini; protezione dai mali erranti.", "t": "Santuari vari · Giappone"}, {"n": "Chimata‑no‑kami (Incroci)", "c": "Viaggio / Strade", "d": "Spirito degli incroci; purificazione ai passaggi liminali.", "t": "Santuari vari · Giappone"}, {"n": "Ōwatatsumi / Ryūjin (Mare profondo)", "c": "Tempeste / Mare", "d": "Signore dei mari profondi; palazzi sottomarini e draghi.", "t": "Ryūgū Shrine · Kagoshima (tradiz.)"}, {"n": "Suijin (Acque dolci)", "c": "Natura / Acque", "d": "Kami delle acque di fiumi, laghi e pozzi.", "t": "Santuari vari · Giappone"}, {"n": "Kuraokami (Pioggia e nebbie)", "c": "Natura / Acque", "d": "Drago della pioggia che porta fertilità.", "t": "Santuari vari · Giappone"}, {"n": "Taki‑tsu‑hime (Cascate)", "c": "Natura / Acque", "d": "Dea delle cascate e della corrente pura.", "t": "Kumano Nachi Taisha (acque sacre) · Nachikatsuura, Wakayama"}, {"n": "Kasuga (Quartetto)", "c": "Corte / Antichi santuari", "d": "Pantheon di Kasuga: Takemikazuchi, Futsunushi, Ame‑no‑Koyane, Himegami.", "t": "Kasuga Taisha · Nara"}, {"n": "Ame‑no‑Koyane (Riti e preghiere)", "c": "Corte / Antichi santuari", "d": "Antenato dei Fujiwara; maestro di riti e offerte.", "t": "Kasuga Taisha · Nara"}, {"n": "Kamo‑wake‑ikazuchi (Fulmine di Kamo)", "c": "Corte / Antichi santuari", "d": "Deità di Kamigamo; tutela della capitale antica.", "t": "Kamigamo Jinja · Kyoto"}, {"n": "Kamo‑Taketsunomi", "c": "Corte / Antichi santuari", "d": "Deità di Shimogamo insieme a Tamayori‑hime.", "t": "Shimogamo Jinja · Kyoto"}, {"n": "Tamayori‑hime (Madre e oracoli)", "c": "Corte / Antichi santuari", "d": "Dea madre/oracolare; culto a Shimogamo e oltre.", "t": "Shimogamo Jinja · Kyoto"}, {"n": "Koyasu (Parto sicuro)", "c": "Famiglia / Nascita", "d": "Protettrice del parto e della crescita dei bambini.", "t": "Santuari vari · Giappone"}, {"n": "Awashima‑hime (Salute delle donne)", "c": "Guarigione / Medicina", "d": "Guarigione e fertilità femminile; tavolette di bambole votive.", "t": "Awashima Jinja · Wakayama"}, {"n": "Kuebiko (Spaventapasseri sapiente)", "c": "Sapienza / Studi", "d": "Scarecrow divino che conosce il mondo pur non muovendosi.", "t": "Santuari vari · Giappone"}, {"n": "Yakuyoke no kami (Sventura‑repellenti)", "c": "Guerra / Protezione", "d": "Titolo generico per kami invocati contro anni infausti.", "t": "Santuari vari · Giappone"}, {"n": "Ōyamakui (Monte Hiei)", "c": "Natura / Montagne", "d": "Kami del Monte Hiei; culto connesso a Hiyoshi‑Sannō.", "t": "Hiyoshi Taisha · Ōtsu, Shiga"}, {"n": "Yatagarasu (Guida a tre zampe)", "c": "Viaggio / Strade", "d": "Messaggero divino che guida sul giusto cammino.", "t": "Kumano Hongū Taisha · Tanabe, Wakayama"}, {"n": "Kumano (Sanzan)", "c": "Natura / Montagne", "d": "Triade di Kumano: Hongū, Hayatama, Nachi – sincretismo e pellegrinaggi.", "t": "Kumano Hongū / Hayatama / Nachi Taisha · Wakayama"}, {"n": "Ame‑no‑Tajikarao (Forza fisica)", "c": "Guerra / Protezione", "d": "Apre la roccia della caverna riportando la luce nel mondo.", "t": "Togakushi Jinja (Okusha) · Nagano"}, {"n": "Kushinada‑hime (Riso e matrimonio)", "c": "Relazioni / Nazione", "d": "Sposa di Susanoo; protettrice dei raccolti e dei matrimoni.", "t": "Yaegaki Jinja · Matsue, Shimane"}, {"n": "Suseri‑hime (Consorte di Ōkuninushi)", "c": "Relazioni / Nazione", "d": "Dea consorte e alleata di Ōkuninushi.", "t": "Santuari vari · Giappone"}, {"n": "Funadama (Spirito della nave)", "c": "Tempeste / Mare", "d": "Spirito protettore delle imbarcazioni; culto a bordo e nei porti.", "t": "Santuari vari · Giappone"}, {"n": "Yama‑no‑kami (Montagna)", "c": "Natura / Montagne", "d": "Titolo generico del dio della montagna nelle comunità rurali.", "t": "Santuari vari · Giappone"}, {"n": "Ta‑no‑kami (Campi di riso)", "c": "Fertilità / Prosperità", "d": "Divinità locale delle risaie; stagionale e comunitaria.", "t": "Santuari vari · Giappone"}, {"n": "Umi‑no‑kami (Mare)", "c": "Tempeste / Mare", "d": "Appellativo generico per le divinità marine locali.", "t": "Santuari vari · Giappone"}, {"n": "Homusubi (Fuoco domestico)", "c": "Fuoco / Focolare", "d": "Aspetto benevolo del fuoco in casa e nel forno.", "t": "Santuari vari · Giappone"}, {"n": "Kōjin (Cucine e focolari)", "c": "Fuoco / Focolare", "d": "Divinità della cucina e del fuoco controllato.", "t": "Santuari vari · Giappone"}, {"n": "Kamado‑gami (Forni)", "c": "Fuoco / Focolare", "d": "Protettore del forno domestico e delle fornaci.", "t": "Santuari vari · Giappone"}, {"n": "Ujigami (Divinità di clan)", "c": "Città / Comunità", "d": "Tutelare del clan/famiglia; santuario locale di riferimento.", "t": "Santuari vari · Giappone"}, {"n": "Ubusunagami (Divinità natìa)", "c": "Città / Comunità", "d": "Protettore del luogo di nascita; identità personale.", "t": "Santuari vari · Giappone"}, {"n": "Kitsune (messaggeri di Inari)", "c": "Fertilità / Prosperità", "d": "Spiriti volpe, emissari di Inari; portano offerte e oracoli.", "t": "Fushimi Inari Taisha · Kyoto"}, {"n": "Toshitokujin (Capodanno)", "c": "Città / Comunità", "d": "Deità di inizio anno e buon auspicio.", "t": "Santuari vari · Giappone"}, {"n": "Ame‑no‑Hohi (Inviato a Izumo)", "c": "Creazione / Origini", "d": "Figlio di Amaterasu mandato a trattare con Ōkuninushi.", "t": "Santuari vari · Giappone"}, {"n": "Ōkunitama (Spirito del territorio)", "c": "Città / Comunità", "d": "Kami del territorio/metropoli.", "t": "Ōkunitama Jinja · Fuchū, Tokyo"}, {"n": "Ise Jingū – Naikū (Amaterasu)", "c": "Santuari principali", "d": "Santuario interno di Amaterasu; cuore dello Shinto.", "t": "Ise Jingū (Naikū) · Ise, Mie"}, {"n": "Ise Jingū – Gekū (Toyouke)", "c": "Santuari principali", "d": "Santuario esterno dedicato a Toyouke Ōmikami.", "t": "Ise Jingū (Gekū) · Ise, Mie"}, {"n": "Izumo Taisha (Ōkuninushi)", "c": "Santuari principali", "d": "Grande santuario dei legami (en‑musubi).", "t": "Izumo Taisha · Shimane"}, {"n": "Fushimi Inari Taisha (Inari)", "c": "Santuari principali", "d": "Santuario capo del culto di Inari; migliaia di torii.", "t": "Fushimi Inari Taisha · Kyoto"}, {"n": "Kashima Jingū (Takemikazuchi)", "c": "Santuari principali", "d": "Santuario della spada e del fulmine.", "t": "Kashima Jingū · Ibaraki"}, {"n": "Katori Jingū (Futsunushi)", "c": "Santuari principali", "d": "Santuario di strategia e disciplina.", "t": "Katori Jingū · Chiba"}, {"n": "Sumiyoshi Taisha (Sumiyoshi Sanjin)", "c": "Santuari principali", "d": "Triplice culto marinaro di Osaka.", "t": "Sumiyoshi Taisha · Osaka"}, {"n": "Nishinomiya Shrine (Ebisu)", "c": "Santuari principali", "d": "Santuario capo di Ebisu.", "t": "Nishinomiya Shrine · Hyōgo"}, {"n": "Ōyamazumi Jinja (Ōyamatsumi)", "c": "Santuari principali", "d": "Tesori di armatura e armi votive.", "t": "Ōyamazumi Jinja · Ehime"}, {"n": "Munakata Taisha (Munakata)", "c": "Santuari principali", "d": "Triade marina e rotte commerciali antiche.", "t": "Munakata Taisha · Fukuoka"}, {"n": "Itsukushima Jinja (Isola santuario)", "c": "Santuari principali", "d": "Torii sull’acqua; culto delle Munakata.", "t": "Itsukushima Jinja · Hiroshima"}, {"n": "Suwa Taisha (Takeminakata)", "c": "Santuari principali", "d": "Grande complesso (Kamisha/Shimosha) e festival Onbashira.", "t": "Suwa Taisha · Nagano"}, {"n": "Kirishima Jingū (Ninigi)", "c": "Santuari principali", "d": "Miti di discesa celeste a Kyushu.", "t": "Kirishima Jingū · Kagoshima"}, {"n": "Dazaifu Tenmangū (Tenjin)", "c": "Santuari principali", "d": "Meta di studenti e studiosi.", "t": "Dazaifu Tenmangū · Fukuoka"}, {"n": "Ōmiwa Jinja (Monte Miwa)", "c": "Santuari principali", "d": "Culto arcaico senza honden; il monte come shintai.", "t": "Ōmiwa Jinja · Nara"}, {"n": "Atsuta Jingū (Tesoro sacro)", "c": "Santuari principali", "d": "Santuario della spada Kusanagi.", "t": "Atsuta Jingū · Nagoya"}, {"n": "Omono‑nushi‑wake (Titoli locali)", "c": "Città / Comunità", "d": "Titoli locali onorifici per kami tutelari.", "t": "Santuari vari · Giappone"}, {"n": "Aramitama (Animo ardente)", "c": "Guerra / Protezione", "d": "Aspetto vigoroso e combattivo di un kami.", "t": "Santuari vari · Giappone"}, {"n": "Nigimitama (Animo pacificante)", "c": "Relazioni / Nazione", "d": "Aspetto benevolo e armonizzante di un kami.", "t": "Santuari vari · Giappone"}, {"n": "Tatarigami (Forze avverse)", "c": "Guarigione / Medicina", "d": "Personificazioni di calamità/epidemie da placare.", "t": "Santuari vari · Giappone"}, {"n": "Yachimata‑hiko/hime (Crocevia mitici)", "c": "Viaggio / Strade", "d": "Coppia di kami legati agli incroci e passaggi rituali.", "t": "Santuari vari · Giappone"}, {"n": "Shirayama‑Hime (Hakusan)", "c": "Natura / Montagne", "d": "Dea di Hakusan (Monte Bianco), acque di sorgente.", "t": "Shirayama‑Hime Jinja · Ishikawa"}, {"n": "Ame‑no‑Torifune (Navigazione)", "c": "Tempeste / Mare", "d": "Divinità del viaggio per mare, “barca celeste”.", "t": "Santuari vari · Giappone"}, {"n": "Hayatama‑no‑Ōkami (Kumano)", "c": "Natura / Montagne", "d": "Divinità di Kumano Hayatama; rigenerazione.", "t": "Kumano Hayatama Taisha · Shingu, Wakayama"}, {"n": "Ketsumiko‑no‑Ōkami (Kumano Hongū)", "c": "Natura / Montagne", "d": "Principio centrale del pantheon di Kumano.", "t": "Kumano Hongū Taisha · Tanabe, Wakayama"}, {"n": "Musubi‑no‑Kami (Kumano Nachi)", "c": "Natura / Montagne", "d": "Aspetto di legame e rinascita presso Nachi.", "t": "Kumano Nachi Taisha · Wakayama"}, {"n": "Seoritsu‑hime (Purificazione)", "c": "Purificazione / Harae", "d": "Deità della grande purificazione (Ōharae).", "t": "Santuari vari · Giappone"}, {"n": "Haya‑akitsu‑hime (Purificazione)", "c": "Purificazione / Harae", "d": "Una delle divinità della purificazione rapida.", "t": "Santuari vari · Giappone"}, {"n": "Haya‑akitsu‑hiko (Purificazione)", "c": "Purificazione / Harae", "d": "Contropare maschile in alcuni cicli rituali.", "t": "Santuari vari · Giappone"}, {"n": "Takami‑Musubi (Fortuna agricola)", "c": "Fertilità / Prosperità", "d": "Aspetto agricolo locale del principio Musubi.", "t": "Santuari vari · Giappone"}, {"n": "Yashima‑no‑Miko (Patroni locali)", "c": "Città / Comunità", "d": "Titolo per kami protettori di villaggi insulari.", "t": "Santuari vari · Giappone"}, {"n": "Isora (Scogli e coste)", "c": "Tempeste / Mare", "d": "Spirito delle scogliere e delle maree.", "t": "Santuari vari · Giappone"}, {"n": "Mizu‑ha‑no‑me (Sorgenti)", "c": "Natura / Acque", "d": "Dea delle sorgenti e dei pozzi.", "t": "Santuari vari · Giappone"}, {"n": "Hashi‑hime (Ponti)", "c": "Città / Comunità", "d": "Deità dei ponti, passaggi liminari sulle acque.", "t": "Santuari vari · Giappone"}, {"n": "Tatsuta‑hime/hiko (Foglie e venti d’autunno)", "c": "Natura / Astri", "d": "Divinità poetiche del vento autunnale.", "t": "Tatsuta Taisha · Nara"}, {"n": "Michishio‑no‑kami (Flussi e riflussi)", "c": "Tempeste / Mare", "d": "Forze delle maree e dei canali.", "t": "Santuari vari · Giappone"}, {"n": "Tamayori (Maternità locale)", "c": "Famiglia / Nascita", "d": "Aspetti locali di protezione materna.", "t": "Santuari vari · Giappone"}, {"n": "Uzumasa (Sete artigiane)", "c": "Mestieri / Arti", "d": "Culti di corporazioni artigiane storiche.", "t": "Santuari vari · Giappone"}, {"n": "Moriya (Suwa – ausiliari)", "c": "Guerra / Protezione", "d": "Kami ausiliari del complesso di Suwa.", "t": "Suwa Taisha · Nagano"}, {"n": "Kadori‑no‑kami (Santuari d’ingresso)", "c": "Città / Comunità", "d": "Spiriti degli accessi ai villaggi.", "t": "Santuari vari · Giappone"}, {"n": "Hitokotonushi (Una‑parola oracolare)", "c": "Oracoli / Divinazione", "d": "Kami che esaudisce una singola preghiera ben mirata.", "t": "Santuari vari · Giappone"}, {"n": "Iwa‑totsu‑no‑o (Rocce e confini)", "c": "Natura / Montagne", "d": "Spirito delle rocce, guardiano di confini sacri.", "t": "Santuari vari · Giappone"}, {"n": "Asuka Niimasu (Antiche capitali)", "c": "Corte / Antichi santuari", "d": "Culti della prima corte nella piana di Asuka.", "t": "Asuka‑niimasu Jinja · Nara"}];
   var slip=document.getElementById('slip'); if(!slip) return;
   var hint=document.getElementById('slipHint'), res=document.getElementById('kamiResult');
@@ -2192,5 +2291,65 @@ hydrateVideos();
 
 <!-- Statistiche anonime, senza cookie -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22016cb5c00c41e98bd7780d317aa837"}'></script>
+<script>
+/* ---------- Banda: cinque kami diversi a ogni visita ---------- */
+(function(){
+  var banda = document.getElementById('banda');
+  if(!banda || typeof CARTE === 'undefined') return;
+
+  function cinque(){
+    /* estrazione senza ripetizioni dentro la stessa banda */
+    var copia = CARTE.slice(), scelti = [];
+    for(var i = 0; i < 5 && copia.length; i++){
+      scelti.push(copia.splice(Math.floor(Math.random() * copia.length), 1)[0]);
+    }
+    return scelti;
+  }
+
+  function nomeBreve(n){ return n.replace(/\s*\(.*\)$/, ''); }
+  function tempioBreve(t){ return (t || '').split('·')[0].trim(); }
+
+  function disegna(){
+    banda.innerHTML = '';
+    cinque().forEach(function(k, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'carta';
+      b.style.setProperty('--cc', k.col);
+      b.style.animationDelay = (i * 70) + 'ms';
+      b.innerHTML =
+        '<span class="c-glifo" aria-hidden="true">' + k.k + '</span>' +
+        '<span class="c-cat">' + k.c + '</span>' +
+        '<h3>' + nomeBreve(k.n) + '</h3>' +
+        '<p>' + k.d.slice(0, 96) + (k.d.length > 96 ? '…' : '') + '</p>' +
+        '<span class="c-tempio">' + tempioBreve(k.t) + '</span>';
+      b.setAttribute('aria-label', 'Cerca ' + nomeBreve(k.n) + " nell'elenco");
+      b.addEventListener('click', function(){
+        /* il tocco porta alla scheda completa, filtrando l'elenco */
+        var campo = document.getElementById('q');
+        if(campo){
+          campo.value = nomeBreve(k.n);
+          campo.dispatchEvent(new Event('input', { bubbles:true }));
+        }
+        var el = document.getElementById('elenco');
+        if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+      banda.appendChild(b);
+    });
+  }
+  disegna();
+
+  var tasto = document.getElementById('rimescola');
+  if(tasto){
+    tasto.addEventListener('click', function(){
+      disegna();
+      tasto.classList.remove('gira');
+      void tasto.offsetWidth;
+      tasto.classList.add('gira');
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

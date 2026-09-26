@@ -593,6 +593,14 @@ body.bloccato{ overflow:hidden; }
 }
 h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 .brand .nin{ font-size:.58em; vertical-align:.08em; }
+
+/* le illustrazioni di riserva si dichiarano */
+.db-foto.e-scena, .ph.e-scena{ position:relative; background-size:cover; }
+.db-foto.e-scena::after, .ph.e-scena::after{
+  content:"illustrazione"; position:absolute; left:6px; bottom:6px;
+  font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.08em;
+  padding:2px 6px; border-radius:8px; background:rgba(32,26,20,.55); color:#fff8ea;
+}
 </style>
 </head>
 <body>
@@ -2378,6 +2386,35 @@ observeReveal();
 /* ---------- Immagini da Wikipedia (con fallback grafico) ----------
    Nessuna chiave API: usa l'endpoint pubblico REST che consente CORS.
    Se l'immagine non esiste, resta il placeholder con il kanji.        */
+
+/* ---------- Filtro positivo + riserva vettoriale ----------
+   Escludere le parole sbagliate non basta: un file chiamato "Ford wheel"
+   non contiene "united states" eppure esce cercando "Usa". Serve il
+   contrario: il nome del file deve contenere il nome del soggetto. */
+window.SCENE_T = {"santuario": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f6ecd6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8d5ab%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22url%28%23c%29%22/%3E%0A%20%20%3Cpath%20d%3D%22M0%20220h400v80H0z%22%20fill%3D%22%236b5f4c%22%20opacity%3D%22.35%22/%3E%0A%20%20%3Cpath%20d%3D%22M60%20150l140-52%20140%2052z%22%20fill%3D%22%233b3326%22/%3E%0A%20%20%3Crect%20x%3D%2286%22%20y%3D%22150%22%20width%3D%22228%22%20height%3D%2212%22%20fill%3D%22%233b3326%22/%3E%0A%20%20%3Crect%20x%3D%22104%22%20y%3D%22162%22%20width%3D%2216%22%20height%3D%2258%22%20fill%3D%22%236b5f4c%22/%3E%0A%20%20%3Crect%20x%3D%22280%22%20y%3D%22162%22%20width%3D%2216%22%20height%3D%2258%22%20fill%3D%22%236b5f4c%22/%3E%0A%20%20%3Crect%20x%3D%22180%22%20y%3D%22176%22%20width%3D%2240%22%20height%3D%2244%22%20fill%3D%22%233b3326%22%20opacity%3D%22.8%22/%3E%0A%20%20%3Cpath%20d%3D%22M60%20150l140-52%20140%2052%22%20fill%3D%22none%22%20stroke%3D%22%23bb9138%22%20stroke-width%3D%223%22/%3E%3C/svg%3E", "pagoda": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f6ecd6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8d5ab%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22url%28%23c%29%22/%3E%0A%20%20%3Cpath%20d%3D%22M0%20254h400v46H0z%22%20fill%3D%22%233b3326%22%20opacity%3D%22.5%22/%3E%0A%20%20%3Cg%20fill%3D%22%233b3326%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M120%20254V214h160v40zM106%20214l94-26%2094%2026z%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M132%20188v-34h136v34zM118%20154l82-24%2082%2024z%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M144%20130V102h112v28zM130%20102l70-22%2070%2022z%22/%3E%0A%20%20%20%20%3Cpath%20d%3D%22M156%2080V58h88v22zM142%2058l58-20%2058%2020z%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Crect%20x%3D%22194%22%20y%3D%2220%22%20width%3D%2212%22%20height%3D%2220%22%20fill%3D%22%23bb9138%22/%3E%3C/svg%3E", "torii-acqua": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20400%20300%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f6ecd6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e8d5ab%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22url%28%23c%29%22/%3E%0A%20%20%3Cpath%20d%3D%22M0%20210h400v90H0z%22%20fill%3D%22%239a8d76%22%20opacity%3D%22.45%22/%3E%0A%20%20%3Cpath%20d%3D%22M0%20230q50%208%20100%200t100%200%20100%200%20100%200v70H0z%22%20fill%3D%22%236b5f4c%22%20opacity%3D%22.5%22/%3E%0A%20%20%3Cg%20fill%3D%22%23c8402a%22%3E%0A%20%20%20%20%3Crect%20x%3D%22120%22%20y%3D%2296%22%20width%3D%22160%22%20height%3D%2212%22%20rx%3D%223%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22130%22%20y%3D%22112%22%20width%3D%22140%22%20height%3D%228%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22146%22%20y%3D%22118%22%20width%3D%2214%22%20height%3D%2296%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22118%22%20width%3D%2214%22%20height%3D%2296%22/%3E%0A%20%20%20%20%3Crect%20x%3D%22140%22%20y%3D%22146%22%20width%3D%22120%22%20height%3D%227%22/%3E%0A%20%20%3C/g%3E%0A%20%20%3Crect%20x%3D%22192%22%20y%3D%2286%22%20width%3D%2216%22%20height%3D%2212%22%20fill%3D%22%23bb9138%22/%3E%0A%20%20%3Cpath%20d%3D%22M146%20214h14v22h-14zM240%20214h14v22h-14z%22%20fill%3D%22%23c8402a%22%20opacity%3D%22.35%22/%3E%3C/svg%3E"};
+
+window.titoloPertinente = function(titolo, query){
+  var t = titolo.toLowerCase().replace(/[_\-]/g, ' ');
+  var GENERICHE = { shrine:1, japan:1, jinja:1, temple:1, the:1, of:1, in:1 };
+  var parole = query.toLowerCase().replace(/[-+]/g, ' ').split(/\s+/)
+                 .filter(function(w){ return w.length > 2 && !GENERICHE[w]; });
+  if(!parole.length) return true;
+  var primo = parole[0];
+  if(t.indexOf(primo) < 0) return false;           /* manca il nome principale */
+  for(var i = 1; i < parole.length; i++){
+    if(t.indexOf(parole[i]) > -1) return true;     /* e almeno un secondo termine */
+  }
+  return false;
+};
+
+window.mettiScenaT = function(el){
+  if(!el || el.classList.contains('has-img')) return;
+  var k = el.getAttribute('data-scena') || 'santuario';
+  if(!SCENE_T[k]) k = 'santuario';
+  el.style.backgroundImage = 'url("' + SCENE_T[k] + '")';
+  el.classList.add('e-scena');
+};
+
 function setBg(el, src){
   var pre=new Image();
   pre.onload=function(){ el.style.backgroundImage='url("'+src+'")'; el.classList.add('has-img'); };
@@ -2402,14 +2439,16 @@ function loadWikiImage(el, title){
       var f = lista[i], t = f.title || '', tl = t.toLowerCase();
       if(SCARTA.test(t)) continue;
       if(tl.slice(-4) !== '.jpg' && tl.slice(-5) !== '.jpeg' && tl.slice(-4) !== '.png') continue;
+      if(!titoloPertinente(t, title)) continue;    /* il nome non parla del soggetto */
       var info = f.imageinfo && f.imageinfo[0];
       if(!info) continue;
+      el.classList.remove('e-scena');
       setBg(el, info.thumburl || info.url);
       return;
     }
     throw new Error('nessuna foto');
   })
-  .catch(function(){ /* resta il segnaposto con il kanji */ });
+  .catch(function(){ mettiScenaT(el); });
 }
 
 function hydrateWikiImages(root){
@@ -2534,7 +2573,7 @@ hydrateVideos();
       var pg=d&&d.query&&d.query.pages; if(!pg) throw 0;
       var foto=Object.keys(pg).map(function(k){ return pg[k]; })
         .sort(function(a,b){ return (a.index||0)-(b.index||0); })
-        .filter(function(p){
+        .filter(function(p){ if(!titoloPertinente(p.title||'', q)) return false;
           var t=p.title||'';
           if(!/\.(jpe?g|png)$/i.test(t)) return false;   // niente svg, gif, video
           if(SCARTA.test(t)) return false;                // niente mappe, loghi, schemi
