@@ -1155,6 +1155,83 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   margin-top:10px !important; font-size:12.5px !important;
   line-height:1.6; color:#c9c2d6; max-width:none !important;
 }
+
+/* quando il filmato viene tolto, il fotogramma fisso resta pienamente visibile */
+.senza-filmato .hero-fondo{ opacity:1 !important; }
+.senza-filmato .hero-velo{ opacity:.85; }
+
+/* ================= CHE COS'È LO SHINTO ================= */
+.cos-e{
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg, var(--washi), #f7efdc 40%, var(--washi));
+  padding:74px 0 64px;
+}
+.cos-e::before{
+  content:"神道"; position:absolute; top:-30px; right:-20px;
+  font-family:'Shippori Mincho B1',serif; font-size:260px; line-height:1;
+  color:var(--sumi); opacity:.028; pointer-events:none; white-space:nowrap;
+}
+.cose-wrap{ max-width:1080px; margin:0 auto; padding:0 22px; position:relative; }
+.cose-testa{ text-align:center; }
+.cose-testa h2{ font-size:clamp(27px,5.4vw,42px); margin-top:12px; }
+
+.cose-apertura{
+  display:grid; grid-template-columns:minmax(0,1fr) 190px; gap:30px;
+  align-items:center; margin-top:30px;
+}
+.cose-lede{ font-size:clamp(15.5px,2.4vw,18.5px); line-height:1.75; color:var(--sumi-soft); }
+.cose-lede .jp{ font-family:'Shippori Mincho B1',serif; color:var(--torii); }
+.cose-glifo{ color:var(--torii); }
+.cg-svg{ width:100%; height:auto; display:block; }
+.cg-kanji{
+  font-family:'Shippori Mincho B1',serif; font-size:86px; fill:currentColor; opacity:.9;
+}
+.cg-anello{ transform-origin:center; animation:ruotaLento 26s linear infinite; }
+.cg-anello2{ transform-origin:center; animation:ruotaLento 18s linear infinite reverse; }
+@keyframes ruotaLento{ from{ transform:rotate(0) } to{ transform:rotate(360deg) } }
+
+.cose-griglia{
+  margin-top:34px; display:grid; gap:16px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.cose-card{
+  position:relative; overflow:hidden;
+  background:var(--paper); border:1px solid var(--paper-line); border-radius:14px;
+  padding:22px 22px 20px;
+  opacity:0; transform:translateY(20px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease),
+             border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.cose-card.dentro{ opacity:1; transform:none; }
+.cose-card:hover{ border-color:var(--cc); box-shadow:0 16px 32px rgba(32,20,10,.11); }
+.cose-card::before{ content:""; position:absolute; inset:0 0 auto 0; height:3px; background:var(--cc); }
+.cc-kanji{
+  position:absolute; right:-10px; bottom:-26px;
+  font-family:'Shippori Mincho B1',serif; font-size:104px; line-height:1;
+  color:var(--cc); opacity:.11; pointer-events:none;
+  transition:transform .6s var(--ease), opacity .4s var(--ease);
+}
+.cose-card:hover .cc-kanji{ transform:scale(1.1) rotate(-6deg); opacity:.18; }
+.cose-card h3{ font-size:18px; line-height:1.3; position:relative; }
+.cose-card p{ margin-top:10px; font-size:13.8px; line-height:1.68; color:var(--sumi-soft); position:relative; }
+
+.cose-chiusa{
+  margin-top:30px; text-align:center; max-width:660px; margin-left:auto; margin-right:auto;
+}
+.cose-chiusa p{ font-size:15.5px; line-height:1.75; color:var(--sumi-soft); }
+.cose-vai{ margin-top:22px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+@media (max-width:900px){ .cose-griglia{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:620px){
+  .cose-griglia{ grid-template-columns:1fr; }
+  .cose-apertura{ grid-template-columns:1fr; gap:18px; }
+  .cose-glifo{ max-width:130px; margin:0 auto; }
+  .cos-e::before{ font-size:150px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .cose-card{ opacity:1; transform:none; transition:none; }
+  .cg-anello, .cg-anello2, .cc-kanji{ animation:none !important; transition:none; }
+}
 </style>
 </head>
 <body>
@@ -1232,6 +1309,97 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 <div class="portale" id="portale" aria-hidden="true"></div>
 
 <!-- ============ SENTIERI ============ -->
+
+<section class="cos-e" id="cos-e">
+  <div class="cose-wrap">
+    <div class="cose-testa">
+      <span class="eyebrow">Per cominciare · 神道</span>
+      <h2>Che cos'è lo Shinto?</h2>
+    </div>
+
+    <div class="cose-apertura">
+      <p class="cose-lede">
+        Lo Shinto — <span class="jp">神道</span>, «la via dei kami» — è la tradizione religiosa
+        originaria del Giappone. Non ha un fondatore, non ha un libro sacro, non chiede di
+        credere in un dogma. Chiede di <b>fare</b>: purificarsi, offrire, celebrare.
+      </p>
+      <div class="cose-glifo" aria-hidden="true">
+        <svg viewBox="0 0 200 200" class="cg-svg">
+          <circle cx="100" cy="100" r="74" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".25" class="cg-anello"/>
+          <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="1" opacity=".18" class="cg-anello2"/>
+          <text x="100" y="128" text-anchor="middle" class="cg-kanji">神</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cose-griglia">
+      <article class="cose-card" style="--cc:#c8402a">
+        <span class="cc-kanji" aria-hidden="true">神</span>
+        <h3>Kami non significa «dio»</h3>
+        <p>La traduzione più onesta è «presenza che suscita meraviglia e timore reverenziale».
+        Può esserlo una montagna, una cascata, un albero colpito dal fulmine, una persona
+        morta, perfino qualcosa di temibile. Non è onnipotente, non è necessariamente buono,
+        e può abitare più luoghi contemporaneamente.</p>
+      </article>
+
+      <article class="cose-card" style="--cc:#3f9bb5">
+        <span class="cc-kanji" aria-hidden="true">祓</span>
+        <h3>L'impurità è polvere, non peccato</h3>
+        <p>Il concetto centrale è <i>harae</i>, la purificazione. Ciò che allontana dai kami
+        non è la colpa morale ma il <i>kegare</i>: contatto con la morte, la malattia, il
+        disordine. Per questo ci si lava — le mani, la bocca, a volte tutto il corpo sotto
+        una cascata. Non ci si confessa: si sciacqua.</p>
+      </article>
+
+      <article class="cose-card" style="--cc:#bb9138">
+        <span class="cc-kanji" aria-hidden="true">社</span>
+        <h3>Il santuario è una soglia</h3>
+        <p>Il <i>torii</i> segna il passaggio fra lo spazio ordinario e quello sacro. Dentro,
+        il kami non si mostra: spesso l'edificio più importante è chiuso, e ciò che si venera
+        è uno specchio, una spada, una roccia, o la montagna stessa. Si viene per stare in
+        un luogo, non per vedere qualcosa.</p>
+      </article>
+
+      <article class="cose-card" style="--cc:#5c6e4a">
+        <span class="cc-kanji" aria-hidden="true">祭</span>
+        <h3>Si pratica, non si crede</h3>
+        <p>Pochi giapponesi si direbbero «shintoisti», eppure decine di milioni vanno al
+        santuario a capodanno. Lo Shinto si esprime in gesti stagionali: il primo giorno
+        dell'anno, il raccolto, la nascita di un figlio, la festa del quartiere. È una pratica
+        condivisa più che una fede dichiarata.</p>
+      </article>
+
+      <article class="cose-card" style="--cc:#7a5c9e">
+        <span class="cc-kanji" aria-hidden="true">仏</span>
+        <h3>Ha convissuto mille anni col buddhismo</h3>
+        <p>Dal sesto secolo kami e buddha hanno abitato gli stessi recinti, e nessuno trovava
+        strano pregarli insieme. Lo Stato li separò per decreto solo nel 1868. Ancora oggi
+        molti giapponesi si sposano secondo il rito shintoista e vengono sepolti secondo
+        quello buddhista, senza contraddizione.</p>
+      </article>
+
+      <article class="cose-card" style="--cc:#9c2e1d">
+        <span class="cc-kanji" aria-hidden="true">史</span>
+        <h3>C'è una pagina buia</h3>
+        <p>Fra il 1868 e il 1945 lo Stato costruì uno «Shinto di Stato» attorno alla figura
+        dell'imperatore, dichiarandolo dovere civile e non religione per renderlo
+        obbligatorio. Nei territori occupati fu strumento di assimilazione forzata. La
+        Direttiva Shinto del 1945 lo abolì. Raccontarlo fa parte del capirlo.</p>
+      </article>
+    </div>
+
+    <div class="cose-chiusa">
+      <p>Detta in una riga: <b>lo Shinto è un modo di stare in rapporto con ciò che ci
+      supera</b>, fatto di luoghi, di stagioni e di gesti ripetuti. Il resto del sito serve
+      a riempire questa riga di dettagli.</p>
+      <div class="cose-vai">
+        <a href="#sentieri" class="btn btn-primary">Comincia il percorso →</a>
+        <a href="pillole.html" class="btn btn-ghost">Vai alle pillole</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="sentieri" id="sentieri">
   <div class="sec-head">
     <span class="eyebrow">Nove sentieri, un solo sandō</span>
@@ -2112,5 +2280,75 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
 
 <!-- Statistiche anonime, senza cookie -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "22016cb5c00c41e98bd7780d317aa837"}'></script>
+<script>
+/* ---------- Il video si controlla da solo ----------
+   Dopo tre tentativi di diagnosi a distanza, la strada giusta si e'
+   rivelata un'altra: invece di indovinare perche' su certi dispositivi il
+   video decodifica ma non viene disegnato, la pagina lo verifica da sola.
+   Se in quattro secondi non arriva nessun fotogramma a schermo, il video
+   viene tolto e resta il fotogramma fisso, che non ha mai dato problemi. */
+(function(){
+  var v = document.getElementById('heroVideo');
+  if(!v) return;
+
+  var resi = 0, partito = false;
+  if(v.requestVideoFrameCallback){
+    var conta = function(){ resi++; v.requestVideoFrameCallback(conta); };
+    v.requestVideoFrameCallback(conta);
+  } else {
+    resi = -1;   /* browser senza la misura: non posso giudicare, lo lascio */
+  }
+
+  function rinuncia(motivo){
+    if(v.dataset.tolto) return;
+    v.dataset.tolto = motivo;
+    try { v.pause(); } catch(e){}
+    v.removeAttribute('src');
+    v.style.display = 'none';
+    document.documentElement.classList.add('senza-filmato');
+  }
+
+  v.addEventListener('playing', function(){ partito = true; });
+  v.addEventListener('error', function(){ rinuncia('errore'); });
+
+  setTimeout(function(){
+    if(resi === -1) return;                 /* non misurabile: lo lascio stare */
+    if(!partito){ rinuncia('non parte'); return; }
+    if(resi < 8){ rinuncia('non disegna'); }
+  }, 4000);
+
+  /* secondo controllo piu' avanti: alcuni dispositivi si bloccano dopo */
+  setTimeout(function(){
+    if(resi === -1 || v.dataset.tolto) return;
+    var prima = resi;
+    setTimeout(function(){
+      if(resi - prima < 5) rinuncia('si e fermato');
+    }, 2500);
+  }, 9000);
+})();
+</script>
+
+<script>
+/* ---------- Le schede dell'introduzione compaiono a scorrimento ---------- */
+(function(){
+  var carte = [].slice.call(document.querySelectorAll('.cose-card'));
+  if(!carte.length) return;
+  if(!('IntersectionObserver' in window)){
+    carte.forEach(function(c){ c.classList.add('dentro'); });
+    return;
+  }
+  var oss = new IntersectionObserver(function(v){
+    v.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i = carte.indexOf(e.target);
+      e.target.style.transitionDelay = ((i % 3) * 90) + 'ms';
+      e.target.classList.add('dentro');
+      oss.unobserve(e.target);
+    });
+  }, { threshold:.15 });
+  carte.forEach(function(c){ oss.observe(c); });
+})();
+</script>
+
 </body>
 </html>
