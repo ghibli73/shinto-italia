@@ -1232,6 +1232,27 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   .cose-card{ opacity:1; transform:none; transition:none; }
   .cg-anello, .cg-anello2, .cc-kanji{ animation:none !important; transition:none; }
 }
+
+/* La tela sostituisce il video quando il video decodifica ma non viene
+   disegnato: disegnare su canvas passa per un'altra strada e non risente
+   del difetto di composizione. */
+.hero-tela{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:none; z-index:0;
+}
+html.tela-attiva .hero-tela{ display:block; }
+html.tela-attiva #heroVideo{ opacity:0 !important; }
+
+.social{ display:flex; gap:10px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+.social a{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'JetBrains Mono',monospace; font-size:12px;
+  padding:9px 16px; border-radius:22px; text-decoration:none;
+  border:1px solid rgba(240,185,196,.32); color:#fff8ea;
+  transition:border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
+}
+.social a:hover{ border-color:var(--sakura); background:rgba(240,185,196,.12); transform:translateY(-2px); }
+.social svg{ width:16px; height:16px; }
 </style>
 </head>
 <body>
@@ -1263,6 +1284,7 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   <!-- fondo: il primo fotogramma del video. Se il filmato parte, gli si
        dissolve sopra partendo dalla stessa immagine, quindi non si vede
        alcun salto; se non parte, resta questo. -->
+  <canvas class="hero-tela" id="heroTela" aria-hidden="true"></canvas>
   <div class="hero-fondo" aria-hidden="true"></div>
   <canvas id="petali" aria-hidden="true"></canvas>
 
@@ -1378,13 +1400,14 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
         quello buddhista, senza contraddizione.</p>
       </article>
 
-      <article class="cose-card" style="--cc:#9c2e1d">
-        <span class="cc-kanji" aria-hidden="true">史</span>
-        <h3>C'è una pagina buia</h3>
-        <p>Fra il 1868 e il 1945 lo Stato costruì uno «Shinto di Stato» attorno alla figura
-        dell'imperatore, dichiarandolo dovere civile e non religione per renderlo
-        obbligatorio. Nei territori occupati fu strumento di assimilazione forzata. La
-        Direttiva Shinto del 1945 lo abolì. Raccontarlo fa parte del capirlo.</p>
+      <article class="cose-card" style="--cc:#d98f2e">
+        <span class="cc-kanji" aria-hidden="true">狐</span>
+        <h3>Trentamila santuari, una sola divinità</h3>
+        <p>Un kami può essere <i>diviso</i> senza diminuire: si chiama <i>bunrei</i>, ed è
+        il motivo per cui Inari abita trentamila santuari contemporaneamente. Le volpi che
+        li sorvegliano non sono la divinità ma le sue messaggere, e tengono in bocca la
+        chiave del granaio. A Fushimi Inari ognuno dei diecimila torii è stato pagato da
+        una persona o un'azienda, con nome e data incisi sul retro.</p>
       </article>
     </div>
 
@@ -1691,6 +1714,14 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     <div class="contatto">
       <span class="contatto-eti">Scrivimi</span>
       <a class="contatto-mail" href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a>
+      <div class="social">
+        <a href="https://www.facebook.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 9h3l.4-3H14V4.6c0-.9.3-1.5 1.6-1.5H17.5V.4C17.2.4 16.1.3 14.8.3 12.1.3 10.3 1.9 10.3 4.9V6H7.5v3h2.8v8H14z"/></svg>
+          <span>Facebook</span></a>
+        <a href="https://www.instagram.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 5.8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m0 6.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2m5.1-6.8a.94.94 0 1 1-1.9 0 .94.94 0 0 1 1.9 0"/></svg>
+          <span>Instagram</span></a>
+      </div>
       <p>Correzioni, segnalazioni di errori, proposte di argomenti da aggiungere: sono tutte benvenute. Se trovi un dato sbagliato, indicami la fonte e lo correggo.</p>
     </div>
 
@@ -1706,7 +1737,9 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   Immagini: Wikipedia/Wikimedia Commons · Video: YouTube (caricati solo al clic)<br>
   Torii e sfondo del titolo: elaborazioni proprie<br>
   Statistiche anonime senza cookie (Cloudflare) · nessun dato personale raccolto<br>
-  <a href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a> · <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
+  <a href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a> · 
+  <a href="https://www.facebook.com/shintoinitalia" target="_blank" rel="noopener">Facebook</a> · 
+  <a href="https://www.instagram.com/shintoinitalia" target="_blank" rel="noopener">Instagram</a> · <a href="https://github.com/ghibli73/shinto-italia" target="_blank" rel="noopener">github.com/ghibli73/shinto-italia</a>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
@@ -2299,6 +2332,8 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     resi = -1;   /* browser senza la misura: non posso giudicare, lo lascio */
   }
 
+  window.__rinunciaVideo = function(m){ rinuncia(m); };
+
   function rinuncia(motivo){
     if(v.dataset.tolto) return;
     v.dataset.tolto = motivo;
@@ -2314,7 +2349,11 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
   setTimeout(function(){
     if(resi === -1) return;                 /* non misurabile: lo lascio stare */
     if(!partito){ rinuncia('non parte'); return; }
-    if(resi < 8){ rinuncia('non disegna'); }
+    if(resi < 8){
+      /* decodifica ma non si vede: prima di rinunciare, proviamo la tela */
+      if(window.__attivaTela){ window.__attivaTela(); }
+      else { rinuncia('non disegna'); }
+    }
   }, 4000);
 
   /* secondo controllo piu' avanti: alcuni dispositivi si bloccano dopo */
@@ -2322,7 +2361,10 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     if(resi === -1 || v.dataset.tolto) return;
     var prima = resi;
     setTimeout(function(){
-      if(resi - prima < 5) rinuncia('si e fermato');
+      if(resi - prima < 5){
+        if(window.__attivaTela){ window.__attivaTela(); }
+        else { rinuncia('si e fermato'); }
+      }
     }, 2500);
   }, 9000);
 })();
@@ -2347,6 +2389,53 @@ h1 .nin{ font-size:.34em; vertical-align:.34em; opacity:.62; margin:0 .18em; }
     });
   }, { threshold:.15 });
   carte.forEach(function(c){ oss.observe(c); });
+})();
+</script>
+
+<script>
+/* ---------- Il video disegnato su una tela ----------
+   Sul dispositivo dove il filmato restava fermo, il misuratore leggeva
+   comunque i fotogrammi copiandoli su una tela: la decodifica funzionava,
+   era la composizione a non aggiornarsi. Quindi disegniamo noi.
+   La tela si attiva solo se serve: se il video si vede, resta il video. */
+(function(){
+  var v = document.getElementById('heroVideo');
+  var c = document.getElementById('heroTela');
+  if(!v || !c) return;
+  var ctx = c.getContext('2d', { alpha:false });
+  var attiva = false, giri = 0;
+
+  function dimensiona(){
+    var r = c.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    c.width  = Math.max(2, Math.round(r.width  * dpr));
+    c.height = Math.max(2, Math.round(r.height * dpr));
+  }
+
+  function disegna(){
+    if(!attiva) return;
+    if(v.readyState >= 2 && v.videoWidth){
+      /* riempimento con ritaglio, come object-fit: cover */
+      var s = Math.max(c.width / v.videoWidth, c.height / v.videoHeight);
+      var w = v.videoWidth * s, h = v.videoHeight * s;
+      try { ctx.drawImage(v, (c.width - w)/2, (c.height - h)/2, w, h); giri++; }
+      catch(e){ attiva = false; return; }
+    }
+    requestAnimationFrame(disegna);
+  }
+
+  window.__attivaTela = function(){
+    if(attiva) return;
+    attiva = true;
+    document.documentElement.classList.add('tela-attiva');
+    dimensiona();
+    requestAnimationFrame(disegna);
+    /* se nemmeno la tela riceve fotogrammi, non insistiamo */
+    setTimeout(function(){
+      if(giri < 10 && window.__rinunciaVideo) window.__rinunciaVideo('nemmeno la tela');
+    }, 3000);
+  };
+  window.addEventListener('resize', function(){ if(attiva) dimensiona(); });
 })();
 </script>
 
