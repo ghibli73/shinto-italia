@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shinto in Italia — Un sentiero verso i kami</title>
 <meta name="description" content="Un portale in italiano su miti, riti e santuari dello Shinto: storia, leggende, kami e templi del Giappone, gratuito e open source.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shinto in Italia — Un sentiero verso i kami">
+<meta property="og:description" content="Miti, riti e santuari dello Shinto in italiano: storia, leggende, kami e templi del Giappone.">
+<meta property="og:locale" content="it_IT">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Shinto in Italia","inLanguage":"it","sameAs":["https://www.facebook.com/shintoinitalia","https://www.instagram.com/shintoinitalia"]}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛩️%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1253,6 +1260,14 @@ html.tela-attiva #heroVideo{ opacity:0 !important; }
 }
 .social a:hover{ border-color:var(--sakura); background:rgba(240,185,196,.12); transform:translateY(-2px); }
 .social svg{ width:16px; height:16px; }
+/* --- social nella barra di navigazione --- */
+nav .nav-links .nav-sep{ width:1px; height:18px; background:var(--paper-line); margin:0 6px; }
+nav .nav-links a.nav-social{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:34px; height:34px; padding:0; border-radius:50%;
+}
+nav .nav-links a.nav-social svg{ width:16px; height:16px; }
+@media (max-width:640px){ nav .nav-links .nav-sep{ display:none; } }
 </style>
 </head>
 <body>
@@ -1270,6 +1285,9 @@ html.tela-attiva #heroVideo{ opacity:0 !important; }
     <a href="oltremare.html">Oltremare</a>
     <a href="viaggio.html">Viaggio</a>
     <a href="pillole.html">Pillole</a>
+    <span class="nav-sep" aria-hidden="true"></span>
+    <a class="nav-social" href="https://www.facebook.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Shinto in Italia su Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 9h3l.4-3H14V4.6c0-.9.3-1.5 1.6-1.5H17.5V.4C17.2.4 16.1.3 14.8.3 12.1.3 10.3 1.9 10.3 4.9V6H7.5v3h2.8v8H14z"/></svg></a>
+    <a class="nav-social" href="https://www.instagram.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Shinto in Italia su Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 5.8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m0 6.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2m5.1-6.8a.94.94 0 1 1-1.9 0 .94.94 0 0 1 1.9 0"/></svg></a>
   </div>
 </nav>
 
