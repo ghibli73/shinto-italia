@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yōkai — Shinto in Italia</title>
+<meta name="description" content="Yōkai: kitsune, kappa, tengu, oni e gli spiriti del folklore giapponese. Enciclopedia in italiano e confine con i kami.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--n:#0e0a1c;--n2:#1a1330;--fire:#6fdcff;--t:#c8402a;--g:#d9bd7e;--w:#f3e9d2;--l:rgba(243,233,210,.14)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--n);color:var(--w);font-family:'Zen Maru Gothic',sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:'Shippori Mincho B1',serif;line-height:1.15}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--fire)}
+nav{position:sticky;top:0;z-index:50;background:rgba(14,10,28,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--l);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+nav a{color:var(--w);text-decoration:none;font:12px 'JetBrains Mono',monospace;padding:7px 10px;border-radius:20px}
+nav a:hover{background:rgba(111,220,255,.12);color:var(--fire)}
+nav .b{font:16px 'Shippori Mincho B1',serif;color:var(--g)}nav .b small{font-size:.6em}
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 20px;overflow:hidden}
+.bg{position:absolute;inset:-4%;background:linear-gradient(180deg,rgba(14,10,28,.55),rgba(14,10,28,.95)),url(media/Yokai.png) center/cover;animation:z 26s ease-in-out infinite alternate}
+@keyframes z{to{transform:scale(1.1)}}
+#fx{position:absolute;inset:0;width:100%;height:100%}
+.moon{position:absolute;top:8%;right:10%;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#e9e2ff 55%,#b9b0e0);box-shadow:0 0 90px 30px rgba(190,180,255,.35)}
+.hero div.in{position:relative;z-index:2;max-width:700px}
+.hero h1{font-size:clamp(56px,16vw,120px);text-shadow:0 0 30px rgba(111,220,255,.55)}
+.hero h1 span{display:block;font-size:.4em;color:var(--t);text-shadow:0 0 24px rgba(200,64,42,.7);letter-spacing:.2em}
+.hero p{margin:18px auto 0;max-width:520px;line-height:1.7;color:#d8d0e8;font-size:17px}
+.btn{display:inline-block;margin-top:30px;padding:14px 28px;border:1px solid var(--fire);color:var(--fire);text-decoration:none;font:13px 'JetBrains Mono',monospace;border-radius:3px;transition:.3s}
+.btn:hover{background:var(--fire);color:var(--n);box-shadow:0 0 30px rgba(111,220,255,.6)}
+section.s{max-width:1040px;margin:0 auto;padding:90px 20px}
+.hd{text-align:center;max-width:560px;margin:0 auto 44px}.hd h2{font-size:clamp(28px,6vw,42px);margin-top:12px}
+.hd p{margin-top:12px;color:#c9c2d6;line-height:1.7}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{border:1px solid var(--l);border-radius:8px;padding:26px;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.01))}
+.box.k{border-color:rgba(217,189,126,.5)}.box.y{border-color:rgba(111,220,255,.5)}
+.box h3{font-size:26px}.box.k h3{color:var(--g)}.box.y h3{color:var(--fire)}
+.box li{margin:10px 0 0 18px;line-height:1.55;color:#d8d0e8;font-size:15px}
+.edge{margin-top:18px;border:1px dashed var(--g);border-radius:8px;padding:22px;line-height:1.7;color:#d8d0e8;font-size:15px}
+.edge b{color:var(--g)}
+.band{overflow:hidden;border-block:1px solid var(--l);background:var(--n2);padding:34px 0}
+.run{display:flex;gap:34px;width:max-content;animation:r 40s linear infinite}
+@keyframes r{to{transform:translateX(-50%)}}
+.lan{width:84px;height:124px;border-radius:40% 40% 36% 36%;background:radial-gradient(circle at 50% 40%,#ffd08a,#e0642a 70%,#8d2a14);box-shadow:0 0 36px rgba(255,150,60,.55);display:grid;place-items:center;font:700 34px 'Shippori Mincho B1',serif;color:#2a0d06;position:relative}
+.lan:before{content:"";position:absolute;top:-8px;width:44px;height:10px;background:#201a14;border-radius:3px}
+.lan:nth-child(3n){background:radial-gradient(circle at 50% 40%,#c9f4ff,#3fa6d6 70%,#1b4f78);box-shadow:0 0 36px rgba(111,220,255,.6);color:#06222f}
+.fl{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:12px}
+.chip{font:12px 'JetBrains Mono',monospace;padding:8px 15px;border:1px solid var(--l);border-radius:20px;background:none;color:var(--w);cursor:pointer;transition:.3s}
+.chip:hover,.chip.on{border-color:var(--fire);color:var(--fire);background:rgba(111,220,255,.1)}
+.pick{display:block;margin:0 auto 34px;background:var(--t);border:0;color:#fff8ee;padding:12px 24px;border-radius:3px;font:13px 'JetBrains Mono',monospace;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{position:relative;overflow:hidden;border:1px solid var(--l);border-radius:8px;padding:22px;background:linear-gradient(160deg,var(--n2),var(--n));transition:.35s}
+.card:hover{transform:translateY(-4px);border-color:var(--fire);box-shadow:0 14px 34px rgba(111,220,255,.18)}
+.card.pulse{animation:p 1.4s}@keyframes p{50%{box-shadow:0 0 50px 8px rgba(111,220,255,.7)}}
+.card .kj{position:absolute;right:10px;top:-4px;font:800 74px 'Shippori Mincho B1',serif;color:var(--w);opacity:.07}
+.card .ct{font:10.5px 'JetBrains Mono',monospace;letter-spacing:.14em;color:var(--fire);text-transform:uppercase}
+.card h3{font-size:25px;margin-top:6px}.card h3 small{font:400 12px 'JetBrains Mono',monospace;color:var(--g);margin-left:8px}
+.card p{margin-top:10px;font-size:14px;line-height:1.65;color:#d0c8df}
+.card .pp{color:var(--g);font-size:13px}
+.m{display:flex;gap:14px;margin-top:14px;font:10.5px 'JetBrains Mono',monospace;color:#9d95b4}
+.m i{font-style:normal;letter-spacing:2px;color:var(--t)}.m u{text-decoration:none;color:#a99fc7}
+.sh{display:inline-block;margin-left:8px;font:10px 'JetBrains Mono',monospace;border:1px solid var(--g);color:var(--g);padding:2px 8px;border-radius:12px;vertical-align:middle}
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.tl div{border-top:2px solid var(--t);padding:16px 4px 0}.tl b{font:700 26px 'Shippori Mincho B1',serif;color:var(--g)}
+.tl p{margin-top:6px;font-size:14px;line-height:1.55;color:#c9c2d6}
+.cta{text-align:center;padding:70px 20px;background:linear-gradient(180deg,var(--n),var(--n2))}
+.cta a{display:inline-block;margin:6px;padding:12px 24px;border:1px solid var(--g);color:var(--g);text-decoration:none;font:13px 'JetBrains Mono',monospace;border-radius:3px}
+.cta a:hover{background:var(--g);color:var(--n)}
+footer{padding:30px 20px;text-align:center;background:var(--n);color:#8b8299;font:11.5px/1.9 'JetBrains Mono',monospace}footer a{color:#f0b9c4;text-decoration:none}
+.rv{opacity:0;transform:translateY(18px);transition:.8s}.rv.in{opacity:1;transform:none}
+@media(max-width:700px){.two{grid-template-columns:1fr}.moon{width:70px;height:70px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<nav><a class="b" href="index.html">⛩ Shinto <small>in</small> Italia</a>
+<div><a href="kami.html">Kami</a><a href="leggende.html">Leggende</a><a href="manga.html">Manga</a><a href="#enciclopedia">Enciclopedia</a><a href="index.html">Home</a></div></nav>
+
+<header class="hero"><div class="bg"></div><div class="moon"></div><canvas id="fx"></canvas>
+<div class="in"><span class="mono">Sentiero · Folklore</span>
+<h1><span>妖怪</span>Yōkai</h1>
+<p>Volpi a nove code, ombrelli con un occhio solo, spiriti degli alberi e mostri del mare: il popolo che vive nelle notti del Giappone. Mostruoso, misterioso e spesso molto simpatico.</p>
+<a class="btn" href="#enciclopedia">Incontra i cento spiriti ↓</a></div></header>
+
+<section class="s rv"><div class="hd"><span class="mono">Kami o yōkai?</span><h2>Un confine sottile</h2>
+<p>妖 indica ciò che è ammaliante e inquietante, 怪 ciò che è strano e misterioso: insieme, le presenze che sfuggono alla spiegazione.</p></div>
+<div class="two"><div class="box k"><h3>Kami 神</h3><ul><li>Divinità venerate nei santuari</li><li>Ricevono riti, offerte e matsuri</li><li>Proteggono luoghi, raccolti, persone</li></ul></div>
+<div class="box y"><h3>Yōkai 妖怪</h3><ul><li>Creature del folklore e delle leggende</li><li>Dispettose, buffe o pericolose</li><li>Nate da oggetti, animali, natura, paure</li></ul></div></div>
+<div class="edge"><b>Dove si confondono.</b> La volpe è messaggera di <b>Inari</b>. Il serpente <b>Yamata no Orochi</b> viene sconfitto dal kami Susanoo e dalla sua coda esce la spada Kusanagi, custodita simbolicamente ad Atsuta Jingū. Uno spirito vendicativo come Sugawara no Michizane è stato placato e divinizzato come <b>Tenjin</b>. E un kami trascurato può portare la <b>tatari</b>, la sua maledizione.</div></section>
+
+<div class="band"><div class="run" id="run"></div></div>
+<section class="s rv" style="padding-bottom:30px"><div class="hd"><span class="mono">百鬼夜行 · Hyakki Yagyō</span><h2>La parata dei cento demoni</h2>
+<p>Nelle notti d'estate, raccontavano le storie medievali, spiriti e oggetti viventi sfilano per le strade. Chi li incontrava si salvava con formule e amuleti. La parata è ritratta in rotoli del periodo Muromachi e in stampe come quelle di Toriyama Sekien (1776).</p></div></section>
+
+<section class="s" id="enciclopedia"><div class="hd rv"><span class="mono">Enciclopedia</span><h2>Sedici yōkai da conoscere</h2>
+<p>Filtra per categoria oppure pesca uno yōkai a sorte. I punteggi (mostro, mistero, simpatia) sono un gioco nostro.</p></div>
+<div class="fl" id="fl"></div><button class="pick" id="pick">🎴 Pesca uno yōkai</button><div class="grid" id="grid"></div></section>
+
+<section class="s rv"><div class="hd"><span class="mono">Cultura pop</span><h2>Dagli emaki ai manga</h2></div>
+<div class="tl"><div><b>1776</b><p>Toriyama Sekien pubblica la Gazu Hyakki Yagyō, il catalogo illustrato dei mostri.</p></div>
+<div><b>1904</b><p>Lafcadio Hearn raccoglie in Kwaidan storie come Yuki-onna e Mujina.</p></div>
+<div><b>Anni '60</b><p>Shigeru Mizuki fa dei yōkai protagonisti con GeGeGe no Kitarō.</p></div>
+<div><b>1994–2001</b><p>Pom Poko, Principessa Mononoke e La città incantata portano tanuki, kodama e spiriti sullo schermo.</p></div>
+<div><b>2013–2019</b><p>Yo-kai Watch e Demon Slayer riportano mostri e oni a un pubblico globale.</p></div></div></section>
+
+<div class="cta"><span class="mono">Continua il sentiero</span><h2 style="margin:12px 0 22px">Kami, leggende, manga</h2>
+<a href="kami.html">Kami →</a><a href="leggende.html">Leggende →</a><a href="manga.html">Manga →</a>
+<p style="margin-top:20px;font-size:14px;color:#a99fc7">Seguici su <a style="border:0;padding:0;font:inherit;color:#f0b9c4" href="https://www.instagram.com/shintoinitalia" target="_blank" rel="noopener">Instagram</a> e <a style="border:0;padding:0;font:inherit;color:#f0b9c4" href="https://www.facebook.com/shintoinitalia" target="_blank" rel="noopener">Facebook</a></p></div>
+<footer>Shinto in Italia · progetto personale · fatto con cura in Italia<br>Illustrazione di apertura: elaborazione propria con IA<br><a href="mailto:shintoinitalia@gmail.com">shintoinitalia@gmail.com</a> · <a href="index.html">torna alla home</a></footer>
+
+<script>
+const D=[
+["Kitsune","狐","Animali",2,4,4,"Volpe messaggera di Inari. Con gli anni mette fino a nove code e impara a trasformarsi, spesso in una donna. Le zenko sono benevole, le nogitsune dispettose.","Naruto (Kurama), Pokémon (Ninetales)"],
+["Tanuki","狸","Animali",1,2,5,"Il procione giapponese: goloso, allegro e trasformista, si mette una foglia sul capo per cambiare aspetto. Le sue statue con cappello di paglia e sakè portano fortuna ai negozi.","Pom Poko, Super Mario Bros. 3"],
+["Bakeneko","化け猫","Animali",3,3,4,"Il gatto che con gli anni si trasforma: cammina su due zampe e può parlare. Il nekomata ha la coda divisa in due.","Yo-kai Watch (Jibanyan)"],
+["Kappa","河童","Acqua",2,3,5,"Creatura dei fiumi con guscio e un piatto d'acqua sulla testa che gli dà forza. Ama i cetrioli, e se ti inchini ricambia l'inchino: l'acqua si versa e perde le forze.","Il sushi kappa-maki, la statua di Kappabashi (Tokyo)"],
+["Karakasa-obake","唐傘お化け","Oggetti",2,2,5,"Un vecchio ombrello che ha preso vita: un occhio solo, una lunga lingua e un piede che saltella. È un tsukumogami, oggetto che dopo cento anni acquista un'anima.","Stampe antiche e manga di Mizuki"],
+["Chōchin-obake","提灯お化け","Oggetti",3,2,4,"La lanterna di carta che si spalanca in una grande bocca con la lingua fuori. Fra le immagini più riconoscibili dei yōkai.","Matsuri e Halloween giapponese"],
+["Tengu","天狗","Montagna",3,4,3,"Spirito di montagna dal naso lungo o dal becco, con ali e ventaglio di piume. Secondo la leggenda insegnò l'arte della spada a Minamoto no Yoshitsune.","Monte Takao (Tokyo)"],
+["Kodama","木霊","Montagna",1,5,5,"Spirito degli alberi antichi: in giapponese l'eco si chiama kodama perché si credeva fosse la sua voce. Tagliare un albero sacro porta sfortuna.","Principessa Mononoke"],
+["Oni","鬼","Demoni",5,2,2,"Demone con corna, pelle rossa o blu e clava di ferro. A Setsubun si scaccia con i semi di soia: «Oni wa soto, fuku wa uchi!».","Momotarō, Demon Slayer"],
+["Yamata no Orochi","八岐大蛇","Demoni",5,4,1,"Serpente a otto teste e otto code che divorava le figlie di una famiglia. Susanoo lo ubriaca con il sakè e lo uccide: nella coda trova la spada Kusanagi.","Kojiki · Atsuta Jingū"],
+["Yuki-onna","雪女","Spiriti",4,5,2,"Donna pallida in kimono bianco che appare nelle notti di tormenta. Nella versione di Hearn risparmia un giovane che le promette il silenzio.","Kwaidan"],
+["Hitodama","人魂","Spiriti",2,5,3,"Fuochi fatui blu o bianchi, ritenuti anime dei defunti. I kitsune-bi sono invece i fuochi accesi dalle volpi.","Le fiammelle blu dei racconti di fantasmi"],
+["Noppera-bō","のっぺらぼう","Spiriti",4,4,2,"Il «senza faccia»: un volto liscio come un uovo, che spesso si mostra a chi cammina da solo di notte.","Mujina di Hearn · ricorda il Senza Volto de La città incantata"],
+["Nurarihyon","ぬらりひょん","Casa",2,4,4,"Nel folklore moderno è il «capo degli yōkai»: un vecchio che entra in casa come ospite, beve il tè e nessuno riesce a mandarlo via.","Nura: Rise of the Yokai Clan"],
+["Zashiki-warashi","座敷童子","Casa",1,4,5,"Spirito bambino che vive in alcune case, tradizione dell'Iwate. Porta prosperità, ma se se ne va la famiglia decade.","Tōno Monogatari"],
+["Nurikabe","ぬりかべ","Casa",2,3,4,"Un muro invisibile che compare di notte e blocca la strada. Il rimedio racconta: colpirlo in basso con un bastone.","GeGeGe no Kitarō"]];
+const sc=n=>'●'.repeat(n)+'○'.repeat(5-n);
+const g=document.getElementById('grid'),fl=document.getElementById('fl');
+const cats=['Tutti',...new Set(D.map(d=>d[2]))];
+cats.forEach((c,i)=>{const b=document.createElement('button');b.className='chip'+(i?'':' on');b.textContent=c;b.onclick=()=>{fl.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');draw(c)};fl.appendChild(b)});
+function draw(c){g.innerHTML='';D.forEach((d,i)=>{if(c!=='Tutti'&&d[2]!==c)return;const e=document.createElement('article');e.className='card';e.id='y'+i;
+e.innerHTML=`<span class="kj">${d[1]}</span><div class="ct">${d[2]}</div><h3>${d[0]}<small>${d[1]}</small>${d[0].startsWith('Yamata')?'<span class="sh">MITO SHINTO</span>':''}</h3><p>${d[6]}</p><p class="pp">Lo trovi in: ${d[7]}</p><div class="m"><span>MOSTRO <i>${sc(d[3])}</i></span><span>MISTERO <i>${sc(d[4])}</i></span><span>SIMPATIA <i>${sc(d[5])}</i></span></div>`;g.appendChild(e)})}
+draw('Tutti');
+document.getElementById('pick').onclick=()=>{draw('Tutti');fl.querySelectorAll('.chip').forEach((x,i)=>x.classList.toggle('on',!i));const e=document.getElementById('y'+Math.floor(Math.random()*D.length));e.scrollIntoView({behavior:'smooth',block:'center'});e.classList.add('pulse')};
+const run=document.getElementById('run'),K='百鬼夜行妖怪狐狸河童鬼天狗'.split('');
+run.innerHTML=[...K,...K].map(k=>`<div class="lan">${k}</div>`).join('');
+document.querySelectorAll('.rv').forEach(el=>{const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){el.classList.add('in');o.disconnect()}}),{threshold:.12});o.observe(el)});
+(function(){const c=document.getElementById('fx'),x=c.getContext('2d');let w,h,f=[];
+function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight}
+function mk(){return{x:Math.random()*w,y:h+Math.random()*h*.3,s:3+Math.random()*5,v:.3+Math.random()*.7,a:Math.random()*6,o:.5+Math.random()*.5}}
+r();f=Array.from({length:w<600?18:34},mk);addEventListener('resize',r);
+(function t(){x.clearRect(0,0,w,h);f.forEach((p,i)=>{p.a+=.02;p.y-=p.v;p.x+=Math.sin(p.a)*.6;if(p.y<-20)f[i]=mk();
+const gr=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.s*5);gr.addColorStop(0,`rgba(180,240,255,${p.o})`);gr.addColorStop(.35,`rgba(80,200,255,${p.o*.5})`);gr.addColorStop(1,'rgba(80,200,255,0)');
+x.fillStyle=gr;x.beginPath();x.arc(p.x,p.y,p.s*5,0,7);x.fill()});requestAnimationFrame(t)})()})();
+</script></body></html>
