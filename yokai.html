@@ -12,7 +12,7 @@ body{background:var(--n);color:var(--w);font-family:'Zen Maru Gothic',sans-serif
 h1,h2,h3{font-family:'Shippori Mincho B1',serif;line-height:1.15}
 .mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--fire)}
 nav{position:sticky;top:0;z-index:50;background:rgba(14,10,28,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--l);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-nav a{color:var(--w);text-decoration:none;font:12px 'JetBrains Mono',monospace;padding:7px 10px;border-radius:20px}
+nav>div{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px}nav a{color:var(--w);text-decoration:none;font:12px 'JetBrains Mono',monospace;padding:7px 10px;border-radius:20px}
 nav a:hover{background:rgba(111,220,255,.12);color:var(--fire)}
 nav .b{font:16px 'Shippori Mincho B1',serif;color:var(--g)}nav .b small{font-size:.6em}
 .hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 20px;overflow:hidden}
@@ -82,6 +82,9 @@ footer{padding:30px 20px;text-align:center;background:var(--n);color:#8b8299;fon
 .card{cursor:pointer}.card .more,.card.open .tz{display:none}.card.open .more{display:block}.tz{color:#d0c8df}
 .card .cs{font-style:italic;color:#ddd6ee;border-left:2px solid var(--fire);padding-left:10px}
 .ex{margin-top:14px;background:none;border:1px solid var(--l);color:var(--fire);border-radius:20px;padding:7px 16px;font:11px 'JetBrains Mono',monospace;cursor:pointer}.card:hover .ex{border-color:var(--fire)}
+.bt{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:30px}.bt .btn{margin-top:0}
+.ci{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:4px;margin-bottom:10px;display:block}
+@media(max-width:600px){nav{padding:10px 14px;justify-content:center}nav>div{justify-content:center}nav a{padding:6px 9px}.hero{padding:70px 16px}.lr{gap:18px}.lan{width:70px;height:104px;font-size:28px}.card{padding:18px}.im{width:calc(100% + 36px);margin:-18px -18px 12px}.rs{padding:20px 16px}.cg{grid-template-columns:1fr}}
 </style></head><body>
 <nav><a class="b" href="index.html">⛩ Shinto <small>in</small> Italia</a>
 <div><a href="kami.html">Kami</a><a href="leggende.html">Leggende</a><a href="manga.html">Manga</a><a href="#enciclopedia">Enciclopedia</a><a href="#compendio">Compendio</a><a href="index.html">Home</a></div></nav>
@@ -90,7 +93,7 @@ footer{padding:30px 20px;text-align:center;background:var(--n);color:#8b8299;fon
 <div class="in"><span class="mono">Sentiero · Folklore</span>
 <h1><span>妖怪</span>Yōkai</h1>
 <p>Volpi a nove code, ombrelli con un occhio solo, spiriti degli alberi e mostri del mare: il popolo che vive nelle notti del Giappone. Mostruoso, misterioso e spesso molto simpatico.</p>
-<a class="btn" href="#enciclopedia">Incontra i cento spiriti ↓</a> <a class="btn" style="margin-left:10px" href="#compendio">Compendio A–Z ↓</a></div></header>
+<div class="bt"><a class="btn" href="#enciclopedia">Incontra i cento spiriti ↓</a><a class="btn" href="#compendio">Compendio A–Z ↓</a></div></div></header>
 
 <section class="s rv"><div class="hd"><span class="mono">Kami o yōkai?</span><h2>Un confine sottile</h2>
 <p>妖 indica ciò che è ammaliante e inquietante, 怪 ciò che è strano e misterioso: insieme, le presenze che sfuggono alla spiegazione.</p></div>
@@ -270,8 +273,9 @@ Tsuchinoko|ツチノコ|Serpente tozzo leggendario cercato sulle montagne del Gi
 Hyakume|百目|Creatura coperta di cento occhi
 Sazae-oni|栄螺鬼|Spirito di una conchiglia sazae che prende l'aspetto di una donna
 Nobusuma|野衾|Pipistrello-scoiattolo volante che spegne le fiamme e copre il volto`.split('\n').map(r=>r.split('|')).sort((a,b)=>a[0].localeCompare(b[0],'it'));
+const CI=new Set(['gashadokuro','mujina']);
 const cg=document.getElementById('cg'),cq=document.getElementById('cq'),nz=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-function cd(q){q=nz(q).trim();if(q.length>3)q=q.slice(0,-1);let n=0;cg.innerHTML=C.filter(r=>!q||nz(r.join(' ')).includes(q)).map(r=>{n++;return `<div class="cr"><b>${r[0]}</b><i>${r[1]}</i><span>${r[2]}</span></div>`}).join('')||'<p style="grid-column:1/-1;text-align:center;color:#a99fc7">Nessun yōkai con questo nome… forse si nasconde.</p>';document.getElementById('ch').textContent=q?n+' yōkai trovati':C.length+' yōkai, in ordine alfabetico'}
+function cd(q){q=nz(q).trim();if(q.length>3)q=q.slice(0,-1);let n=0;cg.innerHTML=C.filter(r=>!q||nz(r.join(' ')).includes(q)).map(r=>{n++;return `<div class="cr">${CI.has(sl(r[0]))?`<img class="ci" src="media/yokai-${sl(r[0])}.png" loading="lazy" alt="Illustrazione: ${r[0]}">`:''}<b>${r[0]}</b><i>${r[1]}</i><span>${r[2]}</span></div>`}).join('')||'<p style="grid-column:1/-1;text-align:center;color:#a99fc7">Nessun yōkai con questo nome… forse si nasconde.</p>';document.getElementById('ch').textContent=q?n+' yōkai trovati':C.length+' yōkai, in ordine alfabetico'}
 cq.oninput=()=>cd(cq.value);cd('');
 (function(){const c=document.getElementById('fx'),x=c.getContext('2d');let w,h,f=[];
 function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight}
