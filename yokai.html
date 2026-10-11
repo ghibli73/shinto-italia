@@ -68,6 +68,20 @@ footer{padding:30px 20px;text-align:center;background:var(--n);color:#8b8299;fon
 .rv{opacity:0;transform:translateY(18px);transition:.8s}.rv.in{opacity:1;transform:none}
 @media(max-width:700px){.two{grid-template-columns:1fr}.moon{width:70px;height:70px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+.im{width:calc(100% + 44px);margin:-22px -22px 14px;aspect-ratio:3/2;object-fit:cover;display:block;border-bottom:1px solid var(--l)}
+.lr{display:flex;gap:30px;justify-content:center;margin-bottom:26px}
+.lt{border:0;cursor:pointer;transform-origin:top center;animation:sw 3.4s ease-in-out infinite;color:#2a0d06}.lt:nth-child(2){animation-delay:-1.1s}.lt:nth-child(3){animation-delay:-2.2s}
+@keyframes sw{50%{transform:rotate(5deg)}}.lt:hover{filter:brightness(1.25)}.lt.sel{animation:none;transform:scale(1.15);filter:brightness(1.4)}.lt:disabled:not(.sel){opacity:.25;filter:blur(1px)}
+.rs{max-width:460px;margin:0 auto;text-align:center;opacity:0;pointer-events:none;border:1px solid rgba(111,220,255,.5);border-radius:10px;padding:26px;background:rgba(26,19,48,.9);box-shadow:0 0 40px rgba(111,220,255,.2)}
+.rs.show{opacity:1;pointer-events:auto;animation:fg 1s}@keyframes fg{from{opacity:0;filter:blur(14px);transform:scale(.94)}}
+.rs small{font:12px 'JetBrains Mono',monospace;color:var(--fire);letter-spacing:.08em}.rs img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:6px;margin-top:14px}
+.rs h3{font-size:32px;margin-top:14px}.rs h3 span{font-size:.5em;color:var(--g);margin-left:8px}.rs .cs{margin:12px 0;color:#ddd6ee;font-style:italic;line-height:1.6}.rs .af{font:12px 'JetBrains Mono',monospace;color:#ff7ad9}
+.rb{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}.rb button{background:var(--t);border:0;color:#fff8ee;padding:11px 20px;border-radius:3px;font:12px 'JetBrains Mono',monospace;cursor:pointer}.rb button+button{background:none;border:1px solid var(--fire);color:var(--fire)}
+#cq{display:block;width:100%;max-width:460px;margin:0 auto 28px;padding:13px 18px;border-radius:30px;border:1px solid var(--l);background:var(--n2);color:var(--w);font:15px 'Zen Maru Gothic',sans-serif}#cq:focus{outline:0;border-color:var(--fire);box-shadow:0 0 18px rgba(111,220,255,.35)}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}.cr{border:1px solid var(--l);border-radius:6px;padding:13px 15px;background:rgba(255,255,255,.03)}.cr b{font:700 17px 'Shippori Mincho B1',serif}.cr i{font:normal 12px 'JetBrains Mono',monospace;color:var(--g);margin-left:8px}.cr span{display:block;margin-top:5px;font-size:13.5px;line-height:1.5;color:#c9c2d6}.cr:hover{border-color:var(--fire)}
+.card{cursor:pointer}.card .more,.card.open .tz{display:none}.card.open .more{display:block}.tz{color:#d0c8df}
+.card .cs{font-style:italic;color:#ddd6ee;border-left:2px solid var(--fire);padding-left:10px}
+.ex{margin-top:14px;background:none;border:1px solid var(--l);color:var(--fire);border-radius:20px;padding:7px 16px;font:11px 'JetBrains Mono',monospace;cursor:pointer}.card:hover .ex{border-color:var(--fire)}
 </style></head><body>
 <nav><a class="b" href="index.html">⛩ Shinto <small>in</small> Italia</a>
 <div><a href="kami.html">Kami</a><a href="leggende.html">Leggende</a><a href="manga.html">Manga</a><a href="#enciclopedia">Enciclopedia</a><a href="index.html">Home</a></div></nav>
@@ -88,9 +102,18 @@ footer{padding:30px 20px;text-align:center;background:var(--n);color:#8b8299;fon
 <section class="s rv" style="padding-bottom:30px"><div class="hd"><span class="mono">百鬼夜行 · Hyakki Yagyō</span><h2>La parata dei cento demoni</h2>
 <p>Nelle notti d'estate, raccontavano le storie medievali, spiriti e oggetti viventi sfilano per le strade. Chi li incontrava si salvava con formule e amuleti. La parata è ritratta in rotoli del periodo Muromachi e in stampe come quelle di Toriyama Sekien (1776).</p></div></section>
 
-<section class="s" id="enciclopedia"><div class="hd rv"><span class="mono">Enciclopedia</span><h2>Sedici yōkai da conoscere</h2>
-<p>Filtra per categoria oppure pesca uno yōkai a sorte. I punteggi (mostro, mistero, simpatia) sono un gioco nostro.</p></div>
-<div class="fl" id="fl"></div><button class="pick" id="pick">🎴 Pesca uno yōkai</button><div class="grid" id="grid"></div></section>
+<section class="s rv" id="rito"><div class="hd"><span class="mono">Il rito della lanterna</span><h2>Pesca il tuo yōkai</h2>
+<p>Spegni la luce, scegli una lanterna e lascia che il buio decida chi ti accompagna oggi.</p></div>
+<div class="lr" id="lr"><button class="lan lt" aria-label="Lanterna 1">？</button><button class="lan lt" aria-label="Lanterna 2">？</button><button class="lan lt" aria-label="Lanterna 3">？</button></div>
+<div class="rs" id="rs" aria-live="polite"></div></section>
+
+<section class="s" id="enciclopedia"><div class="hd rv"><span class="mono">Enciclopedia</span><h2>Venti schede approfondite</h2>
+<p>Filtra per categoria. Ogni scheda ha un'illustrazione e un punteggio giocoso (mostro, mistero, simpatia).</p></div>
+<div class="fl" id="fl"></div><div class="grid" id="grid"></div></section>
+
+<section class="s rv" id="compendio"><div class="hd"><span class="mono">Compendio A–Z</span><h2 id="ch">Tutti gli yōkai</h2>
+<p>Cerca per nome o per parola: ogni voce è una breve scheda. Le venti più famose hanno la scheda espandibile e illustrata qui sopra.</p></div>
+<input id="cq" type="search" placeholder="Cerca: volpe, fuoco, gatto, fantasma…" aria-label="Cerca nel compendio"><div class="cg" id="cg"></div></section>
 
 <section class="s rv"><div class="hd"><span class="mono">Cultura pop</span><h2>Dagli emaki ai manga</h2></div>
 <div class="tl"><div><b>1776</b><p>Toriyama Sekien pubblica la Gazu Hyakki Yagyō, il catalogo illustrato dei mostri.</p></div>
@@ -121,18 +144,135 @@ const D=[
 ["Noppera-bō","のっぺらぼう","Spiriti",4,4,2,"Il «senza faccia»: un volto liscio come un uovo, che spesso si mostra a chi cammina da solo di notte.","Mujina di Hearn · ricorda il Senza Volto de La città incantata"],
 ["Nurarihyon","ぬらりひょん","Casa",2,4,4,"Nel folklore moderno è il «capo degli yōkai»: un vecchio che entra in casa come ospite, beve il tè e nessuno riesce a mandarlo via.","Nura: Rise of the Yokai Clan"],
 ["Zashiki-warashi","座敷童子","Casa",1,4,5,"Spirito bambino che vive in alcune case, tradizione dell'Iwate. Porta prosperità, ma se se ne va la famiglia decade.","Tōno Monogatari"],
-["Nurikabe","ぬりかべ","Casa",2,3,4,"Un muro invisibile che compare di notte e blocca la strada. Il rimedio racconta: colpirlo in basso con un bastone.","GeGeGe no Kitarō"]];
+["Nurikabe","ぬりかべ","Casa",2,3,4,"Un muro invisibile che compare di notte e blocca la strada. Il rimedio racconta: colpirlo in basso con un bastone.","GeGeGe no Kitarō"],
+["Rokurokubi","ろくろ首","Spiriti",3,4,3,"Donna dall'aspetto normale di giorno: di notte il collo si allunga a dismisura. A volte non sa nemmeno di essere uno yōkai.","Racconti di Hearn e stampe antiche"],
+["Jorōgumo","絡新婦","Demoni",4,5,1,"Ragno che prende l'aspetto di una bellissima donna per attirare gli uomini nella sua tela. Una leggenda lo lega alla cascata Jōren, a Izu.","Folklore di Izu"],
+["Baku","獏","Animali",1,4,5,"Divoratore di sogni dal corpo chimerico: proboscide d'elefante, occhi di rinoceronte, coda di bue, zampe di tigre. Lo si invoca contro gli incubi.","Amuleti e cuscini portafortuna"],
+["Umibōzu","海坊主","Acqua",5,4,1,"Gigante nero che emerge dal mare in tempesta e può affondare le barche. Il nome significa «monaco del mare».","Racconti dei marinai"]];
+const X={"Kitsune":"Porta un'offerta di tofu fritto e la giornata ti sorriderà.","Tanuki":"Concediti una pausa golosa: la serietà può aspettare.","Bakeneko":"Ignora il mondo per un'ora, come ogni gatto che si rispetti.","Kappa":"Inchinati a tutti, oggi: la cortesia ti rende invincibile.","Karakasa-obake":"Salta su un piede solo e fai la linguaccia: cambia prospettiva.","Chōchin-obake":"Fai luce su un dubbio: la paura sparisce quando si illumina.","Tengu":"Cerca un maestro: oggi si impara più in alto che in basso.","Kodama":"Fai cinque minuti di silenzio: il bosco ti risponde.","Oni":"Scaccia un fastidio con una risata: Setsubun dura tutto l'anno.","Yamata no Orochi":"Un brindisi risolve molti guai, chiedilo a Susanoo.","Yuki-onna":"Mantieni una promessa: il silenzio vale oro.","Hitodama":"Segui una piccola luce, ma non allontanarti troppo.","Noppera-bō":"Mostra il tuo vero volto: poche cose spaventano di più.","Nurarihyon":"Entra con sicurezza, bevi il tè e nessuno ti manderà via.","Zashiki-warashi":"Rendi felice qualcuno di casa: la fortuna resta dove è accolta.","Nurikabe":"Se un muro ti blocca, colpiscilo in basso: è lì che cede.","Rokurokubi":"Allunga lo sguardo oltre l'ostacolo: oggi vedi più lontano.","Jorōgumo":"Tessi una rete di contatti, ma non lasciarti incantare.","Baku":"Racconta il tuo incubo: Baku se lo mangia.","Umibōzu":"Non sfidare il mare: aspetta la calma."};
+const sl=n=>n.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const im=n=>`<img class="im" src="media/yokai-${sl(n)}.png" loading="lazy" alt="Illustrazione: ${n}" onerror="this.remove()">`;
 const sc=n=>'●'.repeat(n)+'○'.repeat(5-n);
 const g=document.getElementById('grid'),fl=document.getElementById('fl');
 const cats=['Tutti',...new Set(D.map(d=>d[2]))];
 cats.forEach((c,i)=>{const b=document.createElement('button');b.className='chip'+(i?'':' on');b.textContent=c;b.onclick=()=>{fl.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');draw(c)};fl.appendChild(b)});
 function draw(c){g.innerHTML='';D.forEach((d,i)=>{if(c!=='Tutti'&&d[2]!==c)return;const e=document.createElement('article');e.className='card';e.id='y'+i;
-e.innerHTML=`<span class="kj">${d[1]}</span><div class="ct">${d[2]}</div><h3>${d[0]}<small>${d[1]}</small>${d[0].startsWith('Yamata')?'<span class="sh">MITO SHINTO</span>':''}</h3><p>${d[6]}</p><p class="pp">Lo trovi in: ${d[7]}</p><div class="m"><span>MOSTRO <i>${sc(d[3])}</i></span><span>MISTERO <i>${sc(d[4])}</i></span><span>SIMPATIA <i>${sc(d[5])}</i></span></div>`;g.appendChild(e)})}
+e.innerHTML=`${im(d[0])}<span class="kj">${d[1]}</span><div class="ct">${d[2]}</div><h3>${d[0]}<small>${d[1]}</small>${d[0].startsWith('Yamata')?'<span class="sh">MITO SHINTO</span>':''}</h3><p class="tz">${d[6].split('. ')[0].replace(/\.$/,'')}…</p><div class="more"><p>${d[6]}</p><p class="cs">«${X[d[0]]||''}»</p><p class="pp">Lo trovi in: ${d[7]}</p><div class="m"><span>MOSTRO <i>${sc(d[3])}</i></span><span>MISTERO <i>${sc(d[4])}</i></span><span>SIMPATIA <i>${sc(d[5])}</i></span></div></div><button class="ex" type="button" aria-expanded="false">Espandi ▾</button>`;g.appendChild(e)})}
+function tg(c,o){o=o===undefined?!c.classList.contains('open'):o;c.classList.toggle('open',o);const b=c.querySelector('.ex');b.textContent=o?'Riduci ▴':'Espandi ▾';b.setAttribute('aria-expanded',o)}
+g.addEventListener('click',ev=>{const c=ev.target.closest('.card');if(c)tg(c)});
 draw('Tutti');
-document.getElementById('pick').onclick=()=>{draw('Tutti');fl.querySelectorAll('.chip').forEach((x,i)=>x.classList.toggle('on',!i));const e=document.getElementById('y'+Math.floor(Math.random()*D.length));e.scrollIntoView({behavior:'smooth',block:'center'});e.classList.add('pulse')};
 const run=document.getElementById('run'),K='百鬼夜行妖怪狐狸河童鬼天狗'.split('');
 run.innerHTML=[...K,...K].map(k=>`<div class="lan">${k}</div>`).join('');
 document.querySelectorAll('.rv').forEach(el=>{const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){el.classList.add('in');o.disconnect()}}),{threshold:.12});o.observe(el)});
+const rs=document.getElementById('rs'),LT=[...document.querySelectorAll('.lt')];
+const W=['Una voce sussurra tra le foglie…','La fiamma si piega: qualcuno ti osserva…','Dal buio arriva un rumore di sandali…','La nebbia si apre e lui era già lì…'];
+function reset(){rs.className='rs';LT.forEach(l=>{l.disabled=false;l.classList.remove('sel')})}
+LT.forEach((l,i)=>l.onclick=()=>{LT.forEach(x=>{x.disabled=true});l.classList.add('sel');setTimeout(()=>{const k=Math.floor(Math.random()*D.length),d=D[k];
+rs.innerHTML=`<small>${W[Math.floor(Math.random()*W.length)]}</small>${im(d[0])}<h3>${d[0]}<span>${d[1]}</span></h3><div class="ct mono" style="font-size:11px">${d[2]}</div><p class="cs">«${X[d[0]]||''}»</p><div class="af">Affinità con te: ${40+Math.floor(Math.random()*60)}%</div><div class="rb"><button id="ag">Pesca ancora</button><button id="go">Vai alla scheda</button></div>`;
+rs.className='rs show';document.getElementById('ag').onclick=reset;
+document.getElementById('go').onclick=()=>{draw('Tutti');fl.querySelectorAll('.chip').forEach((x,j)=>x.classList.toggle('on',!j));const e=document.getElementById('y'+k);e.scrollIntoView({behavior:'smooth',block:'center'});tg(e,true);e.classList.add('pulse')}},650)});
+const C=`Akaname|垢嘗|Lecca lo sporco di bagni e vasche con la sua lingua lunghissima
+Amabie|アマビエ|Sirena con tre gambe che predice raccolti ed epidemie
+Ame-onna|雨女|Donna della pioggia: dove va, arriva il temporale
+Azukiarai|小豆洗い|Lavatore di fagioli: si sente strofinare lungo i torrenti
+Bakezōri|化け草履|Sandalo di paglia che prende vita e saltella
+Betobeto-san|べとべとさん|Passi invisibili che seguono di notte: basta dire «passa avanti»
+Biwa-bokuboku|琵琶牧々|Biwa antico che suona da solo, tsukumogami musicale
+Dorotabō|泥田坊|Fantasma di contadino che rivuole le sue risaie
+Enenra|煙々羅|Spirito di fumo che prende forme strane
+Funayūrei|船幽霊|Marinai annegati che chiedono un mestolo: darglielo affonda la barca
+Futakuchi-onna|二口女|Donna con una seconda bocca nascosta dietro la testa
+Gashadokuro|餓者髑髏|Scheletro gigante nato dalle ossa di chi morì di fame
+Hakutaku|白澤|Creatura saggia che parla e conosce ogni mostro
+Hannya|般若|Demone donna nato dalla gelosia; maschera del teatro Noh
+Hitotsume-kozō|一つ目小僧|Monello con un occhio solo che spaventa i passanti
+Hone-onna|骨女|Scheletro di donna che si mostra come una bellezza
+Isonade|磯撫|Mostro marino con la coda uncinata che afferra le barche
+Jikininki|食人鬼|Spirito che si nutre di cadaveri, raccontato da Hearn
+Jinmenken|人面犬|Cane dal volto umano, leggenda urbana
+Jubokko|樹木子|Albero che beve il sangue sui campi di battaglia
+Kamaitachi|鎌鼬|Donnola con zampe a falce: tagli improvvisi, senza dolore
+Kamikiri|髪切り|Spirito che taglia i capelli a chi passa
+Kasha|火車|Gatto demone che ruba i cadaveri dei malvagi
+Kawauso|獺|Lontra trasformista, parente del tanuki
+Kirin|麒麟|Chimera dei buoni auspici che non calpesta nemmeno l'erba
+Kitsunebi|狐火|Le fiammelle accese dalle volpi nella notte
+Konaki-jijii|児泣爺|Vecchio che piange come un bimbo e diventa sempre più pesante
+Kuchisake-onna|口裂け女|Donna con la bocca squarciata, leggenda urbana del 1979
+Mokumokuren|目目連|Occhi che spuntano sulla carta degli shōji
+Mujina|貉|Il tasso trasformista, protagonista di un racconto di Hearn
+Namahage|ナマハゲ|Figure con maschere di demone che visitano le case di Akita a Capodanno
+Nekomata|猫又|Gatto longevo con la coda divisa in due
+Ningyo|人魚|Sirena giapponese: mangiarne la carne dona la longevità
+Nue|鵺|Chimera con testa di scimmia, corpo di tanuki e coda di serpente
+Nure-onna|濡女|Donna-serpente che esce dall'acqua con i capelli bagnati
+Nuppeppō|のっぺっぽう|Massa di carne informe e pieghettata che vaga di notte
+Ōmukade|大百足|Millepiedi gigante sconfitto dall'eroe Fujiwara no Hidesato
+Onibi|鬼火|Fuochi blu e freddi dei demoni
+Raijū|雷獣|Bestia del fulmine che scende con i temporali
+Satori|覚|Scimmia di montagna che legge i pensieri
+Shachihoko|鯱|Pesce-tigre sui tetti dei castelli contro gli incendi
+Shirime|尻目|Uomo educato che al posto del sedere mostra un occhio
+Shuten-dōji|酒呑童子|Re degli oni, amante del sakè, sconfitto da Minamoto no Yorimitsu
+Sunakake-babaa|砂かけ婆|Vecchia che getta sabbia ai passanti nel buio
+Tamamo-no-Mae|玉藻前|Kitsune a nove code che incantò un imperatore
+Tsuchigumo|土蜘蛛|Ragno gigante della terra nelle leggende antiche
+Tsukumogami|付喪神|Oggetti che dopo cento anni acquistano un'anima
+Tōfu-kozō|豆腐小僧|Bambino con un vassoio di tofu: innocuo e buffissimo
+Ubume|産女|Fantasma di donna morta di parto
+Ushi-oni|牛鬼|Mostro con testa di bue e corpo di ragno
+Wanyūdō|輪入道|Ruota di carro in fiamme con un volto d'uomo
+Yamabiko|山彦|Spirito dell'eco di montagna
+Yamauba|山姥|Strega di montagna, madre di Kintarō nel folklore
+Yanari|家鳴|Piccoli spiriti che fanno scricchiolare le travi
+Yūrei|幽霊|Il fantasma classico: veste bianca e lunghi capelli neri
+Ao-andon|青行灯|Compare quando si concludono le cento storie di fantasmi (Hyakumonogatari)
+Basan|波山|Gallo gigante che soffia fuoco, dalle leggende di Ehime
+Bake-kujira|化け鯨|Scheletro di balena fantasma che naviga lungo le coste di notte
+Daidarabotchi|ダイダラボッチ|Gigante che nei racconti ha modellato montagne e laghi
+Gagoze|元興寺|Demone che infestava il tempio Gangō-ji di Nara
+Hari-onago|針女|Donna i cui capelli sono aghi affilati
+Ippon-datara|一本だたら|Creatura con un occhio e una gamba sola dei monti di Kumano
+Kage-onna|影女|Ombra di donna che si muove sugli shōji senza nessuno dietro
+Kawa-akago|川赤子|Spirito fluviale che piange come un neonato per attirare i passanti
+Kosode-no-te|小袖の手|Mano che esce da un vecchio kimono appartenuto a un defunto
+Mikoshi-nyūdō|見越入道|Gigante che cresce a vista d'occhio man mano che lo si guarda in alto
+Mizuchi|蛟|Drago d'acqua che abita fiumi e paludi
+Ōkubi|大首|Testa gigante che compare all'improvviso nel cielo notturno
+Ryūjin|龍神|Re-drago del mare, abita il palazzo sottomarino Ryūgū-jō
+Shōjō|猩猩|Spirito del mare dal pelo rosso, amante del sakè
+Sōjōbō|僧正坊|Capo dei tengu del monte Kurama, maestro del giovane Yoshitsune
+Tatarigami|祟り神|Kami offeso o trascurato che porta sventura finché non è placato
+Tenome|手の目|Spettro di un cieco con un occhio in ciascun palmo
+Ungaikyō|雲外鏡|Specchio spiritico che riflette l'aspetto degli yōkai
+Yamawaro|山童|Parente del kappa che vive in montagna
+Kuzunoha|葛の葉|Volpe che sposa un uomo ed è madre dell'onmyōji Abe no Seimei
+Oiwa|お岩|Fantasma di Yotsuya Kaidan, celebre storia di fantasmi del kabuki
+Okiku|お菊|Fantasma che ogni notte conta i piatti: ne manca sempre uno
+Kiyohime|清姫|Donna trasformata in serpente dalla passione, nella leggenda del Dōjōji
+Ibaraki-dōji|茨木童子|Oni braccio destro di Shuten-dōji, perse un braccio contro Watanabe no Tsuna
+Ōnamazu|大鯰|Pesce-gatto gigante che con i suoi movimenti provoca i terremoti
+Raijin|雷神|Divinità del tuono con i tamburi, spesso raffigurata come un demone
+Fūjin|風神|Divinità del vento con il suo grande sacco
+Shikigami|式神|Spiriti servitori evocati dagli onmyōji
+Ikiryō|生霊|Spirito di una persona viva che lascia il corpo per passione o rancore
+Onryō|怨霊|Spirito vendicativo di chi è morto con rancore; se placato può diventare kami
+Gaki|餓鬼|Spiriti affamati dall'addome gonfio e la gola sottile, di origine buddhista
+Obake|お化け|Parola comune per fantasmi e creature che cambiano forma
+Mononoke|物の怪|Presenza spirituale maligna; dà il titolo alla Principessa Mononoke
+Ōmagatoki|逢魔が時|Il crepuscolo, «ora dell'incontro con i demoni»
+Hyakki Yagyō|百鬼夜行|La parata notturna dei cento demoni
+Bunbuku Chagama|分福茶釜|Il tanuki che si trasforma in una teiera di bronzo
+Shōjōji no tanuki-bayashi|証城寺の狸囃子|I tanuki che suonano la pancia come un tamburo sotto la luna
+Karasu-tengu|烏天狗|Tengu con il becco di corvo, servitore dei tengu dal naso lungo
+Aka-oni e Ao-oni|赤鬼・青鬼|Oni rosso e oni blu, spesso in coppia nei racconti per bambini
+Tsuchinoko|ツチノコ|Serpente tozzo leggendario cercato sulle montagne del Giappone
+Hyakume|百目|Creatura coperta di cento occhi
+Sazae-oni|栄螺鬼|Spirito di una conchiglia sazae che prende l'aspetto di una donna
+Nobusuma|野衾|Pipistrello-scoiattolo volante che spegne le fiamme e copre il volto`.split('\n').map(r=>r.split('|')).sort((a,b)=>a[0].localeCompare(b[0],'it'));
+const cg=document.getElementById('cg'),cq=document.getElementById('cq'),nz=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function cd(q){q=nz(q).trim();if(q.length>3)q=q.slice(0,-1);let n=0;cg.innerHTML=C.filter(r=>!q||nz(r.join(' ')).includes(q)).map(r=>{n++;return `<div class="cr"><b>${r[0]}</b><i>${r[1]}</i><span>${r[2]}</span></div>`}).join('')||'<p style="grid-column:1/-1;text-align:center;color:#a99fc7">Nessun yōkai con questo nome… forse si nasconde.</p>';document.getElementById('ch').textContent=q?n+' yōkai trovati':C.length+' yōkai, in ordine alfabetico'}
+cq.oninput=()=>cd(cq.value);cd('');
 (function(){const c=document.getElementById('fx'),x=c.getContext('2d');let w,h,f=[];
 function r(){w=c.width=c.offsetWidth;h=c.height=c.offsetHeight}
 function mk(){return{x:Math.random()*w,y:h+Math.random()*h*.3,s:3+Math.random()*5,v:.3+Math.random()*.7,a:Math.random()*6,o:.5+Math.random()*.5}}
