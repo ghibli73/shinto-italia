@@ -1126,6 +1126,44 @@ footer a{ color:var(--sakura); text-decoration:none; }
 .path-card.path-pillole .path-arrow{ color:var(--torii); }
 
 
+.path-card.path-yokai{
+  grid-column:1/-1;
+  background:linear-gradient(120deg,#171225,#241b34 60%,#2c2147);
+  color:#f3e9d2;
+}
+.path-card.path-yokai:hover{ background:linear-gradient(120deg,#1d1730,#2b2142 60%,#352757); }
+.path-card.path-yokai .path-num{ color:#6fdcff; }
+.path-card.path-yokai h3{ color:#f3e9d2; }
+.path-card.path-yokai p{ color:#cfc4e0; max-width:620px; }
+.path-card.path-yokai .path-arrow{ color:#6fdcff; opacity:1; transform:none; }
+.path-card.path-yokai::before{ color:#6fdcff; opacity:.14; }
+
+/* ============ YOKAI: nuova sezione con effetto neon ============ */
+.yokai-new{position:relative;overflow:hidden;padding:110px 20px;text-align:center;color:#f3e9d2;
+  background:linear-gradient(180deg,rgba(14,10,28,.7),rgba(14,10,28,.86) 55%,rgba(14,10,28,.98)),url(media/Yokai.png) center 25%/cover;
+  border-bottom:3px solid #6fdcff;box-shadow:0 6px 40px rgba(111,220,255,.45)}
+.yokai-new::before,.yokai-new::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;
+  background:radial-gradient(circle,#d8f8ff,#6fdcff 45%,transparent 70%);box-shadow:0 0 28px 12px rgba(111,220,255,.55);animation:ykfloat 9s ease-in-out infinite}
+.yokai-new::before{left:12%;bottom:12%}.yokai-new::after{right:14%;bottom:22%;animation-delay:-4s}
+@keyframes ykfloat{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-70px);opacity:1}}
+.yokai-new .yk-in{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.yk-new{display:inline-block;font:700 12px 'JetBrains Mono',monospace;letter-spacing:.3em;color:#ff7ad9;padding:7px 18px;border:1px solid #ff7ad9;border-radius:30px;
+  text-shadow:0 0 8px #ff7ad9,0 0 18px #ff2fc0;box-shadow:0 0 12px rgba(255,47,192,.6),inset 0 0 12px rgba(255,47,192,.3);animation:ykflick 4s infinite}
+@keyframes ykflick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.45}}
+.yokai-new h2{font-size:clamp(54px,14vw,104px);margin-top:20px;line-height:1;color:#eaffff;
+  text-shadow:0 0 6px #fff,0 0 18px #6fdcff,0 0 42px #2bb8ff,0 0 80px #2bb8ff}
+.yokai-new h2 span{display:block;font-size:.34em;letter-spacing:.3em;color:#ff7ad9;margin-bottom:6px;text-shadow:0 0 10px #ff2fc0,0 0 28px #ff2fc0}
+.yokai-new p{margin:20px auto 0;max-width:520px;line-height:1.75;color:#ddd6ee;font-size:16.5px}
+.yk-chips{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.yk-chips span{font:12px 'JetBrains Mono',monospace;padding:7px 14px;border:1px solid rgba(111,220,255,.5);border-radius:20px;color:#bff3ff;background:rgba(111,220,255,.07)}
+.yk-btn{display:inline-block;margin-top:34px;padding:15px 32px;font:13px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#eaffff;text-decoration:none;
+  border:1px solid #6fdcff;border-radius:3px;text-shadow:0 0 8px #6fdcff;box-shadow:0 0 16px rgba(111,220,255,.55),inset 0 0 16px rgba(111,220,255,.2);transition:.3s}
+.yk-btn:hover{background:#6fdcff;color:#0e0a1c;text-shadow:none;box-shadow:0 0 40px rgba(111,220,255,.9)}
+nav .nav-links a[href="yokai.html"]{color:#0a6fa8;font-weight:700;text-shadow:0 0 8px rgba(43,184,255,.55)}
+nav .nav-links a[href="yokai.html"]::after{content:"NEW";margin-left:6px;font-size:9px;letter-spacing:.1em;color:#ff7ad9;background:#241b34;border:1px solid #ff7ad9;border-radius:8px;padding:1px 5px;vertical-align:middle;text-shadow:0 0 6px #ff2fc0;animation:ykflick 4s infinite}
+.path-card.path-yokai .path-num::after{content:"NUOVO";margin-left:10px;color:#ff7ad9;border:1px solid #ff7ad9;border-radius:10px;padding:2px 8px;font-size:10px;text-shadow:0 0 6px #ff2fc0;box-shadow:0 0 10px rgba(255,47,192,.5)}
+@media(prefers-reduced-motion:reduce){.yokai-new::before,.yokai-new::after,.yk-new,nav .nav-links a[href="yokai.html"]::after{animation:none}}
+
 .reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.in{ opacity:1; transform:translateY(0); }
 
@@ -1285,6 +1323,7 @@ nav .nav-links a.nav-social svg{ width:16px; height:16px; }
     <a href="oltremare.html">Oltremare</a>
     <a href="viaggio.html">Viaggio</a>
     <a href="pillole.html">Pillole</a>
+    <a href="yokai.html">Yōkai</a>
     <span class="nav-sep" aria-hidden="true"></span>
     <a class="nav-social" href="https://www.facebook.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Shinto in Italia su Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 9h3l.4-3H14V4.6c0-.9.3-1.5 1.6-1.5H17.5V.4C17.2.4 16.1.3 14.8.3 12.1.3 10.3 1.9 10.3 4.9V6H7.5v3h2.8v8H14z"/></svg></a>
     <a class="nav-social" href="https://www.instagram.com/shintoinitalia" target="_blank" rel="noopener" aria-label="Shinto in Italia su Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2m0 5.8a4 4 0 1 0 0 8 4 4 0 0 0 0-8m0 6.6a2.6 2.6 0 1 1 0-5.2 2.6 2.6 0 0 1 0 5.2m5.1-6.8a.94.94 0 1 1-1.9 0 .94.94 0 0 1 1.9 0"/></svg></a>
@@ -1502,10 +1541,27 @@ nav .nav-links a.nav-social svg{ width:16px; height:16px; }
       <p>Trentanove schede brevi che pescano da tutti i sentieri: una cosa sola, spiegata in trenta secondi. C'è anche il pulsante per estrarne una a caso.</p>
       <span class="path-arrow">Pescane una →</span>
     </a>
+    <a class="path-card path-yokai" tabindex="0" data-mon="妖" href="yokai.html">
+      <span class="path-num">10 · YŌKAI</span>
+      <h3>Yōkai, il popolo della notte</h3>
+      <p>Kitsune, kappa, tengu, oni e gli spiriti del folklore giapponese: sedici schede con filtri e un confine sottile, quello con i kami. Mostruoso, misterioso e spesso molto simpatico.</p>
+      <span class="path-arrow">Incontra gli yōkai →</span>
+    </a>
   </div>
 </section>
 
 <!-- ============ OMIKUJI ============ -->
+<!-- ============ YOKAI (nuovo) ============ -->
+<section class="yokai-new" id="yokai">
+  <div class="yk-in reveal">
+    <span class="yk-new">★ NUOVO SENTIERO ★</span>
+    <h2><span>妖怪</span>Yōkai</h2>
+    <p>Volpi a nove code, ombrelli con un occhio solo, spiriti degli alberi e mostri del mare: il popolo che vive nelle notti del Giappone. Sedici schede con filtri e un confine sottile, quello con i kami.</p>
+    <div class="yk-chips"><span>Kitsune</span><span>Kappa</span><span>Tengu</span><span>Oni</span><span>Tsukumogami</span></div>
+    <a class="yk-btn" href="yokai.html">Entra nella parata dei cento spiriti →</a>
+  </div>
+</section>
+
 <section class="omikuji">
   <div class="omikuji-inner">
     <span class="eyebrow">Prova l'omikuji</span>
@@ -2457,5 +2513,62 @@ nav .nav-links a.nav-social svg{ width:16px; height:16px; }
 })();
 </script>
 
+<!-- ============ USABILITA: menu mobile, sezioni a tendina, torna su ============ -->
+<style>
+html{scroll-padding-top:var(--nav,58px)}
+.ck{display:contents}.ck-btn,.up{display:none}
+@media(max-width:700px){
+  nav{flex-wrap:wrap;justify-content:space-between;padding:10px 16px;text-align:left}
+  .nav-burger{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--sumi);background:none;border-radius:22px;color:var(--sumi);font:12px 'JetBrains Mono',monospace;letter-spacing:.06em;cursor:pointer}
+  .nav-burger i{width:16px;height:2px;background:currentColor;box-shadow:0 5px 0 currentColor,0 -5px 0 currentColor;display:block}
+  nav .nav-links{display:none;width:100%;margin-top:10px;display:none;grid-template-columns:1fr 1fr;gap:6px}
+  nav.open .nav-links{display:grid}
+  nav .nav-links a{min-height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--paper-line);border-radius:10px}
+  nav .nav-links .nav-sep{display:none}
+  nav .nav-links a.nav-social{grid-column:auto;width:auto;height:44px;border-radius:10px}
+  .ck{display:block;position:relative;overflow:hidden;max-height:620px;-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}
+  .ck.open{max-height:none;-webkit-mask-image:none;mask-image:none}
+  section.ck-s{padding-bottom:30px!important}
+  .ck-btn{display:block;margin:6px auto 0;min-height:44px;padding:0 26px;border:1px solid currentColor;border-radius:24px;background:rgba(255,248,234,.85);color:var(--torii-deep);font:12.5px 'JetBrains Mono',monospace;letter-spacing:.06em;cursor:pointer;position:relative;z-index:2}
+  .up{display:flex;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:60;width:46px;height:46px;border-radius:50%;border:0;background:var(--torii);color:#fff8ee;font-size:20px;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(156,46,29,.4);opacity:0;pointer-events:none;transition:opacity .3s}
+  .up.on{opacity:1;pointer-events:auto}
+}
+</style>
+<button class="up" id="up" type="button" aria-label="Torna in alto">↑</button>
+<script>
+(function(){
+  var nav=document.querySelector('nav'),links=nav&&nav.querySelector('.nav-links');
+  function fire(){window.dispatchEvent(new Event('resize'))}
+  if(nav&&links){
+    var bb=document.createElement('button');bb.type='button';bb.className='nav-burger';bb.setAttribute('aria-expanded','false');bb.setAttribute('aria-label','Apri il menu');
+    bb.innerHTML='<i></i>Menu';nav.insertBefore(bb,links);
+    if(!matchMedia('(max-width:700px)').matches)bb.style.display='none';
+    bb.addEventListener('click',function(){var o=nav.classList.toggle('open');bb.setAttribute('aria-expanded',o);fire()});
+    links.addEventListener('click',function(e){if(e.target.closest('a')&&nav.classList.contains('open')){nav.classList.remove('open');bb.setAttribute('aria-expanded','false');setTimeout(fire,50)}});
+  }
+  [['.cos-e'],['.oltre'],['.viaggio']].forEach(function(c){
+    var sec=document.querySelector('section'+c[0]);if(!sec)return;
+    var ck=document.createElement('div');ck.className='ck';
+    while(sec.firstChild)ck.appendChild(sec.firstChild);
+    sec.appendChild(ck);sec.classList.add('ck-s');
+    var b=document.createElement('button');b.type='button';b.className='ck-btn';b.setAttribute('aria-expanded','false');b.textContent='Mostra tutto ▾';
+    sec.appendChild(b);
+    function set(o,scroll){ck.classList.toggle('open',o);b.setAttribute('aria-expanded',o);b.textContent=o?'Mostra meno ▴':'Mostra tutto ▾';
+      if(!o&&scroll)sec.scrollIntoView({block:'start'});
+      window.dispatchEvent(new Event('scroll'))}
+    b.addEventListener('click',function(){set(!ck.classList.contains('open'),true)});
+    sec._open=function(){set(true,false)};
+  });
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a||a.getAttribute('href').length<2)return;
+    var t=document.querySelector(a.getAttribute('href'));if(!t)return;
+    var s=t.closest('section.ck-s');if(s&&s._open)s._open();
+  });
+  if(location.hash){var t=document.querySelector(location.hash);var s=t&&t.closest('section.ck-s');if(s&&s._open)s._open()}
+  var up=document.getElementById('up');
+  if(up){addEventListener('scroll',function(){up.classList.toggle('on',scrollY>innerHeight*1.6)},{passive:true});
+    up.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})})}
+})();
+</script>
 </body>
 </html>
